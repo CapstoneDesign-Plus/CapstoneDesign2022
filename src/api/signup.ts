@@ -1,23 +1,15 @@
 import { Router } from "express";
 import UserService from '@/services/user';
-import validator from '@/middleware/validator/singup';
-import { validationResult } from 'express-validator';
+import validator from '@/middleware/validator';
 import { UserDTO } from "@/types";
 
 const router = Router();
 
-router.post('/', ...validator, async (req, res)=> {
-  console.log(req.body)
+router.post('/', ...validator.singup, async (req, res)=> {
 
-  const errors = validationResult(req);
+  const isSuccess = await UserService.Signup(req.body as UserDTO);
 
-  if(!errors.isEmpty()){
-    return res.status(400).json({errors: errors.array()});
-  }
-
-  if(await UserService.Signup(req.body as UserDTO)) return res.json({ result: true });
-  return res.json({ result: false });
+  return res.json({isSuccess})
 });
-
 
 export default router;
