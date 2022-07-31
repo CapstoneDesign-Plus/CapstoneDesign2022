@@ -9,6 +9,8 @@ export interface IUser {
   point: number,
 }
 
+// DTO test
+
 export interface UserDTO {
   readonly username: string,
   readonly email: string,
