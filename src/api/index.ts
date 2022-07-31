@@ -10,6 +10,6 @@ router.get('/', (req, res)=> {
   res.send('<h1> Hello! You are in API! </h1>');
 });
 
-router.use('/login', Signup);
+router.use('/signup', Signup);
 
 export default router
