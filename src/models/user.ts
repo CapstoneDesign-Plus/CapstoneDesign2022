@@ -1,15 +1,34 @@
 import { Schema, Model, Document, model } from "mongoose";
-import { IUser } from '@/types';
 
-interface IUserDoc extends IUser, Document {
-
+// DTO
+export interface UserDTO {
+  readonly username?: string,
+  readonly email: string,
+  readonly uclass?: number,
+  readonly point?: number,
+  readonly password? : string,
 }
-interface IUserModel extends Model<IUserDoc> {
-  findByEmail: (email: string) => Promise<IUserDoc>;
-  getAll: () => Promise<IUserDoc[]>;
+
+export interface IUser extends Document {
+  username: string,
+  email: string,
+  password: string,
+  certificated: boolean,
+  createdAt : Date,
+  uclass: number,
+  point: number,
+}
+export interface UserModel {
+  create(user : UserDTO) : Promise<IUser>,
+  findOne(user : UserDTO) : Promise<IUser>,
 }
 
-const UserSchema : Schema<IUserDoc> = new Schema({
+interface IUserModel extends Model<IUser> {
+  findByEmail: (email: string) => Promise<IUser>;
+  getAll: () => Promise<IUser[]>;
+}
+
+const UserSchema : Schema<IUser> = new Schema({
   username: {
     type: String,
     required : true
@@ -52,6 +71,6 @@ UserSchema.statics.getAll = function() {
   return this.find({});
 }
 
-const User = model<IUserDoc, IUserModel>("user", UserSchema);
+const User = model<IUser, IUserModel>("user", UserSchema);
 
 export default User

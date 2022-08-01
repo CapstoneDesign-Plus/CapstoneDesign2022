@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Signup from './signup';
+import v1 from './v1';
 
 const router = Router()
 
@@ -10,6 +10,6 @@ router.get('/', (req, res)=> {
   res.send('<h1> Hello! You are in API! </h1>');
 });
 
-router.use('/signup', Signup);
+router.use('/v1', v1);
 
 export default router

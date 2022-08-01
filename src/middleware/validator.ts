@@ -20,6 +20,13 @@ const singup = [
   ValidateErrorHandler
 ]
 
+const login = [
+  body('email').exists(),
+  body('password').exists(),
+  ValidateErrorHandler
+]
+
 export default {
   singup,
+  login
 }
