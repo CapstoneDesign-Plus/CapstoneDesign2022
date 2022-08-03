@@ -8,3 +8,5 @@ heroku
 1
 
 2020/8/2 tranfer owner
+
+Don't push master, plz pull request!
