@@ -1,17 +1,17 @@
 import "module-alias/register";
 
-import Loader from "./loaders";
+import loader from "./loaders";
 import express from "express";
 import env from "./config";
 
 async function RunServer() {
-  const app = express()
+  const app = express();
 
-  await Loader({app, useDB : true})
+  await loader.init({app, useDB : true});
 
   app.listen(env.PORT, ()=> {
-    console.log(`server run at http://${env.HOST}:${env.PORT}`)
-  })
+    console.log(`server run at http://${env.HOST}:${env.PORT}`);
+  });
 }
 
 RunServer();
