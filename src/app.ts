@@ -7,11 +7,11 @@ import env from "./config";
 async function RunServer() {
   const app = express();
 
-  await loader.init({app, useDB : true});
+  const isTest = env.NODE_ENV === 'test';
 
-  app.listen(env.PORT, ()=> {
-    console.log(`server run at http://${env.HOST}:${env.PORT}`);
-  });
+  await loader.init({app, useDB : false});
+
+  loader.listen({app : app, host: env.HOST, port: env.PORT});
 }
 
 RunServer();
