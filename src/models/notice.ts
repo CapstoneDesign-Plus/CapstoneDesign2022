@@ -1,16 +1,7 @@
 
 import { Schema, Model, Document, model } from "mongoose";
 
-// DTO
-export interface NoticeDTO {
-  readonly identifier: number,
-  readonly title: string,
-  readonly writer: string,
-  readonly content: string,
-  readonly header?: string,
-  readonly postedAt?: Date,
-  readonly revisedAt?: Date,
-}
+import { NoticeDTO } from "@/types/dto";
 
 export interface INotice extends Document {
   identifier: number,
@@ -23,8 +14,8 @@ export interface INotice extends Document {
 }
 
 export interface NoticeModel {
-  create(user : NoticeDTO) : Promise<INotice>,
-  findOne(user : NoticeDTO) : Promise<INotice>,
+  create(notice : NoticeDTO) : Promise<INotice>,
+  findOne(notice : NoticeDTO) : Promise<INotice>,
 }
 
 interface INoticeModel extends Model<INotice> {

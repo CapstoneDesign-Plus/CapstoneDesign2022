@@ -1,5 +1,6 @@
 
-import { UserDTO, UserModel } from '@/models/user'
+import { UserModel } from '@/models/user'
+import { UserDTO } from '@/types/dto';
 
 export default class UserService {
   private userModel : UserModel;

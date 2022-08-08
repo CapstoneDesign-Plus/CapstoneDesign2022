@@ -1,13 +1,6 @@
 import { Schema, Model, Document, model } from "mongoose";
 
-// DTO
-export interface UserDTO {
-  readonly username?: string,
-  readonly email: string,
-  readonly uclass?: number,
-  readonly point?: number,
-  readonly password? : string,
-}
+import { UserDTO } from "@/types/dto";
 
 export interface IUser extends Document {
   username: string,
