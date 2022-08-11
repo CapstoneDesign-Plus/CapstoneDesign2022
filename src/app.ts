@@ -1,17 +1,15 @@
 import "module-alias/register";
-
-import loader from "./loaders";
+import expressLoader from "./loaders/express";
+import dbConnect from "./loaders/database";
 import express from "express";
-import env from "./config";
 
-async function RunServer() {
-  const app = express();
-
-  const isTest = env.NODE_ENV === 'test';
-
-  await loader.init({app, useDB : false});
-
-  loader.listen({app : app, host: env.HOST, port: env.PORT});
+export default {
+  buildExpressApp(){
+    const app = express();
+    expressLoader({app});
+    return app;
+  },
+  async connectForWork(){
+    await dbConnect();
+  }
 }
-
-RunServer();

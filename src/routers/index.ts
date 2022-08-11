@@ -11,6 +11,10 @@ router.use('/api', api)
 router.get('/', (req,res)=>{
   res.send('<h1> You are in Landing! </h1>');
 });
+
+router.post('/', (req, res)=>{
+  res.send(200);
+})
 //#endregion
 
 router.get('/loginSuc', (req, res)=> {

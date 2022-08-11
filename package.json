@@ -4,9 +4,9 @@
   "description": "",
   "main": "./src/app.ts",
   "scripts": {
-    "start": "node ./dist/src/app.js",
+    "start": "node ./dist/src/server.js",
     "test": "jest --verbose",
-    "devServer": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts",
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/server.ts",
     "lint": "eslint '**/*.{ts,tsx}' --ext .ts,.tsx --fix",
     "build": "tsc && tsc-alias"
   },
@@ -47,6 +47,7 @@
     "@types/express-session": "^1.17.5",
     "@types/passport": "^1.0.9",
     "@types/passport-local": "^1.0.34",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",

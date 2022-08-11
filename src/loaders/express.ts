@@ -5,7 +5,7 @@ import passport from '@/middleware/passport';
 import expressSession from 'express-session';
 
 
-export default async ({ app } : { app: express.Application }) => {
+export default ({ app } : { app: express.Application }) => {
   app.use((req, res, next)=>{
     console.log(req.url);
     next();
