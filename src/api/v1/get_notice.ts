@@ -9,7 +9,7 @@ const router = Router();
  * 글 게시
  */
 router.post('/post', ...validator.notice_post, (req, res)=> {
-  
+
 });
 
 /**
