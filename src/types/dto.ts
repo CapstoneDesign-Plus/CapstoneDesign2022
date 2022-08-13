@@ -4,7 +4,7 @@ export interface UserDTO {
   readonly username?: string,
   readonly uclass?: number,
   readonly point?: number,
-  readonly password? : string,
+  readonly password : string,
 }
 
 export interface NoticeDTO {
@@ -17,7 +17,7 @@ export interface NoticeDTO {
   readonly revisedAt?: Date,
 }
 
-export type TicketState = 'normal' | 'waiting' | 'used';
+export type TicketState = 'normal' | 'waiting' | 'used' | 'refunded' | 'expired';
 
 export type TicketClass = 'A' | 'B' | 'C';
 export interface TicketDTO {

@@ -1,26 +1,42 @@
 
-import { UserModel } from '@/models/user'
+import { IUserModel } from '@/models/user';
 import { UserDTO } from '@/types/dto';
 
-export default class UserService {
-  private userModel : UserModel;
+export class UserService {
+  private userModel : IUserModel;
 
   constructor(userModel : any) {
     this.userModel = userModel
   }
 
-  async Signup(user : UserDTO) {
-    const result = await this.userModel.create(user);
-
-    console.log(result);
-
-    if(result) return true;
+  async signup(user : UserDTO) {
+    if(await this.userModel.create(user)) return true;
     return false;
   }
 
-  async Login(user : UserDTO) {
-    console.log(user)
+  async pushTicket(email : string, ticketKey : string) {
+    const tickets = await this.getTickets(email);
 
+    tickets.push(ticketKey);
+
+    await this.userModel.updateOne({email}, {tickets});
+  }
+
+  async removeTicket(email : string, ticketKey : string) {
+    const tickets = (await this.getTickets(email)).filter((value)=> {
+      return value !== ticketKey;
+    })
+
+    await this.userModel.updateOne({email}, {tickets});
+  }
+
+  async getTickets(email : string) {
+    const user = await this.get(email);
+
+    return user?.tickets || [];
+  }
+
+  async login(user : UserDTO) {
     const result = await this.userModel.findOne({email: user.email, password: user.password});
 
     console.log(result);
@@ -29,11 +45,35 @@ export default class UserService {
     return null;
   }
 
-  async IsUser(email: string | null) {
-    if(!email) return null;
+  /**
+   * 반드시 delta 값은 point + delta > 0 성립해야함
+   * @param email 
+   * @param delta 
+   */
+  async increasePoint(email : string, delta : number) {
+    const calcedPoint = await this.getPoint(email) + delta;
 
-    const result = await this.userModel.findOne({email});
+    if(calcedPoint < 0) return false;
 
-    return result;
+    await this.userModel.updateOne({email}, {point : calcedPoint});
+
+    return true;
+  }
+
+  async getPoint(email : string) {
+    const user = await this.get(email);
+
+    return user?.point || 0;
+  }
+
+  async isExist(email: string) {
+    if(!email) return false;
+
+    if(await this.get(email as string)) return true;
+    return false;
+  }
+
+  async get(email: string) {
+    return await this.userModel.findOne({email});
   }
 }

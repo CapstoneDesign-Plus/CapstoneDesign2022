@@ -1,50 +1,83 @@
-import { TicketDTO } from "@/types/dto";
+import { TicketDTO, TicketState } from "@/types/dto";
 import { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
+import {UserService} from "@/services/user";
 
 
 export class TicketService {
   private ticketModel : ITicketModel;
+  private userService : UserService;
 
-  constructor(ticketModel : any) {
+  constructor(ticketModel : any, userService : any) {
     this.ticketModel = ticketModel;
+    this.userService = userService;
   }
 
-  async create(ticket : TicketDTO) : Promise<ITicket> {
-    const nticket = await this.ticketModel.create(ticket);
-    return nticket;
+  async create(ticket : TicketDTO) : Promise<boolean> {
+    if(await this.userService.isExist(ticket.owner)){
+      const nticket = await this.ticketModel.create(ticket);
+      await this.userService.pushTicket(ticket.owner, tcrypto.cipher(nticket.identifier));
+      return true;
+    }
+    return false;
   }
+  /**
+   * @todo 유저 완전 구현 이후
+   * @param ticketKey 
+   * @param userId 
+   * @returns 
+   */
+  async assign(ticketKey : string, userId : string) : Promise<boolean> {
+    const oldTicket = await this.get(ticketKey);
 
-  async assign(ticketKey : number, userId : string) : Promise<ITicket | null> {
+    if(oldTicket && await this.userService.isExist(userId)){
+      await this.userService.removeTicket(oldTicket.owner, ticketKey);
+      await this.userService.pushTicket(userId, ticketKey);
+      await this.ticketModel.findOneAndUpdate({identifier: oldTicket.identifier}, {owner: userId});
 
-    const ticket = await this.ticketModel.findOneAndUpdate({identifier: ticketKey}, {owner: userId});
-
-    return ticket;
-  }
-
-  async validate(ticketKey : string) : Promise<boolean> {
-    
-    const decodeKey = tcrypto.decipher(ticketKey);
-
-    const ticket = await this.ticketModel.findByKey(decodeKey);
-
-    if(ticket) return true;
+      return true;
+    }
     return false;
   }
 
+  async validate(ticketKey : string) : Promise<boolean> {
+    if(await this.get(ticketKey)) return true;
+    return false;
+  }
+
+  /**
+   * @todo 유저 완전 구현 이후 동작
+   * @param ticketKey 
+   * @returns 
+   */
   async refund(ticketKey : string) : Promise<boolean> {
+    const ticket = await this.get(ticketKey);
 
-    return true;
+    if(ticket && ticket.state === 'normal'){
+      const price = ticket.price;
+
+      await this.changeState(ticket.identifier, 'refunded');
+      await this.userService.increasePoint(ticket.owner, price);
+      await this.userService.removeTicket(ticket.owner, ticketKey);
+
+      return true;
+    }
+
+    return false;
   }
 
-  async changeState(ticketKey : string, state : string) : Promise<boolean> {
-
-    return true;
+  async changeAllStatue(filter : ITicket, state: TicketState) {
+    await this.ticketModel.updateMany(filter as Object, {state});
   }
 
-  async get(ticketKey : number) : Promise<ITicket> {
-    const ticket = await this.ticketModel.findByKey(ticketKey);
+  async changeState(ticketKey : string | number, state : TicketState) : Promise<void> {
+    const key = (typeof ticketKey === "number") ? ticketKey : tcrypto.decipher(ticketKey);
+    await this.ticketModel.updateOne({identifier: key}, {state});
+  }
 
-    return ticket;
+  async get(ticketKey : string) : Promise<ITicket | null> {
+    const decodeKey = tcrypto.decipher(ticketKey);
+
+    return await this.ticketModel.findByKey(decodeKey);
   }
 }

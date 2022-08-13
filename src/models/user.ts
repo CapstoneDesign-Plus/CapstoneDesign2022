@@ -1,7 +1,5 @@
 import { Schema, Model, Document, model } from "mongoose";
 
-import { UserDTO } from "@/types/dto";
-
 export interface IUser extends Document {
   username: string,
   email: string,
@@ -10,13 +8,10 @@ export interface IUser extends Document {
   createdAt : Date,
   uclass: number,
   point: number,
-}
-export interface UserModel {
-  create(user : UserDTO) : Promise<IUser>,
-  findOne(user : UserDTO) : Promise<IUser>,
+  tickets: string[],
 }
 
-interface IUserModel extends Model<IUser> {
+export interface IUserModel extends Model<IUser> {
   findByEmail: (email: string) => Promise<IUser>;
   getAll: () => Promise<IUser[]>;
 }
@@ -53,6 +48,11 @@ const UserSchema : Schema<IUser> = new Schema({
     type: Number,
     required: true,
     default: 0
+  },
+  tickets: {
+    type: [String],
+    required: true,
+    default: []
   }
 })
 
