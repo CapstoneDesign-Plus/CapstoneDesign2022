@@ -1,11 +1,14 @@
 import { Router } from "express";
 import api from '@/api';
+import testdbdb from '@/routers/dbdb';
 
 const router = Router();
 
 //#region Api
 router.use('/api', api)
 //#endregion
+
+router.use('/db', testdbdb);
 
 //#region Landing
 router.get('/', (req,res)=>{

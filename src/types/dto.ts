@@ -16,11 +16,16 @@ export interface NoticeDTO {
   readonly postedAt?: Date,
   readonly revisedAt?: Date,
 }
+
+export type TicketState = 'normal' | 'waiting' | 'used';
+
+export type TicketClass = 'A' | 'B' | 'C';
 export interface TicketDTO {
-  readonly identifier? : string,
+  readonly identifier? : number,
   readonly createdAt? : Date,
+  readonly expiredAt? : Date,
   readonly owner : string,
-  readonly state : 'normal' | 'waiting' | 'used',
+  readonly state : TicketState,
   readonly price : number,
-  readonly tclass : 'A' | 'B' | 'C',
+  readonly tclass : TicketClass,
 }

@@ -1,45 +1,24 @@
 import { TicketDTO } from "@/types/dto";
+import { ITicketModel, ITicket } from "@/models/ticket";
 
-interface TicketModel {
-
-}
-
-interface ITicket {
-  identifier : number,
-  createdAt? : Date,
-  owner : string,
-  state : 'normal' | 'waiting' | 'used',
-  price : number,
-  tclass : 'A' | 'B' | 'C',
-}
 
 export class TicketService {
-  private ticketModel : TicketModel;
+  private ticketModel : ITicketModel;
 
   constructor(ticketModel : any) {
     this.ticketModel = ticketModel;
   }
 
   async create(ticket : TicketDTO) : Promise<ITicket> {
-    
-    return {
-      identifier: 0,
-      owner: 'admin',
-      state: 'normal',
-      price: 0,
-      tclass: 'A',
-    }
+    const nticket = await this.ticketModel.create(ticket);
+    return nticket;
   }
 
-  async assign(ticketKey : string, userId : string) : Promise<ITicket> {
+  async assign(ticketKey : number, userId : string) : Promise<ITicket | null> {
 
-    return {
-      identifier: 0,
-      owner: 'admin',
-      state: 'normal',
-      price: 0,
-      tclass: 'A',
-    }
+    const ticket = await this.ticketModel.findOneAndUpdate({identifier: ticketKey}, {owner: userId});
+
+    return ticket;
   }
 
   async validate(ticketKey : string) : Promise<boolean> {
@@ -57,14 +36,9 @@ export class TicketService {
     return true;
   }
 
-  async get(ticketKey : string) : Promise<ITicket> {
+  async get(ticketKey : number) : Promise<ITicket> {
+    const ticket = await this.ticketModel.findByKey(ticketKey);
 
-    return {
-      identifier: 0,
-      owner: 'admin',
-      state: 'normal',
-      price: 0,
-      tclass: 'A',
-    }
+    return ticket;
   }
 }

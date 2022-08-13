@@ -10,6 +10,6 @@ export default {
     return app;
   },
   async connectForWork(){
-    await dbConnect();
+    return await dbConnect();
   }
 }
