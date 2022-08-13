@@ -1,5 +1,6 @@
 import { TicketDTO } from "@/types/dto";
 import { ITicketModel, ITicket } from "@/models/ticket";
+import tcrypto from "./tcrypto";
 
 
 export class TicketService {
@@ -23,7 +24,12 @@ export class TicketService {
 
   async validate(ticketKey : string) : Promise<boolean> {
     
-    return true;
+    const decodeKey = tcrypto.decipher(ticketKey);
+
+    const ticket = await this.ticketModel.findByKey(decodeKey);
+
+    if(ticket) return true;
+    return false;
   }
 
   async refund(ticketKey : string) : Promise<boolean> {
