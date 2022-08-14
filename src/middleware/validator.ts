@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, param, validationResult } from 'express-validator';
+import { body, param, query, validationResult } from 'express-validator';
 
 function ValidateErrorHandler(
   req : Request, 
@@ -46,10 +46,49 @@ const notice_get = [
   ValidateErrorHandler
 ];
 
+const ticket_create = [
+  query('owner').exists(),
+  query('tclass').exists(),
+  ValidateErrorHandler
+]
+
+const ticket_get = [
+  body('identifier').exists(),
+  ValidateErrorHandler
+]
+
+const ticket_assign = [
+  body('identifier').exists(),
+  body('to').exists(),
+  ValidateErrorHandler
+]
+
+const ticket_validate = [
+  body('identifier').exists(),
+  ValidateErrorHandler
+]
+
+const ticket_refund = [
+  body('identifier').exists(),
+  ValidateErrorHandler
+]
+
+const ticket_change_state = [
+  body('identifier').exists(),
+  body('state').exists(),
+  ValidateErrorHandler
+]
+
 export default {
   singup,
   login,
   notice_get,
   notice_post,
-  notice_update
+  notice_update,
+  ticket_create,
+  ticket_get,
+  ticket_assign,
+  ticket_validate,
+  ticket_refund,
+  ticket_change_state,
 }

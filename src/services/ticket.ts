@@ -1,4 +1,4 @@
-import { TicketDTO, TicketState } from "@/types/dto";
+import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
 import { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import {UserService} from "@/services/user";
@@ -13,14 +13,20 @@ export class TicketService {
     this.userService = userService;
   }
 
-  async create(ticket : TicketDTO) : Promise<boolean> {
-    if(await this.userService.isExist(ticket.owner)){
-      const nticket = await this.ticketModel.create(ticket);
-      await this.userService.pushTicket(ticket.owner, tcrypto.cipher(nticket.identifier));
+  async create(owner: string, tclass: TicketClass) : Promise<boolean> {
+    if(await this.userService.isExist(owner)){
+      const nticket = await this.ticketModel.create({
+        owner: owner,
+        tclass: tclass,
+        price: 0,
+        state: 'normal'
+      });
+      await this.userService.pushTicket(owner, tcrypto.cipher(nticket.identifier));
       return true;
     }
     return false;
   }
+
   /**
    * @todo 유저 완전 구현 이후
    * @param ticketKey 
