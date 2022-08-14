@@ -10,9 +10,9 @@ import Validate from './validate';
 const router = Router();
 
 router.use('/assign', Assign);
-router.use('/change_state',ChangeState);
+router.use('/change_state', ChangeState);
 router.use('/create', Create);
-router.use('/get',Get);
+router.use('/get', Get);
 router.use('/refund', Refund);
 router.use('/validate', Validate);
 
