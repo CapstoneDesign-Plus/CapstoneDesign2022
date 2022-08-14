@@ -4,7 +4,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/validate', ...validator.ticket_validate, async (req, res) => {
+router.post('/', ...validator.ticket_validate, async (req, res) => {
     
 })
 

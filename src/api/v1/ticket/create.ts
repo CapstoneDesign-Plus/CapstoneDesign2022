@@ -9,7 +9,7 @@ import { TicketClass } from '@/types/dto';
 
 const router = Router();
 
-router.get('/create', ...validator.ticket_create, async (req, res) => {
+router.get('/', ...validator.ticket_create, async (req, res) => {
     const isSuccess = await new TicketService(Ticket, new UserService(User))
         .create(req.query["owner"] as string, req.query["tclass"] as TicketClass);
     res.send(`${isSuccess}`)

@@ -9,15 +9,11 @@ import Validate from './validate';
 
 const router = Router();
 
-router.use(Assign);
-router.use(ChangeState);
-router.use(Create);
-router.use(Get);
-router.use(Refund);
-router.use(Validate);
-
-router.get('/', (req, res) => {
-    res.send('<h1>Ticket Index</h1>')
-})
+router.use('/assign', Assign);
+router.use('/change_state',ChangeState);
+router.use('/create', Create);
+router.use('/get',Get);
+router.use('/refund', Refund);
+router.use('/validate', Validate);
 
 export default router;

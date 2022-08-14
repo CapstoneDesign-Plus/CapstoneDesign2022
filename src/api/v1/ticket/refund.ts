@@ -4,7 +4,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/refund', ...validator.ticket_refund, async (req, res) => {
+router.post('/', ...validator.ticket_refund, async (req, res) => {
     
 })
 
