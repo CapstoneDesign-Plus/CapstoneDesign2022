@@ -12,7 +12,7 @@ const router = Router();
 router.get('/', ...validator.ticket_create, async (req, res) => {
     const isSuccess = await new TicketService(Ticket, new UserService(User))
         .create(req.query["owner"] as string, req.query["tclass"] as TicketClass);
-    res.send(`${isSuccess}`)
+    return res.send(`${isSuccess}`)
 });
 
 export default router;

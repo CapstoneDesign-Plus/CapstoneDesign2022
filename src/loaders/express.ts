@@ -6,10 +6,6 @@ import expressSession from 'express-session';
 
 
 export default ({ app } : { app: express.Application }) => {
-  app.use((req, res, next)=>{
-    console.log(req.url);
-    next();
-  })
   app.use(express.json());
   app.use(express.urlencoded({extended : true}));
   app.use(expressSession({
@@ -19,6 +15,13 @@ export default ({ app } : { app: express.Application }) => {
   }))
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use((req, res, next)=>{
+    console.log(`${req.method} - ${req.url}`);
+    next();
+  })
   app.use(router);
+  router.use((req, res, next)=>{
+    return res.status(404).send('<h1>No Page</h1>');
+  })
   //about router
 }

@@ -9,12 +9,12 @@ passport.use('local-login', new Strategy({
   passwordField: 'password',
   passReqToCallback: true,
 }, async (req, username, password, done)=> {
-  console.log(`passport try local : ${username} ${password}`);
+  console.log(`PASSPORT - ${username}`);
 
   const result = await new UserService(User).login({email: username, password: password});
 
   if(!result){
-    done(null, false);
+    return done(null, false);
   }
 
   return done(null, {
@@ -24,8 +24,8 @@ passport.use('local-login', new Strategy({
 }));
 
 passport.serializeUser((user, done)=>{
-  console.log('se ' + user.email);
-  done(null, user.email);
+  console.log('AUTH SERIAL' + user.email);
+  return done(null, user.email);
 })
 
 passport.deserializeUser(async (id, done)=>{
@@ -34,9 +34,9 @@ passport.deserializeUser(async (id, done)=>{
   if(identifier){
     const user = await new UserService(User).get(identifier);
     if(user) done(null, user as Express.User);
+  }else{
+    done(null, false);
   }
-
-  done(null, false);
 })
 
 export default passport;

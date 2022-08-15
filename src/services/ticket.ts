@@ -2,6 +2,7 @@ import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
 import { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import {UserService} from "@/services/user";
+import { IUser } from "@/models/user";
 
 
 export class TicketService {
@@ -28,22 +29,24 @@ export class TicketService {
   }
 
   /**
-   * @todo 유저 완전 구현 이후
    * @param ticketKey 
    * @param userId 
    * @returns 
    */
-  async assign(ticketKey : string, userId : string) : Promise<boolean> {
+  async assign(caller : IUser, ticketKey : string, userId : string) : Promise<boolean> {
     const oldTicket = await this.get(ticketKey);
 
-    if(oldTicket && await this.userService.isExist(userId)){
-      await this.userService.removeTicket(oldTicket.owner, ticketKey);
-      await this.userService.pushTicket(userId, ticketKey);
-      await this.ticketModel.findOneAndUpdate({identifier: oldTicket.identifier}, {owner: userId});
+    if(!oldTicket) return false;
 
-      return true;
-    }
-    return false;
+    if(!(caller.certificated || caller.email === oldTicket.owner)) return false;
+
+    if(!(await this.userService.isExist(userId))) return false;
+
+    await this.userService.removeTicket(oldTicket.owner, ticketKey);
+    await this.userService.pushTicket(userId, ticketKey);
+    await this.ticketModel.findOneAndUpdate({identifier: oldTicket.identifier}, {owner: userId});
+
+    return true;
   }
 
   async validate(ticketKey : string) : Promise<boolean> {
@@ -56,20 +59,22 @@ export class TicketService {
    * @param ticketKey 
    * @returns 
    */
-  async refund(ticketKey : string) : Promise<boolean> {
+  async refund(caller : IUser, ticketKey : string) : Promise<boolean> {
     const ticket = await this.get(ticketKey);
 
-    if(ticket && ticket.state === 'normal'){
-      const price = ticket.price;
+    if(!ticket) return false;
 
-      await this.changeState(ticket.identifier, 'refunded');
-      await this.userService.increasePoint(ticket.owner, price);
-      await this.userService.removeTicket(ticket.owner, ticketKey);
+    if(!(caller.certificated || caller.email === ticket.owner)) return false;
 
-      return true;
-    }
+    if(ticket.state !== 'normal') return false;
+    
+    const price = ticket.price;
 
-    return false;
+    await this.changeState(ticket.identifier, 'refunded');
+    await this.userService.increasePoint(ticket.owner, price);
+    await this.userService.removeTicket(ticket.owner, ticketKey);
+
+    return true;
   }
 
   async changeAllStatue(filter : ITicket, state: TicketState) {
@@ -82,8 +87,11 @@ export class TicketService {
   }
 
   async get(ticketKey : string) : Promise<ITicket | null> {
-    const decodeKey = tcrypto.decipher(ticketKey);
-
-    return await this.ticketModel.findByKey(decodeKey);
+    try{
+      const decodeKey = tcrypto.decipher(ticketKey);
+      return await this.ticketModel.findByKey(decodeKey);
+    }catch{
+      return null;
+    }
   }
 }

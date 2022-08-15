@@ -11,7 +11,7 @@ const router = Router();
 router.post('/', ...validator.ticket_change_state, async (req, res) => {
     await new TicketService(Ticket, new UserService(User))
         .changeState(req.body['identifier'], req.body['state']);
-    res.send('state changing');
+        return res.send('state changing');
 })
 
 export default router;

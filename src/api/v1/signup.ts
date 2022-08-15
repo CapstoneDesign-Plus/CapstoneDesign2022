@@ -5,7 +5,7 @@ import User from "@/models/user";
 
 const router = Router();
 
-router.post('/', ...validator.singup, async (req, res)=> {
+router.post('/', ...validator.signup, async (req, res)=> {
 
   const isSuccess = await new UserService(User).signup(req.body);
 

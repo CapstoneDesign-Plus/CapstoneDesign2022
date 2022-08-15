@@ -11,7 +11,7 @@ const router = Router();
 router.post('/', ...validator.ticket_validate, async (req, res) => {
     const isSuccess = await new TicketService(Ticket, new UserService(User))
         .validate(req.body['identifier']);
-    res.send(`${isSuccess}`);
+    return res.send(`${isSuccess}`);
 })
 
 export default router;

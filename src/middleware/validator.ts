@@ -13,7 +13,7 @@ function ValidateErrorHandler(
   next();
 }
 
-const singup = [
+const signup = [
   body('username').exists(),
   body('password').isLength({max: 20, min: 10}),
   body('email').isEmail(),
@@ -80,7 +80,7 @@ const ticket_change_state = [
 ]
 
 export default {
-  singup,
+  signup,
   login,
   notice_get,
   notice_post,

@@ -19,7 +19,7 @@ router.post('/web', ...validator.login, passport.authenticate('local-login', {
 }));
 
 router.get('/web', (req, res)=> {
-  res.send(`
+  return res.send(`
   <html>
   <head>
     <title>Hello</title>
