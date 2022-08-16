@@ -19,7 +19,7 @@ export class TicketService {
       const nticket = await this.ticketModel.create({
         owner: owner,
         tclass: tclass,
-        price: 0,
+        price: 10,
         state: 'normal'
       });
       await this.userService.pushTicket(owner, tcrypto.cipher(nticket.identifier));

@@ -10,7 +10,7 @@ export interface INotice extends Document {
   content: string,
   header: string,
   postedAt: Date,
-  revisedAt: Date,
+  editedAt: Date,
 }
 
 export interface NoticeModel {
@@ -52,7 +52,7 @@ const NoticeSchema : Schema<INotice> = new Schema({
     type: Date,
     default: Date.now
   },
-  revisedAt: {
+  editedAt: {
     type: Date,
     default: Date.now
   }

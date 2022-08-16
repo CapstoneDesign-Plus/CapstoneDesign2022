@@ -14,7 +14,7 @@ export interface NoticeDTO {
   readonly content: string,
   readonly header?: string,
   readonly postedAt?: Date,
-  readonly revisedAt?: Date,
+  readonly editedAt?: Date,
 }
 
 export type TicketState = 'normal' | 'waiting' | 'used' | 'refunded' | 'expired';
@@ -28,4 +28,16 @@ export interface TicketDTO {
   readonly state : TicketState,
   readonly price : number,
   readonly tclass : TicketClass,
+}
+
+export interface NoticeSearchOption {
+  readonly isKeyword: boolean,
+  readonly isHeader: boolean,
+  readonly isWriter: boolean,
+  readonly isPeriod: boolean,
+  readonly keyword? : string,
+  readonly header? : string,
+  readonly writer? : string,
+  readonly startedAt? : Date,
+  readonly endAt? : Date,
 }

@@ -79,6 +79,12 @@ const ticket_change_state = [
   ValidateErrorHandler
 ]
 
+const point_give = [
+  param('email').exists(),
+  param('delta').isInt(),
+  ValidateErrorHandler,
+]
+
 export default {
   signup,
   login,
@@ -91,4 +97,5 @@ export default {
   ticket_validate,
   ticket_refund,
   ticket_change_state,
+  point_give
 }

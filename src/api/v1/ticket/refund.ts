@@ -17,4 +17,22 @@ router.post('/', ...validator.ticket_refund, async (req, res) => {
   return res.send('fail')
 })
 
+router.get('/', (req, res) => {
+  return res.send(`<!DOCTYPE html>
+  <html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>test</title>
+  </head>
+  <body>
+  
+    <form action="/api/v1/ticket/refund" method="post">
+      ID : <input type="text" name="identifier"><br>
+      <input type="submit">
+    </form>
+  
+  </body>
+  </html>`);
+})
+
 export default router;
