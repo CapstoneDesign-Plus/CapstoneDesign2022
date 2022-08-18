@@ -1,6 +1,6 @@
 import { Schema, Model, Document, model } from "mongoose";
 
-import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
+import { TicketClass, TicketState } from "@/types/dto";
 
 import { autoIncrement } from 'mongoose-plugin-autoinc-fix';
 export interface ITicket extends Document {

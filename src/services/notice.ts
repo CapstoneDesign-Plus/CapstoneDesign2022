@@ -1,16 +1,14 @@
 
-import { INotice, NoticeModel } from "@/models/notice";
+import { INotice, INoticeModel } from "@/models/notice";
 import { IUser } from "@/models/user";
 import { NoticeDTO, NoticeSearchOption } from "@/types/dto";
 import { UserService } from "./user";
 
 export class NoticeService {
-  private noticeModel : NoticeModel;
-  private userService : UserService;
+  private noticeModel : INoticeModel;
 
-  constructor(noticeModel: any, userService : any) {
+  constructor(noticeModel: any) {
     this.noticeModel = noticeModel;
-    this.userService = userService;
   }
 
   /**
@@ -21,6 +19,10 @@ export class NoticeService {
    */
   async update(caller : IUser, notice: NoticeDTO) : Promise<boolean> {
 
+    if(caller.certificated
+      && await this.noticeModel.updateOne({identifier : notice.identifier}, {$set: {title: notice.title, content: notice.content, header: notice.header, editedAt: Date.now()}})) {
+      return true;
+    }
     return false;
   }
 
@@ -32,6 +34,9 @@ export class NoticeService {
    */
   async delete(caller : IUser, identifier: number) : Promise<boolean> {
 
+    if(caller.certificated && await this.noticeModel.remove({identifier})) {
+      return true;
+    }
     return false;
   }
 
@@ -41,20 +46,24 @@ export class NoticeService {
    * @param identifier 
    * @returns 
    */
-  async get(caller : IUser, identifier: number) : Promise<NoticeDTO | null> {
+  async get(caller : IUser, identifier: number) : Promise<INotice | null> {
+    const article = await this.noticeModel.findOneAndUpdate({identifier}, {$inc: {numOfView: 1}});
 
-    return null;
+    return article;
   }
 
   /**
    * 글 게시
    * @param caller 
    * @param notice 
-   * @returns 
+   * @returns identifier
    */
-  async post(caller : IUser, notice : NoticeDTO) : Promise<NoticeDTO | null> {
-
-    return null;
+  async post(caller : IUser, notice : NoticeDTO) : Promise<number> {
+    if(caller.certificated) {
+      const article = await this.noticeModel.create(notice);
+      if(article) return article.identifier;
+    }
+    return -1;
   }
 
   /**
@@ -62,9 +71,19 @@ export class NoticeService {
    * @param query 
    * @returns 
    */
-  async search(option : NoticeSearchOption) : Promise<NoticeDTO[]> {
+  async search(option : NoticeSearchOption) : Promise<INotice[]> {
 
-    return [];
+    const articles = await this.noticeModel.find({
+      
+    });
+
+    return articles;
+  }
+
+  
+
+  async information() : Promise<number> {
+    return await this.noticeModel.find({}).count();
   }
 
   /**
@@ -72,7 +91,7 @@ export class NoticeService {
    * @param position 페이지 위치
    * @param interval 한 페이지당 게시글 수
    */
-  async range(position : number, interval: number) : Promise<NoticeDTO[]> {
+  async range(position : number, interval: number) : Promise<INotice[]> {
     
     return [];
   }

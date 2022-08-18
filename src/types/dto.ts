@@ -8,13 +8,20 @@ export interface UserDTO {
 }
 
 export interface NoticeDTO {
-  readonly identifier: number,
+  readonly identifier?: number,
   readonly title: string,
   readonly writer: string,
+  readonly numOfView?: number,
   readonly content: string,
   readonly header?: string,
   readonly postedAt?: Date,
   readonly editedAt?: Date,
+}
+
+export interface BoardDTO {
+  readonly boardId: number,
+  readonly boardName: string,
+  readonly totalCount: number,
 }
 
 export type TicketState = 'normal' | 'waiting' | 'used' | 'refunded' | 'expired';

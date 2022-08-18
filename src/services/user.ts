@@ -19,7 +19,7 @@ export class UserService {
 
     tickets.push(ticketKey);
 
-    await this.userModel.updateOne({email}, {tickets});
+    await this.userModel.updateOne({email}, {$set: {tickets}});
   }
 
   async removeTicket(email : string, ticketKey : string) {
@@ -27,7 +27,7 @@ export class UserService {
       return value !== ticketKey;
     })
 
-    await this.userModel.updateOne({email}, {tickets});
+    await this.userModel.updateOne({email}, {$set : {tickets}});
   }
 
   async getTickets(email : string) {
@@ -55,7 +55,7 @@ export class UserService {
 
     if(calcedPoint < 0) return false;
 
-    await this.userModel.updateOne({email}, {point : calcedPoint});
+    await this.userModel.updateOne({email}, {$set: {point : calcedPoint}});
 
     return true;
   }

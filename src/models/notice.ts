@@ -1,8 +1,7 @@
 
 import { Schema, Model, Document, model } from "mongoose";
 
-import { NoticeDTO } from "@/types/dto";
-
+import { autoIncrement } from "mongoose-plugin-autoinc-fix";
 export interface INotice extends Document {
   identifier: number,
   title: string,
@@ -11,14 +10,11 @@ export interface INotice extends Document {
   header: string,
   postedAt: Date,
   editedAt: Date,
+  numOfView: number,
 }
 
-export interface NoticeModel {
-  create(notice : NoticeDTO) : Promise<INotice>,
-  findOne(notice : NoticeDTO) : Promise<INotice>,
-}
-
-interface INoticeModel extends Model<INotice> {
+export interface INoticeModel extends Model<INotice> {
+  findByKey: (key : number) => Promise<INotice>;
   findByWriter: (writer: string) => Promise<INotice[]>;
   findByTitle: (title: string) => Promise<INotice[]>;
   findByHeader: (header: string) => Promise<INotice[]>;
@@ -55,6 +51,10 @@ const NoticeSchema : Schema<INotice> = new Schema({
   editedAt: {
     type: Date,
     default: Date.now
+  },
+  numOfView: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -88,6 +88,14 @@ NoticeSchema.statics.findByDate = function(date : Date) {
 NoticeSchema.statics.getAll = function() {
   return this.find({});
 }
+
+NoticeSchema.plugin(autoIncrement, {
+  model: 'notices',
+  field: 'identifier',
+  startAt: 1,
+  increment: 1
+});
+
 
 const Notice = model<INotice, INoticeModel>("notice", NoticeSchema);
 

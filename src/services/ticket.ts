@@ -44,7 +44,7 @@ export class TicketService {
 
     await this.userService.removeTicket(oldTicket.owner, ticketKey);
     await this.userService.pushTicket(userId, ticketKey);
-    await this.ticketModel.findOneAndUpdate({identifier: oldTicket.identifier}, {owner: userId});
+    await this.ticketModel.findOneAndUpdate({identifier: oldTicket.identifier}, { $set : {owner: userId}});
 
     return true;
   }
@@ -78,12 +78,12 @@ export class TicketService {
   }
 
   async changeAllStatue(filter : ITicket, state: TicketState) {
-    await this.ticketModel.updateMany(filter as Object, {state});
+    await this.ticketModel.updateMany(filter as Object, {$set : {state}});
   }
 
   async changeState(ticketKey : string | number, state : TicketState) : Promise<void> {
     const key = (typeof ticketKey === "number") ? ticketKey : tcrypto.decipher(ticketKey);
-    await this.ticketModel.updateOne({identifier: key}, {state});
+    await this.ticketModel.updateOne({identifier: key}, {$set : {state}});
   }
 
   async get(ticketKey : string) : Promise<ITicket | null> {
