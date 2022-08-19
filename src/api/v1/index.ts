@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
 
-import Notice from './notice';
+import Notice from './notice/get';
 import User from './user';
 import Ticket from './ticket';
 

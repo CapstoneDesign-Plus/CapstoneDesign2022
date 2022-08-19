@@ -41,8 +41,13 @@ const notice_update = [
   ValidateErrorHandler
 ]
 
+const notice_delete = [
+  param('id').exists(),
+  ValidateErrorHandler
+]
+
 const notice_get = [
-  param('identifier').exists(),
+  param('id').exists(),
   ValidateErrorHandler
 ];
 
@@ -91,6 +96,7 @@ export default {
   notice_get,
   notice_post,
   notice_update,
+  notice_delete,
   ticket_create,
   ticket_get,
   ticket_assign,
