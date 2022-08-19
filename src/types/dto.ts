@@ -47,4 +47,5 @@ export interface NoticeSearchOption {
   readonly writer? : string,
   readonly startedAt? : Date,
   readonly endAt? : Date,
+  readonly isSingle: boolean
 }

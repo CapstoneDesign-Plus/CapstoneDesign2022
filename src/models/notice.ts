@@ -25,7 +25,6 @@ export interface INoticeModel extends Model<INotice> {
 const NoticeSchema : Schema<INotice> = new Schema({
   identifier: {
     type: Number,
-    required : true,
     unique: true,
   },
   title: {

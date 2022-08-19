@@ -25,7 +25,7 @@ router.get('/web', (req, res)=> {
     <title>Hello</title>
   </head>
   <body>
-    <form action="/api/v1/login/web" method="post">
+    <form action="/api/v1/user/login/web" method="post">
       <input type="text" name="email" id="">
       <input type="text" name="password" id="">
       <input type="submit" value="submit">

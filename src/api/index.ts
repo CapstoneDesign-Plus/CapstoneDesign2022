@@ -1,5 +1,6 @@
 import { Router } from "express";
 import v1 from './v1';
+import nt from './noticett';
 
 const router = Router()
 
@@ -11,5 +12,7 @@ router.get('/', (req, res)=> {
 });
 
 router.use('/v1', v1);
+
+router.use('/t', nt)
 
 export default router

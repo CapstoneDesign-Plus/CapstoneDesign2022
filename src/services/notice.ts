@@ -2,7 +2,7 @@
 import { INotice, INoticeModel } from "@/models/notice";
 import { IUser } from "@/models/user";
 import { NoticeDTO, NoticeSearchOption } from "@/types/dto";
-import { UserService } from "./user";
+import { FilterQuery } from "mongoose";
 
 export class NoticeService {
   private noticeModel : INoticeModel;
@@ -17,13 +17,13 @@ export class NoticeService {
    * @param notice 
    * @returns 
    */
-  async update(caller : IUser, notice: NoticeDTO) : Promise<boolean> {
-
+  async update(caller : IUser, notice: NoticeDTO) : Promise<number> {
     if(caller.certificated
       && await this.noticeModel.updateOne({identifier : notice.identifier}, {$set: {title: notice.title, content: notice.content, header: notice.header, editedAt: Date.now()}})) {
-      return true;
+      
+      if(notice.identifier) return notice.identifier;
     }
-    return false;
+    return -1;
   }
 
   /**
@@ -34,7 +34,7 @@ export class NoticeService {
    */
   async delete(caller : IUser, identifier: number) : Promise<boolean> {
 
-    if(caller.certificated && await this.noticeModel.remove({identifier})) {
+    if(caller.certificated && await this.noticeModel.deleteOne({identifier})) {
       return true;
     }
     return false;
@@ -46,7 +46,7 @@ export class NoticeService {
    * @param identifier 
    * @returns 
    */
-  async get(caller : IUser, identifier: number) : Promise<INotice | null> {
+  async get(caller : IUser | null, identifier: number) : Promise<INotice | null> {
     const article = await this.noticeModel.findOneAndUpdate({identifier}, {$inc: {numOfView: 1}});
 
     return article;
@@ -60,7 +60,12 @@ export class NoticeService {
    */
   async post(caller : IUser, notice : NoticeDTO) : Promise<number> {
     if(caller.certificated) {
-      const article = await this.noticeModel.create(notice);
+      const article = await this.noticeModel.create({
+        writer: caller.email,
+        title: notice.title,
+        content: notice.content,
+        header: notice.header,
+      });
       if(article) return article.identifier;
     }
     return -1;
@@ -72,15 +77,24 @@ export class NoticeService {
    * @returns 
    */
   async search(option : NoticeSearchOption) : Promise<INotice[]> {
-
-    const articles = await this.noticeModel.find({
-      
-    });
-
-    return articles;
+    return await this.noticeModel.find(
+      this.translateOptionToFilter(option)
+    );
   }
 
-  
+  translateOptionToFilter(option: NoticeSearchOption) : FilterQuery<INotice> {
+    const filter : FilterQuery<INotice>  = {};
+
+    if(option.isKeyword) filter.title = {$regex: option.keyword, $options: "i"};
+
+    if(option.isWriter) filter.writer = {$regex: option.writer, $options: "i"};
+
+    if(option.isHeader) filter.header = option.header;
+
+    if(option.isPeriod) filter.postedAt = { $gte: option.startedAt, $lte: option.endAt };
+
+    return filter;
+  }
 
   async information() : Promise<number> {
     return await this.noticeModel.find({}).count();
@@ -92,7 +106,6 @@ export class NoticeService {
    * @param interval 한 페이지당 게시글 수
    */
   async range(position : number, interval: number) : Promise<INotice[]> {
-    
-    return [];
+    return await this.noticeModel.find().skip((position - 1) * interval).limit(interval);
   }
 }
