@@ -16,9 +16,9 @@ router.post('/', ...validator.notice_update, async (req, res) => {
   
       const identifier = await new NoticeService(Notice).update(req.user as IUser, req.body as NoticeDTO);
   
-      return res.redirect(`/api/t/get/${identifier}`);
+      return res.redirect(`/api/v1/notice/get/${identifier}`);
     }
-    return res.redirect('/login');
+    return res.redirect('/api/v1/user/login/web');
   });
   
   router.get('/', async (req, res) => {

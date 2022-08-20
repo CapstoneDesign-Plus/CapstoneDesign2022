@@ -13,7 +13,7 @@ router.post('/', ...validator.notice_post, async (req, res) => {
   
       return res.redirect(`/api/v1/notice/get/${identifier}`);
     }
-    return res.redirect('/login');
+    return res.redirect('/api/v1/user/login');
 });
   
 router.get('/', async (req, res) => {
