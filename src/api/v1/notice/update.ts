@@ -27,7 +27,7 @@ router.post('/', ...validator.notice_update, async (req, res) => {
       <title>Hello</title>
     </head>
     <body>
-      <form action="/api/t/update" method="post">
+      <form action="/api/v1/notice/update" method="post">
         id = <input type="number" name="identifier" id=""> 
         header = <input type="text" name="header" id=""> 
         title = <input type="text" name="title" id="">
