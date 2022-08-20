@@ -94,4 +94,8 @@ export class TicketService {
       return null;
     }
   }
+
+  async getHistory(caller : IUser) : Promise<ITicket[]> {
+    return await this.ticketModel.find({owner: caller.email});
+  }
 }

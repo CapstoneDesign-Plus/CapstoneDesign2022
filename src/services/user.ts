@@ -1,5 +1,5 @@
 
-import { IUserModel } from '@/models/user';
+import { IUser, IUserModel } from '@/models/user';
 import { UserDTO } from '@/types/dto';
 
 export class UserService {
@@ -75,5 +75,44 @@ export class UserService {
 
   async get(email: string) {
     return await this.userModel.findOne({email});
+  }
+
+  /**
+   * 사용자 본인 비밀번호 변경
+   * @param caller 
+   * @param oldPassword 
+   * @param newPassword 
+   */
+  async changePassword(caller: IUser, oldPassword : string, newPassword : string) : Promise<boolean> {
+    if(caller.password === oldPassword) {
+      await this.userModel.updateOne({email: caller.email}, {$set:{password: newPassword}});
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * 관리자용 사용자 비밀번호 변경(비밀번호 재할당 요청)
+   * @param caller 
+   * @param targetEmail 
+   * @param password 
+   * @returns 
+   */
+  async setPassword(caller: IUser, targetEmail: string, password: string) : Promise<boolean> {
+    if(caller.certificated) {
+      await this.userModel.updateOne({email: targetEmail}, {$set: {password}});
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * 사용자 본인 닉네임 변경
+   * @param caller 
+   * @param oldPassword 
+   * @param newPassword 
+   */
+  async changeUsername(caller: IUser, username : string) : Promise<void> {
+    await this.userModel.updateOne({email: caller.email}, {$set : {username}});
   }
 }
