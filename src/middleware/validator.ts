@@ -90,6 +90,16 @@ const point_give = [
   ValidateErrorHandler,
 ]
 
+const change_name = [
+  query('new_name').exists(),
+  ValidateErrorHandler
+]
+
+const change_password = [
+  body('new_password').exists(),
+  ValidateErrorHandler
+]
+
 export default {
   signup,
   login,
@@ -103,5 +113,7 @@ export default {
   ticket_validate,
   ticket_refund,
   ticket_change_state,
-  point_give
+  point_give,
+  change_name,
+  change_password
 }
