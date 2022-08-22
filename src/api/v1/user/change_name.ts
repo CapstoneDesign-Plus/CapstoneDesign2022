@@ -6,6 +6,8 @@ import User, { IUser } from "@/models/user";
 const router = Router();
 
 router.get('/', ...validator.change_name, async (req, res)=> {
+  if (!req.user)
+    return res.redirect('/api/v1/user/login/web');
 
   await new UserService(User)
     .changeUsername(req.user as IUser, req.query['new_name'] as string);
