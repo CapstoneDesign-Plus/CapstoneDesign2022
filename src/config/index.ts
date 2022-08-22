@@ -10,6 +10,8 @@ interface Environment {
   SESSION_SECRET: string,
   CRYPTO_KEY: string,
   CRYPTO_IV: number,
+  TEST_ACCOUNT_EMAIL: string,
+  TEST_ACCOUNT_PASSWORD: string,
 }
 
 config();
@@ -22,6 +24,8 @@ const env : Environment = {
   SESSION_SECRET: process.env.SESSION_SECRET || 'My Secrect',
   CRYPTO_KEY: process.env.CRYPTO_KEY || 'idontknowkey',
   CRYPTO_IV: parseInt(process.env.CRYPTO_IV || '10'),
+  TEST_ACCOUNT_EMAIL: process.env.TEST_ACCOUNT_EMAIL || 'NULL',
+  TEST_ACCOUNT_PASSWORD: process.env.TEST_ACCOUNT_PASSWORD || 'NULL'
 }
 
 export default env
