@@ -5,7 +5,7 @@ import { IUser } from "@/models/user";
 
 const router = Router();
 
-router.post('/', ...validator.change_password, async (req, res)=> {
+router.post('/', ...validator.user_change_password, async (req, res)=> {
   if (!req.user)
     return res.redirect('/api/v1/user/login/web');
 

@@ -6,7 +6,7 @@ import passport from '@/middleware/passport';
 
 const router = Router()
 
-router.post('/', ...validator.login, async (req, res) => {
+router.post('/', ...validator.user_login, async (req, res) => {
   const isSuccess = await UserService
     .getInstance()
     .login(req.body);
@@ -14,7 +14,7 @@ router.post('/', ...validator.login, async (req, res) => {
   return res.json({isSuccess});
 })
 
-router.post('/web', ...validator.login, passport.authenticate('local-login', {
+router.post('/web', ...validator.user_login, passport.authenticate('local-login', {
   successRedirect : '/loginSuc', 
   failureRedirect : '/loginFail', 
 }));

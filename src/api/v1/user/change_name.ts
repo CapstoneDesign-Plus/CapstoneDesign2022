@@ -5,7 +5,7 @@ import { IUser } from "@/models/user";
 
 const router = Router();
 
-router.get('/', ...validator.change_name, async (req, res)=> {
+router.get('/', ...validator.user_change_name, async (req, res)=> {
   if (!req.user)
     return res.redirect('/api/v1/user/login/web');
 

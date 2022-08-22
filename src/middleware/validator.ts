@@ -13,18 +13,23 @@ function ValidateErrorHandler(
   next();
 }
 
-const signup = [
+const user_signup = [
   body('username').exists(),
   body('password').isLength({max: 20, min: 8}),
   body('email').isEmail(),
   ValidateErrorHandler
 ];
 
-const login = [
+const user_login = [
   body('email').exists(),
   body('password').exists(),
   ValidateErrorHandler
 ];
+
+const user_get = [
+  query('email').isEmail(),
+  ValidateErrorHandler
+]
 
 const notice_post = [
   body('title').exists(),
@@ -84,25 +89,29 @@ const ticket_change_state = [
   ValidateErrorHandler
 ]
 
-const point_give = [
+const user_point_give = [
   param('email').exists(),
   param('delta').isInt(),
   ValidateErrorHandler,
 ]
 
-const change_name = [
+const user_change_name = [
   query('new_name').exists(),
   ValidateErrorHandler
 ]
 
-const change_password = [
+const user_change_password = [
   body('new_password').exists(),
   ValidateErrorHandler
 ]
 
 export default {
-  signup,
-  login,
+  user_signup,
+  user_login,
+  user_get,
+  user_point_give,
+  user_change_name,
+  user_change_password,
   notice_get,
   notice_post,
   notice_update,
@@ -113,7 +122,4 @@ export default {
   ticket_validate,
   ticket_refund,
   ticket_change_state,
-  point_give,
-  change_name,
-  change_password
 }
