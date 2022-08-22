@@ -1,11 +1,11 @@
 import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
-import { ITicketModel, ITicket } from "@/models/ticket";
+import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
-import {UserService} from "@/services/user";
+import UserService from "@/services/user";
 import { IUser } from "@/models/user";
 
 
-export class TicketService {
+export default class TicketService {
   private ticketModel : ITicketModel;
   private userService : UserService;
 
@@ -97,5 +97,12 @@ export class TicketService {
 
   async getHistory(caller : IUser) : Promise<ITicket[]> {
     return await this.ticketModel.find({owner: caller.email});
+  }
+
+  static getInstance() : TicketService {
+    return new TicketService(
+      Ticket,
+      UserService.getInstance()
+    );
   }
 }

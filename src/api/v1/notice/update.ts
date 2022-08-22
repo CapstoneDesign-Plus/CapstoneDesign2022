@@ -1,7 +1,6 @@
 import validator from "@/middleware/validator";
-import Notice from "@/models/notice";
 import { IUser } from "@/models/user";
-import { NoticeService } from "@/services/notice";
+import NoticeService from "@/services/notice";
 import { NoticeDTO } from "@/types/dto";
 import { Router } from "express";
 
@@ -14,7 +13,9 @@ router.post('/', ...validator.notice_update, async (req, res) => {
         req.body.identifier = parseInt(req.body.identifier);
       }
   
-      const identifier = await new NoticeService(Notice).update(req.user as IUser, req.body as NoticeDTO);
+      const identifier = await NoticeService
+        .getInstance()
+        .update(req.user as IUser, req.body as NoticeDTO);
   
       return res.redirect(`/api/v1/notice/get/${identifier}`);
     }

@@ -1,10 +1,10 @@
 
-import { INotice, INoticeModel } from "@/models/notice";
+import Notice, { INotice, INoticeModel } from "@/models/notice";
 import { IUser } from "@/models/user";
 import { NoticeDTO, NoticeSearchOption } from "@/types/dto";
 import { FilterQuery } from "mongoose";
 
-export class NoticeService {
+export default class NoticeService {
   private noticeModel : INoticeModel;
 
   constructor(noticeModel: any) {
@@ -107,5 +107,9 @@ export class NoticeService {
    */
   async range(position : number, interval: number) : Promise<INotice[]> {
     return await this.noticeModel.find().skip((position - 1) * interval).limit(interval);
+  }
+
+  static getInstance() : NoticeService {
+    return new NoticeService(Notice);
   }
 }

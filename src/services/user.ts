@@ -1,8 +1,8 @@
 
-import { IUser, IUserModel } from '@/models/user';
+import User, { IUser, IUserModel } from '@/models/user';
 import { UserDTO } from '@/types/dto';
 
-export class UserService {
+export default class UserService {
   private userModel : IUserModel;
 
   constructor(userModel : any) {
@@ -114,5 +114,9 @@ export class UserService {
    */
   async changeUsername(caller: IUser, username : string) : Promise<void> {
     await this.userModel.updateOne({email: caller.email}, {$set : {username}});
+  }
+
+  static getInstance() : UserService {
+    return new UserService(User);
   }
 }
