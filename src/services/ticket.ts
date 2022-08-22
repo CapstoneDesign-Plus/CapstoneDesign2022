@@ -95,8 +95,11 @@ export default class TicketService {
     }
   }
 
-  async getHistory(caller : IUser) : Promise<ITicket[]> {
-    return await this.ticketModel.find({owner: caller.email});
+  async getHistory(caller : IUser, email: string) : Promise<ITicket[] | null> {
+    if(caller.email === email || caller.certificated) {
+      return await this.ticketModel.find({owner: email});
+    }
+    return null;
   }
 
   static getInstance() : TicketService {

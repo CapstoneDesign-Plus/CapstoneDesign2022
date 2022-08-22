@@ -105,6 +105,11 @@ const user_change_password = [
   ValidateErrorHandler
 ]
 
+const user_history = [
+  query('email').isEmail(),
+  ValidateErrorHandler
+]
+
 export default {
   user_signup,
   user_login,
@@ -112,6 +117,7 @@ export default {
   user_point_give,
   user_change_name,
   user_change_password,
+  user_history,
   notice_get,
   notice_post,
   notice_update,
