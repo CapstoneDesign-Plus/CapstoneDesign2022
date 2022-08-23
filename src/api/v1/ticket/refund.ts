@@ -11,9 +11,11 @@ router.post('/', ...validator.ticket_refund, async (req, res) => {
     const isSuccess = await TicketService
       .getInstance()
       .refund(req.user as IUser, req.body['identifier']);
-    return res.send(`${isSuccess}`);
+
+    if(isSuccess) return res.sendStatus(200);
   }
-  return res.send('fail')
+
+  return res.sendStatus(400);
 })
 
 router.get('/', (req, res) => {

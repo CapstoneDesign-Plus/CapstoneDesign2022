@@ -6,8 +6,8 @@ import { IUser } from "@/models/user";
 const router = Router();
 
 router.post('/', ...validator.user_change_password, async (req, res)=> {
-  if (!req.user)
-    return res.redirect('/api/v1/user/login/web');
+  
+  if (!req.user) return res.redirect('/api/v1/user/login/web');
 
   const isSuccess = await UserService
     .getInstance()
@@ -15,7 +15,9 @@ router.post('/', ...validator.user_change_password, async (req, res)=> {
         req.body['old_password'],
         req.body['new_password']);
 
-  return res.send(`${isSuccess}`);
+  if(isSuccess) return res.sendStatus(200);
+
+  return res.sendStatus(400);
 });
 
 export default router;

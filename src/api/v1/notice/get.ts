@@ -5,11 +5,13 @@ import { Router } from "express";
 const router = Router();
 
 router.get('/:id', ...validator.notice_get, async (req, res) => {
-    const article = await NoticeService
-      .getInstance()
-      .get(null, parseInt(req.params.id));
+  const article = await NoticeService
+    .getInstance()
+    .get(null, parseInt(req.params.id));
     
-    return res.send(article);
-  });
+  if(article) return res.json(article);
+
+  return res.sendStatus(400);
+});
 
 export default router;

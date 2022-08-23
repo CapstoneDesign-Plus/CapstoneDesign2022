@@ -10,9 +10,10 @@ router.get('/', ...validator.user_point_give , async (req, res) => {
     const isSuccess = await UserService
       .getInstance()
       .increasePoint(req.query['email'] as string, req.query['delta']);
-    return res.send(`${isSuccess}`)
+
+    if(isSuccess) return res.sendStatus(200);
   }
-  return res.send('false');
+  return res.sendStatus(400);
 })
 
 

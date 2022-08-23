@@ -11,9 +11,9 @@ router.post('/', ...validator.ticket_assign, async (req, res) => {
     const isSuccess = await TicketService
       .getInstance()
       .assign(req.user as IUser, req.body['identifier'], req.body['to']);
-    return res.send(`you ${isSuccess}`);
+    return res.sendStatus(200);
   }
-  return res.send('fail');
+  return res.sendStatus(400);
 })
 
 router.get('/', (req, res) => {

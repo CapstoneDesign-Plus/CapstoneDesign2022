@@ -14,7 +14,9 @@ router.get('/', ...validator.user_history, async (req, res) => {
     .getInstance()
     .getHistory(req.user as IUser, req.query['email'] as string);
 
-  return res.send(tickets);
+  if(tickets) return res.json(tickets);
+  
+  return res.sendStatus(400);
 });
 
 export default router;

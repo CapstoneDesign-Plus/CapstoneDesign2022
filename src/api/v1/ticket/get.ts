@@ -6,10 +6,13 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/', ...validator.ticket_get, async (req, res) => {
-    const ticket = await TicketService
-      .getInstance()
-      .get(req.body['identifier']);
-    return res.send(ticket);
+  const ticket = await TicketService
+    .getInstance()
+    .get(req.body['identifier']);
+
+  if(ticket) return res.json(ticket);
+
+  return res.sendStatus(400);
 })
 
 export default router;

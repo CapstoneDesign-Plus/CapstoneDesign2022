@@ -9,7 +9,9 @@ router.get('/', ...validator.user_get, async (req, res)=> {
     .getInstance()
     .get(req.query['email'] as string);
 
-  res.send(user);
+  if(user) return res.json(user);
+  
+  return res.sendStatus(400);
 })
 
 export default router;

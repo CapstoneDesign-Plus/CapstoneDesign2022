@@ -9,7 +9,9 @@ router.post('/', ...validator.user_signup, async (req, res)=> {
     .getInstance()
     .signup(req.body);
 
-  return res.json({isSuccess});
+  if(isSuccess) return res.sendStatus(200);
+
+  return res.sendStatus(400);
 });
 
 export default router;

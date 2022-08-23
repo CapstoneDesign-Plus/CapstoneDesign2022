@@ -9,7 +9,7 @@ router.post('/', ...validator.ticket_change_state, async (req, res) => {
   await TicketService
     .getInstance()
     .changeState(req.body['identifier'], req.body['state']);
-  return res.send('state changing');
+  return res.sendStatus(200);
 })
 
 export default router;

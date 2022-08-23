@@ -13,7 +13,7 @@ router.get('/', ...validator.user_change_name, async (req, res)=> {
     .getInstance()
     .changeUsername(req.user as IUser, req.query['new_name'] as string);
 
-  return res.send('success');
+  return res.sendStatus(200);
 });
 
 export default router;

@@ -10,7 +10,10 @@ router.get('/', ...validator.ticket_create, async (req, res) => {
   const isSuccess = await TicketService
     .getInstance()
     .create(req.query["owner"] as string, req.query["tclass"] as TicketClass);
-  return res.send(`${isSuccess}`)
+
+  if(isSuccess) return res.sendStatus(200);
+
+  return res.sendStatus(400);
 });
 
 export default router;
