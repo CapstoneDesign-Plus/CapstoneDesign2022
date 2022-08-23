@@ -1,5 +1,4 @@
 import validator from "@/middleware/validator";
-import Notice from "@/models/notice";
 import { IUser } from "@/models/user";
 import { NoticeService } from "@/services/notice";
 import { NoticeDTO } from "@/types/dto";
@@ -9,7 +8,7 @@ const router = Router()
 
 router.post('/', ...validator.notice_post, async (req, res) => {
   if(req.user){
-    const identifier = await new NoticeService(Notice).post(req.user as IUser, req.body as NoticeDTO);
+    const identifier = await NoticeService.makeInstance().post(req.user as IUser, req.body as NoticeDTO);
 
     return res.redirect(`/api/v1/notice/get/${identifier}`);
   }

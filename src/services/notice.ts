@@ -1,5 +1,5 @@
 
-import { INotice, INoticeModel } from "@/models/notice";
+import Notice, { INotice, INoticeModel } from "@/models/notice";
 import { IUser } from "@/models/user";
 import { NoticeDTO, NoticeSearchOption } from "@/types/dto";
 import { FilterQuery } from "mongoose";
@@ -9,6 +9,13 @@ export class NoticeService {
 
   constructor(noticeModel: any) {
     this.noticeModel = noticeModel;
+  }
+
+  /**
+   * NoticeService 인스턴스 생성하여 불러오기
+   */
+  static makeInstance() : NoticeService {
+    return new NoticeService(Notice);
   }
 
   /**

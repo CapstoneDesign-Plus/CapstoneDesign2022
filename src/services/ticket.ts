@@ -1,8 +1,9 @@
 import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
 import { ITicketModel, ITicket } from "@/models/ticket";
+import Ticket from '@/models/ticket';
 import tcrypto from "./tcrypto";
 import {UserService} from "@/services/user";
-import { IUser } from "@/models/user";
+import User, { IUser } from "@/models/user";
 
 
 export class TicketService {
@@ -12,6 +13,13 @@ export class TicketService {
   constructor(ticketModel : any, userService : any) {
     this.ticketModel = ticketModel;
     this.userService = userService;
+  }
+
+  /**
+   * TicketService 인스턴스 생성하여 불러오기
+   */
+  static makeInstance() : TicketService {
+    return new TicketService(Ticket, new UserService(User));
   }
 
   async create(owner: string, tclass: TicketClass) : Promise<boolean> {

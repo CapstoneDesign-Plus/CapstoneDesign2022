@@ -1,5 +1,5 @@
 
-import { IUser, IUserModel } from '@/models/user';
+import User, { IUser, IUserModel } from '@/models/user';
 import { UserDTO } from '@/types/dto';
 
 export class UserService {
@@ -7,6 +7,13 @@ export class UserService {
 
   constructor(userModel : any) {
     this.userModel = userModel
+  }
+
+  /**
+   * UserService 인스턴스 생성하여 불러오기
+   */
+  static makeInstance() : UserService {
+    return new UserService(User);
   }
 
   async signup(user : UserDTO) {

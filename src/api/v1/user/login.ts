@@ -1,14 +1,13 @@
 import {Router} from 'express';
 import {UserService} from '@/services/user';
 import validator from '@/middleware/validator';
-import User from '@/models/user';
 import passport from '@/middleware/passport';
 
 
 const router = Router()
 
 router.post('/', ...validator.login, async (req, res) => {
-  const isSuccess = await new UserService(User).login(req.body);
+  const isSuccess = await UserService.makeInstance().login(req.body);
 
   return res.json({isSuccess});
 })
