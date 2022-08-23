@@ -39,8 +39,6 @@ export default class UserService {
   async login(user : UserDTO) {
     const result = await this.userModel.findOne({email: user.email, password: user.password});
 
-    console.log(result);
-
     if(result) return result;
     return null;
   }

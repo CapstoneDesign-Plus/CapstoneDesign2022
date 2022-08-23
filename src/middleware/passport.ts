@@ -1,8 +1,7 @@
 
 import passport from "passport";
 import { Strategy } from "passport-local";
-import {UserService} from '@/services/user';
-import User, { IUser } from '@/models/user';
+import UserService from '@/services/user';
 
 passport.use('local-login', new Strategy({
   usernameField: 'email',
@@ -11,7 +10,9 @@ passport.use('local-login', new Strategy({
 }, async (req, username, password, done)=> {
   console.log(`PASSPORT - ${username}`);
 
-  const result = await new UserService(User).login({email: username, password: password});
+  const result = await UserService
+    .getInstance()
+    .login({email: username, password: password});
 
   if(!result){
     return done(null, false);
@@ -32,7 +33,9 @@ passport.deserializeUser(async (id, done)=>{
   const identifier = id as string;
 
   if(identifier){
-    const user = await new UserService(User).get(identifier);
+    const user = await UserService
+      .getInstance()
+      .get(identifier);
     if(user) done(null, user as Express.User);
   }else{
     done(null, false);

@@ -6,13 +6,13 @@ import validator from '@/middleware/validator';
 
 const router = Router()
 
-router.get('/', ...validator.user_history, async (req, res) => {
+router.get('/:email', ...validator.user_history, async (req, res) => {
   if (!req.user)
     return res.redirect('/api/v1/user/login/web');
 
   const tickets = await TicketService
     .getInstance()
-    .getHistory(req.user as IUser, req.query['email'] as string);
+    .getHistory(req.user as IUser, req.params.email as string);
 
   if(tickets) return res.json(tickets);
   

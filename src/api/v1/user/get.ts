@@ -4,10 +4,10 @@ import UserService from "@/services/user";
 
 const router = Router();
 
-router.get('/', ...validator.user_get, async (req, res)=> {
+router.get('/:email', ...validator.user_get, async (req, res)=> {
   const user = await UserService
     .getInstance()
-    .get(req.query['email'] as string);
+    .get(req.params.email as string);
 
   if(user) return res.json(user);
   

@@ -27,7 +27,7 @@ const user_login = [
 ];
 
 const user_get = [
-  query('email').isEmail(),
+  param('email').isEmail(),
   ValidateErrorHandler
 ]
 
@@ -106,7 +106,7 @@ const user_change_password = [
 ]
 
 const user_history = [
-  query('email').isEmail(),
+  param('email').isEmail(),
   ValidateErrorHandler
 ]
 

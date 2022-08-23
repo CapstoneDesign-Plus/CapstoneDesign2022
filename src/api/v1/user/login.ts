@@ -11,7 +11,9 @@ router.post('/', ...validator.user_login, async (req, res) => {
     .getInstance()
     .login(req.body);
 
-  return res.json({isSuccess});
+  if(isSuccess) return res.sendStatus(200);
+
+  return res.sendStatus(400);
 })
 
 router.post('/web', ...validator.user_login, passport.authenticate('local-login', {
