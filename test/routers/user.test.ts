@@ -24,7 +24,7 @@ describe('User API', () => {
   });
 
   /**
-   * User Get
+   * User Get API
    */
   test('Get User', (done) => {
     request(app)
