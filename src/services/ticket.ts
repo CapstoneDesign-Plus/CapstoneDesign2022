@@ -1,4 +1,4 @@
-import { TicketClass, TicketDTO, TicketState } from "@/types/dto";
+import { IRangeResult, TicketClass, TicketDTO, TicketState } from "@/types/dto";
 import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import UserService from "@/services/user";
@@ -107,5 +107,23 @@ export default class TicketService {
       Ticket,
       UserService.getInstance()
     );
+  }
+
+  async information() : Promise<number> {
+    return await this.ticketModel.find({}).count();
+  }
+
+  /**
+   * 페이징
+   * @param position 페이지 위치
+   * @param interval 한 페이지당 식권 수
+   */
+  async range(position : number, interval: number) : Promise<IRangeResult> {
+    return {
+      values: await this.ticketModel.find().skip((position - 1) * interval).limit(interval),
+      totalCount: await this.information(),
+      currentPage: position,
+      countPerPage: interval,
+    }
   }
 }

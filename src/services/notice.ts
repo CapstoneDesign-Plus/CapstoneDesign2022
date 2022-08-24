@@ -1,7 +1,7 @@
 
 import Notice, { INotice, INoticeModel } from "@/models/notice";
 import { IUser } from "@/models/user";
-import { NoticeDTO, NoticeSearchOption } from "@/types/dto";
+import { IRangeResult, NoticeDTO, NoticeSearchOption } from "@/types/dto";
 import { FilterQuery } from "mongoose";
 
 export default class NoticeService {
@@ -105,8 +105,13 @@ export default class NoticeService {
    * @param position 페이지 위치
    * @param interval 한 페이지당 게시글 수
    */
-  async range(position : number, interval: number) : Promise<INotice[]> {
-    return await this.noticeModel.find().skip((position - 1) * interval).limit(interval);
+  async range(position : number, interval: number) : Promise<IRangeResult> {
+    return {
+      values: await this.noticeModel.find().skip((position - 1) * interval).limit(interval),
+      totalCount: await this.information(),
+      currentPage: position,
+      countPerPage: interval,
+    }
   }
 
   static getInstance() : NoticeService {

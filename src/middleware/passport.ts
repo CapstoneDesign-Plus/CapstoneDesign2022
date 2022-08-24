@@ -12,7 +12,7 @@ passport.use('local-login', new Strategy({
 
   const result = await UserService
     .getInstance()
-    .login({email: username, password: password});
+    .login(username, password);
 
   if(!result){
     return done(null, false);

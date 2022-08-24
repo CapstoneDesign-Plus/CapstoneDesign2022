@@ -1,11 +1,11 @@
 import { Router } from "express";
-import NoticeService from "@/services/notice";
+import TicketService from "@/services/ticket";
 import translate from "@/services/translate";
 
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const rangeResult = await NoticeService
+  const rangeResult = await TicketService
     .getInstance()
     .range(
       parseInt(req.query.page as string),
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     );
 
   if(rangeResult) return res.json(
-    translate.parseNoticeRangeResult(rangeResult)
+    translate.parseTicketRangeResult(rangeResult)
   );
 
   return res.sendStatus(400);

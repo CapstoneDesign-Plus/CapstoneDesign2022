@@ -9,7 +9,10 @@ const router = Router()
 router.post('/', ...validator.user_login, async (req, res) => {
   const isSuccess = await UserService
     .getInstance()
-    .login(req.body);
+    .login(
+      req.body['email'],
+      req.body['password']
+    );
 
   if(isSuccess) return res.sendStatus(200);
 

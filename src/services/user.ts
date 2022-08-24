@@ -1,6 +1,6 @@
 
 import User, { IUser, IUserModel } from '@/models/user';
-import { UserDTO } from '@/types/dto';
+import { IRangeResult, UserDTO } from '@/types/dto';
 
 export default class UserService {
   private userModel : IUserModel;
@@ -36,8 +36,8 @@ export default class UserService {
     return user?.tickets || [];
   }
 
-  async login(user : UserDTO) {
-    const result = await this.userModel.findOne({email: user.email, password: user.password});
+  async login(email : string, password: string) {
+    const result = await this.userModel.findOne({email: email, password: password});
 
     if(result) return result;
     return null;
@@ -116,5 +116,23 @@ export default class UserService {
 
   static getInstance() : UserService {
     return new UserService(User);
+  }
+
+  async information() : Promise<number> {
+    return await this.userModel.find({}).count();
+  }
+
+  /**
+   * 페이징
+   * @param position 페이지 위치
+   * @param interval 한 페이지당 사용자 수
+   */
+  async range(position : number, interval: number) : Promise<IRangeResult> {
+    return {
+      values: await this.userModel.find().skip((position - 1) * interval).limit(interval),
+      totalCount: await this.information(),
+      currentPage: position,
+      countPerPage: interval,
+    }
   }
 }

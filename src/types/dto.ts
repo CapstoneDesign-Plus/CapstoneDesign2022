@@ -1,10 +1,11 @@
+import { INotice } from "@/models/notice";
 
 export interface UserDTO {
   readonly email: string,
   readonly username?: string,
   readonly uclass?: number,
   readonly point?: number,
-  readonly password : string,
+  readonly tickets: string[],
 }
 
 export interface NoticeDTO {
@@ -28,7 +29,7 @@ export type TicketState = 'normal' | 'waiting' | 'used' | 'refunded' | 'expired'
 
 export type TicketClass = 'A' | 'B' | 'C';
 export interface TicketDTO {
-  readonly identifier? : number,
+  readonly identifier : string,
   readonly createdAt? : Date,
   readonly expiredAt? : Date,
   readonly owner : string,
@@ -48,4 +49,18 @@ export interface NoticeSearchOption {
   readonly startedAt? : Date,
   readonly endAt? : Date,
   readonly isSingle: boolean
+}
+
+export interface IRangeResult {
+  currentPage: number,
+  countPerPage: number,
+  totalCount: number,
+  values : object[],
+}
+
+export interface RangeResultDTO {
+  readonly currentPage: number,
+  readonly countPerPage: number,
+  readonly totalCount: number,
+  readonly values : object[],
 }
