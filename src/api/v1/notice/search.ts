@@ -4,7 +4,7 @@ import { NoticeSearchOption } from "@/types/dto";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const articles = await NoticeService
     .getInstance()
     .search(req.body as NoticeSearchOption);
