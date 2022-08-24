@@ -6,6 +6,7 @@ import Create from './create';
 import Get from './get';
 import Refund from './refund';
 import Validate from './validate';
+import Range from './range';
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.use('/assign', Assign);
 router.use('/change_state', ChangeState);
 router.use('/create', Create);
 router.use('/get', Get);
+router.use('/range', Range);
 router.use('/refund', Refund);
 router.use('/validate', Validate);
 

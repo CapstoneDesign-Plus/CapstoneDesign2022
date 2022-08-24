@@ -5,7 +5,7 @@ const router = Router();
 
 //#region Landing
 router.get('/', (req,res)=>{
-  return res.send('<h1> You are in Landing! </h1>');
+  return res.sendFile(process.cwd() + '/admin/index.html');
 });
 
 router.post('/', (req, res)=>{
