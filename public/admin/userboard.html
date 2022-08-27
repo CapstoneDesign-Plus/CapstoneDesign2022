@@ -15,7 +15,7 @@
     setupBoard({
       selectorQuery: '#board',
       getUrl: (page, per)=>{
-        return `/api/v1/user/range?page=${page}&per=${per}`
+        return `/api/v1/user/get/list?page=${page}&per=${per}`
       },
       getRecord: (user) => {
         return `<td>${user.email}</td><td>${user.tickets}</td>`;

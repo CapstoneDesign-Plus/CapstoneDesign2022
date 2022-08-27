@@ -15,7 +15,7 @@
     setupBoard({
       selectorQuery: '#board',
       getUrl: (page, per)=>{
-        return `/api/v1/notice/range?page=${page}&per=${per}`
+        return `/api/v1/notice/get/list?page=${page}&per=${per}`
       },
       getRecord: (notice) => {
         return `

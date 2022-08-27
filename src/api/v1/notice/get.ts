@@ -6,12 +6,12 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get('/:id', ...validator.notice_get, async (req, res) => {
-  const article = await NoticeService
+router.get('/search', async (req, res) => {
+  const articles = await NoticeService
     .getInstance()
-    .get(null, parseInt(req.params.id));
-    
-  if(article) return res.json(article);
+    .search(req.body as NoticeSearchOption);
+
+  if(articles) return res.json(articles);
 
   return res.sendStatus(400);
 });
@@ -29,17 +29,16 @@ router.get('/list', async (req, res) => {
   );
 
   return res.sendStatus(400);
-})
+});
 
-router.get('/search', async (req, res) => {
-  const articles = await NoticeService
+router.get('/:id', ...validator.notice_get, async (req, res) => {
+  const article = await NoticeService
     .getInstance()
-    .search(req.body as NoticeSearchOption);
-
-  if(articles) return res.json(articles);
+    .get(null, parseInt(req.params.id));
+    
+  if(article) return res.json(article);
 
   return res.sendStatus(400);
-})
-
+});
 
 export default router;
