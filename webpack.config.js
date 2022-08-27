@@ -23,8 +23,14 @@ module.exports = {
       test: /\.jsx?/,
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: ['@babel/plugin-proposal-class-properties']
+        presets: [
+          '@babel/preset-env', 
+          ['@babel/preset-react', { 'runtime': 'automatic' }]
+        ],
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          // '@babel/plugin-transform-runtime'
+        ]
       }
     }]
   },

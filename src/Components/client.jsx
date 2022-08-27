@@ -1,5 +1,5 @@
-const React = require('react');
-const ReactDom = require('react-dom');
-const { default: WordRelay } = require('./WordRelay');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import NoticeBoard from './NoticeBoard';
 
-ReactDom.render(<WordRelay/>, document.querySelector('#root'));
+ReactDOM.render(<NoticeBoard/>, document.querySelector('#noticeTable'));

@@ -8,37 +8,7 @@
   <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 <body>
-  <div id="board"></div>
-  <script type="module">
-    import setupBoard from './assets/js/board.js';
-
-    setupBoard({
-      selectorQuery: '#board',
-      getUrl: (page, per)=>{
-        return `/api/v1/notice/get/list?page=${page}&per=${per}`
-      },
-      getRecord: (notice) => {
-        return `
-          <td>${notice.identifier}</td>
-          <td>${notice.header}</td>
-          <td>${notice.title}</td>
-          <td>${notice.writer}</td>
-          <td>${notice.numOfView}</td>
-          <td>${notice.postedAt}</td>
-        `
-      },
-      onRecordClick: async (divView, tr) => {
-        const fTd = tr.querySelector('td');
-        
-        const id = fTd.textContent.trim();
-
-        const res = await fetch(`/api/v1/notice/get/${id}`);
-
-        if(res.status != 200) throw Error('error');
-
-        divView.setText((await res.json()).content)
-      }
-    });
-  </script>
+  <div id="noticeTable"></div>
+  <script src="./assets/components/NoticeBoard.js"></script>
 </body>
 </html>
