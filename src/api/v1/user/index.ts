@@ -1,15 +1,15 @@
 import { Router } from 'express';
 
-import Login from './login';
-import SignUp from './signup';
+import Auth from './auth';
 import Get from './get';
-import Range from './range';
+import Change from './change';
+import History from './history';
 
 const router = Router();
 
 router.use('/get', Get);
-router.use('/login', Login);
-router.use('/range', Range);
-router.use('/signup', SignUp)
+router.use('/change', Change);
+router.use('/auth', Auth);
+router.use('/history', History);
 
 export default router;

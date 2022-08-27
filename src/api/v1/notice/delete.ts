@@ -5,7 +5,7 @@ import { Router } from "express";
 
 const router = Router()
 
-router.get('/:id', ...validator.notice_delete, async (req, res) => {
+router.delete('/:id', ...validator.notice_delete, async (req, res) => {
     if(req.user){
       await NoticeService
         .getInstance()

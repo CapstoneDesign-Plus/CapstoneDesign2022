@@ -17,21 +17,4 @@ router.post('/', ...validator.notice_post, async (req, res) => {
   return res.redirect('/api/v1/user/login/web');
 });
   
-router.get('/', async (req, res) => {
-  return res.send(`<html>
-  <head>
-      <title>Hello</title>
-  </head>
-  <body>
-      <form action="/api/v1/notice/post" method="post">
-      header = <input type="text" name="header" id=""> 
-      title = <input type="text" name="title" id="">
-      content = <input type="text" name="content" id="">
-      <input type="submit" value="submit">
-      </form>
-  </body>
-
-  </html>`);
-});
-  
 export default router;

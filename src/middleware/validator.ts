@@ -57,8 +57,8 @@ const notice_get = [
 ];
 
 const ticket_create = [
-  query('owner').exists(),
-  query('tclass').exists(),
+  body('owner').exists(),
+  body('tclass').exists(),
   ValidateErrorHandler
 ]
 

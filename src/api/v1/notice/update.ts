@@ -6,7 +6,7 @@ import { Router } from "express";
 
 const router = Router()
 
-router.post('/', ...validator.notice_update, async (req, res) => {
+router.put('/', ...validator.notice_update, async (req, res) => {
   if(req.user){
     if(req.body.identifier) {
       console.log(req.body.identifier);
@@ -21,23 +21,5 @@ router.post('/', ...validator.notice_update, async (req, res) => {
   }
   return res.redirect('/api/v1/user/login/web');
 });
-
-router.get('/', async (req, res) => {
-  return res.send(`<html>
-  <head>
-    <title>Hello</title>
-  </head>
-  <body>
-    <form action="/api/v1/notice/update" method="post">
-      id = <input type="number" name="identifier" id=""> 
-      header = <input type="text" name="header" id=""> 
-      title = <input type="text" name="title" id="">
-      content = <input type="text" name="content" id="">
-      <input type="submit" value="submit">
-    </form>
-  </body>
-  
-  </html>`);
-})
   
 export default router;
