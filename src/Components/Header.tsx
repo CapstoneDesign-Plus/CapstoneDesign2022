@@ -1,5 +1,5 @@
 
-import { Component, Fragment } from "react";
+import React, { Component, Fragment } from "react";
 
 export default class Header extends Component {
 

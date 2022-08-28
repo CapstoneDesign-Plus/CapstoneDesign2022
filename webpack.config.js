@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'eval',
 
   resolve: {
-    extensions: ['.jsx']
+    extensions: ['.tsx']
   },
 
   entry: {
@@ -14,24 +14,24 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'react-public'),
     filename: 'app.js'
   },
 
   module: {
     rules: [{
-      test: /\.jsx?/,
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          '@babel/preset-env', 
-          ['@babel/preset-react', { 'runtime': 'automatic' }]
-        ],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          // '@babel/plugin-transform-runtime'
-        ]
-      }
+      test: /\.tsx?/,
+      loader: 'ts-loader',
+      // options: {
+      //   presets: [
+      //     '@babel/preset-env', 
+      //     ['@babel/preset-react', { 'runtime': 'automatic' }]
+      //   ],
+      //   plugins: [
+      //     '@babel/plugin-proposal-class-properties',
+      //     // '@babel/plugin-transform-runtime'
+      //   ]
+      // }
     }]
   },
 }
