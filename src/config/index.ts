@@ -12,6 +12,7 @@ interface Environment {
   CRYPTO_IV: number,
   TEST_ACCOUNT_EMAIL: string,
   TEST_ACCOUNT_PASSWORD: string,
+  ROOT_PATH: string
 }
 
 config();
@@ -25,7 +26,8 @@ const env : Environment = {
   CRYPTO_KEY: process.env.CRYPTO_KEY || 'idontknowkey',
   CRYPTO_IV: parseInt(process.env.CRYPTO_IV || '10'),
   TEST_ACCOUNT_EMAIL: process.env.TEST_ACCOUNT_EMAIL || 'NULL',
-  TEST_ACCOUNT_PASSWORD: process.env.TEST_ACCOUNT_PASSWORD || 'NULL'
+  TEST_ACCOUNT_PASSWORD: process.env.TEST_ACCOUNT_PASSWORD || 'NULL',
+  ROOT_PATH: process.cwd(),
 }
 
 export default env

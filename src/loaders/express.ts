@@ -8,7 +8,7 @@ import expressSession from 'express-session';
 export default ({ app } : { app: express.Application }) => {
   app.use(express.json());
   app.use(express.urlencoded({extended : true}));
-  app.use('/static', express.static(process.cwd() + '/public'));
+  app.use(express.static(process.cwd() + '/react-public'));
   app.use(expressSession({
     secret: env.SESSION_SECRET,
     resave: true,
