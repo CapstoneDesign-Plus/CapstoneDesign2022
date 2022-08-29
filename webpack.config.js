@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   name: 'bapsim-react-setting',
@@ -6,11 +6,11 @@ module.exports = {
   devtool: 'eval',
 
   resolve: {
-    extensions: ['.tsx']
+    extensions: ['.tsx', '.js', '.jsx', '.ts']
   },
 
   entry: {
-    app: ['./src/Components/App']
+    app: ['./src/components/App']
   },
 
   output: {
@@ -20,7 +20,7 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.tsx?/,
+      test: /\.tsx/,
       loader: 'ts-loader',
       // options: {
       //   presets: [
@@ -32,6 +32,12 @@ module.exports = {
       //     // '@babel/plugin-transform-runtime'
       //   ]
       // }
-    }]
+    }
+    //,{
+    //   test: /\.css?/,
+    //   exclude: [],
+    //   use: ["style-loader", "css-loader", "postcss-loader"]
+    // }
+    ]
   },
 }

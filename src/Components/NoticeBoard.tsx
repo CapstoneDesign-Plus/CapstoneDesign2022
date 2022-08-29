@@ -1,19 +1,10 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { NoticeDTO } from "@/types/dto";
 import IBoard from "./IBoard";
 
-interface NoticeItemType {
-  identifier: number,
-  header : string,
-  title: string,
-  writer: string,
-  numOfView: number,
-  editedAt: Date,
-  postedAt: Date
-}
-
-export default class NoticeBoard extends IBoard<NoticeItemType> {
+export default class NoticeBoard extends IBoard<NoticeDTO> {
   constructor(props : any) {
     super(props);
   }
@@ -30,7 +21,7 @@ export default class NoticeBoard extends IBoard<NoticeItemType> {
     </tr>)
   }
 
-  renderItem(item: NoticeItemType): JSX.Element {
+  renderItem(item: NoticeDTO): JSX.Element {
     return <tr key={item.identifier}>
       <td>{item.identifier}</td>
       <td>{item.header}</td>
@@ -53,12 +44,5 @@ export default class NoticeBoard extends IBoard<NoticeItemType> {
       totalLength: data.totalCount,
       items: data.values
     });
-  }
-
-  onClickRefresh(): void {
-    this.fetchBoardData(
-      this.state.currentPage,
-      this.state.currentPerPage
-    );
   }
 }

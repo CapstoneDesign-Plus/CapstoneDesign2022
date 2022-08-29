@@ -10,6 +10,8 @@ export default class Main extends Component {
       <div className="main">
         <ul>
           <Link to='/noticeBoard'><li>Go Notice Board</li></Link>
+          <Link to='/ticketBoard'><li>Go Ticket Board</li></Link>
+          <Link to='/userBoard'><li>Go User Board</li></Link>
         </ul>
       </div>
     )

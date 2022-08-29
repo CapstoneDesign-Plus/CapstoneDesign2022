@@ -79,11 +79,14 @@ export default class IBoard<ItemType> extends Component<any, IBoardState<ItemTyp
    * Must override in subclass.
    */
   async fetchBoardData(page: number, per: number) {
-    console.log('fetch');
+    return;
   }
   
   onClickRefresh() {
-    console.log('hello');
+    this.fetchBoardData(
+      this.state.currentPage,
+      this.state.currentPerPage
+    );
   }
 
   onClickPageCursor(e : React.MouseEvent<HTMLDivElement, MouseEvent>) {

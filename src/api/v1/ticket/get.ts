@@ -6,7 +6,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', ...validator.ticket_get, async (req, res) => {
+router.post('/', ...validator.ticket_get, async (req, res) => {
   const ticket = await TicketService
     .getInstance()
     .get(req.body['identifier']);
