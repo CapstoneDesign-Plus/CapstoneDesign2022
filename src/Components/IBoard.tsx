@@ -9,7 +9,7 @@ interface IBoardState<ItemType> {
   items: ItemType[],
 }
 
-export default class IBoard<ItemType> extends Component<{}, IBoardState<ItemType>> {
+export default class IBoard<ItemType> extends Component<any, IBoardState<ItemType>> {
   
   constructor(props: any) {
     super(props);

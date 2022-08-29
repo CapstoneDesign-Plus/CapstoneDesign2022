@@ -1,5 +1,5 @@
 
-import React, {Component, Fragment} from 'react';
+import React from 'react';
 import { PromiseFn, useAsync } from 'react-async'
 import { useParams } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const loadNotice : PromiseFn<NoticeData> = async ({noticeId}) => {
 }
 
 
-export default function() {
+export default function NoticeContent() {
 
   const { noticeId } = useParams();
   
@@ -25,8 +25,8 @@ export default function() {
     noticeId,
   });
   
-  if (isLoading) return <div>"Loading..."</div>
-  if (error) return <div>`Something went wrong: ${error.message}`</div>
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Something went wrong: {error.message}</div>
   if (notice)
     return (
       <div>

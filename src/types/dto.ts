@@ -1,4 +1,3 @@
-import { INotice } from "@/models/notice";
 
 export interface UserDTO {
   readonly email: string,

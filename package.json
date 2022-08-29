@@ -5,11 +5,11 @@
   "main": "./src/app.ts",
   "scripts": {
     "start": "node ./dist/src/server.js",
-    "test": "jest --verbose",
+    "test:jest": "jest --verbose",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/server.ts",
     "lint": "eslint '**/*.{ts,tsx}' --ext .ts,.tsx --fix",
     "build": "tsc && tsc-alias",
-    "webwatch": "webpack --watch"
+    "watch:webpack": "webpack --watch"
   },
   "_moduleAliases": {
     "@": "./src"

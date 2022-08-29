@@ -3,6 +3,7 @@ import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import UserService from "@/services/user";
 import { IUser } from "@/models/user";
+import { FilterQuery } from "mongoose";
 
 
 export default class TicketService {
@@ -78,7 +79,7 @@ export default class TicketService {
   }
 
   async changeAllStatue(filter : ITicket, state: TicketState) {
-    await this.ticketModel.updateMany(filter as Object, {$set : {state}});
+    await this.ticketModel.updateMany(filter as FilterQuery<ITicket>, {$set : {state}});
   }
 
   async changeState(ticketKey : string | number, state : TicketState) : Promise<void> {
