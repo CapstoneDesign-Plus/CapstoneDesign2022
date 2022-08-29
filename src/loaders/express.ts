@@ -3,11 +3,13 @@ import env from '@/config';
 import router from '@/routers';
 import passport from '@/middleware/passport';
 import expressSession from 'express-session';
+import cors from 'cors';
 
 
 export default ({ app } : { app: express.Application }) => {
   app.use(express.json());
   app.use(express.urlencoded({extended : true}));
+  app.use(cors());
   app.use(express.static(process.cwd() + '/react-public'));
   app.use(expressSession({
     secret: env.SESSION_SECRET,
@@ -21,8 +23,5 @@ export default ({ app } : { app: express.Application }) => {
     next();
   })
   app.use(router);
-  router.use((req, res, next)=>{
-    return res.status(404).send('<h1>No Page</h1>');
-  })
   //about router
 }

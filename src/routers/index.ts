@@ -4,17 +4,17 @@ import env from "@/config";
 
 const router = Router();
 
-router.post('/', (req, res)=>{
-  return res.send(200);
-})
-//#endregion
-
 //#region Api
 router.use('/api', api)
 //#endregion
 
 //#region Landing
+
 router.get('/', (req,res)=>{
+  return res.sendFile(env.ROOT_PATH + '/react-public/index.html');
+});
+
+router.get('*', (req,res)=>{
   return res.sendFile(env.ROOT_PATH + '/react-public/index.html');
 });
 
