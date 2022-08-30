@@ -1,31 +1,28 @@
 import passport from "@/middleware/passport";
 import validator from "@/middleware/validator";
+import translate from "@/services/translate";
 import UserService from "@/services/user";
 import { Router } from "express";
 
 
 const router = Router();
 
-/**
- * @path {Post}
- */
-router.post('/disposable', ...validator.user_login, async (req, res) => {
-  const isSuccess = await UserService
-    .getInstance()
-    .login(
-      req.body['email'],
-      req.body['password']
-    );
+router.post('/login', ...validator.user_login, (req, res, next)=> {
+  passport.authenticate('local-login', (err, user, info)=>{
+    if(err) return res.sendStatus(400);
 
-  if(isSuccess) return res.sendStatus(200);
+    if(user) {
+      req.logIn(user as Express.User, (err)=>{
+        if(err) return next(err);
 
-  return res.sendStatus(400);
-})
+        return res.json(user);
+      })
+    }else{
+      return res.sendStatus(400);
+    }
 
-router.post('/login', ...validator.user_login, passport.authenticate('local-login', {
-  successRedirect : '/loginSuc', 
-  failureRedirect : '/loginFail', 
-}));
+  })(req, res, next);
+});
 
 router.post('/signup', ...validator.user_signup, async (req, res)=> {
   const isSuccess = await UserService

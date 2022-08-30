@@ -32,9 +32,7 @@ export default class UserService {
     pushTicket(email: string, ticketKey: string): Promise<void>;
     removeTicket(email: string, ticketKey: string): Promise<void>;
     getTickets(email: string): Promise<string[]>;
-    login(email: string, password: string): Promise<(IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    }) | null>;
+    login(email: string, password: string): Promise<IUser | null>;
     /**
      * 반드시 delta 값은 point + delta > 0 성립해야함
      * @param email

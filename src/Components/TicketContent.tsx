@@ -11,9 +11,7 @@ export default function TicketContent() {
   const { state } = useLocation();
 
   useEffect(() => {
-    
-    
-
+  
     (async () => {
       const res = await fetch('/api/v1/ticket/get',
         {

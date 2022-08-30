@@ -2,6 +2,7 @@ import { Router } from "express";
 import validator from "@/middleware/validator";
 import UserService from "@/services/user";
 import translate from "@/services/translate";
+import { IUser } from "@/models/user";
 
 const router = Router();
 
@@ -20,6 +21,13 @@ router.get('/list', async (req, res) => {
   return res.sendStatus(400);
 })
 
+router.get('/profile',async (req, res) => {
+
+  if(req.user) {
+    return res.json(translate.parseUserDTO(req.user as IUser));
+  }
+  return res.sendStatus(400);
+})
 
 router.get('/:email', ...validator.user_get, async (req, res)=> {
   const user = await UserService

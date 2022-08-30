@@ -8,12 +8,12 @@ export interface UserDTO {
 }
 
 export interface NoticeDTO {
-  readonly identifier?: number,
   readonly title: string,
-  readonly writer: string,
-  readonly numOfView?: number,
+  readonly writer?: string,
   readonly content: string,
-  readonly header?: string,
+  readonly header: string,
+  readonly numOfView?: number,
+  readonly identifier?: number,
   readonly postedAt?: Date,
   readonly editedAt?: Date,
 }

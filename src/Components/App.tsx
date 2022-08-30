@@ -1,40 +1,47 @@
+import { UserDTO } from '@/types/dto';
+import axios from 'axios';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 import Footer from './Footer';
 import Header from './Header';
-import Main from './Main';
-import NotFound from './NotFound';
-import NoticeBoard from './NoticeBoard';
-import NoticeContent from './NoticeContent';
-import TicketBoard from './TicketBoard';
-import TicketContent from './TicketContent';
-import UserBoard from './UserBoard';
-import UserContent from './UserContent';
+import RouteBundle from './RouteBundle';
 
-class App extends Component {
+export interface AppState {
+  authenticated: boolean,
+}
+
+class App extends Component<any, AppState> {
   state = {
-    
+    authenticated: false,
+  }
+
+  login = async (email: string, password: string)=> {
+
+    const res = await axios.post('/api/v1/user/auth/login', {
+      email,
+      password
+    });
+
+    if(res.status != 200) return false;
+
+    this.setState({
+      authenticated: true
+    });
+
+    return true;
   }
 
   render() {
     return(
       <div className='App'>
-        <BrowserRouter>
+        <Router>
           <Header/>
-            <Routes>
-              <Route path='/' element={<Main />}></Route>
-              <Route path='/noticeBoard' element={<NoticeBoard />}></Route>
-              <Route path='/ticketBoard' element={<TicketBoard />}></Route>
-              <Route path='/userBoard' element={<UserBoard />}></Route>
-              <Route path='/notice/:noticeId' element={<NoticeContent />}></Route>
-              <Route path='/user/:userId' element={<UserContent />}></Route>
-              <Route path='/ticket/content' element={<TicketContent />}></Route>
-              <Route path='*' element={<NotFound />}></Route>
-            </Routes>
+            <RouteBundle appState={this.state} loginProps={{ login: this.login}} />
           <Footer/>
-        </BrowserRouter>
+        </Router>
       </div>
     )
   }

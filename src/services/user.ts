@@ -36,7 +36,7 @@ export default class UserService {
     return user?.tickets || [];
   }
 
-  async login(email : string, password: string) {
+  async login(email : string, password: string) : Promise<IUser | null> {
     const result = await this.userModel.findOne({email: email, password: password});
 
     if(result) return result;
