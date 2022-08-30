@@ -31,11 +31,11 @@ export default class Profile extends Component<ProfileProps, UserDTO> {
     const u = this.state;
     
     return <div>
-      <p>{u.email}</p>
-      <p>{u.username}</p>
-      <p>{u.point}</p>
-      <p>{u.uclass}</p>
-      <p>{u.tickets}</p>
+      <p>Email - {u.email}</p>
+      <p>UserName - {u.username}</p>
+      <p>Point - {u.point}</p>
+      <p>Class - {u.uclass}</p>
+      <p>Ticket - {u.tickets}</p>
     </div>
   }
 }

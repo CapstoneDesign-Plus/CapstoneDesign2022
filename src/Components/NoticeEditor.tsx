@@ -1,72 +1,82 @@
 import { NoticeDTO } from "@/types/dto";
-import React, { Component } from "react";
+import axios from "axios";
+import React, { Component, useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 
 interface NoticeEditorProps {
   authenticated: boolean,
-  state: any
 }
 
-interface NoticeEditorState extends NoticeDTO {
-  mode: 'update' | 'create',
-}
+const NoticeEditor : React.FC<NoticeEditorProps> = ({ authenticated })=> {
+  
+  if(!authenticated) return <Navigate to='/login'></Navigate>
 
-interface Info {
-  noticeId: string
-}
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
+  const [header, setHeader] = useState('');
+  const [updatedId, setUpdatedId] = useState(-1);
 
-export default class NoticeEditor extends Component<NoticeEditorProps, NoticeEditorState> {
+  const { noticeId } = useParams();
 
-  constructor(props: NoticeEditorProps) {
-    super(props);
+  const isUpdate = noticeId !== 'new';
 
-    console.log(props.state);
-
-    if(!props.state){
-      this.state = {
-        mode: 'create',
-        title: '',
-        content: '',
-        header: ''
-      }
-    }else{
-      const info = props.state as Info;
-
-      this.state = {
-        mode: 'update',
-        title: '',
-        content: '',
-        header: ''
-      }
-    }
-  }
-
-  setTitle(text: string) {
-    this.setState({
-      title:text
+  const onClickSubmit = (isUpdate ? async ()=> {
+    const res = await axios.put('/api/v1/notice/update', {
+      identifier: noticeId,
+      content,
+      header,
+      title
     });
+
+    if(res.status == 200){
+      setUpdatedId(parseInt(noticeId as string));
+    }
+
+  } : async ()=> {
+    const res = await axios.post('/api/v1/notice/post', {
+      content,
+      header,
+      title
+    });
+
+    if(res.status == 200) {
+      setUpdatedId(res.data.identifier);
+    }
+  });
+
+  if(isUpdate) {
+    const id = parseInt(noticeId as string);
+
+    useEffect(()=>{
+      (async ()=>{
+        const res = await axios.get(`/api/v1/notice/get/${id}`);
+
+        if(res.status == 200){
+          const article : NoticeDTO = res.data;
+
+          setContent(article.content);
+          setHeader(article.header);
+          setTitle(article.title);
+        }
+
+      })().catch();
+    },[]);
   }
 
-  setHeader(text: string) {
-    this.setState({
-      header: text
-    })
+  if(updatedId != -1){
+    return <Navigate to={`/notice/${updatedId}`}></Navigate>
   }
 
-  setContent(text: string) {
-    this.setState({
-      content: text
-    })
-  }
-
-  render(): React.ReactNode {
-    return <div>
-      <p>Header - <input type="text" onChange={({target: {value}})=> {this.setHeader(value)}} /></p>
-      <p>Title - <input type="text" onChange={({target: {value}})=> {this.setTitle(value)}} /></p>
-      <div>
-        <textarea cols={ 30 } rows={ 10 } onChange={({target: {value}})=>{this.setContent(value)}}>
-        </textarea>
-      </div>
-      
+  return <div>
+    <p>Header - <input type="text" defaultValue={header} onChange={({target: {value}})=> {setHeader(value)}} /></p>
+    <p>Title - <input type="text" defaultValue={title} onChange={({target: {value}})=> {setTitle(value)}} /></p>
+    <div>
+      <textarea defaultValue={content} cols={ 30 } rows={ 10 } onChange={({target: {value}})=>{setContent(value)}}>
+        
+      </textarea>
     </div>
-  }
+    <button onClick={onClickSubmit}>Send</button>
+  </div>
 }
+
+export default NoticeEditor;

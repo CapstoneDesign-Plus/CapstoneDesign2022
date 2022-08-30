@@ -14,7 +14,7 @@ export default class Main extends Component {
           <Link to='/login'><li>Go Login</li></Link>
           <Link to='/profile'><li>Go Profile</li></Link>
           <Link to='/signup'><li>Go Signup</li></Link>
-          <Link to='/notice/editor' state={{
+          <Link to='/notice/edit/new' state={{
             mode: 'update',
           }}><li>Go Editor</li></Link>
         </ul>

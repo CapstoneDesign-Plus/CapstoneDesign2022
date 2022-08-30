@@ -1,6 +1,5 @@
 import passport from "@/middleware/passport";
 import validator from "@/middleware/validator";
-import translate from "@/services/translate";
 import UserService from "@/services/user";
 import { Router } from "express";
 

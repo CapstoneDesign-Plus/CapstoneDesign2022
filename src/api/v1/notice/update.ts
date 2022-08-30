@@ -7,19 +7,21 @@ import { Router } from "express";
 const router = Router()
 
 router.put('/', ...validator.notice_update, async (req, res) => {
+  console.log('hello');
+
   if(req.user){
     if(req.body.identifier) {
       console.log(req.body.identifier);
       req.body.identifier = parseInt(req.body.identifier);
     }
 
-    const identifier = await NoticeService
+    const success = await NoticeService
       .getInstance()
       .update(req.user as IUser, req.body as NoticeDTO);
 
-    return res.redirect(`/api/v1/notice/get/${identifier}`);
+    if(success) return res.sendStatus(200);
   }
-  return res.redirect('/api/v1/user/login/web');
+  return res.sendStatus(400);
 });
   
 export default router;

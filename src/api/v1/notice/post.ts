@@ -12,9 +12,10 @@ router.post('/', ...validator.notice_post, async (req, res) => {
       .getInstance()
       .post(req.user as IUser, req.body as NoticeDTO);
 
-    return res.redirect(`/api/v1/notice/get/${identifier}`);
+    return res.json({identifier});
   }
-  return res.redirect('/api/v1/user/login/web');
+
+  return res.sendStatus(400);
 });
   
 export default router;

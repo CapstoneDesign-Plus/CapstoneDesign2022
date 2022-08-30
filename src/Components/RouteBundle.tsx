@@ -31,7 +31,7 @@ const RouteBundle : React.FC<RouteBundleProps> = (props)=> {
   <Route path='/userBoard' element={<UserBoard />}></Route>
   <Route path='/profile' element={ <Profile authenticated={props.appState.authenticated} /> }></Route>
   <Route path='/signup' element={ <Signup /> }></Route>
-  <Route path='/notice/editor' element={ <NoticeEditor authenticated={props.appState.authenticated} state={null} /> }></Route>
+  <Route path='/notice/edit/:noticeId' element={ <NoticeEditor authenticated={props.appState.authenticated} /> }></Route>
   <Route path='/notice/:noticeId' element={<NoticeContent />}></Route>
   <Route path='/user/:userId' element={<UserContent />}></Route>
   <Route path='/ticket/content' element={<TicketContent />}></Route>

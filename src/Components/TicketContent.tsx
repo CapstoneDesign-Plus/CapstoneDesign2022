@@ -33,11 +33,11 @@ export default function TicketContent() {
   }, []);
 
   return <div>
-    <p>{content?.owner}</p>
-    <p>{content?.price}</p>
-    <p>{content?.identifier}</p>
-    <p>{content?.state}</p>
-    <p>{content?.tclass}</p>
+    <p>Owner - {content?.owner}</p>
+    <p>Price - {content?.price}</p>
+    <p>Id - {content?.identifier}</p>
+    <p>State - {content?.state}</p>
+    <p>Content - {content?.tclass}</p>
   </div>
 
 }

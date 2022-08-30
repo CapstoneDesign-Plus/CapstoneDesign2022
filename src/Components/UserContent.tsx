@@ -23,11 +23,11 @@ export default function UserContent() {
   }, []);
 
   return <div>
-    <p>{content?.email}</p>
-    <p>{content?.point}</p>
-    <p>{content?.tickets}</p>
-    <p>{content?.uclass}</p>
-    <p>{content?.username}</p>
+    <p>Email - {content?.email}</p>
+    <p>Point - {content?.point}</p>
+    <p>Ticket - {content?.tickets}</p>
+    <p>Class - {content?.uclass}</p>
+    <p>Username - {content?.username}</p>
   </div>
 
 }

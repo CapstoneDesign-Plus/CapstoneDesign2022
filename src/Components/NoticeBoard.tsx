@@ -13,11 +13,12 @@ export default class NoticeBoard extends IBoard<NoticeDTO> {
   renderHead() {
     return (
     <tr>
-      <th>Notice Id</th>
-      <th>Notice Header</th>
-      <th>Notice Title</th>
-      <th>Notice Writer</th>
-      <th>Notice View</th>
+      <th>Id</th>
+      <th>Header</th>
+      <th>Title</th>
+      <th>Writer</th>
+      <th>View</th>
+      <th>Edit</th>
     </tr>)
   }
 
@@ -28,6 +29,7 @@ export default class NoticeBoard extends IBoard<NoticeDTO> {
       <td><Link to={ `/notice/${item.identifier}` }>{item.title}</Link></td>
       <td>{item.writer}</td>
       <td>{item.numOfView}</td>
+      <td><Link to={ `/notice/edit/${item.identifier}`}>Edit</Link></td>
     </tr>
   }
   
