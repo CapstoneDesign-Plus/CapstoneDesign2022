@@ -1,0 +1,23 @@
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.page-cursor-con {
+  display: flex;
+  justify-content: center;
+}
+
+.page-cursor-con > div {
+  padding: 5px 8px;
+  margin: 5px;
+  border: 1px solid red;
+  cursor:pointer;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
