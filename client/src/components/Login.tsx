@@ -2,8 +2,10 @@ import React from "react";
 import { Component, ReactNode } from "react";
 import { Navigate } from 'react-router-dom';
 
+
+export type LoginFn = (email: string, password: string) => Promise<boolean>;
 export interface LoginProps {
-  login(email: string, password: string) : Promise<boolean>
+  login: LoginFn
 }
 
 interface LoginState {

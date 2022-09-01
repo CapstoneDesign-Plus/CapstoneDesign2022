@@ -18,6 +18,7 @@ export default class Main extends Component {
             mode: 'update',
           }}><li>Go Editor</li></Link>
           <Link to='/ticketShop'><li>Go TicketShop</li></Link>
+          <Link to='/logout'><li>Go Logout</li></Link>
         </ul>
       </div>
     )

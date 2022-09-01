@@ -6,6 +6,18 @@ import { Router } from "express";
 
 const router = Router();
 
+router.get('/check', (req, res)=>{
+  return res.sendStatus(req.user ? 200 : 400);
+})
+
+router.post('/logout', (req, res, next)=> {
+  req.logOut((err)=>{
+    if(err) return next(err);
+    return res.redirect('/');
+  });
+
+})
+
 router.post('/login', ...validator.user_login, (req, res, next)=> {
   passport.authenticate('local-login', (err, user, info)=>{
     if(err) return res.sendStatus(400);

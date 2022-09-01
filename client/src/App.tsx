@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppState } from './components/dto';
 
@@ -10,8 +9,15 @@ import Header from './components/Header';
 import RouteBundle from './components/RouteBundle';
 
 class App extends Component<any, AppState> {
+
   state = {
-    authenticated: false,
+    authenticated: false  
+  }
+
+  async componentDidMount(){
+    const res = await axios.get('/api/v1/user/auth/check');
+
+    this.setState({authenticated : res.status === 200});
   }
 
   login = async (email: string, password: string)=> {
@@ -30,12 +36,19 @@ class App extends Component<any, AppState> {
     return true;
   }
 
+  logout = async () => {
+    if(this.state.authenticated){
+      await axios.post('/api/v1/user/auth/logout');
+      this.setState({authenticated:false});
+    }
+  }
+
   render() {
     return(
       <div className='App'>
         <Router>
           <Header/>
-            <RouteBundle appState={this.state} loginProps={{ login: this.login}} />
+            <RouteBundle appState={this.state} login={ this.login } logout={ this.logout }/>
           <Footer/>
         </Router>
       </div>

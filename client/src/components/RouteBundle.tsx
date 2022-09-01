@@ -2,7 +2,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Login, { LoginProps } from './Login';
+import Login, { LoginFn } from './Login';
+import Logout, { LogoutFn } from './Logout';
 import Main from './Main';
 import NotFound from './NotFound';
 import NoticeBoard from './NoticeBoard';
@@ -20,13 +21,15 @@ import NoticeEditor from './NoticeEditor';
 
 interface RouteBundleProps {
   appState: AppState
-  loginProps: LoginProps
+  login: LoginFn,
+  logout: LogoutFn,
 }
 
 const RouteBundle : React.FC<RouteBundleProps> = (props)=> {
   return <Routes>
   <Route path='/' element={<Main />}></Route>
-  <Route path='/login' element= {<Login login={props.loginProps.login} />}></Route>
+  <Route path='/login' element= {<Login login={props.login} />}></Route>
+  <Route path='/logout' element= {<Logout logout={props.logout} />}></Route>
   <Route path='/noticeBoard' element={<NoticeBoard />}></Route>
   <Route path='/ticketShop' element={<TicketShop authenticated={props.appState.authenticated} />}></Route>
   <Route path='/ticketBoard' element={<TicketBoard />}></Route>
