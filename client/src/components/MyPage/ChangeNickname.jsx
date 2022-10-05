@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import React from "react";
-import { Box, Grid, Chip, Button } from "@mui/material";
+import { Box, Grid, Chip } from "@mui/material";
 
 const ChangeNickStyle = styled.div`
-  position: fixed;
   top: 0;
   margin: 0 auto;
   margin-top: 80px;
-  width: 800px;
+  width: 475px;
   left: 50%;
   transform: translate(-50%);
   font-weight: bold;
@@ -31,7 +30,7 @@ const ChangeNickStyle = styled.div`
   .input_nick {
     font-size: 20px;
     padding-left: 10px;
-    width: 630px;
+    width: 370px;
     height: 50px;
     border: 3px solid #f4f9f3;
     border-radius: 15px;

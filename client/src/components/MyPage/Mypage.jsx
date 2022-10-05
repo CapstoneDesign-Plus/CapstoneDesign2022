@@ -9,12 +9,12 @@ const MypageStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
-  width: 800px;
+  width: 475px;
   font-weight: bold;
   color: #000000;
 
   .title {
-    font-size: 20px;
+    font-size: 18px;
   }
   .name {
     font-size: 30px;
@@ -26,7 +26,7 @@ const MypageStyle = styled.div`
     border-style: solid;
     border-color: #f4f9f3;
     border-radius: 20px;
-    width: 650px;
+    width: 420px;
     height: 110px;
     display: flex;
     justify-content: center;
@@ -77,11 +77,11 @@ function Mypage() {
     <MypageStyle>
       <Box
         className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 0, ml: 2 }}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
         마이페이지
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 8, ml: 10 }}>
+      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 5, ml: 5 }}>
         <Grid container spacing={2}>
           {/* 이름, 이메일 */}
           <Grid className="name" item xs={12} sm={12}>
@@ -93,7 +93,7 @@ function Mypage() {
           {/* 재화 박스 */}
           <Box
             className="coin_box"
-            sx={{ display: "flex", alignItems: "flex-start", mt: 5, ml: 0 }}
+            sx={{ display: "flex", alignItems: "flex-start", mt: 3, ml: 0 }}
           >
             <Grid container spacing={2}>
               <Grid className="coin_title" item xs={12} sm={12}>
