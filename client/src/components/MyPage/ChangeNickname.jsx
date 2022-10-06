@@ -5,32 +5,25 @@ import { Box, Grid, Chip } from "@mui/material";
 const ChangeNickStyle = styled.div`
   top: 0;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 20px;
   width: 475px;
-  left: 50%;
-  transform: translate(-50%);
   font-weight: bold;
-  background-attachment: scroll;
   color: #000000;
 
   .title {
-    font-size: 20px;
+    font-size: 18px;
   }
-  .prevnick-title {
+  .nick-title {
     font-size: 22px;
     color: #49663c;
   }
   .prevnick {
     font-size: 27px;
   }
-  .newnick-title {
-    font-size: 22px;
-    color: #49663c;
-  }
   .input_nick {
     font-size: 20px;
     padding-left: 10px;
-    width: 370px;
+    width: 390px;
     height: 50px;
     border: 3px solid #f4f9f3;
     border-radius: 15px;
@@ -59,10 +52,10 @@ function ChangeNickname() {
       >
         마이페이지 {">"} 닉네임 변경
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 8, ml: 10 }}>
+      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 5 }}>
         <Grid container spacing={2}>
           {/* 현재 닉네임 */}
-          <Grid className="prevnick-title" item xs={12} sm={12} sx={{ ml: -1 }}>
+          <Grid className="nick-title" item xs={12} sm={12} sx={{ ml: -1 }}>
             현재 닉네임
           </Grid>
           <Grid className="prevnick" item xs={12} sm={12}>
@@ -70,15 +63,15 @@ function ChangeNickname() {
           </Grid>
           {/* 새 닉네임 */}
           <Grid
-            className="newnick-title"
+            className="nick-title"
             item
             xs={12}
             sm={12}
-            sx={{ ml: -1, mt: 8 }}
+            sx={{ ml: -1, mt: 3 }}
           >
-            새 닉네임 입력
+            새 닉네임
           </Grid>
-          <Grid className="newnick" item xs={12} sm={12}>
+          <Grid item xs={12} sm={12} sx={{ml:-1}}>
             <input
               className="input_nick"
               autoFocus
@@ -87,7 +80,15 @@ function ChangeNickname() {
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 8, mr: 10, float: 'right'}}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-end",
+          mt: 3,
+          mr: 6,
+          float: "right",
+        }}
+      >
         <Grid>
           <Chip
             className="change_btn"

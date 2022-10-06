@@ -5,12 +5,9 @@ import { Box, Grid, Chip } from "@mui/material";
 const ChangePwStyle = styled.div`
   top: 0;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 20px;
   width: 475px;
-  left: 50%;
-  transform: translate(-50%);
   font-weight: bold;
-  background-attachment: scroll;
   color: #000000;
 
   .title {
@@ -104,7 +101,7 @@ function ChangePassword() {
           display: "flex",
           alignItems: "flex-end",
           mt: 3,
-          mr: 5,
+          mr: 6,
           float: "right",
         }}
       >
