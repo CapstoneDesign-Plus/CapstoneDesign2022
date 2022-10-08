@@ -3,7 +3,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     "sourceMap": true,
-    "outDir": "./server/public",
+    "outDir": "./dist",
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
@@ -77,10 +77,10 @@
     // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "paths": {
-      "@/*" : ["./server/src/*"]
+      "@/*" : ["./src/*"]
     },
     "typeRoots": [
-      "server/src/types",
+      "src/types",
       "node_modules/@types"
     ],
     "rootDir": "./",
@@ -111,6 +111,6 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "server/src"
+    "src"
   ]
 }
