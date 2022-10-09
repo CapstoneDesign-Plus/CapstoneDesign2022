@@ -1,6 +1,6 @@
 
-import App from './app';
-import env from './config';
+import App from './src/app';
+import env from './src/config';
 
 (async ()=> {
   await App.connectForWork(); // For DB Connect or Something need time

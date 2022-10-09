@@ -112,5 +112,5 @@
   },
   "include": [
     "src"
-  ]
+, "server.ts"  ]
 }
