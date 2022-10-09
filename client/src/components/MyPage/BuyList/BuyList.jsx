@@ -48,7 +48,7 @@ function BuyList() {
         </Link>
       </Box>
       <Box className="btnBox" sx={{ mt: 3 }}>
-        <Link to="/UnUsed">
+        <Link to="/BuyList/UnUsed">
           <Button className="btn" variant="contained">
             미사용한 식권 보기
           </Button>
