@@ -48,22 +48,37 @@ function Used() {
         마이페이지 {">"} 구매내역 {">"} 사용한 식권 보기
       </Box>
       <Box className="table">
-        <Table sx={{maxWidth: 440}} aria-label="simple table">
-          <TableHead sx={{ backgroundColor: "#B1D6A8"}}>
+        <Table sx={{ maxWidth: 440 }} aria-label="simple table">
+          <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
             <TableRow>
-              <TableCell align="center" sx={{ color: "white", lineHeight: '0.5'}}>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
                 No.
               </TableCell>
-              <TableCell align="center" sx={{ color: "white", lineHeight: '0.5' }}>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
                 구매날짜
               </TableCell>
-              <TableCell align="center" sx={{ color: "white", lineHeight: '0.5' }}>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
                 사용날짜
               </TableCell>
-              <TableCell align="center" sx={{ color: "white", lineHeight: '0.5' }}>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
                 금액
               </TableCell>
-              <TableCell align="center" sx={{ color: "white", lineHeight: '0.5' }}>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
                 코스
               </TableCell>
             </TableRow>

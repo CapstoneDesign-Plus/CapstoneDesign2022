@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 
-const UsedStyle = styled.div`
+const UnUsedStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
@@ -34,14 +34,14 @@ function createData(index, buyDate, cost, course, btn) {
 }
 
 const rows = [
-  createData("1", "2022.09.21", "4,000", "A", ""),
-  createData("2", "2022.09.22", "4,000", "B", ""),
-  createData("3", "2022.09.23", "4,000", "C", ""),
+  createData("1", "2022.09.21", "4,000", "A", " "),
+  createData("2", "2022.09.22", "4,000", "B", " "),
+  createData("3", "2022.09.23", "4,000", "C", " "),
 ];
 
-function Used() {
+function UnUsed() {
   return (
-    <UsedStyle>
+    <UnUsedStyle>
       <Box
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
@@ -110,8 +110,8 @@ function Used() {
           </TableBody>
         </Table>
       </Box>
-    </UsedStyle>
+    </UnUsedStyle>
   );
 }
 
-export default Used;
+export default UnUsed;
