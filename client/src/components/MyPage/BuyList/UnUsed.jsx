@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableCell,
@@ -9,6 +9,8 @@ import {
   Button,
 } from "@mui/material";
 import { Box } from "@mui/material";
+import TicketItem from "./TicketItem";
+import { Stack } from "@mui/system";
 
 const UnUsedStyle = styled.div`
   top: 0;
@@ -39,6 +41,19 @@ const rows = [
 ];
 
 function UnUsed() {
+
+  const [tickets, setTickets] = useState([]);
+
+  const [expanded, setExpanded] = useState('');
+
+  useEffect(()=>{
+    fetch('http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20')
+      .then(value => {
+        value.json()
+          .then(data => setTickets(data['values']))
+      })
+  }, []);
+
   return (
     <UnUsedStyle>
       <Box
@@ -47,8 +62,13 @@ function UnUsed() {
       >
         마이페이지 {">"} 구매내역 {">"} 미사용한 식권 보기
       </Box>
-      <Box className="table">
-        <Table sx={{ maxWidth: 440 }} aria-label="simple table">
+      <Stack>
+        {
+          tickets.map(ticket=><TicketItem key={ticket.identifier} ticket={ticket} expanded={expanded === ticket.identifier} setExpanded={setExpanded} />)
+        }
+
+
+        {/* <Table sx={{ maxWidth: 440 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
             <TableRow>
               <TableCell
@@ -107,8 +127,8 @@ function UnUsed() {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
-      </Box>
+        </Table> */}
+      </Stack>
     </UnUsedStyle>
   );
 }
