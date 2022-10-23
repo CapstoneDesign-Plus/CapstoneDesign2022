@@ -16,6 +16,9 @@ const AppStyle = styled.div `
 `
 
 function App() {
+
+  console.log('new file');
+
   return (
     <ThemeProvider theme={theme}>
       <AppStyle>
