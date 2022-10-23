@@ -49,6 +49,10 @@ const TicketSchema : Schema<ITicket> = new Schema({
     type: Date,
     required: true,
     default: Date.now
+  },
+  buyer: {
+    type: String,
+    required : true,
   }
 })
 
