@@ -17,7 +17,7 @@ const UsedStyle = styled.div`
   color: #000000;
 
   .title {
-    font-size: 18px;
+    font-size: 20px;
   }
   .table {
     display: flex;

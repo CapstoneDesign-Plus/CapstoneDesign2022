@@ -10,18 +10,19 @@ const ChangePwStyle = styled.div`
   color: #000000;
 
   .title {
-    font-size: 18px;
+    font-size: 20px;
   }
   .input_title{
-    font-size: 20px;
+    font-size: 22px;
     color: #49663c;
   }
   .input_pw {
     font-size: 20px;
     padding-left: 10px;
-    width: 390px;
+    width: 100%;
     height: 50px;
-    border: 3px solid #f4f9f3;
+    border: 3px solid #B1D6A8;
+    //border: 3px solid #f4f9f3;
     border-radius: 15px;
     outline-color: #b1d6a8;
   }
@@ -48,7 +49,7 @@ function ChangePassword() {
       >
         마이페이지 {">"} 비밀번호 변경
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 5 }}>
+      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
         <Grid container spacing={2}>
           {/* 현재 비밀번호 */}
           <Grid
@@ -56,7 +57,7 @@ function ChangePassword() {
             item
             xs={12}
             sm={12}
-            sx={{ ml: -1, mt: 3 }}
+            sx={{ mt: 3 }}
           >
             현재 비밀번호
           </Grid>
@@ -73,7 +74,7 @@ function ChangePassword() {
             item
             xs={12}
             sm={12}
-            sx={{ ml: -1, mt: 3 }}
+            sx={{ mt: 3 }}
           >
             새 비밀번호
           </Grid>
@@ -86,7 +87,7 @@ function ChangePassword() {
             item
             xs={12}
             sm={12}
-            sx={{ ml: -1, mt: 3 }}
+            sx={{ mt: 3 }}
           >
             새 비밀번호 확인
           </Grid>
@@ -100,7 +101,7 @@ function ChangePassword() {
           display: "flex",
           alignItems: "flex-end",
           mt: 3,
-          mr: 6,
+          mr: 2,
           float: "right",
         }}
       >
