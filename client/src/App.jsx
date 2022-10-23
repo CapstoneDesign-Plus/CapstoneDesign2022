@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
 import Mypage from "./components/MyPage/Mypage";
@@ -10,9 +11,14 @@ import UnUsed from "./components/MyPage/BuyList/UnUsed";
 import theme from "./theme/theme.jsx";
 import { ThemeProvider } from "@mui/material";
 
+const AppStyle = styled.div `
+  width: 390px;
+`
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <AppStyle>
       <BrowserRouter>
         {/* <Link to = "../components/MyPage/Mypage">MyPage</Link>
       <Link to = "../components/MyPage/ChangeNickname">ChangeNickname</Link>
@@ -31,6 +37,7 @@ function App() {
       {/* <Mypage /> */}
       {/* <ChangeNickname /> */}
       {/* <ChangePassword /> */}
+      </AppStyle>
     </ThemeProvider>
   );
 }

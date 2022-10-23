@@ -14,7 +14,6 @@ const UnUsedStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
-  width: 475px;
   font-weight: bold;
   color: #000000;
 

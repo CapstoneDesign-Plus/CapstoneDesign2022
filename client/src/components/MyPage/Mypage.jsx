@@ -7,15 +7,16 @@ import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from "@mui/material";
 
 const MypageStyle = styled.div`
-  top: 0;
-  margin: 0 auto;
-  margin-top: 20px;
-  width: 475px;
-  font-weight: bold;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bolder;
   color: #000000;
 
   .title {
-    font-size: 18px;
+    font-size: 20px;
+    align-self: flex-start;
   }
   .name {
     font-size: 30px;
@@ -27,22 +28,21 @@ const MypageStyle = styled.div`
     border-style: solid;
     border-color: #b1d6a8;
     border-radius: 20px;
-    width: 420px;
-    height: 110px;
+    padding: 0px 10px;
+    width: 90%;
+    height: 105px;
     display: flex;
     justify-content: center;
   }
   .coin_title {
     font-size: 20px;
     margin: 0 auto;
-    margin-left: 30px;
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
   }
   .coin_content {
     font-size: 25px;
-    margin-left: 30px;
     display: flex;
     justify-content: space-between;
   }
@@ -54,12 +54,13 @@ const MypageStyle = styled.div`
     color: #49663c;
   }
   .btn-group {
+    margin:auto 5px;
     display: flex;
     justify-content: center;
   }
   .btn {
     color: #49663c;
-    width: 210px;
+    width: 190px;
     height: 70px;
     font-weight: bolder;
     font-size: 20px;
@@ -72,7 +73,6 @@ const MypageStyle = styled.div`
 
 function Mypage() {
   return (
-    <div className="root">
       <MypageStyle>
         <Box
           className="title"
@@ -80,8 +80,8 @@ function Mypage() {
         >
           마이페이지
         </Box>
-        <Box sx={{ display: "flex", alignItems: "flex-end", mt: 5, ml: 5 }}>
-          <Grid container spacing={2}>
+        <Box sx={{ display: "flex", alignItems: "flex-end", mt: 5 }}>
+          <Grid container spacing={2} sx={{margin:0}}>
             {/* 이름, 이메일 */}
             <Grid className="name" item xs={12} sm={12}>
               홍길동
@@ -92,23 +92,23 @@ function Mypage() {
             {/* 재화 박스 */}
             <Box
               className="coin_box"
-              sx={{ display: "flex", alignItems: "flex-start", mt: 3, ml: 0 }}
+              sx={{ display: "flex", alignItems: "flex-start",margin: 'auto', mt: 3, ml: 1}}
             >
-              <Grid container spacing={2}>
+              <Grid container spacing={2} style={{margin:0}}>
                 <Grid className="coin_title" item xs={12} sm={12}>
                   잔여재화
                 </Grid>
                 <Grid className="coin_content" item xs={12} sm={2}>
                   <Box sx={{ display: "flex", alignItems: "flex-start" }}>
                     <img className="coin" alt="coin" src="\images\coin.png" />
-                    10,000
+                    &nbsp;10,000
                   </Box>
                 </Grid>
                 <Grid
                   item
                   xs={12}
                   sm={8}
-                  sx={{ display: "flex", justifyContent: "flex-end" }}
+                  sx={{ display: "flex", justifyContent: "flex-end", ml:5 }}
                 >
                   <Chip
                     className="coin_btn"
@@ -123,7 +123,7 @@ function Mypage() {
             </Box>
             {/* 버튼 박스 */}
             <Box>
-              <ButtonGroup className="btn-group" sx={{ mt: 10 }}>
+              <ButtonGroup className="btn-group" sx={{ display: "flex", alignItems: "flex-start"}} style={{marginTop: '50px'}}>
                 <Link to="/ChangeNickname">
                   <Button
                     className="btn"
@@ -181,7 +181,6 @@ function Mypage() {
           </Grid>
         </Box>
       </MypageStyle>
-    </div>
   );
 }
 
