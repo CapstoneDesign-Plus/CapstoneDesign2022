@@ -45,7 +45,8 @@ export default {
       owner : ticket.owner,
       state : ticket.state,
       price : ticket.price,
-      tclass : ticket.tclass
+      tclass : ticket.tclass,
+      buyer: ticket.buyer
     }
   },
 

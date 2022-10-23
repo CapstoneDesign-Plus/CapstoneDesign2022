@@ -20,6 +20,7 @@ export default class TicketService {
       const nticket = await this.ticketModel.create({
         owner: owner,
         tclass: tclass,
+        buyer: owner,
         price: 10,
         state: 'normal'
       });

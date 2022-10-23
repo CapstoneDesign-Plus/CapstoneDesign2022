@@ -6,6 +6,7 @@ import { autoIncrement } from 'mongoose-plugin-autoinc-fix';
 export interface ITicket extends Document {
   identifier : number,
   owner : string,
+  buyer: string,
   state : TicketState,
   price : number,
   tclass : TicketClass,
