@@ -9,5 +9,9 @@ export default {
 
   decipher(value : string) : number {
     return parseInt(Crypto.AES.decrypt(value, env.CRYPTO_KEY).toString(Crypto.enc.Utf8));    
+  },
+
+  obfuscate(value : string) : string{
+    return Crypto.SHA256(value).toString();
   }
 }
