@@ -35,6 +35,7 @@ export interface TicketDTO {
   readonly state : TicketState,
   readonly price : number,
   readonly tclass : TicketClass,
+  readonly buyer: string
 }
 
 export interface NoticeSearchOption {

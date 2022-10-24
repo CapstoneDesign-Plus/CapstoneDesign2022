@@ -7,7 +7,9 @@ const router = Router()
  * Api 진입점
  */
 router.get('/', (req, res)=> {
-  return res.send('<h1> Hello! You are in API! </h1>');
+  return res.json({
+    value: 'hello!'
+  });
 });
 
 router.use('/v1', v1);
