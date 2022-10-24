@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableCell,
-  TableRow,
-  TableHead,
-  TableBody,
-  Button,
-} from "@mui/material";
+// import {
+//   Table,
+//   TableCell,
+//   TableRow,
+//   TableHead,
+//   TableBody,
+//   Button,
+// } from "@mui/material";
 import { Box } from "@mui/material";
 import TicketItem from "./TicketItem";
 import { Stack } from "@mui/system";
@@ -20,7 +20,12 @@ const UnUsedStyle = styled.div`
   color: #000000;
 
   .title {
-    font-size: 18px;
+    font-size: 20px;
+  }
+  .ticket-list {
+    margin: auto;
+    margin-top: 20px;
+    width:95%;
   }
   .table {
     display: flex;
@@ -41,17 +46,16 @@ const rows = [
 ];
 
 function UnUsed() {
-
   const [tickets, setTickets] = useState([]);
 
-  const [expanded, setExpanded] = useState('');
+  const [expanded, setExpanded] = useState("");
 
-  useEffect(()=>{
-    fetch('http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20')
-      .then(value => {
-        value.json()
-          .then(data => setTickets(data['values']))
-      })
+  useEffect(() => {
+    fetch("http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20").then(
+      (value) => {
+        value.json().then((data) => setTickets(data["values"]));
+      }
+    );
   }, []);
 
   return (
@@ -60,13 +64,17 @@ function UnUsed() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 구매내역 {">"} 미사용한 식권 보기
+        마이페이지 {">"} 구매내역 {">"} 미사용 식권
       </Box>
-      <Stack>
-        {
-          tickets.map(ticket=><TicketItem key={ticket.identifier} ticket={ticket} expanded={expanded === ticket.identifier} setExpanded={setExpanded} />)
-        }
-
+      <Stack className="ticket-list">
+        {tickets.map((ticket) => (
+          <TicketItem
+            key={ticket.identifier}
+            ticket={ticket}
+            expanded={expanded === ticket.identifier}
+            setExpanded={setExpanded}
+          />
+        ))}
 
         {/* <Table sx={{ maxWidth: 440 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>

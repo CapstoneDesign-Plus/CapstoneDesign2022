@@ -8,6 +8,7 @@ import ChangePassword from "./components/MyPage/ChangePassword";
 import BuyList from "./components/MyPage/BuyList/BuyList";
 import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
+import SignIn from "./components/SignIn";
 import theme from "./theme/theme.jsx";
 import { ThemeProvider } from "@mui/material";
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/BuyList" element={<BuyList />} />
           <Route path="/BuyList/UnUsed" element = {<UnUsed />} />
           <Route path="/BuyList/Used" element = {<Used />} />
+          <Route path="/SignIn" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
       {/* <Header /> */}

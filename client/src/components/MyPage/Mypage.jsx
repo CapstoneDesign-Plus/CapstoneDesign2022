@@ -111,14 +111,14 @@ function Mypage() {
                 </Box>
               </Grid>
               <Grid item xs={4}>
-              <Chip
-                      className="coin_btn"
-                      label="충 전"
-                      clickable
-                      component="a"
-                      href="#"
-                      color="primary"
-                    />
+                <Chip
+                  className="coin_btn"
+                  label="충 전"
+                  clickable
+                  component="a"
+                  href="#"
+                  color="primary"
+                />
               </Grid>
             </Grid>
           </Box>
@@ -170,17 +170,19 @@ function Mypage() {
                   구매 내역
                 </Button>
               </Link>
-              <Button
-                className="btn"
-                variant="contained"
-                color="primary"
-                sx={{
-                  borderTopRightRadius: 0,
-                  borderBottomRightRadius: 20,
-                }}
-              >
-                로그아웃
-              </Button>
+              <Link to="/SignIn">
+                <Button
+                  className="btn"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 20,
+                  }}
+                >
+                  로그아웃
+                </Button>
+              </Link>
             </ButtonGroup>
           </Box>
         </Grid>
