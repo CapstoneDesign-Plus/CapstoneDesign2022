@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
-import { Box, Grid, Button } from "@mui/material";
-import {Link} from "react-router-dom"
+import { Box, Grid, Button, Typography, Autocomplete, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -16,6 +16,16 @@ const SigninStyle = styled.div`
   .input_title {
     font-size: 22px;
     color: #49663c;
+  }
+  .input_name {
+    font-size: 20px;
+    padding-left: 10px;
+    width: 100%;
+    height: 50px;
+    border: 3px solid #b1d6a8;
+    //border: 3px solid #f4f9f3;
+    border-radius: 15px;
+    outline-color: #b1d6a8;
   }
   .input_email {
     font-size: 20px;
@@ -53,11 +63,17 @@ const SigninStyle = styled.div`
   .link {
     text-align: center;
   }
-  .btn{
+  .btn {
     font-weight: bolder;
     font-size: 17px;
   }
 `;
+
+const emailOptions = [
+  { label: "naver.com", id: 1 },
+  { label: "google.com", id: 2 },
+  { label: "daum.com", id: 3 },
+];
 
 function SignIn() {
   return (
@@ -66,25 +82,61 @@ function SignIn() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        로그인
+        회원가입
       </Box>
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr: 3 }}
       >
         <Grid container spacing={2}>
+          {/* 사용자 이름 */}
+          <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
+            사용자 이름
+          </Grid>
+          <Grid item xs={12} sx={{ ml: -1 }}>
+            <input className="input_name" autoFocus placeholder=" Name" />
+          </Grid>
           {/* 이메일 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Email
           </Grid>
-          <Grid item xs={12} sx={{ ml: -1 }}>
-            <input className="input_email" autoFocus placeholder=" 이메일" />
+          <Grid item xs={5} sx={{ ml: -1 }}>
+            <input className="input_email" placeholder=" 이메일" />
+          </Grid>
+          <Grid item xs={1}>
+            <Typography variant="h6" sx={{ mt: 1.5 }}>
+              &nbsp;@&nbsp;
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Autocomplete 
+              options={emailOptions}
+              id="autocomplete"
+              renderInput={(params) => (
+                <TextField {...params} label="textfield" variant="standard" />
+              )}
+            />
           </Grid>
           {/* 비밀번호 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Password
           </Grid>
           <Grid item xs={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 비밀번호" type="password" />
+            <input
+              className="input_pw"
+              placeholder=" 비밀번호"
+              type="password"
+            />
+          </Grid>
+          {/* 비밀번호 확인 */}
+          <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
+            Password Confirm
+          </Grid>
+          <Grid item xs={12} sx={{ ml: -1 }}>
+            <input
+              className="input_pw"
+              placeholder=" 비밀번호 확인"
+              type="password"
+            />
           </Grid>
         </Grid>
       </Box>
@@ -104,17 +156,17 @@ function SignIn() {
             </Button>
           </Grid>
           <Grid className="link" item xs={6}>
-          <Link to="/ChangePassword">
-            <Button className="btn" color="success">
-              비밀번호 변경
-            </Button>
+            <Link to="/ChangePassword">
+              <Button className="btn" color="success">
+                비밀번호 변경
+              </Button>
             </Link>
           </Grid>
           <Grid className="link" item xs={6}>
-            <Link to="/SignUp">
-            <Button className="btn" color="success">
-              회원 가입
-            </Button>
+            <Link to="/ChangePassword">
+              <Button className="btn" color="success">
+                회원 가입
+              </Button>
             </Link>
           </Grid>
         </Grid>
