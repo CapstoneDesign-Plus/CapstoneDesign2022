@@ -1,5 +1,7 @@
 import passport from "@/middleware/passport";
 import validator from "@/middleware/validator";
+import MailService from "@/services/mail";
+import TokenService from "@/services/token";
 import UserService from "@/services/user";
 import { Router } from "express";
 
@@ -45,4 +47,30 @@ router.post('/signup', ...validator.user_signup, async (req, res)=> {
   return res.sendStatus(400);
 });
 
+router.post('/password/:identifier', async (req, res) => {
+  const paramDecoded = decodeURIComponent(req.params.identifier);
+
+
+
+})
+
+router.get('/password', ...validator.user_get_reset_password, async(req, res)=>{
+
+  const email = req.query.email as string;
+
+  const result = await TokenService
+    .getInstance()
+    .create(email, 10);
+
+  if(result) {
+    /**
+     * @TODO url 수정 필요 
+     */
+    const access_url = `http://bapsim.kro.kr/api/v1/auth/password/${encodeURIComponent(result)}`;
+
+    MailService.getInstance().sendMail(email, '비밀번호 재설정', `<div>${access_url}</div>`);
+  }
+
+  return res.sendStatus(result ? 200 : 400);
+});
 export default router;

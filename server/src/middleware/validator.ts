@@ -105,12 +105,18 @@ const user_change_password = [
   ValidateErrorHandler
 ]
 
+const user_get_reset_password = [
+  query('email').isEmail(),
+  ValidateErrorHandler
+]
+
 const user_history = [
   param('email').isEmail(),
   ValidateErrorHandler
 ]
 
 export default {
+  user_get_reset_password,
   user_signup,
   user_login,
   user_get,
