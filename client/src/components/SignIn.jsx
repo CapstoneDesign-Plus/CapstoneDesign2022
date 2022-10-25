@@ -104,9 +104,9 @@ function SignIn() {
             </Button>
           </Grid>
           <Grid className="link" item xs={6}>
-          <Link to="/ChangePassword">
+          <Link to="/FindPassword">
             <Button className="btn" color="success">
-              비밀번호 변경
+              비밀번호 재설정
             </Button>
             </Link>
           </Grid>

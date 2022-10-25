@@ -5,6 +5,7 @@ import Header from "./hoc/Header/Header";
 import Mypage from "./components/MyPage/Mypage";
 import ChangeNickname from "./components/MyPage/ChangeNickname";
 import ChangePassword from "./components/MyPage/ChangePassword";
+import FindPassword from "./components/FindPassword";
 import BuyList from "./components/MyPage/BuyList/BuyList";
 import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Mypage />} />
           <Route path="/ChangeNickname" element={<ChangeNickname />} />
           <Route path="/ChangePassword" element={<ChangePassword />} />
+          <Route path="/FindPassword" element={<FindPassword />} />
           <Route path="/BuyList" element={<BuyList />} />
           <Route path="/BuyList/UnUsed" element = {<UnUsed />} />
           <Route path="/BuyList/Used" element = {<Used />} />

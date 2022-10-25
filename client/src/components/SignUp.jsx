@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import React from "react";
-import { Box, Grid, Button, Typography, Autocomplete, TextField } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Button,
+  Typography,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 const SigninStyle = styled.div`
@@ -27,15 +34,32 @@ const SigninStyle = styled.div`
     border-radius: 15px;
     outline-color: #b1d6a8;
   }
-  .input_email {
-    font-size: 20px;
-    padding-left: 10px;
+  .email {
+    border: 3px solid #b1d6a8;
     width: 100%;
     height: 50px;
-    border: 3px solid #b1d6a8;
+    border-radius: 15px;
+    padding-left: 10px;
+  }
+  .input_email {
+    font-size: 20px;
+    margin: 5px 0px;
+    width: 100%;
+    height: 40px;
+    border: 0px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
-    outline-color: #b1d6a8;
+    outline-color: white;
+  }
+  .select_email {
+    font-size: 15px;
+    font-weight: bolder;
+    color: #666666;
+    margin: 5px 0px;
+    width: 100%;
+    height: 40px;
+    border: 0px solid #b1d6a8;
+    outline-color: white;
   }
   .input_pw {
     font-size: 20px;
@@ -90,32 +114,34 @@ function SignIn() {
         <Grid container spacing={2}>
           {/* 사용자 이름 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
-            사용자 이름
+            User Name
           </Grid>
           <Grid item xs={12} sx={{ ml: -1 }}>
-            <input className="input_name" autoFocus placeholder=" Name" />
+            <input className="input_name" autoFocus placeholder=" 사용자 이름" />
           </Grid>
+
           {/* 이메일 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Email
           </Grid>
-          <Grid item xs={5} sx={{ ml: -1 }}>
-            <input className="input_email" placeholder=" 이메일" />
+          <Grid item xs={12} sx={{ ml: -1 }}>
+            <div className="email">
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <input className="input_email" placeholder=" 이메일" />
+                </Grid>
+                <Grid item xs={5}>
+                  <select className="select_email">
+                    <option value="직접입력">직접입력</option>
+                    <option value="naver">@naver.com</option>
+                    <option value="google">@google.com</option>
+                    <option value="daum">@daum.net</option>
+                  </select>
+                </Grid>
+              </Grid>
+            </div>
           </Grid>
-          <Grid item xs={1}>
-            <Typography variant="h6" sx={{ mt: 1.5 }}>
-              &nbsp;@&nbsp;
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Autocomplete 
-              options={emailOptions}
-              id="autocomplete"
-              renderInput={(params) => (
-                <TextField {...params} label="textfield" variant="standard" />
-              )}
-            />
-          </Grid>
+
           {/* 비밀번호 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Password
@@ -127,6 +153,7 @@ function SignIn() {
               type="password"
             />
           </Grid>
+
           {/* 비밀번호 확인 */}
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Password Confirm
