@@ -47,11 +47,34 @@ router.post('/signup', ...validator.user_signup, async (req, res)=> {
   return res.sendStatus(400);
 });
 
-router.post('/password/:identifier', async (req, res) => {
-  const paramDecoded = decodeURIComponent(req.params.identifier);
+router.put('/password/:identifier', ...validator.user_put_reset_password,async (req, res) => {
+  const decodedId = decodeURIComponent(req.params.identifier);
 
+  const token = await TokenService.getInstance().get(decodedId);
 
+  if(token && TokenService.isValid(token)) {
+    const email = token.email;
 
+    const npassword = req.body['new_password'] as string;
+
+    await UserService.getInstance().setPassword(email, npassword);
+
+    return res.sendStatus(200);
+  }
+
+  return res.sendStatus(400);
+})
+
+router.get('/password/valid/:token', async(req, res)=> {
+  const decodedId = decodeURIComponent(req.params.token);
+
+  const token = await TokenService.getInstance().get(decodedId);
+
+  if(token && TokenService.isValid(token)) {
+    return res.sendStatus(200);
+  }
+
+  return res.sendStatus(400);
 })
 
 router.get('/password', ...validator.user_get_reset_password, async(req, res)=>{

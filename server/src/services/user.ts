@@ -96,12 +96,8 @@ export default class UserService {
    * @param password 
    * @returns 
    */
-  async setPassword(caller: IUser, targetEmail: string, password: string) : Promise<boolean> {
-    if(caller.certificated) {
-      await this.userModel.updateOne({email: targetEmail}, {$set: {password}});
-      return true;
-    }
-    return false;
+  async setPassword(targetEmail: string, password: string) : Promise<void> {
+    await this.userModel.updateOne({email: targetEmail}, {$set: {password}});
   }
 
   /**
