@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import { Box, Grid, Chip } from "@mui/material";
+import { Box, Grid, Button } from "@mui/material";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -32,11 +32,12 @@ const ChangePwStyle = styled.div`
     color: #666666;
   }
   .change_btn {
-    width: 120px;
+    width: 100%;
     height: 40px;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 16px;
     color: #49663c;
+    border-radius: 15px;
   }
 `;
 
@@ -51,23 +52,6 @@ function FindPassword() {
       </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
         <Grid container spacing={2}>
-          {/* 현재 비밀번호 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
-            현재 비밀번호
-          </Grid>
-          <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input
-              className="input_pw"
-              autoFocus
-              placeholder=" 현재 비밀번호"
-            />
-          </Grid>
           {/* 새 비밀번호 */}
           <Grid
             className="input_title"
@@ -101,19 +85,16 @@ function FindPassword() {
           display: "flex",
           alignItems: "flex-end",
           mt: 3,
-          mr: 2,
-          float: "right",
+          mr: 3,
+          ml: 3,
         }}
       >
-        <Grid>
-          <Chip
-            className="change_btn"
-            label="변경하기"
-            clickable
-            component="a"
-            href="#"
-            color="primary"
-          />
+        <Grid container>
+        <Grid item xs={12}>
+          <Button className="change_btn" variant="contained" color="primary">
+            확 인
+          </Button>
+        </Grid>
         </Grid>
       </Box>
     </ChangePwStyle>

@@ -170,7 +170,6 @@ function Mypage() {
                   구매 내역
                 </Button>
               </Link>
-              <Link to="/SignIn">
                 <Button
                   className="btn"
                   variant="contained"
@@ -182,7 +181,6 @@ function Mypage() {
                 >
                   로그아웃
                 </Button>
-              </Link>
             </ButtonGroup>
           </Box>
         </Grid>

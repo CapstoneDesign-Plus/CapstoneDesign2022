@@ -98,7 +98,7 @@ function SignIn() {
         }}
       >
         <Grid container spacing={2}>
-          <Grid className="login" item xs={12}>
+          <Grid item xs={12}>
             <Button className="login_btn" variant="contained" color="primary">
               로그인
             </Button>
