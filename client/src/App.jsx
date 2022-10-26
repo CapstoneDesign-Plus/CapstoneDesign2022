@@ -13,6 +13,11 @@ import UnUsed from "./components/MyPage/BuyList/UnUsed";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import theme from "./theme/theme.jsx";
+
+import NoticePage from "../src/pages/notice_page";
+import ChargePage from "../src/pages/charge_page";
+import BuyTicketPage from "../src/pages/buyticket_page";
+
 import { ThemeProvider } from "@mui/material";
 
 const AppStyle = styled.div `
@@ -42,6 +47,11 @@ function App() {
           <Route path="/BuyList/Used" element = {<Used />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
+
+
+            <Route path="/Notice" element={<NoticePage/>} />
+            <Route path="/Charge" element={<ChargePage/>} />
+            <Route path="/BuyTicket" element={<BuyTicketPage/>} />
         </Routes>
       </BrowserRouter>
       {/* <Header /> */}
