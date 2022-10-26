@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { Box, Grid, Button } from "@mui/material";
 
-const ChangePwStyle = styled.div`
+const ResetPwStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
@@ -41,9 +41,9 @@ const ChangePwStyle = styled.div`
   }
 `;
 
-function FindPassword() {
+function ResetPassword() {
   return (
-    <ChangePwStyle>
+    <ResetPwStyle>
       <Box
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
@@ -97,8 +97,8 @@ function FindPassword() {
         </Grid>
         </Grid>
       </Box>
-    </ChangePwStyle>
+    </ResetPwStyle>
   );
 }
 
-export default FindPassword;
+export default ResetPassword;
