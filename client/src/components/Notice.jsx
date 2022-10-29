@@ -31,14 +31,11 @@ export default function Notice() {
     <div style={{ margin: 0 }}>
       <Box
         className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3}}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml:2}}
       >
         공지사항
       </Box>
-      <Box
-        className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2 }}
-      >
+      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2 }}>
         <Grid container spacing={2}>
           <Grid item sx={{ mt: -2, ml: 1 }}>
             <input
@@ -49,7 +46,7 @@ export default function Notice() {
           </Grid>
           <Grid item sx={{ mt: -2, ml: -1 }}>
             <Button color="primary">
-              <img className="search" src="public\images\search.png" />
+              <img className="search" src="\images\search.png" />
             </Button>
           </Grid>
         </Grid>

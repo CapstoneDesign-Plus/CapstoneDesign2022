@@ -18,13 +18,9 @@ const HeaderStyle = styled.div`
 function Header() {
   return (
     <HeaderStyle>
-      <div style={{padding:10}}>
+      <div style={{ padding: 10 }}>
         <Link to="/">
-        <img
-          className="logo"
-          alt="logo"
-          src="\images\logo.png"
-        />
+          <img className="logo" alt="logo" src="\images\logo.png" />
         </Link>
       </div>
     </HeaderStyle>

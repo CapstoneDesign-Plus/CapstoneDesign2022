@@ -2,15 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const MypageStyle = styled.div`
-position: fixed;
-display: flex;
-justify-content: center;
 margin: 0 auto;
-
-width: 100%;
-height: 100%;
-left: 50%;
-transform: translate(-50%);
+margin-top: 20px;
+font-weight: bold;
+color: #000000;
 `;
 
 class Template extends Component {

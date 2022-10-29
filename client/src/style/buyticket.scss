@@ -1,36 +1,28 @@
 .title {
-    font-size: 18px;
-  }
-  .name {
-    font-size: 30px;
-  }
+  font-size: 20px;
+  font-weight: bolder;
+}
 
-  .ticket_btn {
-    background-color: #f4f9f3;
-    color: #0d0d0d;
-  
-    width: 250px;
-    height: 140px;
-    font-weight: bolder;
-    font-size: 50px;
-    border-bottom-left-radius: 1ch;
-    border-bottom-right-radius: 1ch;
-    border-top-left-radius: 1ch;
-    border-top-right-radius: 1ch;
-    
-  }
-  .buy_btn {
-    
-    
-    width: 120px;
-    height: 40px;
-    font-weight: bolder;
-    font-size: 15px;
-    border-bottom-left-radius: 2ch;
-    border-bottom-right-radius: 2ch;
-    border-top-left-radius: 2ch;
-    border-top-right-radius: 2ch;
-    background-color: #b1d6a8;
-    color: #49663c;
-    
-  }
+.name {
+  font-size: 30px;
+}
+
+.ticket_btn {
+  background-color: #f4f9f3;
+  color: #0d0d0d;
+  width: 100%;
+  height: 140px;
+  font-weight: bolder;
+  font-size: 50px;
+  border-radius: 1ch;
+}
+
+.buy_btn {
+  width: 120px;
+  height: 40px;
+  font-weight: bolder;
+  font-size: 15px;
+  border-radius: 2ch;
+  background-color: #b1d6a8;
+  color: #49663c;
+}
