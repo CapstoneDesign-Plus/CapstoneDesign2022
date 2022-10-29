@@ -63,7 +63,7 @@ function ResetPassword() {
             새 비밀번호
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호" />
+            <input className="input_pw" placeholder=" 새 비밀번호" autoFocus />
           </Grid>
           {/* 새 비밀번호 확인 */}
           <Grid

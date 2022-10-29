@@ -15,10 +15,10 @@ function createData(index, buyDate, useDate) {
     createData("3", "밥심 사용방법", "2022.09.21"),
   ];
    
-export default function Notice_Detail {
+export default function Notice_Detail() {
     
         return(
-            <>
+            <div className="frame">
         <Box className="title"
              sx={{ display: "flex", alignItems: "flex-end", mt:2, ml:2 }}>
             <Grid container spacing={2}>
@@ -79,7 +79,7 @@ export default function Notice_Detail {
           </TableBody>
         </Table>
       </Box>
-            </>
+            </div>
         );
     
 }

@@ -1,47 +1,29 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-
 const MypageStyle = styled.div`
 position: fixed;
-top: 90px;
 display: flex;
 justify-content: center;
 margin: 0 auto;
 
-width: 475px;
+width: 100%;
 height: 100%;
 left: 50%;
 transform: translate(-50%);
 `;
 
-
 class Template extends Component {
-
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
-          <>
-           <div >
-            <MypageStyle>
-           
-             <div >
-                
-            {this.props.children}
-            </div>
+            <MypageStyle>                   
+              {this.props.children}
             </MypageStyle>
-           
-            </div>
-          </>
-           
-           
-          
         )
     }
 }
-
 
 export default Template;

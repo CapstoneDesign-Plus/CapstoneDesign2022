@@ -1,15 +1,15 @@
-
-
 .title {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bolder;
   }
  
   .input {
     font-size: 20px;
-    padding-left: 10px;
-    width: 346px;
+    margin-top: 30px;
+    width: 100%;
     height: 40px;
-    border: 3px solid #f4f9f3;
+    border: 3px solid #B1D6A8;
+    //border: 3px solid #f4f9f3;
     border-radius: 15px;
     outline-color: #b1d6a8;
   }
@@ -20,12 +20,11 @@
   }
   
   .search {
-    
-   
+    margin-top: 30px;
     width: 35px;
     height: 35px;
-   
   }
+
   .table {
     display: flex;
     justify-content: center;
