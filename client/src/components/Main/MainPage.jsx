@@ -32,8 +32,6 @@ const MainPageStyle = styled.div`
     display: flex;
     align-items: flex-start;
   }
-
-  
 `;
 
 

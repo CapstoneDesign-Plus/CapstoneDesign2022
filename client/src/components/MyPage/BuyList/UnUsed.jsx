@@ -64,7 +64,7 @@ function UnUsed() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 구매내역 {">"} 미사용 식권
+        잔여 식권
       </Box>
       <Stack className="ticket-list">
         {tickets.map((ticket) => (
