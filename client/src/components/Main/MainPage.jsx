@@ -26,6 +26,8 @@ const MainPageStyle = styled.div`
     font-weight: bolder;
     height: 35px;
     border-radius: 15px;
+    display: flex;
+    align-items: flex-start;
   }
 
   .box {
@@ -245,7 +247,7 @@ function MainPage() {
             <Link to="/Notice">
               <ListItem button divider style={{color:'black', fontWeight:'bolder'}}>
                 <img className="coin" alt="coin" src="\images\coin.png" />
-                &nbsp;&nbsp;아?
+                &nbsp;&nbsp;공지사항
               </ListItem>
             </Link>
             <ListItem button divider>

@@ -21,41 +21,37 @@ import BuyTicketPage from "../src/pages/buyticket_page";
 
 import { ThemeProvider } from "@mui/material";
 
-const AppStyle = styled.div `
+const AppStyle = styled.div`
   width: 390px;
-`
+`;
 
 function App() {
-
-  console.log('new file');
+  console.log("new file");
 
   return (
     <ThemeProvider theme={theme}>
       <AppStyle>
-      <BrowserRouter>
-        {/* <Link to = "../components/MyPage/Mypage">MyPage</Link>
+        <BrowserRouter>
+          {/* <Link to = "../components/MyPage/Mypage">MyPage</Link>
       <Link to = "../components/MyPage/ChangeNickname">ChangeNickname</Link>
       <Link to = "/changePassword">ChangePassword</Link> */}
-        <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/Mypage" element={<Mypage />} />
-          <Route path="/ChangeNickname" element={<ChangeNickname />} />
-          <Route path="/ChangePassword" element={<ChangePassword />} />
-          <Route path="/ResetPassword" element={<ResetPassword />} />
-          <Route path="/BuyList" element={<BuyList />} />
-          <Route path="/BuyList/UnUsed" element = {<UnUsed />} />
-          <Route path="/BuyList/Used" element = {<Used />} />
-          <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/SignUp" element={<SignUp />} />
-
-
-            <Route path="/Notice" element={<NoticePage/>} />
-            <Route path="/Charge" element={<ChargePage/>} />
-            <Route path="/BuyTicket" element={<BuyTicketPage/>} />
-            <Route path="/MainPage" element={<MainPage/>} />
-        </Routes>
-      </BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/Mypage" element={<Mypage />} />
+            <Route path="/ChangeNickname" element={<ChangeNickname />} />
+            <Route path="/ChangePassword" element={<ChangePassword />} />
+            <Route path="/ResetPassword" element={<ResetPassword />} />
+            <Route path="/BuyList" element={<BuyList />} />
+            <Route path="/BuyList/UnUsed" element={<UnUsed />} />
+            <Route path="/BuyList/Used" element={<Used />} />
+            <Route path="/SignIn" element={<SignIn />} />
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/Notice" element={<NoticePage />} />
+            <Route path="/Charge" element={<ChargePage />} />
+            <Route path="/BuyTicket" element={<BuyTicketPage />} />
+          </Routes>
+        </BrowserRouter>
       </AppStyle>
     </ThemeProvider>
   );
