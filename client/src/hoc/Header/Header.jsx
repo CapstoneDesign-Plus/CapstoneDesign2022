@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const HeaderStyle = styled.div`
   position: sticky;
+  top: 0px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
