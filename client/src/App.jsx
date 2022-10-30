@@ -12,6 +12,7 @@ import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import MainPage from "./components/Main/MainPage";
 import theme from "./theme/theme.jsx";
 
 import NoticePage from "../src/pages/notice_page";
@@ -52,12 +53,9 @@ function App() {
             <Route path="/Notice" element={<NoticePage/>} />
             <Route path="/Charge" element={<ChargePage/>} />
             <Route path="/BuyTicket" element={<BuyTicketPage/>} />
+            <Route path="/MainPage" element={<MainPage/>} />
         </Routes>
       </BrowserRouter>
-      {/* <Header /> */}
-      {/* <Mypage /> */}
-      {/* <ChangeNickname /> */}
-      {/* <ChangePassword /> */}
       </AppStyle>
     </ThemeProvider>
   );
