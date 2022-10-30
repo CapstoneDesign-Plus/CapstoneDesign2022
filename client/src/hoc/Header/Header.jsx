@@ -10,6 +10,7 @@ const HeaderStyle = styled.div`
   margin: 0 auto;
   background-color: #b1d6a8;
   height: 90px;
+  z-index: 999;
 
   .logo {
     height: 75px;
