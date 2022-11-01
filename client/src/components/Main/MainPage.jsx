@@ -67,7 +67,7 @@ function MainPage() {
               justifyContent: "center",
             }}
           >
-            <Link to="/MyPage">
+            <Link to="/Signin">
               <Button className="myPageBtn" variant="contained">
                 마이페이지
               </Button>
