@@ -49,7 +49,7 @@ function ChangeNickname() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 닉네임 변경
+        닉네임 변경
       </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end", mt: 7, ml: 3, mr:3 }}>
         <Grid container spacing={2}>

@@ -47,7 +47,7 @@ function ChangePassword() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 비밀번호 변경
+        비밀번호 변경
       </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
         <Grid container spacing={2}>

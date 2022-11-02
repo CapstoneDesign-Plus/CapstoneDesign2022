@@ -44,7 +44,7 @@ function Used() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 구매내역 {">"} 사용한 식권 보기
+        사용 식권
       </Box>
       <Box className="table">
         <Table sx={{ maxWidth: 440 }} aria-label="simple table">

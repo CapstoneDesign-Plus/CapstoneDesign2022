@@ -40,7 +40,6 @@ export default function Notice() {
           <Grid item sx={{ mt: -2, ml: 1 }}>
             <input
               className={"input"}
-              autoFocus
               placeholder="검색어를 입력하세요"
             />
           </Grid>

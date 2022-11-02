@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import TicketItem from "./TicketItem";
 import { Stack } from "@mui/system";
+import useGetFetch from "../../../hook/useGetFetch";
 
 const UnUsedStyle = styled.div`
   top: 0;
@@ -46,17 +47,9 @@ const rows = [
 ];
 
 function UnUsed() {
-  const [tickets, setTickets] = useState([]);
-
   const [expanded, setExpanded] = useState("");
 
-  useEffect(() => {
-    fetch("http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20").then(
-      (value) => {
-        value.json().then((data) => setTickets(data["values"]));
-      }
-    );
-  }, []);
+  const [data] = useGetFetch("http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20");
 
   return (
     <UnUsedStyle>
@@ -64,10 +57,10 @@ function UnUsed() {
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        마이페이지 {">"} 구매내역 {">"} 미사용 식권
+        잔여 식권
       </Box>
       <Stack className="ticket-list">
-        {tickets.map((ticket) => (
+        {data && data.values.map((ticket) => (
           <TicketItem
             key={ticket.identifier}
             ticket={ticket}

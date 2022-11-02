@@ -1,14 +1,8 @@
 import styled from "styled-components";
-import React from "react";
-import {
-  Box,
-  Grid,
-  Button,
-  Typography,
-  Autocomplete,
-  TextField,
-} from "@mui/material";
+import React, { useCallback, useState } from "react";
+import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from"../lib/axios";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -93,13 +87,97 @@ const SigninStyle = styled.div`
   }
 `;
 
-const emailOptions = [
-  { label: "naver.com", id: 1 },
-  { label: "google.com", id: 2 },
-  { label: "daum.com", id: 3 },
-];
+async function signup(username, password, email) {
+  const response = await axios.post("v1/user/auth/signup", {
+    username,
+    password,
+    email,
+  });
+  return response;
+}
 
 function SignIn() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [isUsername, setIsUsername] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  const [usernameMessage, setUsernameMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] =
+  useState("");
+
+  const onChangeName = useCallback((e) => {
+    setUsername(e.target.value);
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setUsernameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
+      setIsUsername(false);
+    } else {
+      setUsernameMessage("");
+      setIsUsername(true);
+    }
+  }, []);
+
+  const onChangeEmail = useCallback((e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage("이메일 형식을 맞게 입력해주세요.");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("");
+      setIsEmail(true);
+    }
+  }, []);
+
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호");
+      setIsPassword(true);
+    }
+  }, []);
+
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setPasswordConfirmMessage("비밀번호 일치");
+        setIsPasswordConfirm(true);
+      } else {
+        setPasswordConfirmMessage("다시 입력해주세요");
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
+  
+  const handleClick = () => {
+    signup(username, password, email).then(() => {
+      console.log("Complete!");
+    });
+  };
+
   return (
     <SigninStyle>
       <Box
@@ -117,7 +195,15 @@ function SignIn() {
             User Name
           </Grid>
           <Grid item xs={12} sx={{ ml: -1 }}>
-            <input className="input_name" autoFocus placeholder=" 사용자 이름" />
+            <input
+              className="input_name"
+              autoFocus
+              placeholder=" 사용자 이름"
+              type="text"
+              value={username}
+              onChange={onChangeName}
+            />
+            {username.length > 0 && <span className={`message ${isUsername ? 'success' : 'error'}`}>{usernameMessage}</span>}
           </Grid>
 
           {/* 이메일 */}
@@ -128,7 +214,15 @@ function SignIn() {
             <div className="email">
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <input className="input_email" placeholder=" 이메일" />
+                  <input
+                    className="input_email"
+                    placeholder=" 이메일"
+                    type="emmail"
+                    value={email}
+                    onChange={onChangeEmail}
+                  />
+                  {/* ..어떡하지 */}
+                  {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
                 </Grid>
                 <Grid item xs={5}>
                   <select className="select_email">
@@ -151,7 +245,10 @@ function SignIn() {
               className="input_pw"
               placeholder=" 비밀번호"
               type="password"
+              value={password}
+              onChange={onChangePassword}
             />
+            {password.length > 0 && <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>}
           </Grid>
 
           {/* 비밀번호 확인 */}
@@ -163,7 +260,10 @@ function SignIn() {
               className="input_pw"
               placeholder=" 비밀번호 확인"
               type="password"
+              value={passwordConfirm}
+              onChange={onChangePasswordConfirm}
             />
+            {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>}
           </Grid>
         </Grid>
       </Box>
@@ -178,7 +278,7 @@ function SignIn() {
       >
         <Grid container spacing={2}>
           <Grid className="login" item xs={12}>
-            <Button className="login_btn" variant="contained" color="primary">
+            <Button className="login_btn" variant="contained" color="primary" onClick={handleClick}>
               로그인
             </Button>
           </Grid>
