@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from"../lib/axios";
 
 const SigninStyle = styled.div`
@@ -113,6 +113,8 @@ function SignIn() {
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
   useState("");
 
+  const [isSignup, setIsSignup] = useState(false);
+
   const onChangeName = useCallback((e) => {
     setUsername(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 5) {
@@ -174,6 +176,7 @@ function SignIn() {
   
   const handleClick = () => {
     signup(username, password, email).then(() => {
+      setIsSignup(true);
       console.log("Complete!");
     });
   };
@@ -281,6 +284,9 @@ function SignIn() {
             <Button className="login_btn" variant="contained" color="primary" onClick={handleClick}>
               로그인
             </Button>
+            <div>
+              {isSignup && <Navigate to="/"/>}
+            </div>
           </Grid>
           <Grid className="link" item xs={6}>
             <Link to="/ChangePassword">
