@@ -37,6 +37,16 @@ router.post('/login', ...validator.user_login, (req, res, next)=> {
   })(req, res, next);
 });
 
+router.get('/logout', (req, res) => {
+
+  if(!req.user) return res.sendStatus(400);
+
+  req.logout((err)=>{
+    req.session.destroy(()=>{});
+    res.sendStatus(200);
+  });
+})
+
 router.post('/signup', ...validator.user_signup, async (req, res)=> {
   const isSuccess = await UserService
     .getInstance()
