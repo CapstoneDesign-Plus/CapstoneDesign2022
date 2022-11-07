@@ -21,7 +21,7 @@ const user_signup = [
 ];
 
 const user_login = [
-  body('email').exists(),
+  body('email').isEmail(),
   body('password').exists(),
   ValidateErrorHandler
 ];

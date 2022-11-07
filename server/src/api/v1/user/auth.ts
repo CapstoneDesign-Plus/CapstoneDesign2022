@@ -25,10 +25,12 @@ router.post('/login', ...validator.user_login, (req, res, next)=> {
     if(err) return res.sendStatus(400);
 
     if(user) {
-      req.logIn(user as Express.User, (err)=>{
+      req.logIn(user as Express.User, async (err)=>{
         if(err) return next(err);
 
-        return res.json(user);
+        const u = await UserService.getInstance().get(req.body['email']);
+
+        return res.json(u);
       })
     }else{
       return res.sendStatus(400);
