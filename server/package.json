@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/server.ts",
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" ./server.ts",
     "build": "tsc && tsc-alias",
     "start": "node dist/server.js"
   },

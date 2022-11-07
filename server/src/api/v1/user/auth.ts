@@ -25,10 +25,12 @@ router.post('/login', ...validator.user_login, (req, res, next)=> {
     if(err) return res.sendStatus(400);
 
     if(user) {
-      req.logIn(user as Express.User, (err)=>{
+      req.logIn(user as Express.User, async (err)=>{
         if(err) return next(err);
 
-        return res.json(user);
+        const u = await UserService.getInstance().get(req.body['email']);
+
+        return res.json(u);
       })
     }else{
       return res.sendStatus(400);
@@ -36,6 +38,16 @@ router.post('/login', ...validator.user_login, (req, res, next)=> {
 
   })(req, res, next);
 });
+
+router.get('/logout', (req, res) => {
+
+  if(!req.user) return res.sendStatus(400);
+
+  req.logout((err)=>{
+    req.session.destroy(()=>{});
+    res.sendStatus(200);
+  });
+})
 
 router.post('/signup', ...validator.user_signup, async (req, res)=> {
   const isSuccess = await UserService
