@@ -49,7 +49,7 @@ function MBox() {
         <Grid container spacing={2} style={{ margin: 0 }}>
           <Grid className="boxTitle" item xs={12} sx={{ pr: "16px" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <img className="coin" alt="coin" src="\images\coin.png" />
+              <img className="coin" alt="coin" src="\images\coupon.png" />
               &nbsp;&nbsp;잔여 식권
             </Box>
             <Box

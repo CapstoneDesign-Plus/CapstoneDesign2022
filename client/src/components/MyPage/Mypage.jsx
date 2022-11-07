@@ -5,6 +5,9 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import { Link } from "react-router-dom";
 import { Button, ButtonGroup } from "@mui/material";
+import axios from "../../lib/axios";
+import authState from "../../state/auth";
+import { useRecoilState } from "recoil";
 
 const MypageStyle = styled.div`
   margin: auto;
@@ -72,6 +75,22 @@ const MypageStyle = styled.div`
 `;
 
 function Mypage() {
+  const [auth, setAuth] = useRecoilState(authState);
+
+  async function logout() {
+    const response = await axios.post("v1/user/auth/logout");
+    return response;
+  }
+
+  const handleClick = () => {
+    if (auth != null) {
+      logout().then(() => {
+        setAuth(null);
+        console.log("Logout Complete!");
+      });
+    }
+  };
+
   return (
     <MypageStyle>
       <Box
@@ -84,10 +103,10 @@ function Mypage() {
         <Grid container spacing={2} sx={{ margin: 0 }}>
           {/* 이름, 이메일 */}
           <Grid className="name" item xs={12} sm={12}>
-            홍길동
+            {auth.data.username}
           </Grid>
           <Grid className="email" item xs={12} sm={12}>
-            Hong Gil Dong@gmail.com
+            {auth.data.email}
           </Grid>
           {/* 재화 박스 */}
           <Box
@@ -170,17 +189,19 @@ function Mypage() {
                   구매 내역
                 </Button>
               </Link>
-                <Button
-                  className="btn"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 20,
-                  }}
-                >
-                  로그아웃
-                </Button>
+              <Button
+                className="btn"
+                variant="contained"
+                color="primary"
+                onClick={handleClick}
+                sx={{
+                  borderTopRightRadius: 0,
+                  borderBottomRightRadius: 20,
+                }}
+              >
+                로그아웃
+              </Button>
+              <div>{!auth && <Navigate to="/" />}</div>
             </ButtonGroup>
           </Box>
         </Grid>
