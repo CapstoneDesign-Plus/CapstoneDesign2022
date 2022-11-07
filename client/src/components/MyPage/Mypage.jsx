@@ -78,7 +78,7 @@ function Mypage() {
   const [auth, setAuth] = useRecoilState(authState);
 
   async function logout() {
-    const response = await axios.post("v1/user/auth/logout");
+    const response = await axios.get("v1/user/auth/logout");
     return response;
   }
 
