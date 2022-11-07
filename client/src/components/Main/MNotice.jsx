@@ -25,7 +25,7 @@ function MNotice() {
           <List component="nav">
             <Link to="/Notice">
               <ListItem button divider style={{color:'black', fontWeight:'bolder'}}>
-                <img className="coin" alt="coin" src="\images\coin.png" />
+                <img className="coin" alt="coin" src="\images\notice.png" />
                 &nbsp;&nbsp;공지사항
               </ListItem>
             </Link>

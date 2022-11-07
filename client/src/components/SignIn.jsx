@@ -4,6 +4,8 @@ import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import axios from "../lib/axios";
+import authState from "../state/auth";
+import {useRecoilState} from "recoil";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -69,7 +71,8 @@ async function login(email, password) {
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [auth, setAuth] = useRecoilState(authState);
+  //const [isLogin, setIsLogin] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -80,9 +83,9 @@ function SignIn() {
   };
 
   const handleClick = () => {
-    login(email, password).then(() => {
-      setIsLogin(true);
-      console.log("Complete!");
+    login(email, password).then((value) => {
+      setAuth(value);
+      console.log("Login Complete!");
     });
   };
 
@@ -147,7 +150,7 @@ function SignIn() {
               로그인
             </Button>
             <div>
-              {isLogin && <Navigate to="/"/>}
+              {auth && <Navigate to="/"/>}
             </div>
           </Grid>
           <Grid className="link" item xs={6}>
