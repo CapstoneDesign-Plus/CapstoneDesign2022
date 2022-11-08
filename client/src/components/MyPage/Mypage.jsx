@@ -91,6 +91,8 @@ function Mypage() {
     }
   };
 
+  if(!auth) return <Navigate to="/" />;
+  
   return (
     <MypageStyle>
       <Box
@@ -201,7 +203,6 @@ function Mypage() {
               >
                 로그아웃
               </Button>
-              <div>{!auth && <Navigate to="/" />}</div>
             </ButtonGroup>
           </Box>
         </Grid>
