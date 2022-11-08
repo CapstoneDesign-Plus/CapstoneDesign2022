@@ -8,6 +8,7 @@ import { Button, ButtonGroup } from "@mui/material";
 import axios from "../../lib/axios";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
+import { Navigate } from "react-router-dom";
 
 const MypageStyle = styled.div`
   margin: auto;
@@ -92,7 +93,7 @@ function Mypage() {
   };
 
   if(!auth) return <Navigate to="/" />;
-  
+
   return (
     <MypageStyle>
       <Box
