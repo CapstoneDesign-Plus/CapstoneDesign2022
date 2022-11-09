@@ -20,6 +20,7 @@ import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 
 import { ThemeProvider } from "@mui/material";
+import Error from "./components/ErrorPage/Error";
 
 const AppStyle = styled.div`
   width: 390px;
@@ -50,6 +51,7 @@ function App() {
             <Route path="/Notice" element={<NoticePage />} />
             <Route path="/Charge" element={<ChargePage />} />
             <Route path="/BuyTicket" element={<BuyTicketPage />} />
+            <Route path="/404" element={<Error />} />
           </Routes>
         </BrowserRouter>
       </AppStyle>

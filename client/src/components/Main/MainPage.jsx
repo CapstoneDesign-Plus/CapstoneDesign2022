@@ -8,6 +8,7 @@ import MBox from "./MBox";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
 
+
 const MainPageStyle = styled.div`
   margin: auto;
   margin-bottom: 25px;
@@ -109,6 +110,8 @@ function MainPage() {
         <MSlider />
         {/* 공지사항 박스 */}
         <MNotice />
+        {/* 404 TEST */}
+        <Link to="/404"><Button>404</Button></Link>
       </Box>
     </MainPageStyle>
   );
