@@ -112,6 +112,10 @@ function MainPage() {
         <MNotice />
         {/* 404 TEST */}
         <Link to="/404"><Button>404</Button></Link>
+        {/* RequestEmail TEST */}
+        <Link to="/RequestEmail"><Button>이메일 요청</Button></Link>
+        {/* ResetPassword(unvalid) TEST */}
+        <Link to="/ResetPassword_"><Button>비밀번호 재설정(무효)</Button></Link>
       </Box>
     </MainPageStyle>
   );
