@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import axios from "../../lib/axios";
 import authState from "../../state/auth";
-import {useRecoilState} from "recoil";
+import { useRecoilState } from "recoil";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -149,12 +149,10 @@ function SignIn() {
             >
               로그인
             </Button>
-            <div>
-              {auth && <Navigate to="/"/>}
-            </div>
+            <div>{auth && <Navigate to="/" />}</div>
           </Grid>
           <Grid className="link" item xs={6}>
-            <Link to="/ResetPassword">
+            <Link to="/RequestEmail">
               <Button className="btn" color="success">
                 비밀번호 재설정
               </Button>
