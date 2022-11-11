@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, {useCallback, useState, useEffect} from "react";
 import { Box, Grid, Button } from "@mui/material";
 import axios from "../../lib/axios";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 const ResetPwStyle = styled.div`
   top: 0;
@@ -59,17 +59,22 @@ function ResetPassword() {
   const [passwordMessage, setPasswordMessage] = useState("");
 
   const {token} = useParams();
-  const [valid, setValid] = useState();
+  const [valid, setValid] = useState(true);
 
-  useEffect(()=>{
-    validToken(token).then(() => {
-      setValid(true);
-      console.log("Valid Complete!");
-    });
-    return () => {
+    useEffect(()=>{
+      validToken(token)
+      .then(() => {
+        console.log("Valid Complete!");
+      })
+      .catch(() => {
+        setValid(false);
+      });
+      return () => {};
+    },[]);
 
+    if(!valid) {
+      return <Navigate to="/TokenInvalid" />;
     }
-  },[]);
   
   const onChangePassword = useCallback((e) => {
     const passwordRegex =

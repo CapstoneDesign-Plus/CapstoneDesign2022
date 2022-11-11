@@ -39,7 +39,7 @@ const ResetPwStyle = styled.div`
   }
 `;
 
-function ResetPassword() {
+function TokenInvalid() {
   return (
     <ResetPwStyle>
       <Box className="contents" style={{marginTop: '80px'}}>
@@ -57,4 +57,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default TokenInvalid;
