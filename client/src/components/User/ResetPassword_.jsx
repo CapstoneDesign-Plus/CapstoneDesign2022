@@ -42,12 +42,6 @@ const ResetPwStyle = styled.div`
 function ResetPassword() {
   return (
     <ResetPwStyle>
-      <Box
-        className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
-      >
-        비밀번호 재설정(무효)
-      </Box>
       <Box className="contents" style={{marginTop: '80px'}}>
       <img src="\images\expiration.png"></img>
       </Box>

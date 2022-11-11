@@ -88,7 +88,8 @@ function RequestEmail() {
           Email
         </Grid>
       </Box>
-      <Grid item xs={12} sx={{ ml: -1 }}>
+      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 5 }}>
+      <Grid item xs={12}>
         <div className="email">
           <Grid container spacing={1}>
             <Grid item xs={6}>
@@ -109,7 +110,7 @@ function RequestEmail() {
           </Grid>
         </div>
       </Grid>
-
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -125,7 +126,7 @@ function RequestEmail() {
               전 송
             </Button>
           </Grid>
-          <Grid item xs={12} sx={{mt:4}}>
+          <Grid item xs={12} sx={{mt:4, color:'#49663c', textAlign: 'center'}}>
             입력하신 이메일로 링크가 전송되었습니다.<br />
             비밀번호 재설정 시간은 요청 후 10분 입니다.
           </Grid>

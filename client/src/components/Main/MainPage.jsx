@@ -116,6 +116,8 @@ function MainPage() {
         <Link to="/RequestEmail"><Button>이메일 요청</Button></Link>
         {/* ResetPassword(unvalid) TEST */}
         <Link to="/ResetPassword_"><Button>비밀번호 재설정(무효)</Button></Link>
+        {/* AdminPage TEST */}
+        <Link to="/"><Button>Admin</Button></Link>
       </Box>
     </MainPageStyle>
   );

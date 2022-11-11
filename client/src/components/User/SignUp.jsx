@@ -220,7 +220,7 @@ function SignIn() {
                   <input
                     className="input_email"
                     placeholder=" 이메일"
-                    type="emmail"
+                    type="email"
                     value={email}
                     onChange={onChangeEmail}
                   />
