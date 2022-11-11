@@ -20,7 +20,7 @@ import BuyTicketPage from "../src/pages/buyticket_page";
 import { ThemeProvider } from "@mui/material";
 import Error from "./components/ErrorPage/Error";
 import RequestEmail from "./components/User/RequestEmail";
-import ResetPassword_ from "./components/User/ResetPassword_";
+import TokenInvalid from "./components/User/TokenInvalid";
 
 
 const AppStyle = styled.div`
@@ -54,7 +54,7 @@ function App() {
             <Route path="/BuyTicket" element={<BuyTicketPage />} />
             <Route path="/404" element={<Error />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />
-            <Route path="/ResetPassword_" element={<ResetPassword_ />} />
+            <Route path="/TokenInvalid" element={<TokenInvalid />} />
           </Routes>
         </BrowserRouter>
       </AppStyle>

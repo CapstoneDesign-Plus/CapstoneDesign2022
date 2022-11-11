@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import React, {useCallback, useState, useEffect} from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import axios from "../../lib/axios";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 const ResetPwStyle = styled.div`
   top: 0;
@@ -14,7 +14,7 @@ const ResetPwStyle = styled.div`
   .title {
     font-size: 20px;
   }
-  .input_title{
+  .input_title {
     font-size: 22px;
     color: #49663c;
   }
@@ -23,7 +23,7 @@ const ResetPwStyle = styled.div`
     padding-left: 10px;
     width: 100%;
     height: 50px;
-    border: 3px solid #B1D6A8;
+    border: 3px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
     outline-color: #b1d6a8;
@@ -43,34 +43,43 @@ const ResetPwStyle = styled.div`
   }
 `;
 
-async function resetPw(password){
-  const response = await axios.post("v1/user/auth/password?=" + password);
+async function resetPw(new_password, token) {
+  const response = await axios.put("v1/user/auth/password/" + encodeURIComponent(token), {
+    new_password,
+  });
   return response;
 }
 
-async function validToken(token){
-  const response = await axios.get("v1/user/auth/password/valid/" + token);
+async function validToken(token) {
+  const response = await axios.get("v1/user/auth/password/valid/" + encodeURIComponent(token));
   return response;
 }
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const [isPassword, setIsPassword] = useState(false);
+
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
-  const {token} = useParams();
-  const [valid, setValid] = useState();
+  const { token } = useParams();
+  const [isReset, setisReset] = useState(false);
+  const [valid, setValid] = useState(true);
 
-  useEffect(()=>{
-    validToken(token).then(() => {
-      setValid(true);
-      console.log("Valid Complete!");
-    });
-    return () => {
+  useEffect(() => {
+    validToken(token)
+      .then(() => {
+        console.log("Valid Complete!");
+      })
+      .catch(() => {
+        setValid(false);
+      });
+    return () => {};
+  }, []);
 
-    }
-  },[]);
-  
   const onChangePassword = useCallback((e) => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -88,6 +97,33 @@ function ResetPassword() {
     }
   }, []);
 
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setPasswordConfirmMessage("비밀번호 일치");
+        setIsPasswordConfirm(true);
+      } else {
+        setPasswordConfirmMessage("다시 입력해주세요");
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
+
+  const handleClick = () => {
+    resetPw(password, token).then(() => {
+      setisReset(true);
+      console.log("Reset Complete!");
+    });
+  };
+
+  if (!valid) {
+    return <Navigate to="/TokenInvalid" />;
+  }
+
   return (
     <ResetPwStyle>
       <Box
@@ -96,33 +132,48 @@ function ResetPassword() {
       >
         비밀번호 재설정
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
+      <Box
+        sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr: 3 }}
+      >
         <Grid container spacing={2}>
           {/* 새 비밀번호 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
+          <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호" autoFocus />
+            <input
+              className="input_pw"
+              placeholder=" 새 비밀번호"
+              autoFocus
+              type="password"
+              value={password}
+              onChange={onChangePassword}
+            />
+            {password.length > 0 && (
+              <span className={`message ${isPassword ? "success" : "error"}`}>
+                {passwordMessage}
+              </span>
+            )}
           </Grid>
           {/* 새 비밀번호 확인 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
+          <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호 확인
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호 확인" />
+            <input
+              className="input_pw"
+              placeholder=" 새 비밀번호 확인"
+              type="password"
+              value={passwordConfirm}
+              onChange={onChangePasswordConfirm}
+            />
+            {passwordConfirm.length > 0 && (
+              <span
+                className={`message ${isPasswordConfirm ? "success" : "error"}`}
+              >
+                {passwordConfirmMessage}
+              </span>
+            )}
           </Grid>
         </Grid>
       </Box>
@@ -136,11 +187,19 @@ function ResetPassword() {
         }}
       >
         <Grid container>
-        <Grid item xs={12}>
-          <Button className="change_btn" variant="contained" color="primary">
-            확 인
-          </Button>
-        </Grid>
+          <Grid item xs={12}>
+            <Button
+              className="change_btn"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+            >
+              확 인
+            </Button>
+            <div>
+              {isReset && <Navigate to="/" />}
+            </div>
+          </Grid>
         </Grid>
       </Box>
     </ResetPwStyle>
