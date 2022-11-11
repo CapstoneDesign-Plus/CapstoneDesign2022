@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useCallback, useState} from "react";
 import { Box, Grid, Button } from "@mui/material";
+import axios from "../../lib/axios";
 
 const RequestEmailStyle = styled.div`
   top: 0;
@@ -65,7 +66,39 @@ const RequestEmailStyle = styled.div`
   }
 `;
 
+async function request(email) {
+  const response = await axios.get("v1/user/auth/password?email=" + email);
+  return response;
+}
+
 function RequestEmail() {
+  const [email, setEmail] = useState("");
+  const [isEmail, setIsEmail] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
+
+  const onChangeEmail = useCallback((e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage("이메일 형식을 맞게 입력해주세요.");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("");
+      setIsEmail(true);
+    }
+  }, []);
+
+  const handleClick = () => {
+    request(email).then(() => {
+      console.log("Request Complete!");
+      // setIsSignup(true);
+      // console.log("Complete!");
+    });
+  };
+
   return (
     <RequestEmailStyle>
       <Box
@@ -97,7 +130,10 @@ function RequestEmail() {
                 className="inputEmail"
                 placeholder=" 이메일"
                 type="email"
+                value={email}
+                onChange={onChangeEmail}
               />
+            {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
             </Grid>
             <Grid item xs={5}>
               <select className="selectEmail">
@@ -122,9 +158,12 @@ function RequestEmail() {
       >
         <Grid container>
           <Grid item xs={12} sx={{display:'flex', justifyContent: 'flex-end'}}>
-            <Button className="btn" variant="contained" color="primary">
+            <Button className="btn" variant="contained" color="primary" onClick={handleClick}>
               전 송
             </Button>
+            <div>
+              
+            </div>
           </Grid>
           <Grid item xs={12} sx={{mt:4, color:'#49663c', textAlign: 'center'}}>
             입력하신 이메일로 링크가 전송되었습니다.<br />
