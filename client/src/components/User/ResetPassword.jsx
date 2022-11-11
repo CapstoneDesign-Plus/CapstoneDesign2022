@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useCallback, useState, useEffect} from "react";
 import { Box, Grid, Button } from "@mui/material";
+import axios from "../../lib/axios";
+import { useParams } from "react-router-dom";
 
 const ResetPwStyle = styled.div`
   top: 0;
@@ -41,7 +43,51 @@ const ResetPwStyle = styled.div`
   }
 `;
 
+async function resetPw(password){
+  const response = await axios.post("v1/user/auth/password?=" + password);
+  return response;
+}
+
+async function validToken(token){
+  const response = await axios.get("v1/user/auth/password/valid/" + token);
+  return response;
+}
+
 function ResetPassword() {
+  const [password, setPassword] = useState("");
+  const [isPassword, setIsPassword] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState("");
+
+  const {token} = useParams();
+  const [valid, setValid] = useState();
+
+  useEffect(()=>{
+    validToken(token).then(() => {
+      setValid(true);
+      console.log("Valid Complete!");
+    });
+    return () => {
+
+    }
+  },[]);
+  
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호");
+      setIsPassword(true);
+    }
+  }, []);
+
   return (
     <ResetPwStyle>
       <Box
