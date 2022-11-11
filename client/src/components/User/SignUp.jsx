@@ -282,7 +282,7 @@ function SignIn() {
         <Grid container spacing={2}>
           <Grid className="login" item xs={12}>
             <Button className="login_btn" variant="contained" color="primary" onClick={handleClick}>
-              로그인
+              회원가입
             </Button>
             <div>
               {isSignup && <Navigate to="/"/>}
