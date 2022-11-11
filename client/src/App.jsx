@@ -43,7 +43,7 @@ function App() {
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/ChangeNickname" element={<ChangeNickname />} />
             <Route path="/ChangePassword" element={<ChangePassword />} />
-            <Route path="/ResetPassword" element={<ResetPassword />} />
+            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
             <Route path="/BuyList" element={<BuyList />} />
             <Route path="/BuyList/UnUsed" element={<UnUsed />} />
             <Route path="/BuyList/Used" element={<Used />} />
