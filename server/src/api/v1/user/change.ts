@@ -17,7 +17,7 @@ router.put("/name", ...validator.user_change_name, async (req, res) => {
 });
 
 router.put("/password", ...validator.user_change_password, async (req, res) => {
-  if (!req.user) return res.redirect("/api/v1/user/login/web");
+  if (!req.user) return res.status(400).send("<h1>Login Please.</h1>");
 
   const isSuccess = await UserService.getInstance().changePassword(
     req.user as IUser,
