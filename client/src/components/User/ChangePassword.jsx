@@ -67,6 +67,16 @@ function ChangePassword() {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
+  const onChangeOldPassword = useCallback((e) => {
+    if(old_pw === auth.data.password){
+      setIsOldpw(true);
+      setOldpw(old_pw);
+    }
+    else{
+      setIsOldpw(false);
+    }
+  })
+
   const onChangeNewPassword = useCallback((e) => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -129,6 +139,7 @@ function ChangePassword() {
               autoFocus
               placeholder=" 현재 비밀번호"
               type="password"
+              onChange={onChangeOldPassword}
             />
           </Grid>
           {/* 새 비밀번호 */}
