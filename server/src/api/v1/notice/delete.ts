@@ -1,18 +1,20 @@
 import validator from "@/middleware/validator";
 import { IUser } from "@/models/user";
 import NoticeService from "@/services/notice";
+import { invalidPermission, Permission, send } from "@/services/sender";
 import { Router } from "express";
 
-const router = Router()
+const router = Router();
 
-router.delete('/:id', ...validator.notice_delete, async (req, res) => {
-    if(req.user){
-      await NoticeService
-        .getInstance()
-        .delete(req.user as IUser,  parseInt(req.params.id));
-      return res.redirect(`/`);
-    }
-    return res.redirect('/api/v1/user/login/web');
-  });
+router.delete("/:id", ...validator.notice_delete, async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
 
-  export default router;
+  const isSuccess = await NoticeService.getInstance().delete(
+    req.user as IUser,
+    parseInt(req.params.id)
+  );
+  return send(res, isSuccess);
+});
+
+export default router;
