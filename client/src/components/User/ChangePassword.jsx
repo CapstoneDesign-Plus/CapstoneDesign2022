@@ -58,7 +58,7 @@ function ChangePassword() {
   const [old_pw, setOldpw] = useState("");
   const [new_pw, setNewpw] = useState("");
 
-  const [isOldpw, setIsOldpw] = useState(false);  //기존 비밀번호 일치 여부 
+  const [isOldpw, setIsOldpw] = useState(false); //기존 비밀번호 일치 여부
   const [isPassword, setIsPassword] = useState(false); //새 비밀번호
 
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -68,14 +68,9 @@ function ChangePassword() {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
   const onChangeOldPassword = useCallback((e) => {
-    if(old_pw === auth.data.password){
-      setIsOldpw(true);
-      setOldpw(old_pw);
-    }
-    else{
-      setIsOldpw(false);
-    }
-  })
+    setOldpw(e.target.value);
+    setIsOldpw(e.target.value === auth.data.password);
+  });
 
   const onChangeNewPassword = useCallback((e) => {
     const passwordRegex =
@@ -114,8 +109,8 @@ function ChangePassword() {
     changePw(old_pw, new_pw).then(() => {
       setIsChange(true);
       console.log("Change Password Complete!");
-    })
-  }
+    });
+  };
 
   return (
     <ChangePwStyle>
@@ -147,25 +142,36 @@ function ChangePassword() {
             새 비밀번호
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호" type="password" onChange={onChangeNewPassword} />
+            <input
+              className="input_pw"
+              placeholder=" 새 비밀번호"
+              type="password"
+              onChange={onChangeNewPassword}
+            />
             {new_pw.length > 0 && (
               <span className={`message ${isPassword ? "success" : "error"}`}>
                 {passwordMessage}
-              </span>)}
+              </span>
+            )}
           </Grid>
           {/* 새 비밀번호 확인 */}
           <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호 확인
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호 확인" type="password" onChange={onChangeNewPasswordConfirm} />
+            <input
+              className="input_pw"
+              placeholder=" 새 비밀번호 확인"
+              type="password"
+              onChange={onChangeNewPasswordConfirm}
+            />
             {passwordConfirm.length > 0 && (
               <span
                 className={`message ${isPasswordConfirm ? "success" : "error"}`}
               >
                 {passwordConfirmMessage}
               </span>
-            )}  
+            )}
           </Grid>
         </Grid>
       </Box>
@@ -188,7 +194,6 @@ function ChangePassword() {
             color="primary"
             onClick={handleClick}
           />
-
         </Grid>
       </Box>
     </ChangePwStyle>
