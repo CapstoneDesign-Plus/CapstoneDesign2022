@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Box, Grid, Chip } from "@mui/material";
+import axios from "../../lib/axios";
+import { useRecoilState } from "recoil";
+import authState from "../../state/auth";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -12,7 +15,7 @@ const ChangePwStyle = styled.div`
   .title {
     font-size: 20px;
   }
-  .input_title{
+  .input_title {
     font-size: 22px;
     color: #49663c;
   }
@@ -21,7 +24,7 @@ const ChangePwStyle = styled.div`
     padding-left: 10px;
     width: 100%;
     height: 50px;
-    border: 3px solid #B1D6A8;
+    border: 3px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
     outline-color: #b1d6a8;
@@ -40,7 +43,70 @@ const ChangePwStyle = styled.div`
   }
 `;
 
+async function changePw(old_password, new_password) {
+  const response = await axios.put("v1/user/change/password", {
+    old_password,
+    new_password,
+  });
+  return response;
+}
+
 function ChangePassword() {
+  const [auth, setAuth] = useRecoilState(authState);
+  const [isChange, setIsChange] = useState(false);
+
+  const [old_pw, setOldpw] = useState("");
+  const [new_pw, setNewpw] = useState("");
+
+  const [isOldpw, setIsOldpw] = useState(false);  //기존 비밀번호 일치 여부 
+  const [isPassword, setIsPassword] = useState(false); //새 비밀번호
+
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+  const onChangeNewPassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = e.target.value;
+    setNewpw(passwordCurrent);
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호");
+      setIsPassword(true);
+    }
+  }, []);
+
+  const onChangeNewPasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (new_pw === passwordConfirmCurrent) {
+        setPasswordConfirmMessage("비밀번호 일치");
+        setIsPasswordConfirm(true);
+      } else {
+        setPasswordConfirmMessage("다시 입력해주세요");
+        setIsPasswordConfirm(false);
+      }
+    },
+    [new_pw]
+  );
+
+  const handleClick = () => {
+    changePw(old_pw, new_pw).then(() => {
+      setIsChange(true);
+      console.log("Change Password Complete!");
+    })
+  }
+
   return (
     <ChangePwStyle>
       <Box
@@ -49,16 +115,12 @@ function ChangePassword() {
       >
         비밀번호 변경
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
+      <Box
+        sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr: 3 }}
+      >
         <Grid container spacing={2}>
           {/* 현재 비밀번호 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
+          <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             현재 비밀번호
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
@@ -66,33 +128,33 @@ function ChangePassword() {
               className="input_pw"
               autoFocus
               placeholder=" 현재 비밀번호"
+              type="password"
             />
           </Grid>
           {/* 새 비밀번호 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
+          <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호" />
+            <input className="input_pw" placeholder=" 새 비밀번호" type="password" onChange={onChangeNewPassword} />
+            {new_pw.length > 0 && (
+              <span className={`message ${isPassword ? "success" : "error"}`}>
+                {passwordMessage}
+              </span>)}
           </Grid>
           {/* 새 비밀번호 확인 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
+          <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호 확인
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder=" 새 비밀번호 확인" />
+            <input className="input_pw" placeholder=" 새 비밀번호 확인" type="password" onChange={onChangeNewPasswordConfirm} />
+            {passwordConfirm.length > 0 && (
+              <span
+                className={`message ${isPasswordConfirm ? "success" : "error"}`}
+              >
+                {passwordConfirmMessage}
+              </span>
+            )}  
           </Grid>
         </Grid>
       </Box>
@@ -113,7 +175,9 @@ function ChangePassword() {
             component="a"
             href="#"
             color="primary"
+            onClick={handleClick}
           />
+
         </Grid>
       </Box>
     </ChangePwStyle>
