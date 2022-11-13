@@ -4,8 +4,17 @@ import UserService from "@/services/user";
 import translate from "@/services/translate";
 import { IUser } from "@/models/user";
 import { invalidPermission, Permission, send } from "@/services/sender";
+import { UserSearchOption } from "@/types/dto";
 
 const router = Router();
+
+router.get("/search", async (req, res) => {
+  const users = await UserService.getInstance().search(
+    req.body as UserSearchOption
+  );
+
+  return send(res, users, users);
+});
 
 router.get("/list", async (req, res) => {
   const rangeResult = await UserService.getInstance().range(

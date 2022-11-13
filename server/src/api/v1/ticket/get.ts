@@ -2,6 +2,7 @@ import validator from "@/middleware/validator";
 import { send } from "@/services/sender";
 import TicketService from "@/services/ticket";
 import translate from "@/services/translate";
+import { TicketSearchOption } from "@/types/dto";
 import { Router } from "express";
 
 const router = Router();
@@ -10,6 +11,14 @@ router.post("/", ...validator.ticket_get, async (req, res) => {
   const ticket = await TicketService.getInstance().get(req.body["identifier"]);
 
   return send(res, ticket, ticket);
+});
+
+router.get("/search", async (req, res) => {
+  const tickets = await TicketService.getInstance().search(
+    req.body as TicketSearchOption
+  );
+
+  return send(res, tickets, tickets);
 });
 
 router.get("/list", async (req, res) => {
