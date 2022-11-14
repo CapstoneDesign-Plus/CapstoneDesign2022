@@ -2,16 +2,16 @@ import { Schema, Model, Document, model } from "mongoose";
 
 import { TicketClass, TicketState } from "@/types/dto";
 
-import { autoIncrement } from 'mongoose-plugin-autoinc-fix';
+import { autoIncrement } from "mongoose-plugin-autoinc-fix";
 export interface ITicket extends Document {
-  identifier : number,
-  owner : string,
-  buyer: string,
-  state : TicketState,
-  price : number,
-  tclass : TicketClass,
-  expiredAt : Date,
-  createdAt : Date,
+  identifier: number;
+  owner: string;
+  buyer: string;
+  state: TicketState;
+  price: number;
+  tclass: TicketClass;
+  expiredAt: Number;
+  createdAt: Number;
 }
 
 export interface ITicketModel extends Model<ITicket> {
@@ -20,60 +20,59 @@ export interface ITicketModel extends Model<ITicket> {
   getAll: () => Promise<ITicket[]>;
 }
 
-const TicketSchema : Schema<ITicket> = new Schema({
+const TicketSchema: Schema<ITicket> = new Schema({
   identifier: {
     type: Number,
     unique: true,
   },
   owner: {
     type: String,
-    required : true,
+    required: true,
   },
   state: {
     type: String,
-    required : true
+    required: true,
   },
   price: {
     type: Number,
-    required : true,
+    required: true,
   },
-  tclass : {
+  tclass: {
     type: String,
     require: true,
   },
   expiredAt: {
-    type: Date,
+    type: Number,
     required: false,
   },
-  createdAt :  {
-    type: Date,
+  createdAt: {
+    type: Number,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   buyer: {
     type: String,
-    required : true,
-  }
-})
+    required: true,
+  },
+});
 
+TicketSchema.statics.findByKey = function (key: number) {
+  return this.findOne({ identifier: key });
+};
 
-TicketSchema.statics.findByKey = function(key: number) {
-  return this.findOne({identifier: key});
-}
+TicketSchema.statics.findByOwner = function (owner: string) {
+  return this.findOne({ owner });
+};
 
-TicketSchema.statics.findByOwner = function(owner: string) {
-  return this.findOne({owner});
-}
-
-TicketSchema.statics.getAll = function() {
+TicketSchema.statics.getAll = function () {
   return this.find({});
-}
+};
 
 TicketSchema.plugin(autoIncrement, {
-  model: 'tickets',
-  field: 'identifier',
+  model: "tickets",
+  field: "identifier",
   startAt: 1,
-  increment: 1
+  increment: 1,
 });
 
 const Ticket = model<ITicket, ITicketModel>("ticket", TicketSchema);

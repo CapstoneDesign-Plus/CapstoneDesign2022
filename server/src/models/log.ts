@@ -5,31 +5,31 @@ export type LogVerbosity = "info" | "warning" | "error";
 export type LogServiceType = "ticket" | "notice" | "user" | "unknown";
 
 export interface ILog extends Document {
-  identifier : number,
-  timestamp : Date,
-  verbosity : LogVerbosity,
-  source: string,
-  content: string,
-  serviceType?: LogServiceType,
+  identifier: number;
+  timestamp: number;
+  verbosity: LogVerbosity;
+  source: string;
+  content: string;
+  serviceType?: LogServiceType;
 }
 
 export interface ILogModel extends Model<ILog> {
   findByKey: (key: number) => Promise<ILog>;
 }
 
-const LogSchema : Schema<ILog> = new Schema({
+const LogSchema: Schema<ILog> = new Schema({
   identifier: {
     type: Number,
     unique: true,
   },
   timestamp: {
-    type: Date,
+    type: Number,
     required: true,
     default: Date.now,
   },
   verbosity: {
     type: String,
-    required : true,
+    required: true,
   },
   source: {
     type: String,
@@ -42,19 +42,19 @@ const LogSchema : Schema<ILog> = new Schema({
   serviceType: {
     type: String,
     required: false,
-    default: "unknown"
-  }
-})
+    default: "unknown",
+  },
+});
 
-LogSchema.statics.findByKey = function(key: number) {
-  return this.findOne({identifier: key});
-}
+LogSchema.statics.findByKey = function (key: number) {
+  return this.findOne({ identifier: key });
+};
 
-LogSchema.plugin(autoIncrement,  {
-  model: 'logs',
-  field: 'identifier',
+LogSchema.plugin(autoIncrement, {
+  model: "logs",
+  field: "identifier",
   startAt: 1,
-  increment: 1
+  increment: 1,
 });
 
 const Log = model<ILog, ILogModel>("log", LogSchema);

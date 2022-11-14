@@ -1,14 +1,14 @@
 import { Schema, Model, Document, model } from "mongoose";
 
 export interface IUser extends Document {
-  username: string,
-  email: string,
-  password: string,
-  certificated: boolean,
-  createdAt : Date,
-  uclass: number,
-  point: number,
-  tickets: string[],
+  username: string;
+  email: string;
+  password: string;
+  certificated: boolean;
+  createdAt: Number;
+  uclass: number;
+  point: number;
+  tickets: string[];
 }
 
 export interface IUserModel extends Model<IUser> {
@@ -16,54 +16,54 @@ export interface IUserModel extends Model<IUser> {
   getAll: () => Promise<IUser[]>;
 }
 
-const UserSchema : Schema<IUser> = new Schema({
+const UserSchema: Schema<IUser> = new Schema({
   username: {
     type: String,
-    required : true
+    required: true,
   },
   email: {
     type: String,
-    required : true,
-    unique: true
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
-    required : true
+    required: true,
   },
   certificated: {
     type: Boolean,
-    required : true,
+    required: true,
     default: false,
   },
-  createdAt : {
-    type: Date,
-    default: Date.now
+  createdAt: {
+    type: Number,
+    default: Date.now,
   },
   uclass: {
     type: Number,
     required: true,
-    default: 9
+    default: 9,
   },
-  point :  {
+  point: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
   tickets: {
     type: [String],
     required: true,
-    default: []
-  }
-})
+    default: [],
+  },
+});
 
-UserSchema.statics.findByEmail = function(email: string) {
-  return this.findOne({email});
-}
+UserSchema.statics.findByEmail = function (email: string) {
+  return this.findOne({ email });
+};
 
-UserSchema.statics.getAll = function() {
+UserSchema.statics.getAll = function () {
   return this.find({});
-}
+};
 
 const User = model<IUser, IUserModel>("user", UserSchema);
 
-export default User
+export default User;
