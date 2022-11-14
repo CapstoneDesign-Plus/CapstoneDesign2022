@@ -29,7 +29,7 @@ export interface DietTable {
 }
 
 export default class DietService {
-  private static instance: DietService;
+  private static instance: DietService = new DietService();
   private dietTable: DietTable;
 
   private constructor() {
@@ -37,8 +37,6 @@ export default class DietService {
   }
 
   static getInstance(): DietService {
-    if (DietService.instance === undefined)
-      DietService.instance = new DietService();
     return DietService.instance;
   }
 
