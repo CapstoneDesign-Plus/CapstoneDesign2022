@@ -36,7 +36,7 @@ router.get("/profile", async (req, res) => {
 router.get("/:email", ...validator.user_get, async (req, res) => {
   const user = await UserService.getInstance().get(req.params.email as string);
 
-  return send(res, user, user && translate.parseUserDTO(req.user as IUser));
+  return send(res, user, user && translate.parseUserDTO(user as IUser));
 });
 
 export default router;
