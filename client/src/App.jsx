@@ -26,10 +26,13 @@ import { useRecoilState } from "recoil";
 import authState from "./state/auth";
 import axios from "./lib/axios";
 
-
-const AppStyle = styled.div`
-  width: 390px;
-`;
+const AppContainer = ({adminMode, children}) => {
+  return <div style={{
+    width: !adminMode ? "390px" : "100%"
+  }}>
+    {children}
+  </div>
+}
 
 async function check() {
   const response = await axios.get("v1/user/auth/check");
@@ -51,7 +54,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppStyle>
+      <AppContainer adminMode={auth && auth.admin}>
         <BrowserRouter>
           <Header />
           <Routes>
@@ -73,7 +76,7 @@ function App() {
             <Route path="/TokenInvalid" element={<TokenInvalid />} />
           </Routes>
         </BrowserRouter>
-      </AppStyle>
+      </AppContainer>
     </ThemeProvider>
   );
 }
