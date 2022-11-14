@@ -10,6 +10,8 @@ export default class UserService {
   }
 
   async signup(user: UserDTO) {
+    if (await this.isExist(user.email)) return false;
+
     if (await this.userModel.create(user)) return true;
     return false;
   }
