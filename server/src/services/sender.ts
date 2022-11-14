@@ -9,7 +9,7 @@ const Permission = {
 };
 
 function invalidPermission(response: Response, permission: string) {
-  response.status(400).send(`This Api require permission : ${permission}`);
+  response.send(`This Api require permission : ${permission}`);
 }
 
 function send(response: Response, ok: any, value: any = null) {
