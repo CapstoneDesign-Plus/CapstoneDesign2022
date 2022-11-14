@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {Box, Grid} from "@mui/material";
+import authState from "../../state/auth";
+import { useRecoilState } from "recoil";
 
 const MBoxStyle = styled.div`
   .box {
@@ -34,6 +36,8 @@ const MBoxStyle = styled.div`
 `;
 
 function MBox() {
+  const [auth, setAuth] = useRecoilState(authState);
+
   return (
     <MBoxStyle>
       <Box
@@ -55,7 +59,7 @@ function MBox() {
             <Box
               sx={{ fontSize: "20px", display: "flex", alignItems: "center" }}
             >
-              2 &nbsp;&nbsp;
+              {auth.tickets.length} &nbsp;&nbsp;
               <Link to="/BuyList/UnUsed">
                 <img className="arrow" alt="coin" src="\images\arrow.png" />
               </Link>
@@ -69,7 +73,7 @@ function MBox() {
             <Box
               sx={{ fontSize: "20px", display: "flex", alignItems: "center" }}
             >
-              10,000 &nbsp;&nbsp;
+              {auth.point} &nbsp;&nbsp;
               <Link to="/Charge">
                 <img className="arrow" alt="coin" src="\images\arrow.png" />
               </Link>

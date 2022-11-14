@@ -4,6 +4,7 @@ import { Box, Grid, Chip } from "@mui/material";
 import axios from "../../lib/axios";
 import { useRecoilState } from "recoil";
 import authState from "../../state/auth";
+import { Navigate } from "react-router-dom";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -194,6 +195,8 @@ function ChangePassword() {
             color="primary"
             onClick={handleClick}
           />
+          {/* 모달 창 띄우고 로그아웃 시키고 메인페이지로 Navigate */}
+          {isChange && <Navigate to="/" />} 
         </Grid>
       </Box>
     </ChangePwStyle>

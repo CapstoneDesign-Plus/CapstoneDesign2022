@@ -106,10 +106,10 @@ function Mypage() {
         <Grid container spacing={2} sx={{ margin: 0 }}>
           {/* 이름, 이메일 */}
           <Grid className="name" item xs={12} sm={12}>
-            {auth.data.username}
+            {auth.username}
           </Grid>
           <Grid className="email" item xs={12} sm={12}>
-            {auth.data.email}
+            {auth.email}
           </Grid>
           {/* 재화 박스 */}
           <Box
@@ -129,7 +129,7 @@ function Mypage() {
               <Grid className="coin_content" item xs={8}>
                 <Box sx={{ display: "flex", alignItems: "left" }}>
                   <img className="coin" alt="coin" src="\images\coin.png" />
-                  &nbsp;10,000
+                  &nbsp;{auth.point}
                 </Box>
               </Grid>
               <Grid item xs={4}>
