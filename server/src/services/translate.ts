@@ -18,6 +18,7 @@ export default {
       uclass: user.uclass,
       point: user.point,
       tickets: user.tickets,
+      admin: user.certificated,
     };
   },
 

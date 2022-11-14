@@ -1,6 +1,7 @@
 export interface UserDTO {
   readonly email: string;
   readonly username?: string;
+  readonly admin: boolean;
   readonly uclass?: number;
   readonly point?: number;
   readonly tickets: string[];
