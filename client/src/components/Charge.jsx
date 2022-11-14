@@ -12,21 +12,45 @@ import {
 import style from "../style/charge.scss";
 import authState from "../state/auth";
 import { useRecoilState } from "recoil";
+import axios from "../lib/axios";
 
 function createData(coin, price) {
   return { coin, price };
 }
 
 const rows = [
-  createData("4,000 캐시", "4,000 원"),
-  createData("8,000 캐시", "8,000 원"),
-  createData("12,000 캐시", "12,000 원"),
-  createData("16,000 캐시", "16,000 원"),
-  createData("20,000 캐시", "20,000 원"),
+  createData("4,000 캐시", 4000),
+  createData("8,000 캐시", 8000),
+  createData("12,000 캐시", 12000),
+  createData("16,000 캐시", 16000),
+  createData("20,000 캐시", 20000),
 ];
+
+async function point(email, delta) {
+  const response = await axios.get(`v1/user/point?email=${email}&delta=${delta}`);
+  return response;
+}
+
+async function getUser(email){
+  const response = await axios.get("v1/user/get/" + email);
+  return response;
+}
 
 function Charge() {
   const [auth, setAuth] = useRecoilState(authState);
+
+  const handler = (price) => () => {
+    point(auth.email, price)
+      .then((value)=>{
+        if(value.data.ok){
+          getUser(auth.email).then((value) => {
+            setAuth(value.data.result);
+          })
+        }
+        console.log(value);
+      })
+  }
+
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -95,7 +119,7 @@ function Charge() {
                 </TableCell>
                 <TableCell align="center">
                   {" "}
-                  <button className="price_btn">{row.price}</button>
+                  <button className="price_btn" onClick={handler(row.price)}>{row.price} 원</button>
                 </TableCell>
               </TableRow>
             ))}
