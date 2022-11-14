@@ -1,3 +1,4 @@
+import { logger } from '@/middleware/logger';
 import * as express from "express";
 import env from "@/config";
 import router from "@/routers";
@@ -19,11 +20,8 @@ export default ({ app }: { app: express.Application }) => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(logger);
   app.use(booleanHandler as any);
-  app.use((req, res, next) => {
-    console.log(`${req.method} - ${req.url}`);
-    next();
-  });
   app.use(router);
   //about router
 };

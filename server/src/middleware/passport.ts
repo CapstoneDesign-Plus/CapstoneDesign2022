@@ -8,7 +8,6 @@ passport.use('local-login', new Strategy({
   passwordField: 'password',
   passReqToCallback: true,
 }, async (req, username, password, done)=> {
-  console.log(`PASSPORT - ${username}`);
 
   const result = await UserService
     .getInstance()
@@ -25,7 +24,6 @@ passport.use('local-login', new Strategy({
 }));
 
 passport.serializeUser((user, done)=>{
-  console.log('AUTH SERIAL ' + user.email);
   return done(null, user.email);
 })
 

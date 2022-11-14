@@ -6,6 +6,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.2",
@@ -17,6 +18,7 @@
     "nodemailer": "^6.8.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "request": "^2.88.2",
     "tsc-alias": "^1.7.0"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@types/nodemailer": "^6.4.6",
     "@types/passport": "^1.0.10",
     "@types/passport-local": "^1.0.34",
+    "@types/request": "^2.48.8",
     "module-alias": "^2.2.2",
     "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
