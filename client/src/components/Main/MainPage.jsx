@@ -8,6 +8,7 @@ import MBox from "./MBox";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
 
+
 const MainPageStyle = styled.div`
   margin: auto;
   margin-bottom: 25px;
@@ -68,7 +69,7 @@ function MainPage() {
           <Grid item xs={5}>
             {auth ? (<>
               <h4 style={{ marginBottom: 0 }}>Hello,</h4>
-            <h2 style={{ margin: 0 }}> {auth.data.username}님</h2>
+            <h2 style={{ margin: 0 }}> {auth.username}님</h2>
             </>):(
               <h3 style={{ marginBottom: 0 }}>환영합니다!</h3>
             )}
@@ -109,6 +110,14 @@ function MainPage() {
         <MSlider />
         {/* 공지사항 박스 */}
         <MNotice />
+        {/* 404 TEST */}
+        <Link to="/404"><Button>404</Button></Link>
+        {/* RequestEmail TEST */}
+        <Link to="/RequestEmail"><Button>이메일 요청</Button></Link>
+        {/* ResetPassword(unvalid) TEST */}
+        <Link to="/TokenInvalid"><Button>비밀번호 재설정(무효)</Button></Link>
+        {/* AdminPage TEST */}
+        <Link to="/"><Button>Admin</Button></Link>
       </Box>
     </MainPageStyle>
   );

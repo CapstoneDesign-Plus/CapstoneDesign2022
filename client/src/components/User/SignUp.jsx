@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import axios from"../lib/axios";
+import axios from "../../lib/axios";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -220,7 +220,7 @@ function SignIn() {
                   <input
                     className="input_email"
                     placeholder=" 이메일"
-                    type="emmail"
+                    type="email"
                     value={email}
                     onChange={onChangeEmail}
                   />
@@ -282,7 +282,7 @@ function SignIn() {
         <Grid container spacing={2}>
           <Grid className="login" item xs={12}>
             <Button className="login_btn" variant="contained" color="primary" onClick={handleClick}>
-              로그인
+              회원가입
             </Button>
             <div>
               {isSignup && <Navigate to="/"/>}

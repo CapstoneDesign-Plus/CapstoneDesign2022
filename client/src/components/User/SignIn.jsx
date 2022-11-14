@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import axios from "../lib/axios";
-import authState from "../state/auth";
-import {useRecoilState} from "recoil";
+import axios from "../../lib/axios";
+import authState from "../../state/auth";
+import { useRecoilState } from "recoil";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -84,8 +84,9 @@ function SignIn() {
 
   const handleClick = () => {
     login(email, password).then((value) => {
-      setAuth(value);
-      console.log("Login Complete!");
+      if(value.data.ok)
+      {setAuth(value.data.result);
+      console.log("Login Complete!");}
     });
   };
 
@@ -149,12 +150,10 @@ function SignIn() {
             >
               로그인
             </Button>
-            <div>
-              {auth && <Navigate to="/"/>}
-            </div>
+            <div>{auth && <Navigate to="/" />}</div>
           </Grid>
           <Grid className="link" item xs={6}>
-            <Link to="/FindPassword">
+            <Link to="/RequestEmail">
               <Button className="btn" color="success">
                 비밀번호 재설정
               </Button>

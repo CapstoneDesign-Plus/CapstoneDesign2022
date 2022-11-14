@@ -1,111 +1,112 @@
 import passport from "@/middleware/passport";
 import validator from "@/middleware/validator";
+import { IUser } from "@/models/user";
 import MailService from "@/services/mail";
+import {
+  invalidPermission,
+  Permission,
+  send,
+  serverError,
+} from "@/services/sender";
 import TokenService from "@/services/token";
+import translate from "@/services/translate";
 import UserService from "@/services/user";
 import { Router } from "express";
 
-
 const router = Router();
 
-router.get('/check', (req, res)=>{
-  return res.sendStatus(req.user ? 200 : 400);
-})
+router.get("/check", (req, res) => {
+  if (!req.user) invalidPermission(res, Permission.USER);
+  return send(res, true, translate.parseUserDTO(req.user as IUser));
+});
 
-router.post('/logout', (req, res, next)=> {
-  req.logOut((err)=>{
-    if(err) return next(err);
-    return res.redirect('/');
-  });
+router.post("/login", ...validator.user_login, (req, res, next) => {
+  passport.authenticate("local-login", (err, user, info) => {
+    if (err) return serverError(res, err);
 
-})
+    if (user) {
+      req.logIn(user as Express.User, async (err) => {
+        if (err) return next(err);
 
-router.post('/login', ...validator.user_login, (req, res, next)=> {
-  passport.authenticate('local-login', (err, user, info)=>{
-    if(err) return res.sendStatus(400);
+        const u = await UserService.getInstance().get(req.body["email"]);
 
-    if(user) {
-      req.logIn(user as Express.User, async (err)=>{
-        if(err) return next(err);
-
-        const u = await UserService.getInstance().get(req.body['email']);
-
-        return res.json(u);
-      })
-    }else{
-      return res.sendStatus(400);
+        return send(res, true, translate.parseUserDTO(u as IUser));
+      });
+    } else {
+      return send(res, false);
     }
-
   })(req, res, next);
 });
 
-router.get('/logout', (req, res) => {
+router.get("/logout", (req, res) => {
+  if (!req.user) return invalidPermission(res, Permission.USER);
 
-  if(!req.user) return res.sendStatus(400);
+  req.logout((err) => {
+    if (err) return serverError(res, err);
 
-  req.logout((err)=>{
-    req.session.destroy(()=>{});
-    res.sendStatus(200);
+    req.session.destroy(() => {});
+    send(res, true);
   });
-})
-
-router.post('/signup', ...validator.user_signup, async (req, res)=> {
-  const isSuccess = await UserService
-    .getInstance()
-    .signup(req.body);
-
-  if(isSuccess) return res.sendStatus(200);
-
-  return res.sendStatus(400);
 });
 
-router.put('/password/:identifier', ...validator.user_put_reset_password,async (req, res) => {
-  const decodedId = decodeURIComponent(req.params.identifier);
+router.post("/signup", ...validator.user_signup, async (req, res) => {
+  const isSuccess = await UserService.getInstance().signup(req.body);
 
-  const token = await TokenService.getInstance().get(decodedId);
+  return send(res, isSuccess);
+});
 
-  if(token && TokenService.isValid(token)) {
-    const email = token.email;
+router.put(
+  "/password/:identifier",
+  ...validator.user_put_reset_password,
+  async (req, res) => {
+    const decodedId = decodeURIComponent(req.params.identifier);
 
-    const npassword = req.body['new_password'] as string;
+    const token = await TokenService.getInstance().get(decodedId);
 
-    await UserService.getInstance().setPassword(email, npassword);
+    if (token && TokenService.isValid(token)) {
+      const email = token.email;
 
-    return res.sendStatus(200);
+      const npassword = req.body["new_password"] as string;
+
+      await UserService.getInstance().setPassword(email, npassword);
+    }
+
+    return send(res, token);
   }
+);
 
-  return res.sendStatus(400);
-})
-
-router.get('/password/valid/:token', async(req, res)=> {
+router.get("/password/valid/:token", async (req, res) => {
   const decodedId = decodeURIComponent(req.params.token);
 
   const token = await TokenService.getInstance().get(decodedId);
 
-  if(token && TokenService.isValid(token)) {
-    return res.sendStatus(200);
-  }
-
-  return res.sendStatus(400);
-})
-
-router.get('/password', ...validator.user_get_reset_password, async(req, res)=>{
-
-  const email = req.query.email as string;
-
-  const result = await TokenService
-    .getInstance()
-    .create(email, 10);
-
-  if(result) {
-    /**
-     * @TODO url 수정 필요 
-     */
-    const access_url = `http://bapsim.kro.kr/api/v1/auth/password/${encodeURIComponent(result)}`;
-
-    MailService.getInstance().sendMail(email, '비밀번호 재설정', `<div>${access_url}</div>`);
-  }
-
-  return res.sendStatus(result ? 200 : 400);
+  return send(res, token && TokenService.isValid(token));
 });
+
+router.get(
+  "/password",
+  ...validator.user_get_reset_password,
+  async (req, res) => {
+    const email = req.query.email as string;
+
+    const result = await TokenService.getInstance().create(email, 10);
+
+    if (result) {
+      /**
+       * @TODO url 수정 필요
+       */
+      const access_url = `http://bapsim.kro.kr/ResetPassword/${encodeURIComponent(
+        result
+      )}`;
+
+      MailService.getInstance().sendMail(
+        email,
+        "비밀번호 재설정",
+        `<a href="${access_url}">${access_url}</a>`
+      );
+    }
+
+    return send(res, result);
+  }
+);
 export default router;

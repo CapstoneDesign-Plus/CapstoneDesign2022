@@ -1,28 +1,27 @@
-
 import { Schema, Model, Document, model } from "mongoose";
 
 import { autoIncrement } from "mongoose-plugin-autoinc-fix";
 export interface INotice extends Document {
-  identifier: number,
-  title: string,
-  writer: string,
-  content: string,
-  header: string,
-  postedAt: Date,
-  editedAt: Date,
-  numOfView: number,
+  identifier: number;
+  title: string;
+  writer: string;
+  content: string;
+  header: string;
+  postedAt: number;
+  editedAt: number;
+  numOfView: number;
 }
 
 export interface INoticeModel extends Model<INotice> {
-  findByKey: (key : number) => Promise<INotice>;
+  findByKey: (key: number) => Promise<INotice>;
   findByWriter: (writer: string) => Promise<INotice[]>;
   findByTitle: (title: string) => Promise<INotice[]>;
   findByHeader: (header: string) => Promise<INotice[]>;
-  findByDate: (date : Date) => Promise<INotice[]>;
+  findByDate: (date: Date) => Promise<INotice[]>;
   getAll: () => Promise<INotice[]>;
 }
 
-const NoticeSchema : Schema<INotice> = new Schema({
+const NoticeSchema: Schema<INotice> = new Schema({
   identifier: {
     type: Number,
     unique: true,
@@ -44,58 +43,57 @@ const NoticeSchema : Schema<INotice> = new Schema({
     require: false,
   },
   postedAt: {
-    type: Date,
-    default: Date.now
+    type: Number,
+    default: Date.now,
   },
   editedAt: {
-    type: Date,
-    default: Date.now
+    type: Number,
+    default: Date.now,
   },
   numOfView: {
     type: Number,
-    default: 0
-  }
-})
+    default: 0,
+  },
+});
 
-NoticeSchema.statics.findByWriter = function(writer: string) {
+NoticeSchema.statics.findByWriter = function (writer: string) {
   return this.find({
-    writer: {$regex: writer}
+    writer: { $regex: writer },
   });
-}
+};
 
-NoticeSchema.statics.findByTitle = function(title: string) {
+NoticeSchema.statics.findByTitle = function (title: string) {
   return this.find({
-    title: {$regex: title}
+    title: { $regex: title },
   });
-}
+};
 
-NoticeSchema.statics.findByHeader = function(header: string) {
+NoticeSchema.statics.findByHeader = function (header: string) {
   return this.find({
     header,
   });
-}
+};
 
 /**
  * 추후 추가
- * @param date 
- * @returns 
+ * @param date
+ * @returns
  */
-NoticeSchema.statics.findByDate = function(date : Date) {
-  return this.find({})
-}
-
-NoticeSchema.statics.getAll = function() {
+NoticeSchema.statics.findByDate = function (date: Date) {
   return this.find({});
-}
+};
+
+NoticeSchema.statics.getAll = function () {
+  return this.find({});
+};
 
 NoticeSchema.plugin(autoIncrement, {
-  model: 'notices',
-  field: 'identifier',
+  model: "notices",
+  field: "identifier",
   startAt: 1,
-  increment: 1
+  increment: 1,
 });
-
 
 const Notice = model<INotice, INoticeModel>("notice", NoticeSchema);
 
-export default Notice
+export default Notice;

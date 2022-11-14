@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 
 import style from "../style/charge.scss";
+import authState from "../state/auth";
+import { useRecoilState } from "recoil";
 
 function createData(coin, price) {
   return { coin, price };
@@ -24,6 +26,7 @@ const rows = [
 ];
 
 function Charge() {
+  const [auth, setAuth] = useRecoilState(authState);
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -50,9 +53,9 @@ function Charge() {
             item
             xs={8}
           >
-            <Box sx={{ display: "flex", alignItems: "left" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <img className="coin" alt="coin" src="\images\coin.png" />
-              &nbsp;&nbsp;10,000
+              &nbsp;&nbsp;{auth.point}
             </Box>
           </Grid>
           <Grid
