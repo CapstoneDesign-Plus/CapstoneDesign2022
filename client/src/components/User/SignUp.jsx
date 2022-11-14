@@ -110,8 +110,7 @@ function SignIn() {
   const [usernameMessage, setUsernameMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordConfirmMessage, setPasswordConfirmMessage] =
-  useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
   const [isSignup, setIsSignup] = useState(false);
 
@@ -173,11 +172,15 @@ function SignIn() {
     },
     [password]
   );
-  
+
   const handleClick = () => {
-    signup(username, password, email).then(() => {
-      setIsSignup(true);
-      console.log("Complete!");
+    signup(username, password, email).then((value) => {
+      if (value.data.ok) {
+        setIsSignup(true);
+        console.log("Complete!");
+      } else {
+        console.log("있다");
+      }
     });
   };
 
@@ -206,7 +209,11 @@ function SignIn() {
               value={username}
               onChange={onChangeName}
             />
-            {username.length > 0 && <span className={`message ${isUsername ? 'success' : 'error'}`}>{usernameMessage}</span>}
+            {username.length > 0 && (
+              <span className={`message ${isUsername ? "success" : "error"}`}>
+                {usernameMessage}
+              </span>
+            )}
           </Grid>
 
           {/* 이메일 */}
@@ -225,7 +232,13 @@ function SignIn() {
                     onChange={onChangeEmail}
                   />
                   {/* ..어떡하지 */}
-                  {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
+                  {email.length > 0 && (
+                    <span
+                      className={`message ${isEmail ? "success" : "error"}`}
+                    >
+                      {emailMessage}
+                    </span>
+                  )}
                 </Grid>
                 <Grid item xs={5}>
                   <select className="select_email">
@@ -251,7 +264,11 @@ function SignIn() {
               value={password}
               onChange={onChangePassword}
             />
-            {password.length > 0 && <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>}
+            {password.length > 0 && (
+              <span className={`message ${isPassword ? "success" : "error"}`}>
+                {passwordMessage}
+              </span>
+            )}
           </Grid>
 
           {/* 비밀번호 확인 */}
@@ -266,7 +283,13 @@ function SignIn() {
               value={passwordConfirm}
               onChange={onChangePasswordConfirm}
             />
-            {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>}
+            {passwordConfirm.length > 0 && (
+              <span
+                className={`message ${isPasswordConfirm ? "success" : "error"}`}
+              >
+                {passwordConfirmMessage}
+              </span>
+            )}
           </Grid>
         </Grid>
       </Box>
@@ -281,12 +304,15 @@ function SignIn() {
       >
         <Grid container spacing={2}>
           <Grid className="login" item xs={12}>
-            <Button className="login_btn" variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              className="login_btn"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+            >
               회원가입
             </Button>
-            <div>
-              {isSignup && <Navigate to="/"/>}
-            </div>
+            <div>{isSignup && <Navigate to="/" />}</div>
           </Grid>
           <Grid className="link" item xs={6}>
             <Link to="/ChangePassword">
