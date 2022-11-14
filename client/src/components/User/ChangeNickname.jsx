@@ -94,7 +94,7 @@ function ChangeNickname() {
             현재 닉네임
           </Grid>
           <Grid className="prevnick" item xs={12} sx={{ ml: -0.5 }}>
-            {auth.data.username}
+            {auth.username}
           </Grid>
           {/* 새 닉네임 */}
           <Grid className="nick-title" item xs={12} sx={{ mt: 3 }}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
@@ -22,21 +22,37 @@ import Error from "./components/ErrorPage/Error";
 import RequestEmail from "./components/User/RequestEmail";
 import TokenInvalid from "./components/User/TokenInvalid";
 
+import { useRecoilState } from "recoil";
+import authState from "./state/auth";
+import axios from "./lib/axios";
+
 
 const AppStyle = styled.div`
   width: 390px;
 `;
 
+async function check() {
+  const response = await axios.get("v1/user/auth/check");
+  return response;
+}
+
 function App() {
+  const [auth, setAuth] = useRecoilState(authState);
+
+  useEffect(()=> {
+    check().then((value)=>{
+      if(value.data.ok){
+        setAuth(value.data.result);
+      }
+    })
+  }, [])
+
   console.log("new file");
 
   return (
     <ThemeProvider theme={theme}>
       <AppStyle>
         <BrowserRouter>
-          {/* <Link to = "../components/MyPage/Mypage">MyPage</Link>
-      <Link to = "../components/MyPage/ChangeNickname">ChangeNickname</Link>
-      <Link to = "/changePassword">ChangePassword</Link> */}
           <Header />
           <Routes>
             <Route path="/" element={<MainPage />} />

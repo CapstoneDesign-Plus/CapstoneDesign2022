@@ -69,7 +69,7 @@ function MainPage() {
           <Grid item xs={5}>
             {auth ? (<>
               <h4 style={{ marginBottom: 0 }}>Hello,</h4>
-            <h2 style={{ margin: 0 }}> {auth.data.username}님</h2>
+            <h2 style={{ margin: 0 }}> {auth.username}님</h2>
             </>):(
               <h3 style={{ marginBottom: 0 }}>환영합니다!</h3>
             )}
