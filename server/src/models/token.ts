@@ -4,8 +4,8 @@ import { autoIncrement } from "mongoose-plugin-autoinc-fix";
 
 export interface IToken extends Document {
   identifier: number;
-  expiredAt: Number;
-  createdAt: Number;
+  expiredAt: number;
+  createdAt: number;
   email: string;
 }
 

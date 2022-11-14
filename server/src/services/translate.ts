@@ -1,26 +1,33 @@
 import { INotice } from "@/models/notice";
 import { ITicket } from "@/models/ticket";
 import { IUser } from "@/models/user";
-import { IRangeResult, NoticeDTO, RangeResultDTO, TicketDTO, UserDTO } from "@/types/dto";
+import {
+  IRangeResult,
+  NoticeDTO,
+  RangeResultDTO,
+  TicketDTO,
+  UserDTO,
+} from "@/types/dto";
 import tcrypto from "./tcrypto";
 
 export default {
-
-  parseUserDTO(user : IUser) : UserDTO {
+  parseUserDTO(user: IUser): UserDTO {
     return {
       email: user.email,
       username: user.username,
       uclass: user.uclass,
       point: user.point,
       tickets: user.tickets,
-    }
+    };
   },
 
-  parseUserDTOArray(users : IUser[]) : UserDTO[] {
-    return users.map(u=>{return this.parseUserDTO(u)});
+  parseUserDTOArray(users: IUser[]): UserDTO[] {
+    return users.map((u) => {
+      return this.parseUserDTO(u);
+    });
   },
 
-  parseNoticeDTO(notice : INotice) : NoticeDTO {
+  parseNoticeDTO(notice: INotice): NoticeDTO {
     return {
       identifier: notice.identifier,
       title: notice.title,
@@ -30,48 +37,52 @@ export default {
       header: notice.header,
       postedAt: notice.postedAt,
       editedAt: notice.editedAt,
-    }
+    };
   },
 
-  parseNoticeDTOArray(notices: INotice[]) : NoticeDTO[] {
-    return notices.map(n=>{return this.parseNoticeDTO(n)});
+  parseNoticeDTOArray(notices: INotice[]): NoticeDTO[] {
+    return notices.map((n) => {
+      return this.parseNoticeDTO(n);
+    });
   },
 
-  parseTicketDTO(ticket: ITicket) : TicketDTO {
+  parseTicketDTO(ticket: ITicket): TicketDTO {
     return {
-      identifier : tcrypto.cipher(ticket.identifier),
-      createdAt : ticket.createdAt,
-      expiredAt : ticket.expiredAt,
-      owner : ticket.owner,
-      state : ticket.state,
-      price : ticket.price,
-      tclass : ticket.tclass,
-      buyer: ticket.buyer
-    }
+      identifier: tcrypto.cipher(ticket.identifier),
+      createdAt: ticket.createdAt,
+      expiredAt: ticket.expiredAt,
+      owner: ticket.owner,
+      state: ticket.state,
+      price: ticket.price,
+      tclass: ticket.tclass,
+      buyer: ticket.buyer,
+    };
   },
 
-  parseTicketDTOArray(tickets: ITicket[]) : TicketDTO[] {
-    return tickets.map(t=>{return this.parseTicketDTO(t)});
+  parseTicketDTOArray(tickets: ITicket[]): TicketDTO[] {
+    return tickets.map((t) => {
+      return this.parseTicketDTO(t);
+    });
   },
 
-  parseNoticeRangeResult(rangeResult: IRangeResult) : RangeResultDTO{
-    return {
-      ...rangeResult,
-      values: this.parseNoticeDTOArray(rangeResult.values as INotice[])
-    }
-  },
-  
-  parseTicketRangeResult(rangeResult: IRangeResult) : RangeResultDTO{
+  parseNoticeRangeResult(rangeResult: IRangeResult): RangeResultDTO {
     return {
       ...rangeResult,
-      values: this.parseTicketDTOArray(rangeResult.values as ITicket[])
-    }
+      values: this.parseNoticeDTOArray(rangeResult.values as INotice[]),
+    };
   },
 
-  parseUserRangeResult(rangeResult: IRangeResult) : RangeResultDTO{
+  parseTicketRangeResult(rangeResult: IRangeResult): RangeResultDTO {
     return {
       ...rangeResult,
-      values: this.parseUserDTOArray(rangeResult.values as IUser[])
-    }
-  }
-}
+      values: this.parseTicketDTOArray(rangeResult.values as ITicket[]),
+    };
+  },
+
+  parseUserRangeResult(rangeResult: IRangeResult): RangeResultDTO {
+    return {
+      ...rangeResult,
+      values: this.parseUserDTOArray(rangeResult.values as IUser[]),
+    };
+  },
+};

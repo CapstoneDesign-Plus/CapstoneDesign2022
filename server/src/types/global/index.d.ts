@@ -4,7 +4,7 @@ declare namespace Express {
     email: string;
     password: string;
     certificated: boolean;
-    createdAt: Date;
+    createdAt: number;
     uclass: number;
     point: number;
     tickets: string[];

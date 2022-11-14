@@ -10,8 +10,8 @@ export interface ITicket extends Document {
   state: TicketState;
   price: number;
   tclass: TicketClass;
-  expiredAt: Number;
-  createdAt: Number;
+  expiredAt: number;
+  createdAt: number;
 }
 
 export interface ITicketModel extends Model<ITicket> {

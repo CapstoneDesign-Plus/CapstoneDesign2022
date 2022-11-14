@@ -5,7 +5,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   certificated: boolean;
-  createdAt: Number;
+  createdAt: number;
   uclass: number;
   point: number;
   tickets: string[];

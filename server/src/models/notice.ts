@@ -7,8 +7,8 @@ export interface INotice extends Document {
   writer: string;
   content: string;
   header: string;
-  postedAt: Number;
-  editedAt: Number;
+  postedAt: number;
+  editedAt: number;
   numOfView: number;
 }
 

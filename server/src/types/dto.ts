@@ -13,8 +13,8 @@ export interface NoticeDTO {
   readonly header: string;
   readonly numOfView?: number;
   readonly identifier?: number;
-  readonly postedAt?: Date;
-  readonly editedAt?: Date;
+  readonly postedAt?: number;
+  readonly editedAt?: number;
 }
 
 export interface BoardDTO {
@@ -33,8 +33,8 @@ export type TicketState =
 export type TicketClass = "A" | "B" | "C";
 export interface TicketDTO {
   readonly identifier: string;
-  readonly createdAt?: Date;
-  readonly expiredAt?: Date;
+  readonly createdAt?: number;
+  readonly expiredAt?: number;
   readonly owner: string;
   readonly state: TicketState;
   readonly price: number;
@@ -50,8 +50,8 @@ export interface NoticeSearchOption {
   readonly keyword?: string;
   readonly header?: string;
   readonly writer?: string;
-  readonly startedAt?: Date;
-  readonly endAt?: Date;
+  readonly startedAt?: number;
+  readonly endAt?: number;
 }
 
 export interface UserSearchOption {
@@ -62,8 +62,8 @@ export interface UserSearchOption {
   readonly email?: string;
   readonly bvAdmin?: boolean;
   readonly nickName?: string;
-  readonly startedAt?: Date;
-  readonly endAt?: Date;
+  readonly startedAt?: number;
+  readonly endAt?: number;
 }
 
 export interface TicketSearchOption {
@@ -76,10 +76,10 @@ export interface TicketSearchOption {
   readonly tClass?: string;
   readonly owner?: string;
   readonly buyer?: string;
-  readonly createStartedAt?: Date;
-  readonly createEndAt?: Date;
-  readonly expiredStartedAt?: Date;
-  readonly expiredEndAt?: Date;
+  readonly createStartedAt?: number;
+  readonly createEndAt?: number;
+  readonly expiredStartedAt?: number;
+  readonly expiredEndAt?: number;
   readonly startedPrice?: number;
   readonly endPrice?: number;
 }
