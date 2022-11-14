@@ -84,8 +84,9 @@ function SignIn() {
 
   const handleClick = () => {
     login(email, password).then((value) => {
-      setAuth(value);
-      console.log("Login Complete!");
+      if(value.data.ok)
+      {setAuth(value.data.result);
+      console.log("Login Complete!");}
     });
   };
 
