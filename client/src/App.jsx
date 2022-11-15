@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
@@ -26,13 +26,17 @@ import { useRecoilState } from "recoil";
 import authState from "./state/auth";
 import axios from "./lib/axios";
 
-const AppContainer = ({adminMode, children}) => {
-  return <div style={{
-    width: !adminMode ? "390px" : "100%"
-  }}>
-    {children}
-  </div>
-}
+const AppContainer = ({ adminMode, children }) => {
+  return (
+    <div
+      style={{
+        width: !adminMode ? "390px" : "100%",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 async function check() {
   const response = await axios.get("v1/user/auth/check");
@@ -42,13 +46,13 @@ async function check() {
 function App() {
   const [auth, setAuth] = useRecoilState(authState);
 
-  useEffect(()=> {
-    check().then((value)=>{
-      if(value.data.ok){
+  useEffect(() => {
+    check().then((value) => {
+      if (value.data.ok) {
         setAuth(value.data.result);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   console.log("new file");
 
@@ -71,9 +75,9 @@ function App() {
             <Route path="/Notice" element={<NoticePage />} />
             <Route path="/Charge" element={<ChargePage />} />
             <Route path="/BuyTicket" element={<BuyTicketPage />} />
-            <Route path="/404" element={<Error />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />
             <Route path="/TokenInvalid" element={<TokenInvalid />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
       </AppContainer>
