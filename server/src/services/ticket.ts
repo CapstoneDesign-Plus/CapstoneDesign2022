@@ -110,6 +110,28 @@ export default class TicketService {
     await this.ticketModel.updateOne({ identifier: key }, { $set: { state } });
   }
 
+  async use(ticketKey: string, type: "wait" | "use") {
+    const ticket = await this.get(ticketKey);
+
+    if (ticket) {
+      switch (type) {
+        case "use":
+          if (ticket.state === "normal" || ticket.state === "waiting") {
+            await this.changeState(ticketKey, "used");
+            return true;
+          }
+          break;
+        case "wait":
+          if (ticket.state === "normal") {
+            await this.changeState(ticketKey, "waiting");
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
+  }
+
   async get(ticketKey: string): Promise<ITicket | null> {
     try {
       const decodeKey = tcrypto.decipher(ticketKey);
