@@ -3,9 +3,9 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-  const type: "0" | "1" = req.query.type as "0" | "1";
-  const key = decodeURIComponent(req.query.id as string);
+router.get("/:type/:id", async (req, res) => {
+  const type: "0" | "1" = req.params.type as "0" | "1";
+  const key = decodeURIComponent(req.params.id as string);
 
   let success = false;
 
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
       break;
   }
 
-  return res.send(success ? 1 : 0);
+  return res.send(success ? "T" : "F");
 });
 
 export default router;
