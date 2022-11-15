@@ -3,9 +3,9 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/:type/:id", async (req, res) => {
+router.get("/:type", async (req, res) => {
   const type: "0" | "1" = req.params.type as "0" | "1";
-  const key = decodeURIComponent(req.params.id as string);
+  const key = decodeURIComponent(req.query.id as string);
 
   let success = false;
 
