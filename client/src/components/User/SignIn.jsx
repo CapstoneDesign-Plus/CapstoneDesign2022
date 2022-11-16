@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import axios from "../../lib/axios";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
+import usePassword from "../../hook/usePassword";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -70,7 +71,7 @@ async function login(email, password) {
 
 function SignIn() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword, hash] = usePassword("");
   const [auth, setAuth] = useRecoilState(authState);
   //const [isLogin, setIsLogin] = useState(false);
 
@@ -83,10 +84,11 @@ function SignIn() {
   };
 
   const handleClick = () => {
-    login(email, password).then((value) => {
-      if(value.data.ok)
-      {setAuth(value.data.result);
-      console.log("Login Complete!");}
+    login(email, hash()).then((value) => {
+      if (value.data.ok) {
+        setAuth(value.data.result);
+        console.log("Login Complete!");
+      }
     });
   };
 

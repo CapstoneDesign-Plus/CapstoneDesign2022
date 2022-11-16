@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import axios from "../../lib/axios";
+import usePassword from "../../hook/usePassword";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -98,7 +99,7 @@ async function signup(username, password, email) {
 
 function SignIn() {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword, hash] = usePassword("");
   const [email, setEmail] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
@@ -166,7 +167,7 @@ function SignIn() {
         setPasswordConfirmMessage("비밀번호 일치");
         setIsPasswordConfirm(true);
       } else {
-        setPasswordConfirmMessage("다시 입력해주세요");
+        setPasswordConfirmMessage("다시 입력 해주세요");
         setIsPasswordConfirm(false);
       }
     },
@@ -174,7 +175,7 @@ function SignIn() {
   );
 
   const handleClick = () => {
-    signup(username, password, email).then((value) => {
+    signup(username, hash(), email).then((value) => {
       if (value.data.ok) {
         setIsSignup(true);
         console.log("Complete!");
