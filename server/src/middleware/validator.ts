@@ -11,7 +11,7 @@ function ValidateErrorHandler(req: Request, res: Response, next: NextFunction) {
 
 const user_signup = [
   body("username").exists(),
-  body("password").isLength({ max: 20, min: 8 }),
+  body("password").exists(),
   body("email").isEmail(),
   ValidateErrorHandler,
 ];
