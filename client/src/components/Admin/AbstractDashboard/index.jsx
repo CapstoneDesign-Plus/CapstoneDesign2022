@@ -1,57 +1,38 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
-import { useState } from "react";
 
 /**
- * @template T
- * @typedef {object} Props<T>
- * @property { DashboardLeaf<T> } SearchLeaf
- * @property { DashboardLeaf<T> } ToolBoxLeaf
- * @property { DashboardLeaf<T> } BodyLeaf
+ * @template T, S
+ * @typedef {React.FC<{ provided: T, hlr: S}>} DashboardLeaf<T, S>
+ */
+
+/**
+ * @typedef {object} Props
+ * @property { JSX.Element } SearchLeaf
+ * @property { JSX.Element } ToolBoxLeaf
+ * @property { JSX.Element } BodyLeaf
  * @property {string} boardName
- * @property {T} initialState
+ *
+ * @typedef {object} DashboardUiItem
+ * @property {boolean} isSelected
  */
 
 /**
- * @template T
- * @typedef {React.FC<{ provided: T, setProvided: React.Dispatch<React.SetStateAction<T>>}>} DashboardLeaf<T>
- */
-
-/**
- * @template T
- * @typedef {React.FC<Props<T>>} IAbstractDashboard<T>
- */
-
-/**
- * @template T
- * @type {IAbstractDashboard<T>}
+ * @type {React.FC<Props>}
  */
 const AbstractDashboard = ({
   SearchLeaf,
   ToolBoxLeaf,
   BodyLeaf,
   boardName,
-  initialState,
 }) => {
-  const [provided, setProvided] = useState(initialState);
-
   return (
     <Box>
       <Typography>{boardName}</Typography>
-      <Paper>
-        {SearchLeaf && (
-          <SearchLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      <Paper>{SearchLeaf}</Paper>
       <Divider />
-      <Paper>
-        {ToolBoxLeaf && (
-          <ToolBoxLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      <Paper>{ToolBoxLeaf}</Paper>
       <Divider />
-      <Paper>
-        {BodyLeaf && <BodyLeaf provided={provided} setProvided={setProvided} />}
-      </Paper>
+      <Paper>{BodyLeaf}</Paper>
     </Box>
   );
 };
