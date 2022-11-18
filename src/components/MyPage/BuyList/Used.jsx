@@ -1,57 +1,51 @@
+import styled from "styled-components";
 import React from "react";
-
 import {
-  Box,
-  Grid,
   Table,
   TableCell,
   TableRow,
   TableHead,
   TableBody,
-  Button,
 } from "@mui/material";
+import { Box } from "@mui/material";
 
-import style from "../style/notice.scss";
+const UsedStyle = styled.div`
+  top: 0;
+  margin: 0 auto;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #000000;
 
-function createData(index, buyDate, useDate) {
-  return { index, buyDate, useDate };
+  .title {
+    font-size: 20px;
+  }
+  .table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+`;
+
+function createData(index, buyDate, useDate, cost, course) {
+  return { index, buyDate, useDate, cost, course };
 }
 
 const rows = [
-  createData("01", "밥심 사용방법", "2022.09.21"),
-  createData("02", "밥심 사용방법", "2022.09.21"),
-  createData("03", "밥심 사용방법", "2022.09.21"),
-  createData("04", "밥심 사용방법", "2022.09.21"),
-  createData("05", "밥심 사용방법", "2022.09.21"),
-  createData("06", "밥심 사용방법", "2022.09.21"),
+  createData("1", "2022.09.21", "2022.09.21", "4,000", "A"),
+  createData("2", "2022.09.21", "2022.09.21", "4,000", "A"),
+  createData("3", "2022.09.21", "2022.09.21", "4,000", "A"),
 ];
 
-export default function Notice() {
+function Used() {
   return (
-    <div style={{ margin: 0 }}>
+    <UsedStyle>
       <Box
         className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml:2}}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
-        공지사항
+        사용 식권
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item sx={{ mt: -2, ml: 1 }}>
-            <input
-              className={"input"}
-              placeholder="검색어를 입력하세요"
-            />
-          </Grid>
-          <Grid item sx={{ mt: -2, ml: -1 }}>
-            <Button color="primary">
-              <img className="search" src="\images\search.png" />
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-
-      {/* table box*/}
       <Box className="table">
         <Table sx={{ maxWidth: 440 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
@@ -66,13 +60,25 @@ export default function Notice() {
                 align="center"
                 sx={{ color: "white", lineHeight: "0.5" }}
               >
-                제목
+                구매날짜
               </TableCell>
               <TableCell
                 align="center"
                 sx={{ color: "white", lineHeight: "0.5" }}
               >
-                게시일
+                사용날짜
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
+                금액
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", lineHeight: "0.5" }}
+              >
+                코스
               </TableCell>
             </TableRow>
           </TableHead>
@@ -84,11 +90,15 @@ export default function Notice() {
                 </TableCell>
                 <TableCell align="center">{row.buyDate}</TableCell>
                 <TableCell align="center">{row.useDate}</TableCell>
+                <TableCell align="center">{row.cost}</TableCell>
+                <TableCell align="center">{row.course}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </Box>
-    </div>
+    </UsedStyle>
   );
 }
+
+export default Used;

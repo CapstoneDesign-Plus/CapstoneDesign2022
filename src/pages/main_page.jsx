@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-import Main from "../components/Main";
-import SideMenuBar from "../templates/side_menu";
-import Template from "../templates/ui_consistis";
+import SideMenuBar from "../components/templates/side_menu";
+import Template from "../components/templates/ui_consistis";
 
 
 
@@ -13,10 +12,7 @@ class MainPage extends Component {
         return (
             <>
               <Template>
-               
-                <SideMenuBar/>
-                <Main/>
-                
+                <SideMenuBar/>         
               </Template>  
             </>
         );
