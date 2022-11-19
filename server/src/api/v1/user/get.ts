@@ -8,12 +8,12 @@ import { UserSearchOption } from "@/types/dto";
 
 const router = Router();
 
-router.get("/search", async (req, res) => {
+router.post("/search", async (req, res) => {
   const users = await UserService.getInstance().search(
     req.body as UserSearchOption
   );
 
-  return send(res, users, users);
+  return send(res, users, translate.parseUserDTOArray(users));
 });
 
 router.get("/list", async (req, res) => {
