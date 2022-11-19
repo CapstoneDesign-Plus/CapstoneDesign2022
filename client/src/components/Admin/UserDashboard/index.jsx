@@ -1,9 +1,9 @@
 import useUser from "../../../hook/useUser";
 import useUserDashboard from "../../../hook/useUserDashboard";
 import AbstractDashboard from "../AbstractDashboard";
-import UserBodyLeaf from "./UserBodyBoxLeaf";
-import UserSearchLeaf from "./UserSearchLeaf";
-import UserToolBoxLeaf from "./UserToolBoxLeaf";
+import UserBody from "./UserBody";
+import UserSearch from "./UserSearch";
+import UserToolBox from "./UserToolBox";
 
 /**
  * @typedef {object} IUser
@@ -17,8 +17,9 @@ import UserToolBoxLeaf from "./UserToolBoxLeaf";
  *
  * @typedef {IUser & import("../AbstractDashboard").DashboardUiItem} UiUser
  *
- * @typedef {object} UserProvided
- * @property {UiUser[]} data
+ * @typedef {unknown} ChildProvided
+ *
+ * @typedef {ChildProvided & import("../AbstractDashboard").BaseProvided<UiUser, string>} UserProvided
  */
 
 const UserDashboard = () => {
@@ -29,9 +30,9 @@ const UserDashboard = () => {
   return (
     <AbstractDashboard
       boardName="User Dashboard"
-      SearchLeaf={<UserSearchLeaf provided={state} hlr={hlr} />}
-      ToolBoxLeaf={<UserToolBoxLeaf provided={state} hlr={hlr} />}
-      BodyLeaf={<UserBodyLeaf provided={state} hlr={hlr} />}
+      Search={<UserSearch provided={state} hlr={hlr} />}
+      ToolBox={<UserToolBox provided={state} hlr={hlr} />}
+      Body={<UserBody provided={state} hlr={hlr} />}
     />
   );
 };

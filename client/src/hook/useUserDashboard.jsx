@@ -7,17 +7,16 @@ import { useState } from "react";
  */
 
 /**
- * @typedef {object} UserHandler
+ * @typedef {object} ChildHandler
  * @property {React.Dispatch<React.SetStateAction<UserProvided>>} setState
  * @property {(email: string, user: UiUser)=>void} setUser
  * @property {(iUsers: IUser[])=>UiUser[]} transform
  * @property {(users: UiUser[]) => void} setAllUser
- * @property {(email: string) => void} toggleUser
- * @property {() => UiUser[]} getSelected
+ * @property {(emails: string[]) => UiUser[]} getSelected
  *
+ * @typedef {ChildHandler & import("../components/Admin/AbstractDashboard").BaseHandler<unknown, string>} UserHandler
  *
- *
- * @param {} state
+ * @param {UserProvided} state
  * @param {React.Dispatch<React.SetStateAction<UserProvided>>} setState
  *
  * @returns {UserHandler}
@@ -51,13 +50,18 @@ function createHandle(state, setState) {
         data: [...prev.data.splice(0, idx), user, ...prev.data.splice(idx + 1)],
       }));
     },
-    toggleUser(email) {
-      const user = getUser(indexUser(email));
-
-      hlr.setUser(email, { ...user, isSelected: !user.isSelected });
+    getSelected(emails) {
+      return emails.reduce((acc, cur) => {
+        let idx = indexUser(cur);
+        if (idx !== -1) acc.push(getUser(idx));
+        return acc;
+      }, []);
     },
-    getSelected() {
-      return state.data.filter((u) => u.isSelected);
+    setSelected(selected) {
+      setState((prev) => ({
+        ...prev,
+        selected,
+      }));
     },
   };
 
@@ -72,6 +76,7 @@ function createHandle(state, setState) {
 export default function useUserDashboard(
   initialState = {
     data: [],
+    selected: [],
   }
 ) {
   const [state, setState] = useState(initialState);

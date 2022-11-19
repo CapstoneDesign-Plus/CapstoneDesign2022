@@ -4,8 +4,8 @@
  *
  * @type {import("../AbstractDashboard").DashboardLeaf<UserProvided, UserHandler>}
  */
-const UserSearchLeaf = ({ provided, hlr }) => {
+const UserToolBox = ({ provided, hlr }) => {
   return <></>;
 };
 
-export default UserSearchLeaf;
+export default UserToolBox;

@@ -13,7 +13,7 @@ router.post("/search", async (req, res) => {
     req.body as UserSearchOption
   );
 
-  return send(res, users, users);
+  return send(res, users, translate.parseUserDTOArray(users));
 });
 
 router.get("/list", async (req, res) => {

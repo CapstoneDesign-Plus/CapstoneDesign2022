@@ -18,7 +18,7 @@ router.post("/search", async (req, res) => {
     req.body as TicketSearchOption
   );
 
-  return send(res, tickets, tickets);
+  return send(res, tickets, translate.parseTicketDTOArray(tickets));
 });
 
 router.get("/list", async (req, res) => {

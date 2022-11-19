@@ -2,37 +2,46 @@ import { Box, Divider, Paper, Typography } from "@mui/material";
 
 /**
  * @template T, S
- * @typedef {React.FC<{ provided: T, hlr: S}>} DashboardLeaf<T, S>
+ * @typedef {React.FC<{ provided: T, hlr: S}>} DashboardLeaf
+ *
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseProvided
+ * @property {K[]} selected
+ * @property {T[]} data
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseHandler
+ * @property {(selected: K[]) => void} setSelected
  */
 
 /**
  * @typedef {object} Props
- * @property { JSX.Element } SearchLeaf
- * @property { JSX.Element } ToolBoxLeaf
- * @property { JSX.Element } BodyLeaf
+ * @property { JSX.Element } Search
+ * @property { JSX.Element } ToolBox
+ * @property { JSX.Element } Body
  * @property {string} boardName
  *
  * @typedef {object} DashboardUiItem
  * @property {boolean} isSelected
+ *
+ *
  */
 
 /**
  * @type {React.FC<Props>}
  */
-const AbstractDashboard = ({
-  SearchLeaf,
-  ToolBoxLeaf,
-  BodyLeaf,
-  boardName,
-}) => {
+const AbstractDashboard = ({ Search, ToolBox, Body, boardName }) => {
   return (
     <Box>
       <Typography>{boardName}</Typography>
-      <Paper>{SearchLeaf}</Paper>
+      {Search}
       <Divider />
-      <Paper>{ToolBoxLeaf}</Paper>
+      {ToolBox}
       <Divider />
-      <Paper>{BodyLeaf}</Paper>
+      {Body}
     </Box>
   );
 };

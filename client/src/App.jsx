@@ -55,11 +55,9 @@ function App() {
     });
   }, []);
 
-  console.log("new file");
-
   return (
     <ThemeProvider theme={theme}>
-      <AppContainer adminMode={auth && auth.admin}>
+      <AppContainer adminMode={true}>
         <BrowserRouter>
           <Header />
           <Routes>

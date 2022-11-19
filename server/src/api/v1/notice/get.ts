@@ -12,7 +12,7 @@ router.post("/search", async (req, res) => {
     req.body as NoticeSearchOption
   );
 
-  return send(res, articles, articles);
+  return send(res, articles, translate.parseNoticeDTOArray(articles));
 });
 
 router.get("/list", async (req, res) => {
