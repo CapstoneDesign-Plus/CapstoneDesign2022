@@ -57,7 +57,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContainer adminMode={true}>
+      <AppContainer adminMode={auth && auth.admin}>
         <BrowserRouter>
           <Header />
           <Routes>
