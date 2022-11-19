@@ -7,7 +7,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/search", async (req, res) => {
+router.post("/search", async (req, res) => {
   const articles = await NoticeService.getInstance().search(
     req.body as NoticeSearchOption
   );
