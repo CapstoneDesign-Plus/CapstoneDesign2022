@@ -13,12 +13,12 @@ router.post("/", ...validator.ticket_get, async (req, res) => {
   return send(res, ticket, ticket);
 });
 
-router.get("/search", async (req, res) => {
+router.post("/search", async (req, res) => {
   const tickets = await TicketService.getInstance().search(
     req.body as TicketSearchOption
   );
 
-  return send(res, tickets, tickets);
+  return send(res, tickets, translate.parseTicketDTOArray(tickets));
 });
 
 router.get("/list", async (req, res) => {

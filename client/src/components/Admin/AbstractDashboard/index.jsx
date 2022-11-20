@@ -1,57 +1,47 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
-import { useState } from "react";
 
 /**
- * @template T
- * @typedef {object} Props<T>
- * @property { DashboardLeaf<T> } SearchLeaf
- * @property { DashboardLeaf<T> } ToolBoxLeaf
- * @property { DashboardLeaf<T> } BodyLeaf
+ * @template T, S
+ * @typedef {React.FC<{ provided: T, hlr: S}>} DashboardLeaf
+ *
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseProvided
+ * @property {K[]} selected
+ * @property {T[]} data
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseHandler
+ * @property {(selected: K[]) => void} setSelected
+ */
+
+/**
+ * @typedef {object} Props
+ * @property { JSX.Element } Search
+ * @property { JSX.Element } ToolBox
+ * @property { JSX.Element } Body
  * @property {string} boardName
- * @property {T} initialState
+ *
+ * @typedef {object} DashboardUiItem
+ * @property {boolean} isSelected
+ *
+ *
  */
 
 /**
- * @template T
- * @typedef {React.FC<{ provided: T, setProvided: React.Dispatch<React.SetStateAction<T>>}>} DashboardLeaf<T>
+ * @type {React.FC<Props>}
  */
-
-/**
- * @template T
- * @typedef {React.FC<Props<T>>} IAbstractDashboard<T>
- */
-
-/**
- * @template T
- * @type {IAbstractDashboard<T>}
- */
-const AbstractDashboard = ({
-  SearchLeaf,
-  ToolBoxLeaf,
-  BodyLeaf,
-  boardName,
-  initialState,
-}) => {
-  const [provided, setProvided] = useState(initialState);
-
+const AbstractDashboard = ({ Search, ToolBox, Body, boardName }) => {
   return (
     <Box>
       <Typography>{boardName}</Typography>
-      <Paper>
-        {SearchLeaf && (
-          <SearchLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      {Search}
       <Divider />
-      <Paper>
-        {ToolBoxLeaf && (
-          <ToolBoxLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      {ToolBox}
       <Divider />
-      <Paper>
-        {BodyLeaf && <BodyLeaf provided={provided} setProvided={setProvided} />}
-      </Paper>
+      {Body}
     </Box>
   );
 };

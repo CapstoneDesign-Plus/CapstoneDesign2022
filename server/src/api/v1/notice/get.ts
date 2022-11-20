@@ -7,12 +7,12 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/search", async (req, res) => {
+router.post("/search", async (req, res) => {
   const articles = await NoticeService.getInstance().search(
     req.body as NoticeSearchOption
   );
 
-  return send(res, articles, articles);
+  return send(res, articles, translate.parseNoticeDTOArray(articles));
 });
 
 router.get("/list", async (req, res) => {

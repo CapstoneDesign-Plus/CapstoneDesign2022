@@ -19,7 +19,24 @@ export default {
       point: user.point,
       tickets: user.tickets,
       admin: user.certificated,
+      createdAt: user.createdAt,
     };
+  },
+
+  parseUserDTOAdmin(user: IUser) {
+    return {
+      email: user.email,
+      username: user.username,
+      uclass: user.uclass,
+      point: user.point,
+      tickets: user.tickets,
+      admin: user.certificated,
+      createAt: user.createdAt,
+    };
+  },
+
+  parseUserDTOArrayAdmin(users: IUser[]) {
+    return users.map((u) => this.parseUserDTOAdmin(u));
   },
 
   parseUserDTOArray(users: IUser[]): UserDTO[] {

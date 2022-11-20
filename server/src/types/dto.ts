@@ -5,6 +5,7 @@ export interface UserDTO {
   readonly uclass?: number;
   readonly point?: number;
   readonly tickets: string[];
+  readonly createdAt: number;
 }
 
 export interface NoticeDTO {
