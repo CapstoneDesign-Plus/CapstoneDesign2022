@@ -43,6 +43,10 @@
   height: 40px;
   font-weight: bolder;
   font-size: 15px;
+
+  &:hover {
+    outline: none;
+  }
 }
 
 .coin {

@@ -92,7 +92,7 @@ function Mypage() {
     }
   };
 
-  if(!auth) return <Navigate to="/" />;
+  if (!auth) return <Navigate to="/" />;
 
   return (
     <MypageStyle>
@@ -133,14 +133,16 @@ function Mypage() {
                 </Box>
               </Grid>
               <Grid item xs={4}>
-                <Chip
-                  className="coin_btn"
-                  label="충 전"
-                  clickable
-                  component="a"
-                  href="#"
-                  color="primary"
-                />
+                <Link to="/Charge">
+                  <Chip
+                    className="coin_btn"
+                    label="충 전"
+                    clickable
+                    component="a"
+                    href="#"
+                    color="primary"
+                  />
+                </Link>
               </Grid>
             </Grid>
           </Box>
