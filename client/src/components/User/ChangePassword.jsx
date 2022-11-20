@@ -5,6 +5,7 @@ import axios from "../../lib/axios";
 import { useRecoilState } from "recoil";
 import authState from "../../state/auth";
 import { Navigate } from "react-router-dom";
+import usePassword from "../../hook/usePassword";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -56,8 +57,8 @@ function ChangePassword() {
   const [auth, setAuth] = useRecoilState(authState);
   const [isChange, setIsChange] = useState(false);
 
-  const [old_pw, setOldpw] = useState("");
-  const [new_pw, setNewpw] = useState("");
+  const [old_pw, setOldpw, old_Hash] = usePassword("");
+  const [new_pw, setNewpw, new_Hash] = usePassword("");
 
   const [isOldpw, setIsOldpw] = useState(false); //기존 비밀번호 일치 여부
   const [isPassword, setIsPassword] = useState(false); //새 비밀번호
@@ -107,7 +108,7 @@ function ChangePassword() {
   );
 
   const handleClick = () => {
-    changePw(old_pw, new_pw).then(() => {
+    changePw(old_Hash(), new_Hash()).then(() => {
       setIsChange(true);
       console.log("Change Password Complete!");
     });
@@ -196,7 +197,7 @@ function ChangePassword() {
             onClick={handleClick}
           />
           {/* 모달 창 띄우고 로그아웃 시키고 메인페이지로 Navigate */}
-          {isChange && <Navigate to="/" />} 
+          {isChange && <Navigate to="/" />}
         </Grid>
       </Box>
     </ChangePwStyle>
