@@ -9,44 +9,40 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 /**
  * @typedef {object} PeriodParam
  * @property {boolean} isActive
- * @property {()=>void} changeActive
  * @property {number} start
  * @property {number} end
  * @property {(value: number) => void} setStart
  * @property {(value: number) => void} setEnd
  *
  * @param {PeriodParam}
+ * @param {number} height
  */
-export default function usePeriod({
-  isActive,
-  start,
-  end,
-  changeActive,
-  setStart,
-  setEnd,
-}) {
-  return {
-    checkBox: <Checkbox checked={isActive} onChange={changeActive} />,
-    dataPicker: (
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-          disabled={!isActive}
-          label="Start"
-          inputFormat="YYYY/MM/DD - HH"
-          value={start}
-          onChange={(value) => setStart(Date.parse(value))}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        &nbsp; &nbsp; &nbsp;
-        <DateTimePicker
-          disabled={!isActive}
-          label="End"
-          inputFormat="YYYY/MM/DD - HH"
-          value={end}
-          onChange={(value) => setEnd(Date.parse(value))}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
-    ),
-  };
+export default function usePeriod({ isActive, start, end, setStart, setEnd }) {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DateTimePicker
+        disabled={!isActive}
+        inputFormat="YY/MM/DD HH:MM"
+        value={start}
+        onChange={(value) => setStart(Date.parse(value))}
+        renderInput={(params) => (
+          <Box width={170}>
+            <TextField {...params} size="small" margin="dense" />
+          </Box>
+        )}
+      />
+      &nbsp; &nbsp; &nbsp;
+      <DateTimePicker
+        disabled={!isActive}
+        inputFormat="YY/MM/DD HH:MM"
+        value={end}
+        onChange={(value) => setEnd(Date.parse(value))}
+        renderInput={(params) => (
+          <Box width={170}>
+            <TextField {...params} size="small" margin="dense" />
+          </Box>
+        )}
+      />
+    </LocalizationProvider>
+  );
 }

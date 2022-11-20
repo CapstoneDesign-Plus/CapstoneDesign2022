@@ -1,8 +1,9 @@
-import { Box, Button, Checkbox } from "@mui/material";
+import { Button, Checkbox } from "@mui/material";
 import useInput from "../../../hook/useInput";
 import usePeriod from "../../../hook/usePeriod";
 import useUserSearch from "../../../hook/useUserSearch";
 import searchUser from "../../../lib/searchUser";
+import AbstractSearch from "../AbstractSearch";
 
 /**
  * @typedef {import(".").UserProvided} UserProvided
@@ -19,7 +20,7 @@ const UserSearch = ({ provided, hlr }) => {
     });
   };
 
-  const { checkBox, dataPicker } = usePeriod({
+  const datePicker = usePeriod({
     isActive: option.isPeriod,
     start: option.startedAt,
     end: option.endAt,
@@ -29,42 +30,30 @@ const UserSearch = ({ provided, hlr }) => {
   });
 
   return (
-    <Box>
-      <table>
-        <tbody>
-          <tr>
-            <td>이메일</td>
-            <td>{useInput(option.email, sh.setEmail)}</td>
-          </tr>
-          <tr>
-            <td>이름</td>
-            <td>{useInput(option.nickName, sh.setNickName)}</td>
-          </tr>
-          <tr>
-            <td>
-              관리자{" "}
-              <Checkbox checked={option.isAdmin} onChange={sh.toggleAdmin} />
-            </td>
-            <td>
-              <Checkbox
-                disabled={!option.isAdmin}
-                checked={option.bvAdmin}
-                onChange={sh.togglebvAdmin}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>기간 검색 {checkBox}</td>
-            <td>{dataPicker}</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>
-              <Button onClick={search}>검색</Button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </Box>
+    <AbstractSearch
+      colPair={[
+        ["이메일", useInput(option.email, sh.setEmail)],
+        [
+          "관리자",
+          <Checkbox
+            disabled={!option.isAdmin}
+            checked={option.bvAdmin}
+            onChange={sh.togglebvAdmin}
+          />,
+          {
+            isActive: option.isAdmin,
+            toggle: sh.toggleAdmin,
+          },
+        ],
+        ["이름", useInput(option.nickName, sh.setNickName)],
+        [
+          "기간 검색",
+          datePicker,
+          { isActive: option.isPeriod, toggle: sh.togglePeriod },
+        ],
+      ]}
+      confirm={<Button onClick={search}>검색</Button>}
+    />
   );
 };
 
