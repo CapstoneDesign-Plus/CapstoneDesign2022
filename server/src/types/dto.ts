@@ -99,3 +99,8 @@ export interface RangeResultDTO {
   readonly totalCount: number;
   readonly values: object[];
 }
+
+export interface UsedTicketRecord {
+  readonly tclass: TicketClass,
+  readonly usedAt: number
+}

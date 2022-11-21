@@ -5,6 +5,7 @@ import {
   IRangeResult,
   NoticeDTO,
   RangeResultDTO,
+  TicketClass,
   TicketDTO,
   UserDTO,
 } from "@/types/dto";
@@ -103,4 +104,15 @@ export default {
       values: this.parseUserDTOArray(rangeResult.values as IUser[]),
     };
   },
+
+  parseUsedTicketRecord(ticket: ITicket) {
+    return {
+      tclass: ticket.tclass,
+      usedAt: ticket.usedAt
+    }
+  },
+
+  parseUsedTicketRecordArray(tickets: ITicket[]) {
+    return tickets.map(this.parseUsedTicketRecord);
+  }
 };
