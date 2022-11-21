@@ -13,7 +13,7 @@ const style = {
   p: 3,
 };
 
-const SendEmailModal = ({ open, handleClose }) => {
+const SendEmailModal = ({ isopen, handleClose }) => {
   return (
     <div>
       <Modal
