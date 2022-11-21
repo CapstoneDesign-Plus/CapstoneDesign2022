@@ -20,7 +20,7 @@ import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 import { ThemeProvider } from "@mui/material";
 import Error from "./components/ErrorPage/Error";
-import RequestEmail from "./components/User/RequestEmail";
+import RequestEmail from "./components/User/RequestEmail/RequestEmail";
 import TokenInvalid from "./components/User/TokenInvalid";
 
 import { useRecoilState } from "recoil";
