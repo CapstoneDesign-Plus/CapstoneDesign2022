@@ -65,7 +65,7 @@ export default class WaitService {
   }
 
   static CalcWaitMinute(peopleCount: number) {
-    return 0;
+    return Math.round(peopleCount / 5); // 무지성 하드코딩
   }
 
   static getInstance() {

@@ -1,15 +1,17 @@
 import {
   IRangeResult,
   TicketClass,
-  TicketDTO,
   TicketSearchOption,
   TicketState,
+  UsedTicketRecord,
+  UsedTicketSearchRange,
 } from "@/types/dto";
 import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import UserService from "@/services/user";
 import { IUser } from "@/models/user";
 import { FilterQuery } from "mongoose";
+import translate from "@/services/translate";
 
 export default class TicketService {
   private ticketModel: ITicketModel;
@@ -211,5 +213,31 @@ export default class TicketService {
       };
 
     return filter;
+  }
+
+  async getUsingRecord(range: UsedTicketSearchRange): Promise<UsedTicketRecord[] | null> {;
+    let start: Date = new Date;
+    start.setHours(0, 0, 0, 0);
+    switch (range) {
+      case "7d":
+        start.setDate(start.getDate() - 7);
+        break;
+      case "30d":
+        start.setDate(start.getDate() - 30);
+        break;
+      case "3m":
+        start.setMonth(start.getMonth() - 3);
+        break;
+      case "1y":
+        start.setFullYear(start.getFullYear() - 1);
+        break;
+      default:
+        return null;
+    }
+    return translate.parseUsedTicketRecordArray(
+      await this.ticketModel.find()
+        .where('state').equals('used')
+        .where('usedAt').gte(start.valueOf()).lt(Date.now())
+    );
   }
 }
