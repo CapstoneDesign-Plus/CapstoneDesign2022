@@ -231,6 +231,8 @@ export default class TicketService {
       case "1y":
         start.setFullYear(start.getFullYear() - 1);
         break;
+      default:
+        return null;
     }
     return translate.parseUsedTicketRecordArray(
       await this.ticketModel.find()
