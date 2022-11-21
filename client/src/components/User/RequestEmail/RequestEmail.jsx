@@ -76,7 +76,11 @@ function RequestEmail() {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
-  const [modal, setModal] = useState(false);
+  //const [fail, setFail] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -95,7 +99,7 @@ function RequestEmail() {
 
   const handleClick = () => {
     request(email).then(() => {
-      setModal(true);
+      handleOpen();
       console.log("Request Complete!");
     });
   };
@@ -177,16 +181,9 @@ function RequestEmail() {
             >
               전 송
             </Button>
-            <div>{modal && <SendEmailModal />}</div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{ mt: 4, color: "#49663c", textAlign: "center" }}
-          >
-            입력하신 이메일로 링크가 전송되었습니다.
-            <br />
-            비밀번호 재설정 시간은 요청 후 10분 입니다.
+            <div>
+              {open && <SendEmailModal open={open} handleClose={handleClose} />}
+            </div>
           </Grid>
         </Grid>
       </Box>
