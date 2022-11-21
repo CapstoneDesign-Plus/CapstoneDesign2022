@@ -1,4 +1,5 @@
 import { Modal, Fade, Box, Typography, Backdrop } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -38,7 +39,6 @@ const AlertModal = (isOpen, handleClose) => {
               Complete!
             </Typography>
             <Typography
-              className="contents"
               id="transition-modal-description"
               sx={{
                 mt: 1,
@@ -52,6 +52,7 @@ const AlertModal = (isOpen, handleClose) => {
           </Box>
         </Fade>
       </Modal>
+      <div>{!open && <Navigate to="/" />}</div>
     </div>
   );
 };
