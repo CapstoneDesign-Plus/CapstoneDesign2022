@@ -12,6 +12,7 @@ export interface ITicket extends Document {
   tclass: TicketClass;
   expiredAt: number;
   createdAt: number;
+  usedAt: number;
 }
 
 export interface ITicketModel extends Model<ITicket> {
@@ -53,6 +54,10 @@ const TicketSchema: Schema<ITicket> = new Schema({
   buyer: {
     type: String,
     required: true,
+  },
+  usedAt: {
+    type: Number,
+    default: Date.now,
   },
 });
 

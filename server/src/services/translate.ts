@@ -1,8 +1,10 @@
+import { ILog } from "@/models/log";
 import { INotice } from "@/models/notice";
 import { ITicket } from "@/models/ticket";
 import { IUser } from "@/models/user";
 import {
   IRangeResult,
+  LogDTO,
   NoticeDTO,
   RangeResultDTO,
   TicketClass,
@@ -78,9 +80,24 @@ export default {
     };
   },
 
+  parseLogDTO(log: ILog): LogDTO {
+    return {
+      identifier: log.identifier,
+      timestamp: log.timestamp,
+      source: log.source,
+      content: log.content,
+    };
+  },
+
   parseTicketDTOArray(tickets: ITicket[]): TicketDTO[] {
     return tickets.map((t) => {
       return this.parseTicketDTO(t);
+    });
+  },
+
+  parseLogDTOArray(logs: ILog[]): LogDTO[] {
+    return logs.map((l) => {
+      return this.parseLogDTO(l);
     });
   },
 
@@ -105,6 +122,13 @@ export default {
     };
   },
 
+  parseLogRangeResult(rangeResult: IRangeResult): RangeResultDTO {
+    return {
+      ...rangeResult,
+      values: this.parseLogDTOArray(rangeResult.values as ILog[]),
+    };
+  },
+  
   parseUsedTicketRecord(ticket: ITicket) {
     return {
       tclass: ticket.tclass,
@@ -114,5 +138,5 @@ export default {
 
   parseUsedTicketRecordArray(tickets: ITicket[]) {
     return tickets.map(this.parseUsedTicketRecord);
-  }
+  },
 };

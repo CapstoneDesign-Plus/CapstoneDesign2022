@@ -107,7 +107,10 @@ export default class TicketService {
   ): Promise<void> {
     const key =
       typeof ticketKey === "number" ? ticketKey : tcrypto.decipher(ticketKey);
-    await this.ticketModel.updateOne({ identifier: key }, { $set: { state } });
+    await this.ticketModel.updateOne(
+      { identifier: key },
+      { $set: { state, usedAt: Date.now() } }
+    );
   }
 
   async use(ticketKey: string, type: "wait" | "use") {
