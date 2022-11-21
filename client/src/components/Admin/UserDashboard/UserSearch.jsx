@@ -20,7 +20,7 @@ const UserSearch = ({ provided, hlr }) => {
     });
   };
 
-  const datePicker = usePeriod({
+  const [startPicker, endPicker] = usePeriod({
     isActive: option.isPeriod,
     start: option.startedAt,
     end: option.endAt,
@@ -33,6 +33,7 @@ const UserSearch = ({ provided, hlr }) => {
     <AbstractSearch
       colPair={[
         ["이메일", useInput(option.email, sh.setEmail)],
+        ["이름", useInput(option.nickName, sh.setNickName)],
         [
           "관리자",
           <Checkbox
@@ -45,14 +46,19 @@ const UserSearch = ({ provided, hlr }) => {
             toggle: sh.toggleAdmin,
           },
         ],
-        ["이름", useInput(option.nickName, sh.setNickName)],
         [
           "기간 검색",
-          datePicker,
+          <div style={{ display: "flex" }}>
+            {startPicker}&nbsp;{endPicker}
+          </div>,
           { isActive: option.isPeriod, toggle: sh.togglePeriod },
         ],
       ]}
-      confirm={<Button onClick={search}>검색</Button>}
+      confirm={
+        <Button onClick={search} variant="contained">
+          검색
+        </Button>
+      }
     />
   );
 };

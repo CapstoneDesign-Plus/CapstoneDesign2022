@@ -1,10 +1,5 @@
-import { Checkbox, Box, TextField, Stack } from "@mui/material";
-import {
-  DateTimePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Box, TextField } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 /**
  * @typedef {object} PeriodParam
@@ -18,31 +13,28 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
  * @param {number} height
  */
 export default function usePeriod({ isActive, start, end, setStart, setEnd }) {
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateTimePicker
-        disabled={!isActive}
-        inputFormat="YY/MM/DD HH:MM"
-        value={start}
-        onChange={(value) => setStart(Date.parse(value))}
-        renderInput={(params) => (
-          <Box width={170}>
-            <TextField {...params} size="small" margin="dense" />
-          </Box>
-        )}
-      />
-      &nbsp; &nbsp; &nbsp;
-      <DateTimePicker
-        disabled={!isActive}
-        inputFormat="YY/MM/DD HH:MM"
-        value={end}
-        onChange={(value) => setEnd(Date.parse(value))}
-        renderInput={(params) => (
-          <Box width={170}>
-            <TextField {...params} size="small" margin="dense" />
-          </Box>
-        )}
-      />
-    </LocalizationProvider>
-  );
+  return [
+    <DateTimePicker
+      disabled={!isActive}
+      inputFormat="YY/MM/DD HH:MM"
+      value={start}
+      onChange={(value) => setStart(Date.parse(value))}
+      renderInput={(params) => (
+        <Box width={170}>
+          <TextField {...params} size="small" margin="dense" />
+        </Box>
+      )}
+    />,
+    <DateTimePicker
+      disabled={!isActive}
+      inputFormat="YY/MM/DD HH:MM"
+      value={end}
+      onChange={(value) => setEnd(Date.parse(value))}
+      renderInput={(params) => (
+        <Box width={170}>
+          <TextField {...params} size="small" margin="dense" />
+        </Box>
+      )}
+    />,
+  ];
 }

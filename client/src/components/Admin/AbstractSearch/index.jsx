@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 
 const StyledTd = styled.td`
   background-color: ${(props) => props.theme.palette.primary.main};
@@ -25,16 +25,6 @@ const ToggleTr = ({ hlr, children }) => {
   );
 };
 
-function makePair(value) {
-  const pair = [];
-
-  for (let i = 0, r = value.length; i < r; i += 2) {
-    if (i + 1 < r) pair.push([value[i], value[i + 1]]);
-    else pair.push([value[i]]);
-  }
-  return pair;
-}
-
 /**
  * @typedef {object} SearchProps
  * @property { [JSX.Element | string, JSX.Element, {toggle: ()=>void, isActive: boolean} | undefined][] } colPair
@@ -44,29 +34,28 @@ function makePair(value) {
  */
 
 const AbstractSearch = ({ colPair, confirm }) => {
-  const pair = makePair(colPair);
-
   return (
-    <table
-      style={{ borderSpacing: "0px", border: "1px solid #eee", width: "100%" }}
-    >
-      <tbody>
-        {pair.map((p, i) => (
-          <tr key={i}>
-            {p.map((v, i) => (
-              <React.Fragment key={i}>
-                <ToggleTr hlr={v[2]}>{v[0]}</ToggleTr>
-                <td>{v[1]}</td>
-              </React.Fragment>
-            ))}
-          </tr>
-        ))}
-        <tr>
-          <td></td>
-          <td>{confirm}</td>
-        </tr>
-      </tbody>
-    </table>
+    <Box>
+      <table
+        style={{
+          borderSpacing: "0px",
+          border: "1px solid #eee",
+          width: "100%",
+        }}
+      >
+        <tbody>
+          {colPair.map((p, i) => (
+            <tr key={i}>
+              <ToggleTr hlr={p[2]}>{p[0]}</ToggleTr>
+              <td>{p[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {confirm}
+      </div>
+    </Box>
   );
 };
 
