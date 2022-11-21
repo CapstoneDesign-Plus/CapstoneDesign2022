@@ -8,6 +8,13 @@ export interface UserDTO {
   readonly createdAt: number;
 }
 
+export interface LogDTO {
+  readonly identifier: number;
+  readonly timestamp: number;
+  readonly source: string;
+  readonly content: string;
+}
+
 export interface NoticeDTO {
   readonly title: string;
   readonly writer?: string;
@@ -84,6 +91,16 @@ export interface TicketSearchOption {
   readonly expiredEndAt?: number;
   readonly startedPrice?: number;
   readonly endPrice?: number;
+}
+
+export interface LogSearchOption {
+  readonly isSource: boolean;
+  readonly isPeriod: boolean;
+  readonly isContent: boolean;
+  readonly startedAt: number;
+  readonly endAt: number;
+  readonly source: string;
+  readonly content: string;
 }
 
 export interface IRangeResult {
