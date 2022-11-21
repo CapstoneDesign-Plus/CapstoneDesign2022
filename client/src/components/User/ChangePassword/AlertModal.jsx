@@ -1,4 +1,4 @@
-import useModal from "../../../hook/useModal";
+import { Modal, Fade, Box, Typography, Backdrop } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -13,10 +13,47 @@ const style = {
   p: 3,
 };
 
-const AlertModal = () => {
-  const { isOpen, toggle } = useModal;
-
-  return <div></div>;
+const AlertModal = (isOpen, handleClose) => {
+  return (
+    <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Typography
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ fontWeight: "bold" }}
+            >
+              Complete!
+            </Typography>
+            <Typography
+              className="contents"
+              id="transition-modal-description"
+              sx={{
+                mt: 1,
+                color: "#49663c",
+                fontWeight: "bold",
+                fontSize: "14px",
+              }}
+            >
+              변경된 비밀번호로 재로그인 해주세요!
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
 };
 
 export default AlertModal;

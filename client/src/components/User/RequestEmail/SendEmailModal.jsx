@@ -1,4 +1,5 @@
 import { Modal, Fade, Box, Typography, Backdrop } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -13,7 +14,7 @@ const style = {
   p: 3,
 };
 
-const SendEmailModal = ({ isopen, handleClose }) => {
+const SendEmailModal = ({ isOpen, handleClose }) => {
   return (
     <div>
       <Modal
@@ -54,6 +55,9 @@ const SendEmailModal = ({ isopen, handleClose }) => {
           </Box>
         </Fade>
       </Modal>
+      <div>
+        <Navigate to="/" />
+      </div>
     </div>
   );
 };
