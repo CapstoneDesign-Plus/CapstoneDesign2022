@@ -4,12 +4,14 @@ import {
   TicketDTO,
   TicketSearchOption,
   TicketState,
+  UsedTicketRecord,
 } from "@/types/dto";
 import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import UserService from "@/services/user";
 import { IUser } from "@/models/user";
 import { FilterQuery } from "mongoose";
+import translate from "@/services/translate";
 
 export default class TicketService {
   private ticketModel: ITicketModel;
@@ -211,5 +213,15 @@ export default class TicketService {
       };
 
     return filter;
+  }
+
+  async getUsingRecord(date: Date): Promise<UsedTicketRecord[] | null> {
+    let startTime : number = date.setHours(0, 0, 0, 0);
+    let endTime   : number = date.setHours(23, 59, 59, 59);
+    return translate.parseUsedTicketRecordArray(
+      await this.ticketModel.find()
+        .where('state').equals('used')
+        .where('usedAt').gte(startTime).lt(endTime)
+    );
   }
 }
