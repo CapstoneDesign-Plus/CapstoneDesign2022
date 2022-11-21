@@ -3,16 +3,16 @@ import { Box, Grid, Chip, Button } from "@mui/material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 const TransferStyle = styled.div`
-top: 0;
+  top: 0;
   margin: 0 auto;
   margin-top: 20px;
   font-weight: bold;
   color: #000000;
 
-.title {
+  .title {
     font-size: 20px;
   }
-  .input_title{
+  .input_title {
     font-size: 22px;
     color: #49663c;
   }
@@ -21,7 +21,7 @@ top: 0;
     padding-left: 10px;
     width: 100%;
     height: 50px;
-    border: 3px solid #B1D6A8;
+    border: 3px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
     outline-color: #b1d6a8;
@@ -43,107 +43,87 @@ top: 0;
   }
   .box {
     background-color: #f2f7f1;
-    border-radius:2ch;
+    border-radius: 2ch;
     width: 100%;
     height: 70px;
   }
-  
+
   .boxContent {
     font-size: 30px;
     display: flex;
     justify-content: center;
-  
   }
-  
-  
-`
+`;
 
 function Transfer() {
-  
-  return(
+  return (
     <TransferStyle>
-    <div style={{ margin: 0 }}>
+      <div style={{ margin: 0 }}>
         <Box
-        className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
+          className="title"
+          sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
         >
-        양도하기 
+          양도하기
         </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr:3 }}>
-        <Grid container spacing={2}>
-          {/* 식권정보 */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
-            식권정보
+        <Box
+          sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr: 3 }}
+        >
+          <Grid container spacing={2}>
+            {/* 식권정보 */}
+            <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
+              식권정보
+            </Grid>
+
+            <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
+              <Box
+                className="box"
+                sx={{
+                  display: "flex",
+                  mt: 1,
+                }}
+              >
+                <Grid container spacing={3} style={{ margin: 0 }}>
+                  <Grid className="boxContent" item xs={15} sx={{ pr: "16px" }}>
+                    A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4,000원
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+
+            {/* 보낼 사람 Eamil */}
+            <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
+              보낼 사람 Email
+            </Grid>
+            <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
+              <input
+                className="input_pw"
+                placeholder="보낼 사람의 Eamil을 입력해주세요"
+              />
+            </Grid>
+            {/* 본인 Email */}
+            <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
+              본인 확인
+            </Grid>
+            <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
+              <input className="input_pw" placeholder="Eamil을 입력해주세요" />
+            </Grid>
           </Grid>
-          
-          <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-          <Box
-          className="box"
+        </Box>
+        <Box
           sx={{
             display: "flex",
-            mt: 1
+            alignItems: "flex-end",
+            mt: 3,
+            mr: 2,
+            float: "right",
           }}
         >
-          <Grid container spacing={3} style={{ margin: 0 }}>
-            <Grid className="boxContent" item xs={15} sx={{ pr: "16px" }}>
-                A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4,000원
-            </Grid>
-            
+          <Grid>
+            <button className="transfer_btn">양도하기</button>
           </Grid>
         </Box>
-            </Grid>
-       
-          {/* 보낼 사람 Eamil */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
-            보낼 사람 Email
-          </Grid>
-          <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder="보낼 사람의 Eamil을 입력해주세요" />
-          </Grid>
-          {/* 본인 Email */}
-          <Grid
-            className="input_title"
-            item
-            xs={12}
-            sm={12}
-            sx={{ mt: 3 }}
-          >
-            본인 확인
-          </Grid>
-          <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-            <input className="input_pw" placeholder="Eamil을 입력해주세요" />
-          </Grid>
-        </Grid>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "flex-end",
-          mt: 3,
-          mr: 2,
-          float: "right",
-        }}
-      >
-        <Grid>
-        <button className="transfer_btn">양도하기</button>
-         
-        </Grid>
-      </Box>
-        </div>
-        </TransferStyle>
-        );
-    
+      </div>
+    </TransferStyle>
+  );
 }
 export default Transfer;
