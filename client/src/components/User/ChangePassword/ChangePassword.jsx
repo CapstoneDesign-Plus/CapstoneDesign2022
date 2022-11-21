@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import React, { useState, useCallback } from "react";
 import { Box, Grid, Chip } from "@mui/material";
-import axios from "../../lib/axios";
+import axios from "../../../lib/axios";
 import { useRecoilState } from "recoil";
-import authState from "../../state/auth";
+import authState from "../../../state/auth";
 import { Navigate } from "react-router-dom";
-import usePassword from "../../hook/usePassword";
+import usePassword from "../../../hook/usePassword";
 
 const ChangePwStyle = styled.div`
   top: 0;

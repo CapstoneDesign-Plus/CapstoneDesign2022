@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
 import Mypage from "./components/MyPage/Mypage";
 import ChangeNickname from "./components/User/ChangeNickname";
-import ChangePassword from "./components/User/ChangePassword";
+import ChangePassword from "./components/User/ChangePassword/ChangePassword";
 import ResetPassword from "./components/User/ResetPassword";
 import BuyList from "./components/MyPage/BuyList/BuyList";
 import Used from "./components/MyPage/BuyList/Used";
