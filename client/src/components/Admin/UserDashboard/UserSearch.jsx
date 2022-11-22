@@ -6,17 +6,17 @@ import searchUser from "../../../lib/searchUser";
 import AbstractSearch from "../AbstractSearch";
 
 /**
- * @typedef {import(".").UserProvided} UserProvided
- * @typedef {import("../../../hook/useUserDashboard").UserHandler} UserHandler
+ * @typedef {import(".").UserProvided} Provided
+ * @typedef {import("../../../hook/useUserDashboard").Handler} Handler
  *
- * @type {import("../AbstractDashboard").DashboardLeaf<UserProvided, UserHandler>}
+ * @type {import("../AbstractDashboard").DashboardLeaf<Provided, Handler>}
  */
 const UserSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useUserSearch();
 
   const search = () => {
     searchUser(option).then((v) => {
-      hlr.setAllUser(v);
+      hlr.setAll(v);
     });
   };
 

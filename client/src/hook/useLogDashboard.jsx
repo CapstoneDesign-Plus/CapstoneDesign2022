@@ -1,25 +1,26 @@
 import { useState } from "react";
+import fetchLog from "../lib/fetchLog";
 
 /**
- * @typedef {import("../components/Admin/LogDashboard").ILog} ILog
- * @typedef {import("../components/Admin/LogDashboard").UiLog} UiLog
- * @typedef {import("../components/Admin/LogDashboard").LogProvided} LogProvided
+ * @typedef {import("../components/Admin/LogDashboard").ILog} Item
+ * @typedef {import("../components/Admin/LogDashboard").UiLog} UiItem
+ * @typedef {import("../components/Admin/LogDashboard").LogProvided} Provided
  */
 
 /**
  * @typedef {object} ChildHandler
- * @property {React.Dispatch<React.SetStateAction<LogProvided>>} setState
- * @property {(id: string, log: UiLog)=>void} setLog
- * @property {(iLogs: ILog[])=>UiLog[]} transform
- * @property {(logs: UiLog[]) => void} setAllLog
- * @property {(id: string[]) => UiLog[]} getSelected
+ * @property {React.Dispatch<React.SetStateAction<Provided>>} setState
+ * @property {(id: string, log: UiItem)=>void} set
+ * @property {(iLogs: Item[])=>UiItem[]} transform
+ * @property {(logs: UiItem[]) => void} setAll
+ * @property {(id: string[]) => UiItem[]} getSelected
  *
- * @typedef {ChildHandler & import("../components/Admin/AbstractDashboard").BaseHandler<unknown, number>} LogHandler
+ * @typedef {ChildHandler & import("../components/Admin/AbstractDashboard").BaseHandler<Item, number>} Handler
  *
- * @param {LogProvided} state
- * @param {React.Dispatch<React.SetStateAction<LogProvided>>} setState
+ * @param {Provided} state
+ * @param {React.Dispatch<React.SetStateAction<Provided>>} setState
  *
- * @returns {LogHandler}
+ * @returns {Handler}
  */
 function createHandle(state, setState) {
   const index = (id) => {
@@ -30,11 +31,11 @@ function createHandle(state, setState) {
   };
 
   /**
-   * @type {LogHandler}
+   * @type {Handler}
    */
   const hlr = {
     setState,
-    setAllLog(logs) {
+    setAll(logs) {
       setState((prev) => ({
         ...prev,
         data: logs,
@@ -43,7 +44,7 @@ function createHandle(state, setState) {
     transform(iLogs) {
       return iLogs.map((u) => ({ ...u, isSelected: false }));
     },
-    setLog(id, log) {
+    set(id, log) {
       const idx = index(id);
       setState((prev) => ({
         ...prev,
@@ -63,6 +64,25 @@ function createHandle(state, setState) {
         selected,
       }));
     },
+    fetchPage(page) {
+      fetchLog(page).then((v) => {
+        if (v) {
+          hlr.setPage(
+            v.currentPage,
+            Math.ceil(v.totalCount / v.countPerPage),
+            v.values
+          );
+        }
+      });
+    },
+    setPage(page, limit, values) {
+      setState((prev) => ({
+        ...prev,
+        page,
+        pageLimit: limit,
+        data: hlr.transform(values),
+      }));
+    },
   };
 
   return hlr;
@@ -70,13 +90,15 @@ function createHandle(state, setState) {
 
 /**
  *
- * @param {import("../components/Admin/LogDashboard").LogProvided} initialState
+ * @param {Provided} initialState
  * @returns
  */
 export default function useLogDashboard(
   initialState = {
     data: [],
     selected: [],
+    page: 0,
+    pageLimit: 0,
   }
 ) {
   const [state, setState] = useState(initialState);

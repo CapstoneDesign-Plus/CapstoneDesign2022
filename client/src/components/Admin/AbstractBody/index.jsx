@@ -11,6 +11,7 @@ const AbstractBody = ({ getId, data, columns, setSelected }) => {
         // rowsPerPageOptions={[25]}
         checkboxSelection
         onSelectionModelChange={setSelected}
+        hideFooterPagination={true}
       />
     </Box>
   );

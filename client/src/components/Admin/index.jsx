@@ -6,7 +6,7 @@ import LogDashboard from "./LogDashboard";
 const Admin = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <LogDashboard />
+      <UserDashboard />
     </LocalizationProvider>
   );
 };

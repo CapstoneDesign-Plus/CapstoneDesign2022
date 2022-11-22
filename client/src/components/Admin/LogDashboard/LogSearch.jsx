@@ -6,17 +6,17 @@ import searchLog from "../../../lib/searchLog";
 import AbstractSearch from "../AbstractSearch";
 
 /**
- * @typedef {import(".").LogProvided} LogProvided
- * @typedef {import("../../../hook/useLogDashboard").LogHandler} LogHandler
+ * @typedef {import(".").LogProvided} Provided
+ * @typedef {import("../../../hook/useLogDashboard").Handler} Handler
  *
- * @type {import("../AbstractDashboard").DashboardLeaf<LogProvided, LogHandler>}
+ * @type {import("../AbstractDashboard").DashboardLeaf<Provided, Handler>}
  */
 const LogSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useLogSearch();
 
   const search = () => {
     searchLog(option).then((v) => {
-      hlr.setAllLog(v);
+      hlr.setAll(v);
     });
   };
 

@@ -1,4 +1,4 @@
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Divider, Pagination, Paper, Typography } from "@mui/material";
 
 /**
  * @template T, S
@@ -10,11 +10,15 @@ import { Box, Divider, Paper, Typography } from "@mui/material";
  * @typedef {object} BaseProvided
  * @property {K[]} selected
  * @property {T[]} data
+ * @property {number} page
+ * @property {number} pageLimit
  */
 /**
  * @template T, K
  * @typedef {object} BaseHandler
  * @property {(selected: K[]) => void} setSelected
+ * @property {(page: number) => void} fetchPage
+ * @property {(page: number, limit: number, value: T[])=>void} setPage
  */
 
 /**
@@ -23,6 +27,8 @@ import { Box, Divider, Paper, Typography } from "@mui/material";
  * @property { JSX.Element } ToolBox
  * @property { JSX.Element } Body
  * @property {string} boardName
+ * @property {BaseHandler<unknown, unknown>} hlr
+ * @property {BaseProvided<unknown, unknown>} provided
  *
  * @typedef {object} DashboardUiItem
  * @property {boolean} isSelected
@@ -33,7 +39,14 @@ import { Box, Divider, Paper, Typography } from "@mui/material";
 /**
  * @type {React.FC<Props>}
  */
-const AbstractDashboard = ({ Search, ToolBox, Body, boardName }) => {
+const AbstractDashboard = ({
+  Search,
+  ToolBox,
+  Body,
+  boardName,
+  hlr,
+  provided,
+}) => {
   return (
     <Box>
       <Typography>{boardName}</Typography>
@@ -42,6 +55,13 @@ const AbstractDashboard = ({ Search, ToolBox, Body, boardName }) => {
       {ToolBox}
       <Divider />
       {Body}
+      <Divider />
+      <Pagination
+        page={provided.page}
+        onChange={(e, v) => hlr.fetchPage(v)}
+        boundaryCount={8}
+        count={provided.pageLimit}
+      />
     </Box>
   );
 };

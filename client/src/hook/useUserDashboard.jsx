@@ -1,59 +1,60 @@
 import { useState } from "react";
+import fetchUser from "../lib/fetchUser";
 
 /**
- * @typedef {import("../components/Admin/UserDashboard").IUser} IUser
- * @typedef {import("../components/Admin/UserDashboard").UiUser} UiUser
- * @typedef {import("../components/Admin/UserDashboard").UserProvided} UserProvided
+ * @typedef {import("../components/Admin/UserDashboard").IUser} Item
+ * @typedef {import("../components/Admin/UserDashboard").UiUser} UiItem
+ * @typedef {import("../components/Admin/UserDashboard").UserProvided} Provided
  */
 
 /**
  * @typedef {object} ChildHandler
- * @property {React.Dispatch<React.SetStateAction<UserProvided>>} setState
- * @property {(email: string, user: UiUser)=>void} setUser
- * @property {(iUsers: IUser[])=>UiUser[]} transform
- * @property {(users: UiUser[]) => void} setAllUser
- * @property {(emails: string[]) => UiUser[]} getSelected
+ * @property {React.Dispatch<React.SetStateAction<Provided>>} setState
+ * @property {(id: string, log: UiItem)=>void} set
+ * @property {(iLogs: Item[])=>UiItem[]} transform
+ * @property {(logs: UiItem[]) => void} setAll
+ * @property {(id: string[]) => UiItem[]} getSelected
  *
- * @typedef {ChildHandler & import("../components/Admin/AbstractDashboard").BaseHandler<unknown, string>} UserHandler
+ * @typedef {ChildHandler & import("../components/Admin/AbstractDashboard").BaseHandler<Item, number>} Handler
  *
- * @param {UserProvided} state
- * @param {React.Dispatch<React.SetStateAction<UserProvided>>} setState
+ * @param {Provided} state
+ * @param {React.Dispatch<React.SetStateAction<Provided>>} setState
  *
- * @returns {UserHandler}
+ * @returns {Handler}
  */
 function createHandle(state, setState) {
-  const indexUser = (email) => {
-    return state.data.findIndex((u) => u.email === email);
+  const index = (id) => {
+    return state.data.findIndex((l) => l.email === id);
   };
-  const getUser = (index) => {
+  const get = (index) => {
     return state.data[index];
   };
 
   /**
-   * @type {UserHandler}
+   * @type {Handler}
    */
   const hlr = {
     setState,
-    setAllUser(users) {
+    setAll(logs) {
       setState((prev) => ({
         ...prev,
-        data: users,
+        data: logs,
       }));
     },
-    transform(iUsers) {
-      return iUsers.map((u) => ({ ...u, isSelected: false }));
+    transform(iLogs) {
+      return iLogs.map((u) => ({ ...u, isSelected: false }));
     },
-    setUser(email, user) {
-      const idx = indexUser(email);
+    set(id, log) {
+      const idx = index(id);
       setState((prev) => ({
         ...prev,
-        data: [...prev.data.splice(0, idx), user, ...prev.data.splice(idx + 1)],
+        data: [...prev.data.splice(0, idx), log, ...prev.data.splice(idx + 1)],
       }));
     },
-    getSelected(emails) {
-      return emails.reduce((acc, cur) => {
-        let idx = indexUser(cur);
-        if (idx !== -1) acc.push(getUser(idx));
+    getSelected(ids) {
+      return ids.reduce((acc, cur) => {
+        let idx = index(cur);
+        if (idx !== -1) acc.push(get(idx));
         return acc;
       }, []);
     },
@@ -63,6 +64,25 @@ function createHandle(state, setState) {
         selected,
       }));
     },
+    fetchPage(page) {
+      fetchUser(page).then((v) => {
+        if (v) {
+          hlr.setPage(
+            v.currentPage,
+            Math.ceil(v.totalCount / v.countPerPage),
+            v.values
+          );
+        }
+      });
+    },
+    setPage(page, limit, values) {
+      setState((prev) => ({
+        ...prev,
+        page,
+        pageLimit: limit,
+        data: hlr.transform(values),
+      }));
+    },
   };
 
   return hlr;
@@ -70,13 +90,14 @@ function createHandle(state, setState) {
 
 /**
  *
- * @param {import("../components/Admin/UserDashboard").UserProvided} initialState
+ * @param {Provided} initialState
  * @returns
  */
 export default function useUserDashboard(
   initialState = {
     data: [],
     selected: [],
+    page: 0,
   }
 ) {
   const [state, setState] = useState(initialState);

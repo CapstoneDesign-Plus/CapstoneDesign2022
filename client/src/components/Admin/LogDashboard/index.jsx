@@ -4,6 +4,7 @@ import useLogDashboard from "../../../hook/useLogDashboard";
 import LogBody from "./LogBody";
 import LogSearch from "./LogSearch";
 import LogToolBox from "./LogToolBox";
+import { useEffect } from "react";
 
 /**
  * @typedef {object} ILog
@@ -22,10 +23,14 @@ import LogToolBox from "./LogToolBox";
 const LogDashboard = () => {
   const { state, hlr } = useLogDashboard();
 
-  useLog((logs) => hlr.setAllLog(hlr.transform(logs)));
+  useEffect(() => {
+    hlr.fetchPage(1);
+  }, []);
 
   return (
     <AbstractDashboard
+      provided={state}
+      hlr={hlr}
       boardName="Log Dashboard"
       Search={<LogSearch provided={state} hlr={hlr} />}
       ToolBox={<LogToolBox provided={state} hlr={hlr} />}

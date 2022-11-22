@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useUser from "../../../hook/useUser";
 import useUserDashboard from "../../../hook/useUserDashboard";
 import AbstractDashboard from "../AbstractDashboard";
@@ -25,10 +26,14 @@ import UserToolBox from "./UserToolBox";
 const UserDashboard = () => {
   const { state, hlr } = useUserDashboard();
 
-  useUser((users) => hlr.setAllUser(hlr.transform(users)));
+  useEffect(() => {
+    hlr.fetchPage(1);
+  }, []);
 
   return (
     <AbstractDashboard
+      provided={state}
+      hlr={hlr}
       boardName="User Dashboard"
       Search={<UserSearch provided={state} hlr={hlr} />}
       ToolBox={<UserToolBox provided={state} hlr={hlr} />}
