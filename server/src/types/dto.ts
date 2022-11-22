@@ -80,12 +80,15 @@ export interface TicketSearchOption {
   readonly isPrice: boolean;
   readonly isBuyer: boolean;
   readonly isOwner: boolean;
-  readonly isCreatePeriod: boolean;
+  readonly isCreatedPeriod: boolean;
+  readonly isUsedPeriod: boolean;
   readonly tClass?: string;
   readonly owner?: string;
   readonly buyer?: string;
-  readonly createStartedAt?: number;
-  readonly createEndAt?: number;
+  readonly createdStartedAt?: number;
+  readonly createdEndAt?: number;
+  readonly usedStartedAt?: number;
+  readonly usedEndAt?: number;
   readonly startedPrice?: number;
   readonly endPrice?: number;
 }

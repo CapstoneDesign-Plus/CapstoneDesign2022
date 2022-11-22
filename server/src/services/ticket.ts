@@ -196,15 +196,15 @@ export default class TicketService {
 
     if (option.isOwner) filter.owner = option.owner;
 
-    if (option.isCreatePeriod)
+    if (option.isCreatedPeriod)
       filter.createdAt = {
-        $gte: option.createStartedAt,
-        $lte: option.createEndAt,
+        $gte: option.createdStartedAt,
+        $lte: option.createdEndAt,
       };
-    if (option.isExpiredPeriod)
+    if (option.isUsedPeriod)
       filter.expiredAt = {
-        $gte: option.expiredStartedAt,
-        $lte: option.expiredEndAt,
+        $gte: option.usedStartedAt,
+        $lte: option.usedEndAt,
       };
     if (option.isPrice)
       filter.price = {
