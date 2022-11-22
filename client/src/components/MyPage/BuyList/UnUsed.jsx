@@ -27,7 +27,10 @@ const UnUsedStyle = styled.div`
     
     margin-top: 20px;
     width: 95%;
+<<<<<<< HEAD
     
+=======
+>>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
   }
   .table {
     display: flex;
@@ -68,7 +71,11 @@ function UnUsed() {
       <Stack className="ticket-list">
         {data &&
           data.values.map((ticket) => (
+<<<<<<< HEAD
             <UnUsedTicketItem 
+=======
+            <TicketItem
+>>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
               key={ticket.identifier}
               ticket={ticket}
               expanded={expanded === ticket.identifier}

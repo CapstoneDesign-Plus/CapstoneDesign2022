@@ -93,6 +93,11 @@ const user_put_reset_password = [
 
 const user_history = [param("email").isEmail(), ValidateErrorHandler];
 
+const stats_day_used = [
+  query("range").exists(),
+  ValidateErrorHandler
+];
+
 export default {
   user_put_reset_password,
   user_get_reset_password,
@@ -113,4 +118,5 @@ export default {
   ticket_validate,
   ticket_refund,
   ticket_change_state,
+  stats_day_used
 };

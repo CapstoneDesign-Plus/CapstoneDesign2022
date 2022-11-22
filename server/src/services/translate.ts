@@ -1,10 +1,13 @@
+import { ILog } from "@/models/log";
 import { INotice } from "@/models/notice";
 import { ITicket } from "@/models/ticket";
 import { IUser } from "@/models/user";
 import {
   IRangeResult,
+  LogDTO,
   NoticeDTO,
   RangeResultDTO,
+  TicketClass,
   TicketDTO,
   UserDTO,
 } from "@/types/dto";
@@ -19,7 +22,24 @@ export default {
       point: user.point,
       tickets: user.tickets,
       admin: user.certificated,
+      createdAt: user.createdAt,
     };
+  },
+
+  parseUserDTOAdmin(user: IUser) {
+    return {
+      email: user.email,
+      username: user.username,
+      uclass: user.uclass,
+      point: user.point,
+      tickets: user.tickets,
+      admin: user.certificated,
+      createAt: user.createdAt,
+    };
+  },
+
+  parseUserDTOArrayAdmin(users: IUser[]) {
+    return users.map((u) => this.parseUserDTOAdmin(u));
   },
 
   parseUserDTOArray(users: IUser[]): UserDTO[] {
@@ -51,18 +71,33 @@ export default {
     return {
       identifier: tcrypto.cipher(ticket.identifier),
       createdAt: ticket.createdAt,
-      expiredAt: ticket.expiredAt,
       owner: ticket.owner,
       state: ticket.state,
       price: ticket.price,
       tclass: ticket.tclass,
       buyer: ticket.buyer,
+      usedAt: ticket.usedAt,
+    };
+  },
+
+  parseLogDTO(log: ILog): LogDTO {
+    return {
+      identifier: log.identifier,
+      timestamp: log.timestamp,
+      source: log.source,
+      content: log.content,
     };
   },
 
   parseTicketDTOArray(tickets: ITicket[]): TicketDTO[] {
     return tickets.map((t) => {
       return this.parseTicketDTO(t);
+    });
+  },
+
+  parseLogDTOArray(logs: ILog[]): LogDTO[] {
+    return logs.map((l) => {
+      return this.parseLogDTO(l);
     });
   },
 
@@ -85,5 +120,23 @@ export default {
       ...rangeResult,
       values: this.parseUserDTOArray(rangeResult.values as IUser[]),
     };
+  },
+
+  parseLogRangeResult(rangeResult: IRangeResult): RangeResultDTO {
+    return {
+      ...rangeResult,
+      values: this.parseLogDTOArray(rangeResult.values as ILog[]),
+    };
+  },
+
+  parseUsedTicketRecord(ticket: ITicket) {
+    return {
+      tclass: ticket.tclass,
+      usedAt: ticket.usedAt,
+    };
+  },
+
+  parseUsedTicketRecordArray(tickets: ITicket[]) {
+    return tickets.map(this.parseUsedTicketRecord);
   },
 };

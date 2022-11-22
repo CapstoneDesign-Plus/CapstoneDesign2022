@@ -1,4 +1,4 @@
-import { logger } from '@/middleware/logger';
+import { logger } from "@/middleware/logger";
 import * as express from "express";
 import env from "@/config";
 import router from "@/routers";

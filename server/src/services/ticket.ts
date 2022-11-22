@@ -1,15 +1,17 @@
 import {
   IRangeResult,
   TicketClass,
-  TicketDTO,
   TicketSearchOption,
   TicketState,
+  UsedTicketRecord,
+  UsedTicketSearchRange,
 } from "@/types/dto";
 import Ticket, { ITicketModel, ITicket } from "@/models/ticket";
 import tcrypto from "./tcrypto";
 import UserService from "@/services/user";
 import { IUser } from "@/models/user";
 import { FilterQuery } from "mongoose";
+import translate from "@/services/translate";
 
 export default class TicketService {
   private ticketModel: ITicketModel;
@@ -107,7 +109,10 @@ export default class TicketService {
   ): Promise<void> {
     const key =
       typeof ticketKey === "number" ? ticketKey : tcrypto.decipher(ticketKey);
-    await this.ticketModel.updateOne({ identifier: key }, { $set: { state } });
+    await this.ticketModel.updateOne(
+      { identifier: key },
+      { $set: { state, usedAt: Date.now() } }
+    );
   }
 
   async use(ticketKey: string, type: "wait" | "use") {
@@ -191,15 +196,15 @@ export default class TicketService {
 
     if (option.isOwner) filter.owner = option.owner;
 
-    if (option.isCreatePeriod)
+    if (option.isCreatedPeriod)
       filter.createdAt = {
-        $gte: option.createStartedAt,
-        $lte: option.createEndAt,
+        $gte: option.createdStartedAt,
+        $lte: option.createdEndAt,
       };
-    if (option.isExpiredPeriod)
+    if (option.isUsedPeriod)
       filter.expiredAt = {
-        $gte: option.expiredStartedAt,
-        $lte: option.expiredEndAt,
+        $gte: option.usedStartedAt,
+        $lte: option.usedEndAt,
       };
     if (option.isPrice)
       filter.price = {
@@ -208,5 +213,37 @@ export default class TicketService {
       };
 
     return filter;
+  }
+
+  async getUsingRecord(
+    range: UsedTicketSearchRange
+  ): Promise<UsedTicketRecord[] | null> {
+    let start: Date = new Date();
+    start.setHours(0, 0, 0, 0);
+    switch (range) {
+      case "7d":
+        start.setDate(start.getDate() - 7);
+        break;
+      case "30d":
+        start.setDate(start.getDate() - 30);
+        break;
+      case "3m":
+        start.setMonth(start.getMonth() - 3);
+        break;
+      case "1y":
+        start.setFullYear(start.getFullYear() - 1);
+        break;
+      default:
+        return null;
+    }
+    return translate.parseUsedTicketRecordArray(
+      await this.ticketModel
+        .find()
+        .where("state")
+        .equals("used")
+        .where("usedAt")
+        .gte(start.valueOf())
+        .lt(Date.now())
+    );
   }
 }

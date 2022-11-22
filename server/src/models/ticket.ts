@@ -10,8 +10,8 @@ export interface ITicket extends Document {
   state: TicketState;
   price: number;
   tclass: TicketClass;
-  expiredAt: number;
   createdAt: number;
+  usedAt: number;
 }
 
 export interface ITicketModel extends Model<ITicket> {
@@ -41,10 +41,6 @@ const TicketSchema: Schema<ITicket> = new Schema({
     type: String,
     require: true,
   },
-  expiredAt: {
-    type: Number,
-    required: false,
-  },
   createdAt: {
     type: Number,
     required: true,
@@ -53,6 +49,10 @@ const TicketSchema: Schema<ITicket> = new Schema({
   buyer: {
     type: String,
     required: true,
+  },
+  usedAt: {
+    type: Number,
+    default: Date.now,
   },
 });
 
