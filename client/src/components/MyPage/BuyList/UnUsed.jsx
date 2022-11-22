@@ -28,7 +28,10 @@ const UnUsedStyle = styled.div`
     margin-top: 20px;
     width: 95%;
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+>>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
 =======
 >>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
   }
@@ -72,7 +75,11 @@ function UnUsed() {
         {data &&
           data.values.map((ticket) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
             <UnUsedTicketItem 
+=======
+            <TicketItem
+>>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
 =======
             <TicketItem
 >>>>>>> 605ecf0f28c5a15c1742e4c2a5a467712989bf58
