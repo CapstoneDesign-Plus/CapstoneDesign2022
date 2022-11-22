@@ -1,4 +1,4 @@
-import { Modal, Fade, Box, Typography, Backdrop } from "@mui/material";
+import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 const style = {
@@ -14,14 +14,14 @@ const style = {
   p: 3,
 };
 
-const AlertModal = (isOpen, handleClose) => {
+const AlertModal = ({ isOpen, toggle }) => {
   return (
     <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={toggle}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -52,7 +52,7 @@ const AlertModal = (isOpen, handleClose) => {
           </Box>
         </Fade>
       </Modal>
-      <div>{!open && <Navigate to="/" />}</div>
+      <div>{!isOpen && <Navigate to="/" />}</div>
     </div>
   );
 };

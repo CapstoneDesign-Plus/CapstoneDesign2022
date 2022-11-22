@@ -202,7 +202,7 @@ function ChangePassword() {
             onClick={handleClick}
           />
           {/* 모달 창 띄우고 로그아웃 시키고 메인페이지로 Navigate */}
-          {isChange && <AlertModal open={isOpen} handleClose={toggle} />}
+          {isChange && <AlertModal isOpen={isOpen} toggle={toggle} />}
         </Grid>
       </Box>
     </ChangePwStyle>
