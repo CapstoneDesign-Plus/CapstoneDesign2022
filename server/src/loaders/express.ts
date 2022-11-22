@@ -10,7 +10,12 @@ import booleanHandler from "@/middleware/booleaner";
 export default ({ app }: { app: express.Application }) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(cors());
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+    })
+  );
   app.use(
     expressSession({
       secret: env.SESSION_SECRET,
