@@ -43,12 +43,12 @@ export type TicketClass = "A" | "B" | "C";
 export interface TicketDTO {
   readonly identifier: string;
   readonly createdAt?: number;
-  readonly expiredAt?: number;
   readonly owner: string;
   readonly state: TicketState;
   readonly price: number;
   readonly tclass: TicketClass;
   readonly buyer: string;
+  readonly usedAt: number;
 }
 
 export interface NoticeSearchOption {
@@ -118,8 +118,8 @@ export interface RangeResultDTO {
 }
 
 export interface UsedTicketRecord {
-  readonly tclass: TicketClass,
-  readonly usedAt: number
+  readonly tclass: TicketClass;
+  readonly usedAt: number;
 }
 
-export type UsedTicketSearchRange = "7d"| "30d" | "3m" | "1y"
+export type UsedTicketSearchRange = "7d" | "30d" | "3m" | "1y";

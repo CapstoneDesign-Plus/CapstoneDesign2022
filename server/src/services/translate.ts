@@ -71,12 +71,12 @@ export default {
     return {
       identifier: tcrypto.cipher(ticket.identifier),
       createdAt: ticket.createdAt,
-      expiredAt: ticket.expiredAt,
       owner: ticket.owner,
       state: ticket.state,
       price: ticket.price,
       tclass: ticket.tclass,
       buyer: ticket.buyer,
+      usedAt: ticket.usedAt,
     };
   },
 
@@ -128,12 +128,12 @@ export default {
       values: this.parseLogDTOArray(rangeResult.values as ILog[]),
     };
   },
-  
+
   parseUsedTicketRecord(ticket: ITicket) {
     return {
       tclass: ticket.tclass,
-      usedAt: ticket.usedAt
-    }
+      usedAt: ticket.usedAt,
+    };
   },
 
   parseUsedTicketRecordArray(tickets: ITicket[]) {

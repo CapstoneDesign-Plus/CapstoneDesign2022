@@ -215,8 +215,10 @@ export default class TicketService {
     return filter;
   }
 
-  async getUsingRecord(range: UsedTicketSearchRange): Promise<UsedTicketRecord[] | null> {;
-    let start: Date = new Date;
+  async getUsingRecord(
+    range: UsedTicketSearchRange
+  ): Promise<UsedTicketRecord[] | null> {
+    let start: Date = new Date();
     start.setHours(0, 0, 0, 0);
     switch (range) {
       case "7d":
@@ -235,9 +237,13 @@ export default class TicketService {
         return null;
     }
     return translate.parseUsedTicketRecordArray(
-      await this.ticketModel.find()
-        .where('state').equals('used')
-        .where('usedAt').gte(start.valueOf()).lt(Date.now())
+      await this.ticketModel
+        .find()
+        .where("state")
+        .equals("used")
+        .where("usedAt")
+        .gte(start.valueOf())
+        .lt(Date.now())
     );
   }
 }
