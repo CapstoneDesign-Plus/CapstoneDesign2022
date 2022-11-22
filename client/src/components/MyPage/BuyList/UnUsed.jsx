@@ -9,7 +9,7 @@ import React, { useState } from "react";
 //   Button,
 // } from "@mui/material";
 import { Box } from "@mui/material";
-import TicketItem from "./TicketItem";
+import UnUsedTicketItem from "./UnUsedTicketItem";
 import { Stack } from "@mui/system";
 import useGetFetch from "../../../hook/useGetFetch";
 
@@ -24,9 +24,10 @@ const UnUsedStyle = styled.div`
     font-size: 20px;
   }
   .ticket-list {
-    margin: auto;
+    
     margin-top: 20px;
-    width:95%;
+    width: 95%;
+    
   }
   .table {
     display: flex;
@@ -34,6 +35,7 @@ const UnUsedStyle = styled.div`
     align-items: center;
     margin-top: 30px;
   }
+ 
 `;
 
 function createData(index, buyDate, cost, course, btn) {
@@ -49,7 +51,9 @@ const rows = [
 function UnUsed() {
   const [expanded, setExpanded] = useState("");
 
-  const [data] = useGetFetch("http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20");
+  const [data] = useGetFetch(
+    "http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20"
+  );
 
   return (
     <UnUsedStyle>
@@ -59,15 +63,18 @@ function UnUsed() {
       >
         잔여 식권
       </Box>
+
+     
       <Stack className="ticket-list">
-        {data && data.values.map((ticket) => (
-          <TicketItem
-            key={ticket.identifier}
-            ticket={ticket}
-            expanded={expanded === ticket.identifier}
-            setExpanded={setExpanded}
-          />
-        ))}
+        {data &&
+          data.values.map((ticket) => (
+            <UnUsedTicketItem 
+              key={ticket.identifier}
+              ticket={ticket}
+              expanded={expanded === ticket.identifier}
+              setExpanded={setExpanded}
+            />
+          ))}
 
         {/* <Table sx={{ maxWidth: 440 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
@@ -130,6 +137,7 @@ function UnUsed() {
           </TableBody>
         </Table> */}
       </Stack>
+   
     </UnUsedStyle>
   );
 }

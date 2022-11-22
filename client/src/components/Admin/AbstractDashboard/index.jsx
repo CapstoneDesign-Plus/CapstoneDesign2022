@@ -1,57 +1,67 @@
-import { Box, Divider, Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Divider, Pagination, Paper, Typography } from "@mui/material";
 
 /**
- * @template T
- * @typedef {object} Props<T>
- * @property { DashboardLeaf<T> } SearchLeaf
- * @property { DashboardLeaf<T> } ToolBoxLeaf
- * @property { DashboardLeaf<T> } BodyLeaf
+ * @template T, S
+ * @typedef {React.FC<{ provided: T, hlr: S}>} DashboardLeaf
+ *
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseProvided
+ * @property {K[]} selected
+ * @property {T[]} data
+ * @property {number} page
+ * @property {number} pageLimit
+ */
+/**
+ * @template T, K
+ * @typedef {object} BaseHandler
+ * @property {(selected: K[]) => void} setSelected
+ * @property {(page: number) => void} fetchPage
+ * @property {(page: number, limit: number, value: T[])=>void} setPage
+ */
+
+/**
+ * @typedef {object} Props
+ * @property { JSX.Element } Search
+ * @property { JSX.Element } ToolBox
+ * @property { JSX.Element } Body
  * @property {string} boardName
- * @property {T} initialState
+ * @property {BaseHandler<unknown, unknown>} hlr
+ * @property {BaseProvided<unknown, unknown>} provided
+ *
+ * @typedef {object} DashboardUiItem
+ * @property {boolean} isSelected
+ *
+ *
  */
 
 /**
- * @template T
- * @typedef {React.FC<{ provided: T, setProvided: React.Dispatch<React.SetStateAction<T>>}>} DashboardLeaf<T>
- */
-
-/**
- * @template T
- * @typedef {React.FC<Props<T>>} IAbstractDashboard<T>
- */
-
-/**
- * @template T
- * @type {IAbstractDashboard<T>}
+ * @type {React.FC<Props>}
  */
 const AbstractDashboard = ({
-  SearchLeaf,
-  ToolBoxLeaf,
-  BodyLeaf,
+  Search,
+  ToolBox,
+  Body,
   boardName,
-  initialState,
+  hlr,
+  provided,
 }) => {
-  const [provided, setProvided] = useState(initialState);
-
   return (
     <Box>
       <Typography>{boardName}</Typography>
-      <Paper>
-        {SearchLeaf && (
-          <SearchLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      {Search}
       <Divider />
-      <Paper>
-        {ToolBoxLeaf && (
-          <ToolBoxLeaf provided={provided} setProvided={setProvided} />
-        )}
-      </Paper>
+      {ToolBox}
       <Divider />
-      <Paper>
-        {BodyLeaf && <BodyLeaf provided={provided} setProvided={setProvided} />}
-      </Paper>
+      {Body}
+      <Divider />
+      <Pagination
+        page={provided.page}
+        onChange={(e, v) => hlr.fetchPage(v)}
+        boundaryCount={8}
+        count={provided.pageLimit}
+      />
     </Box>
   );
 };

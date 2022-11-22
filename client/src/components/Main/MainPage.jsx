@@ -124,6 +124,12 @@ function MainPage() {
         <Link to="/">
           <Button>Admin</Button>
         </Link>
+        <Link to="/QRcode">
+          <Button>QRCode</Button>
+        </Link>
+        <Link to="/Transfer">
+          <Button>Transfer</Button>
+        </Link>
       </Box>
     </MainPageStyle>
   );

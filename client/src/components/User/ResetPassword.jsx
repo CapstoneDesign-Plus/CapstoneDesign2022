@@ -3,6 +3,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import axios from "../../lib/axios";
 import { useParams, Navigate } from "react-router-dom";
+import usePassword from "../../hook/usePassword";
 
 const ResetPwStyle = styled.div`
   top: 0;
@@ -44,19 +45,24 @@ const ResetPwStyle = styled.div`
 `;
 
 async function resetPw(new_password, token) {
-  const response = await axios.put("v1/user/auth/password/" + encodeURIComponent(token), {
-    new_password,
-  });
+  const response = await axios.put(
+    "v1/user/auth/password/" + encodeURIComponent(token),
+    {
+      new_password,
+    }
+  );
   return response;
 }
 
 async function validToken(token) {
-  const response = await axios.get("v1/user/auth/password/valid/" + encodeURIComponent(token));
+  const response = await axios.get(
+    "v1/user/auth/password/valid/" + encodeURIComponent(token)
+  );
   return response;
 }
 
 function ResetPassword() {
-  const [password, setPassword] = useState("");
+  const [password, setPassword, hash] = usePassword("");
   const [isPassword, setIsPassword] = useState(false);
 
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -114,7 +120,7 @@ function ResetPassword() {
   );
 
   const handleClick = () => {
-    resetPw(password, token).then(() => {
+    resetPw(hash(), token).then(() => {
       setisReset(true);
       console.log("Reset Complete!");
     });
@@ -196,9 +202,7 @@ function ResetPassword() {
             >
               확 인
             </Button>
-            <div>
-              {isReset && <Navigate to="/" />}
-            </div>
+            <div>{isReset && <Navigate to="/" />}</div>
           </Grid>
         </Grid>
       </Box>

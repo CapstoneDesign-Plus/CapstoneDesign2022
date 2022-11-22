@@ -13,6 +13,13 @@ import style from "../style/charge.scss";
 import authState from "../state/auth";
 import { useRecoilState } from "recoil";
 import axios from "../lib/axios";
+import styled from "styled-components";
+
+const Btn = styled.button`
+  &:hover {
+    outline: none;
+  }
+`;
 
 function createData(coin, price) {
   return { coin, price };
@@ -27,11 +34,13 @@ const rows = [
 ];
 
 async function point(email, delta) {
-  const response = await axios.get(`v1/user/point?email=${email}&delta=${delta}`);
+  const response = await axios.get(
+    `v1/user/point?email=${email}&delta=${delta}`
+  );
   return response;
 }
 
-async function getUser(email){
+async function getUser(email) {
   const response = await axios.get("v1/user/get/" + email);
   return response;
 }
@@ -40,43 +49,40 @@ function Charge() {
   const [auth, setAuth] = useRecoilState(authState);
 
   const handler = (price) => () => {
-    point(auth.email, price)
-      .then((value)=>{
-        if(value.data.ok){
-          getUser(auth.email).then((value) => {
-            setAuth(value.data.result);
-          })
-        }
-        console.log(value);
-      })
-  }
+    point(auth.email, price).then((value) => {
+      if (value.data.ok) {
+        getUser(auth.email).then((value) => {
+          setAuth(value.data.result);
+        });
+      }
+      console.log(value);
+    });
+  };
 
   return (
     <div style={{ margin: 0 }}>
       <Box
         className={"title"}
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml:2 }}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
         재화충전
       </Box>
       {/*잔여재화박스*/}
       <Box
         className="coin_box"
-        sx={{ display: "flex", alignItems: "flex-start",margin:'auto', mt: 3, ml:1}}
+        sx={{
+          display: "flex",
+          alignItems: "flex-start",
+          margin: "auto",
+          mt: 3,
+          ml: 1,
+        }}
       >
-        <Grid container spacing={2} style={{margin:0}}>
-          <Grid
-            className="coin_title"
-            item
-            xs={12}
-          >
+        <Grid container spacing={2} style={{ margin: 0 }}>
+          <Grid className="coin_title" item xs={12}>
             잔여재화
           </Grid>
-          <Grid
-            className="coin_content"
-            item
-            xs={8}
-          >
+          <Grid className="coin_content" item xs={8}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <img className="coin" alt="coin" src="\images\coin.png" />
               &nbsp;&nbsp;{auth.point}
@@ -92,12 +98,12 @@ function Charge() {
 
       {/*table*/}
       <Box className="table">
-        <Table sx={{ width:'95%' }} aria-label="simple table">
+        <Table sx={{ width: "95%" }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
             <TableRow>
               <TableCell
                 align="center"
-                sx={{ color: "white", lineHeight: "0.5"}}
+                sx={{ color: "white", lineHeight: "0.5" }}
               >
                 충전 캐시
               </TableCell>
@@ -108,7 +114,6 @@ function Charge() {
               >
                 결제금액
               </TableCell>
-              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,7 +124,9 @@ function Charge() {
                 </TableCell>
                 <TableCell align="center">
                   {" "}
-                  <button className="price_btn" onClick={handler(row.price)}>{row.price} 원</button>
+                  <Btn className="price_btn" onClick={handler(row.price)}>
+                    {row.price} 원
+                  </Btn>
                 </TableCell>
               </TableRow>
             ))}

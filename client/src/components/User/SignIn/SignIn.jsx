@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import axios from "../../lib/axios";
-import authState from "../../state/auth";
+import axios from "../../../lib/axios";
+import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
+import usePassword from "../../../hook/usePassword";
+import WrongModal from "./WrongModal";
 
 const SigninStyle = styled.div`
   top: 0;
@@ -70,7 +72,8 @@ async function login(email, password) {
 
 function SignIn() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword, hash] = usePassword("");
+  const [fail, setFail] = useState(false);
   const [auth, setAuth] = useRecoilState(authState);
   //const [isLogin, setIsLogin] = useState(false);
 
@@ -83,11 +86,31 @@ function SignIn() {
   };
 
   const handleClick = () => {
-    login(email, password).then((value) => {
-      if(value.data.ok)
-      {setAuth(value.data.result);
-      console.log("Login Complete!");}
+    login(email, hash()).then((value) => {
+      if (value.data.ok) {
+        setAuth(value.data.result);
+        setFail(false);
+        console.log("Login Complete!");
+      } else {
+        setFail(true);
+        console.log("Login Fail");
+      }
     });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      login(email, hash()).then((value) => {
+        if (value.data.ok) {
+          setAuth(value.data.result);
+          setFail(false);
+          console.log("Login Complete!");
+        } else {
+          setFail(true);
+          console.log("Login Fail");
+        }
+      });
+    }
   };
 
   return (
@@ -127,6 +150,7 @@ function SignIn() {
               type="password"
               value={password}
               onChange={handlePw}
+              onKeyPress={handleKeyPress}
             />
           </Grid>
         </Grid>
@@ -168,6 +192,7 @@ function SignIn() {
           </Grid>
         </Grid>
       </Box>
+      {fail && <WrongModal />}
     </SigninStyle>
   );
 }

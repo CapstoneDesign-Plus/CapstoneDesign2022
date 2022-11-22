@@ -4,12 +4,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
 import Mypage from "./components/MyPage/Mypage";
 import ChangeNickname from "./components/User/ChangeNickname";
-import ChangePassword from "./components/User/ChangePassword";
+import ChangePassword from "./components/User/ChangePassword/ChangePassword";
 import ResetPassword from "./components/User/ResetPassword";
 import BuyList from "./components/MyPage/BuyList/BuyList";
 import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
-import SignIn from "./components/User/SignIn";
+import SignIn from "./components/User/SignIn/SignIn";
 import SignUp from "./components/User/SignUp";
 import MainPage from "./components/Main/MainPage";
 import AdminPage from "./pages/AdminPage";
@@ -20,7 +20,7 @@ import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 import { ThemeProvider } from "@mui/material";
 import Error from "./components/ErrorPage/Error";
-import RequestEmail from "./components/User/RequestEmail";
+import RequestEmail from "./components/User/RequestEmail/RequestEmail";
 import TokenInvalid from "./components/User/TokenInvalid";
 
 import { useRecoilState } from "recoil";
@@ -54,8 +54,6 @@ function App() {
       }
     });
   }, []);
-
-  console.log("new file");
 
   return (
     <ThemeProvider theme={theme}>

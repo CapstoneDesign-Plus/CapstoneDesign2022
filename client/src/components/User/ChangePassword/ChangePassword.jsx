@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import React, { useState, useCallback } from "react";
-import { Box, Grid, Chip } from "@mui/material";
-import axios from "../../lib/axios";
+import { Box, Grid, Chip, Button } from "@mui/material";
+import axios from "../../../lib/axios";
 import { useRecoilState } from "recoil";
-import authState from "../../state/auth";
+import authState from "../../../state/auth";
 import { Navigate } from "react-router-dom";
+import usePassword from "../../../hook/usePassword";
+import AlertModal from "./AlertModal";
+import useModal from "../../../hook/useModal";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -53,11 +56,13 @@ async function changePw(old_password, new_password) {
 }
 
 function ChangePassword() {
+  const { isOpen, toggle } = useModal();
+
   const [auth, setAuth] = useRecoilState(authState);
   const [isChange, setIsChange] = useState(false);
 
-  const [old_pw, setOldpw] = useState("");
-  const [new_pw, setNewpw] = useState("");
+  const [old_pw, setOldpw, old_Hash] = usePassword("");
+  const [new_pw, setNewpw, new_Hash] = usePassword("");
 
   const [isOldpw, setIsOldpw] = useState(false); //기존 비밀번호 일치 여부
   const [isPassword, setIsPassword] = useState(false); //새 비밀번호
@@ -70,7 +75,7 @@ function ChangePassword() {
 
   const onChangeOldPassword = useCallback((e) => {
     setOldpw(e.target.value);
-    setIsOldpw(e.target.value === auth.data.password);
+    setIsOldpw(e.target.value === auth.password);
   });
 
   const onChangeNewPassword = useCallback((e) => {
@@ -107,7 +112,8 @@ function ChangePassword() {
   );
 
   const handleClick = () => {
-    changePw(old_pw, new_pw).then(() => {
+    changePw(old_Hash(), new_Hash()).then(() => {
+      toggle();
       setIsChange(true);
       console.log("Change Password Complete!");
     });
@@ -135,9 +141,9 @@ function ChangePassword() {
               autoFocus
               placeholder=" 현재 비밀번호"
               type="password"
-              onChange={onChangeOldPassword}
             />
           </Grid>
+          <Button onClick={onChangeOldPassword}>확인</Button>
           {/* 새 비밀번호 */}
           <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호
@@ -196,7 +202,7 @@ function ChangePassword() {
             onClick={handleClick}
           />
           {/* 모달 창 띄우고 로그아웃 시키고 메인페이지로 Navigate */}
-          {isChange && <Navigate to="/" />} 
+          {isChange && <AlertModal open={isOpen} handleClose={toggle} />}
         </Grid>
       </Box>
     </ChangePwStyle>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 
 async function get(url) {
@@ -7,20 +7,18 @@ async function get(url) {
   return response;
 }
 
-const useGetFetch= (url) => {
-  const [data,setData] = useState();
+const useGetFetch = (url) => {
+  const [data, setData] = useState();
 
-  useEffect(()=>{
-    get(url).then((value)=>{
+  useEffect(() => {
+    get(url).then((value) => {
       //console.log(value);
-      setData(value.data);
+      setData(value.data.result);
     });
-    return () => {
-
-    }
-  },[]);
+    return () => {};
+  }, []);
 
   return [data];
-}
+};
 
 export default useGetFetch;

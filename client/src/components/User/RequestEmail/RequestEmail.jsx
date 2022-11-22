@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
-import axios from "../../lib/axios";
+import axios from "../../../lib/axios";
+import SendEmailModal from "./SendEmailModal";
+import useModal from "../../../hook/useModal";
 
 const RequestEmailStyle = styled.div`
   top: 0;
@@ -75,6 +77,9 @@ function RequestEmail() {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
+  //const [fail, setFail] = useState(false);
+
+  const { isOpen, toggle } = useModal();
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -93,9 +98,8 @@ function RequestEmail() {
 
   const handleClick = () => {
     request(email).then(() => {
+      toggle();
       console.log("Request Complete!");
-      // setIsSignup(true);
-      // console.log("Complete!");
     });
   };
 
@@ -121,31 +125,37 @@ function RequestEmail() {
           Email
         </Grid>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 5 }}>
-      <Grid item xs={12}>
-        <div className="email">
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <input
-                className="inputEmail"
-                placeholder=" 이메일"
-                type="email"
-                value={email}
-                onChange={onChangeEmail}
-              />
-            {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
+      <Box
+        sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 5 }}
+      >
+        <Grid item xs={12}>
+          <div className="email">
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <input
+                  className="inputEmail"
+                  placeholder=" 이메일"
+                  type="email"
+                  value={email}
+                  onChange={onChangeEmail}
+                />
+                {email.length > 0 && (
+                  <span className={`message ${isEmail ? "success" : "error"}`}>
+                    {emailMessage}
+                  </span>
+                )}
+              </Grid>
+              <Grid item xs={5}>
+                <select className="selectEmail">
+                  <option value="직접입력">직접입력</option>
+                  <option value="naver">@naver.com</option>
+                  <option value="google">@google.com</option>
+                  <option value="daum">@daum.net</option>
+                </select>
+              </Grid>
             </Grid>
-            <Grid item xs={5}>
-              <select className="selectEmail">
-                <option value="직접입력">직접입력</option>
-                <option value="naver">@naver.com</option>
-                <option value="google">@google.com</option>
-                <option value="daum">@daum.net</option>
-              </select>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
+          </div>
+        </Grid>
       </Box>
       <Box
         sx={{
@@ -157,17 +167,22 @@ function RequestEmail() {
         }}
       >
         <Grid container>
-          <Grid item xs={12} sx={{display:'flex', justifyContent: 'flex-end'}}>
-            <Button className="btn" variant="contained" color="primary" onClick={handleClick}>
+          <Grid
+            item
+            xs={12}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <Button
+              className="btn"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+            >
               전 송
             </Button>
             <div>
-              
+              {isOpen && <SendEmailModal open={isOpen} handleClose={toggle} />}
             </div>
-          </Grid>
-          <Grid item xs={12} sx={{mt:4, color:'#49663c', textAlign: 'center'}}>
-            입력하신 이메일로 링크가 전송되었습니다.<br />
-            비밀번호 재설정 시간은 요청 후 10분 입니다.
           </Grid>
         </Grid>
       </Box>

@@ -1,26 +1,42 @@
+import { useEffect } from "react";
+import useUserDashboard from "../../../hook/useUserDashboard";
 import AbstractDashboard from "../AbstractDashboard";
-import UserBodyLeaf from "./UserBodyBoxLeaf";
-import UserSearchLeaf from "./UserSearchLeaf";
-import UserToolBoxLeaf from "./UserToolBoxLeaf";
+import UserBody from "./UserBody";
+import UserSearch from "./UserSearch";
+import UserToolBox from "./UserToolBox";
 
 /**
- * @typedef {object} UserProvided
- * @property {string} value
+ * @typedef {object} IUser
+ * @property {string} email
+ * @property {string[]} tickets
+ * @property {number} point
+ * @property {number} uclass
+ * @property {boolean} admin
+ * @property {string} username
+ * @property {number} createAt
+ *
+ * @typedef {IUser & import("../AbstractDashboard").DashboardUiItem} UiUser
+ *
+ * @typedef {unknown} ChildProvided
+ *
+ * @typedef {ChildProvided & import("../AbstractDashboard").BaseProvided<UiUser, string>} UserProvided
  */
 
 const UserDashboard = () => {
-  /**
-   * @type {UserProvided}
-   */
-  const initialState = { value: "hello" };
+  const { state, hlr } = useUserDashboard();
+
+  useEffect(() => {
+    hlr.fetchPage(1);
+  }, []);
 
   return (
     <AbstractDashboard
+      provided={state}
+      hlr={hlr}
       boardName="User Dashboard"
-      SearchLeaf={UserSearchLeaf}
-      ToolBoxLeaf={UserToolBoxLeaf}
-      BodyLeaf={UserBodyLeaf}
-      initialState={initialState}
+      Search={<UserSearch provided={state} hlr={hlr} />}
+      ToolBox={<UserToolBox provided={state} hlr={hlr} />}
+      Body={<UserBody provided={state} hlr={hlr} />}
     />
   );
 };
