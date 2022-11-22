@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import axios from "../../../lib/axios";
 import SendEmailModal from "./SendEmailModal";
+import useModal from "../../../hook/useModal";
 
 const RequestEmailStyle = styled.div`
   top: 0;
@@ -78,9 +79,7 @@ function RequestEmail() {
   const [emailMessage, setEmailMessage] = useState("");
   //const [fail, setFail] = useState(false);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { isOpen, toggle } = useModal();
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -99,7 +98,7 @@ function RequestEmail() {
 
   const handleClick = () => {
     request(email).then(() => {
-      handleOpen();
+      toggle();
       console.log("Request Complete!");
     });
   };
@@ -182,7 +181,7 @@ function RequestEmail() {
               전 송
             </Button>
             <div>
-              {open && <SendEmailModal open={open} handleClose={handleClose} />}
+              {isOpen && <SendEmailModal open={isOpen} handleClose={toggle} />}
             </div>
           </Grid>
         </Grid>

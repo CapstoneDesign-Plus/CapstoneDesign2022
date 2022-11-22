@@ -1,4 +1,5 @@
 import { Modal, Fade, Box, Typography, Backdrop } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -13,7 +14,7 @@ const style = {
   p: 3,
 };
 
-const SendEmailModal = ({ isOpen, handleClose }) => {
+const AlertModal = (isOpen, handleClose) => {
   return (
     <div>
       <Modal
@@ -46,15 +47,14 @@ const SendEmailModal = ({ isOpen, handleClose }) => {
                 fontSize: "14px",
               }}
             >
-              입력하신 이메일로 링크가 전송되었습니다.
-              <br />
-              비밀번호 재설정 시간은 요청 후 10분 입니다.
+              변경된 비밀번호로 재로그인 해주세요!
             </Typography>
           </Box>
         </Fade>
       </Modal>
+      <div>{!open && <Navigate to="/" />}</div>
     </div>
   );
 };
 
-export default SendEmailModal;
+export default AlertModal;

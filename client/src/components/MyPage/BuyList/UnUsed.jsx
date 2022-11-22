@@ -49,7 +49,9 @@ const rows = [
 function UnUsed() {
   const [expanded, setExpanded] = useState("");
 
-  //const [data] = useGetFetch("http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20");
+  const [data] = useGetFetch(
+    "http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20"
+  );
 
   return (
     <UnUsedStyle>
