@@ -1,4 +1,3 @@
-import useLog from "../../../hook/useLog";
 import AbstractDashboard from "../AbstractDashboard";
 import useLogDashboard from "../../../hook/useLogDashboard";
 import LogBody from "./LogBody";

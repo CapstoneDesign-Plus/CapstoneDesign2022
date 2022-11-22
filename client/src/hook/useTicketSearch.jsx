@@ -8,42 +8,73 @@ import React, { useState } from "react";
  */
 function createHandle(option, setOption) {
   return {
-    setEmail(email) {
+    setBuyer(buyer) {
       setOption((prev) => ({
         ...prev,
-        email,
-        isEmail: email.length > 0,
+        buyer,
+        isBuyer: buyer.length > 0,
       }));
     },
-    togglebvAdmin() {
-      setOption((prev) => ({ ...prev, bvAdmin: !prev.bvAdmin }));
-    },
-    toggleAdmin() {
-      setOption((prev) => ({ ...prev, isAdmin: !prev.isAdmin }));
-    },
-    setNickName(nickName) {
+    setOwner(owner) {
       setOption((prev) => ({
         ...prev,
-        nickName,
-        isNickName: nickName.length > 0,
+        owner,
+        isOwner: owner.length > 0,
       }));
     },
-    togglePeriod() {
+    setClass(tClass) {
       setOption((prev) => ({
         ...prev,
-        isPeriod: !prev.isPeriod,
+        tClass,
+        isTClass: tClass.length === 1,
       }));
     },
-    setStartPeriod(value) {
+    togglePrice() {
+      setOption((prev) => ({ ...prev, isPrice: !prev.isPrice }));
+    },
+    toggleCreatedPeriod() {
       setOption((prev) => ({
         ...prev,
-        startedAt: value,
+        isCreatedPeriod: !prev.isCreatedPeriod,
       }));
     },
-    setEndPeriod(value) {
+    toggleUsedPeriod() {
+      setOption((prev) => ({ ...prev, isUsedPeriod: !prev.isUsedPeriod }));
+    },
+    setCreatedStartPeriod(value) {
       setOption((prev) => ({
         ...prev,
-        endAt: value,
+        createdStartedAt: value,
+      }));
+    },
+    setCreatedEndPeriod(value) {
+      setOption((prev) => ({
+        ...prev,
+        createdEndAt: value,
+      }));
+    },
+    setUsedStartPeriod(value) {
+      setOption((prev) => ({
+        ...prev,
+        usedStartedAt: value,
+      }));
+    },
+    setUsedEndPeriod(value) {
+      setOption((prev) => ({
+        ...prev,
+        usedEndAt: value,
+      }));
+    },
+    setPriceStart(value) {
+      setOption((prev) => ({
+        ...prev,
+        startedPrice: value,
+      }));
+    },
+    setPriceEnd(value) {
+      setOption((prev) => ({
+        ...prev,
+        endPrice: value,
       }));
     },
   };
@@ -51,15 +82,21 @@ function createHandle(option, setOption) {
 
 export default function useTicketSearch() {
   const [option, setOption] = useState({
-    isEmail: false,
-    isAdmin: false,
-    isNickName: false,
-    isPeriod: false,
-    email: "",
-    bvAdmin: false,
-    nickName: "",
-    startedAt: Date.now(),
-    endAt: Date.now(),
+    isTClass: false,
+    isPrice: false,
+    isBuyer: false,
+    isOwner: false,
+    isCreatedPeriod: false,
+    isUsedPeriod: false,
+    tClass: "",
+    owner: "",
+    buyer: "",
+    createdStartedAt: Date.now(),
+    createdEndAt: Date.now(),
+    usedStartedAt: Date.now(),
+    usedEndAt: Date.now(),
+    startedPrice: 0,
+    endPrice: 0,
   });
 
   return {

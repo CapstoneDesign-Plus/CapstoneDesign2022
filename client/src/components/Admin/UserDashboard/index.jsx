@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import useUser from "../../../hook/useUser";
 import useUserDashboard from "../../../hook/useUserDashboard";
 import AbstractDashboard from "../AbstractDashboard";
 import UserBody from "./UserBody";
