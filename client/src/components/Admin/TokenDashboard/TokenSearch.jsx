@@ -2,7 +2,7 @@ import { Button, Checkbox } from "@mui/material";
 import useInput from "../../../hook/useInput";
 import usePeriod from "../../../hook/usePeriod";
 import useTokenSearch from "../../../hook/useTokenSearch";
-import searchLog from "../../../lib/searchLog";
+import searchToken from "../../../lib/searchToken";
 import AbstractSearch from "../AbstractSearch";
 
 /**
@@ -15,7 +15,7 @@ const TokenSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useTokenSearch();
 
   const search = () => {
-    searchLog(option).then((v) => {
+    searchToken(option).then((v) => {
       hlr.setAll(v);
     });
   };
