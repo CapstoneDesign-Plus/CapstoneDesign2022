@@ -10,12 +10,14 @@ import deleteTicket from "../../../lib/deleteTicket";
  */
 const TicketToolBox = ({ hlr, provided }) => {
   const deleteItems = () => {
-    deleteTicket(provided.selected);
+    if (provided.selected.length > 0) deleteTicket(provided.selected);
   };
 
   return (
     <AbstractToolBox>
-      <Button onClick={deleteItems}>삭제</Button>
+      <Button variant="contained" onClick={deleteItems}>
+        삭제
+      </Button>
     </AbstractToolBox>
   );
 };
