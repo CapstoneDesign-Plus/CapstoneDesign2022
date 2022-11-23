@@ -66,7 +66,11 @@ const SigninStyle = styled.div`
 `;
 
 async function login(email, password) {
-  const response = await axios.post("v1/user/auth/login", { email, password });
+  const response = await axios.post(
+    "v1/user/auth/login",
+    { email, password },
+    { withCredentials: true }
+  );
   return response;
 }
 

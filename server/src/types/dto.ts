@@ -15,6 +15,13 @@ export interface LogDTO {
   readonly content: string;
 }
 
+export interface TokenDTO {
+  readonly identifier: number;
+  readonly expiredAt: number;
+  readonly createdAt: number;
+  readonly email: string;
+}
+
 export interface NoticeDTO {
   readonly title: string;
   readonly writer?: string;
@@ -61,6 +68,18 @@ export interface NoticeSearchOption {
   readonly writer?: string;
   readonly startedAt?: number;
   readonly endAt?: number;
+}
+
+export interface TokenSearchOption {
+  readonly isCaller: boolean;
+  readonly isCreatedPeriod: boolean;
+  readonly isExpiredPeriod: boolean;
+  readonly identifier: number;
+  readonly expiredStartedAt?: number;
+  readonly expiredEndAt?: number;
+  readonly createdStartedAt?: number;
+  readonly createdEndAt?: number;
+  readonly caller: string;
 }
 
 export interface UserSearchOption {
