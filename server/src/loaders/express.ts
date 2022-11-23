@@ -11,16 +11,16 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
-    cors({
-      origin: "*",
-      credentials: true,
-    })
-  );
-  app.use(
     expressSession({
       secret: env.SESSION_SECRET,
       resave: true,
       saveUninitialized: true,
+    })
+  );
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
     })
   );
   app.use(passport.initialize());
