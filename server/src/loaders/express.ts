@@ -12,7 +12,7 @@ export default ({ app }: { app: express.Application }) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(
     cors({
-      origin: true,
+      origin: "*",
       credentials: true,
     })
   );
