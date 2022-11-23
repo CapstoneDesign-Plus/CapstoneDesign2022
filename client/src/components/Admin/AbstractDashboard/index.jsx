@@ -57,9 +57,9 @@ const AbstractDashboard = ({
       {Body}
       <Divider />
       <Pagination
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
         page={provided.page}
         onChange={(e, v) => hlr.fetchPage(v)}
-        boundaryCount={8}
         count={provided.pageLimit}
       />
     </Box>

@@ -1,14 +1,11 @@
-import UserDashboard from "./UserDashboard";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import LogDashboard from "./LogDashboard";
-import TicketDashboard from "./TicketDashboard";
-import TokenDashboard from "./TokenDashboard";
+import Dashboard from "./Dashboard";
 
 const Admin = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <TokenDashboard />
+      <Dashboard />
     </LocalizationProvider>
   );
 };

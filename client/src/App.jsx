@@ -26,6 +26,7 @@ import TokenInvalid from "./components/User/TokenInvalid";
 import { useRecoilState } from "recoil";
 import authState from "./state/auth";
 import axios from "./lib/axios";
+import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
 
 const AppContainer = ({ adminMode, children }) => {
   return (
@@ -77,6 +78,7 @@ function App() {
             <Route path="/BuyTicket" element={<BuyTicketPage />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />
             <Route path="/TokenInvalid" element={<TokenInvalid />} />
+            <Route path="/notice/write" element={<NoticeWriter />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
