@@ -8,7 +8,7 @@ import paxios from "./paxios";
 export default async function deleteToken(ids) {
   return new Promise((resolve, reject) => {
     paxios
-      .put("/v1/user/token", {
+      .put("/v1/user/delete/token", {
         ids,
       })
       .then((v) => {
