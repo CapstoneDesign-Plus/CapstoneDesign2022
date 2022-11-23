@@ -3,8 +3,8 @@ import AbstractBody from "../AbstractBody";
 const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "long" });
 
 /**
- * @typedef {import(".").LogProvided} LogProvided
- * @typedef {import("../../../hook/useLogDashboard").LogHandler} LogHandler
+ * @typedef {import(".").TicketProvided} LogProvided
+ * @typedef {import("../../../hook/useTicketDashboard").LogHandler} LogHandler
  *
  * @type {import("@mui/x-data-grid").GridColDef[]}
  */
