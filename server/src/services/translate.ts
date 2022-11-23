@@ -1,6 +1,7 @@
 import { ILog } from "@/models/log";
 import { INotice } from "@/models/notice";
 import { ITicket } from "@/models/ticket";
+import { IToken } from "@/models/token";
 import { IUser } from "@/models/user";
 import {
   IRangeResult,
@@ -9,6 +10,7 @@ import {
   RangeResultDTO,
   TicketClass,
   TicketDTO,
+  TokenDTO,
   UserDTO,
 } from "@/types/dto";
 import tcrypto from "./tcrypto";
@@ -45,6 +47,12 @@ export default {
   parseUserDTOArray(users: IUser[]): UserDTO[] {
     return users.map((u) => {
       return this.parseUserDTO(u);
+    });
+  },
+
+  parseTokenDTOArray(tokens: IToken[]): TokenDTO[] {
+    return tokens.map((u) => {
+      return this.parseTokenDTO(u);
     });
   },
 
@@ -89,6 +97,15 @@ export default {
     };
   },
 
+  parseTokenDTO(token: IToken): TokenDTO {
+    return {
+      identifier: token.identifier,
+      createdAt: token.createdAt,
+      expiredAt: token.expiredAt,
+      email: token.email,
+    };
+  },
+
   parseTicketDTOArray(tickets: ITicket[]): TicketDTO[] {
     return tickets.map((t) => {
       return this.parseTicketDTO(t);
@@ -105,6 +122,13 @@ export default {
     return {
       ...rangeResult,
       values: this.parseNoticeDTOArray(rangeResult.values as INotice[]),
+    };
+  },
+
+  parseTokenRangeResult(rangeResult: IRangeResult): RangeResultDTO {
+    return {
+      ...rangeResult,
+      values: this.parseTokenDTOArray(rangeResult.values as IToken[]),
     };
   },
 
