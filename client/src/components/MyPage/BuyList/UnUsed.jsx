@@ -9,7 +9,7 @@ import React, { useState } from "react";
 //   Button,
 // } from "@mui/material";
 import { Box } from "@mui/material";
-import TicketItem from "./TicketItem";
+import UsedTicketItem from "./UsedTicketItem";
 import { Stack } from "@mui/system";
 import useGetFetch from "../../../hook/useGetFetch";
 
@@ -24,9 +24,10 @@ const UnUsedStyle = styled.div`
     font-size: 20px;
   }
   .ticket-list {
-    margin: auto;
+    
     margin-top: 20px;
     width: 95%;
+    
   }
   .table {
     display: flex;
@@ -34,6 +35,7 @@ const UnUsedStyle = styled.div`
     align-items: center;
     margin-top: 30px;
   }
+ 
 `;
 
 function createData(index, buyDate, cost, course, btn) {
@@ -64,7 +66,7 @@ function UnUsed() {
       <Stack className="ticket-list">
         {data &&
           data.values.map((ticket) => (
-            <TicketItem
+            <UsedTicketItem 
               key={ticket.identifier}
               ticket={ticket}
               expanded={expanded === ticket.identifier}
