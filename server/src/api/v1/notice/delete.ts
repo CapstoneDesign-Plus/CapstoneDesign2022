@@ -6,7 +6,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.delete("all/:id", ...validator.notice_all_delete, async (req, res) => {
+router.put("all/:id", ...validator.notice_all_delete, async (req, res) => {
   if (!req.user || !req.user.certificated)
     return invalidPermission(res, Permission.ADMIN);
 

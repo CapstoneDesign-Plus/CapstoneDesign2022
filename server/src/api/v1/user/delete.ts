@@ -6,7 +6,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.delete("/", ...validator.users_all_delete, async (req, res) => {
+router.put("/", ...validator.users_all_delete, async (req, res) => {
   if (!req.user || !req.user.certificated)
     return invalidPermission(res, Permission.ADMIN);
 
@@ -18,7 +18,7 @@ router.delete("/", ...validator.users_all_delete, async (req, res) => {
   return send(res, isSuccess);
 });
 
-router.delete("/token", ...validator.token_all_delete, async (req, res) => {
+router.put("/token", ...validator.token_all_delete, async (req, res) => {
   if (!req.user || !req.user.certificated)
     return invalidPermission(res, Permission.ADMIN);
 
