@@ -13,7 +13,7 @@ import UsedTicketItem from "./UsedTicketItem";
 import { Stack } from "@mui/system";
 import useGetFetch from "../../../hook/useGetFetch";
 
-const UnUsedStyle = styled.div`
+const UsedStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
@@ -56,7 +56,7 @@ function Used() {
   );
 
   return (
-    <UnUsedStyle>
+    <UsedStyle>
       <Box
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
@@ -135,7 +135,7 @@ function Used() {
           </TableBody>
         </Table> */}
       </Stack>
-    </UnUsedStyle>
+    </UsedStyle>
   );
 }
 
