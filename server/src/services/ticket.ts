@@ -246,4 +246,10 @@ export default class TicketService {
         .lt(Date.now())
     );
   }
+
+  async delete(ids: string[]) {
+    await this.ticketModel.deleteMany({
+      identifier: { $in: ids.map(tcrypto.decipher) },
+    });
+  }
 }

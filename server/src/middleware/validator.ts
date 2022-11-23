@@ -41,6 +41,20 @@ const notice_update = [
 
 const notice_delete = [param("id").exists(), ValidateErrorHandler];
 
+const notice_all_delete = [
+  body("ids").exists().isArray(),
+  ValidateErrorHandler,
+];
+
+const ticket_all_delete = [
+  body("ids").exists().isArray(),
+  ValidateErrorHandler,
+];
+
+const users_all_delete = [body("ids").exists().isArray(), ValidateErrorHandler];
+
+const token_all_delete = [body("ids").exists().isArray(), ValidateErrorHandler];
+
 const notice_get = [param("id").exists(), ValidateErrorHandler];
 
 const ticket_create = [
@@ -93,12 +107,13 @@ const user_put_reset_password = [
 
 const user_history = [param("email").isEmail(), ValidateErrorHandler];
 
-const stats_day_used = [
-  query("range").exists(),
-  ValidateErrorHandler
-];
+const stats_day_used = [query("range").exists(), ValidateErrorHandler];
 
 export default {
+  token_all_delete,
+  users_all_delete,
+  ticket_all_delete,
+  notice_all_delete,
   user_put_reset_password,
   user_get_reset_password,
   user_signup,
@@ -118,5 +133,5 @@ export default {
   ticket_validate,
   ticket_refund,
   ticket_change_state,
-  stats_day_used
+  stats_day_used,
 };

@@ -14,17 +14,17 @@ export default class TokenService {
     const res = await this.tokenModel.create({
       email,
       createdAt: now,
-      expiredAt: now + (waitingMinute * 60000)
-    })
+      expiredAt: now + waitingMinute * 60000,
+    });
 
     return res ? tcrypto.cipher(res.identifier) : null;
   }
 
   async get(tokenIdentifier: string) {
-    try{
+    try {
       const identifier = Number(tcrypto.decipher(tokenIdentifier));
-      return await this.tokenModel.findOne({identifier});
-    }catch(e){
+      return await this.tokenModel.findOne({ identifier });
+    } catch (e) {
       return null;
     }
   }
@@ -32,10 +32,19 @@ export default class TokenService {
   static isValid(token: IToken) {
     const current = Date.now();
 
-    return token.createdAt.valueOf() <= current && current <= token.expiredAt.valueOf();
+    return (
+      token.createdAt.valueOf() <= current &&
+      current <= token.expiredAt.valueOf()
+    );
   }
 
-  static getInstance() : TokenService {
+  static getInstance(): TokenService {
     return new TokenService(Token);
+  }
+
+  async delete(ids: number[]) {
+    await this.tokenModel.deleteMany({
+      identifier: { $in: ids },
+    });
   }
 }

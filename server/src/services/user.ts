@@ -177,4 +177,10 @@ export default class UserService {
 
     return filter;
   }
+
+  async delete(ids: string[]) {
+    await this.userModel.deleteMany({
+      email: { $in: ids },
+    });
+  }
 }
