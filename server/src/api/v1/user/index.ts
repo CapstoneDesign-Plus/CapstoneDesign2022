@@ -5,6 +5,7 @@ import Get from "./get";
 import Change from "./change";
 import Point from "./point";
 import History from "./history";
+import Token from "./token";
 import Delete from "./delete";
 
 const router = Router();
@@ -15,5 +16,6 @@ router.use("/auth", Auth);
 router.use("/point", Point);
 router.use("/history", History);
 router.use("/delete", Delete);
+router.use("/token", Token);
 
 export default router;
