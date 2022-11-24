@@ -1,10 +1,13 @@
-import { Box } from "@mui/material";
-import DietView from "../DietView";
+import { Box, Divider } from "@mui/material";
+import AdminDiet from "../AdminDiet";
+import AdminStatistic from "../AdminStatistic";
 
 const AdminHome = () => {
   return (
     <Box>
-      <DietView />
+      <AdminStatistic />
+      <Divider />
+      <AdminDiet />
     </Box>
   );
 };

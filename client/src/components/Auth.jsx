@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import authState from "../state/auth";
 import adminState from "../state/admin";
+import { useEffect } from "react";
 
 Auth.propTypes = {
   admin: PropTypes.bool,
@@ -14,7 +15,9 @@ function Auth({ el, admin = false }) {
 
   const setAuthMode = useSetRecoilState(adminState);
 
-  if (admin && (!auth || !auth.admin)) setAuthMode(false);
+  useEffect(() => {
+    if (admin && (!auth || !auth.admin)) setAuthMode(false);
+  }, []);
 
   return <>{auth && (!admin || auth.admin) ? el : <Navigate to={"/"} />}</>;
 }

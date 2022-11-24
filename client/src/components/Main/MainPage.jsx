@@ -107,7 +107,6 @@ function MainPage() {
         </Grid>
         {/* 잔여 식권/재화 Box */}
         {auth ? <MBox /> : <></>}
-        {console.log(auth)}
         {/* 식단 슬라이더 */}
         <MSlider />
         {/* 공지사항 박스 */}

@@ -32,7 +32,6 @@ import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
 
 const AppContainer = ({ adminMode, children }) => {
-  console.log(adminMode);
   return (
     <div
       style={{

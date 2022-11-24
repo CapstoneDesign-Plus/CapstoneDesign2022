@@ -10,12 +10,12 @@ const TD = styled.td`
   padding: 8px;
 `;
 
-const DietView = ({ headerColor = "#fff" }) => {
+const DietView = ({ headerColor = "#fff", flag = 0 }) => {
   const [diet, setDiet] = useState();
 
   useEffect(() => {
     fetchDiet().then((v) => setDiet(changeDietShape(v)));
-  }, []);
+  }, [flag]);
 
   return (
     <table
