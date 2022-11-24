@@ -1,24 +1,45 @@
-import { Box } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
-import Admin from "../components/Admin";
+import { Box, Divider, Stack } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import UserDashboard from "../components/Admin/UserDashboard";
-import LogDashboard from "../components/Admin/LogDashboard";
-import TicketDashboard from "../components/Admin/TicketDashboard";
-import TokenDashboard from "../components/Admin/TokenDashboard";
+import AdminHeader from "../components/Admin/AdminHeader";
+import { useState } from "react";
+import AdminContent from "../components/Admin/AdminContent";
+import AdminTabs from "../components/Admin/AdminTabs";
+
+const Wrap = ({ children, marginTop = 0 }) => {
+  return (
+    <Box width="800px" sx={{ margin: "0 auto", marginTop }}>
+      {children}
+    </Box>
+  );
+};
 
 const AdminPage = () => {
+  const [tab, setTab] = useState(0);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box width={750}>
-        <Routes>
+      <Stack width={"100vw"} sx={{ display: "flex", justifyContent: "center" }}>
+        <Wrap>
+          <AdminHeader auth={null} />
+        </Wrap>
+        <Divider />
+        <Wrap>
+          <AdminTabs tab={tab} setTab={setTab} />
+        </Wrap>
+        <Divider />
+        <Wrap marginTop={"10px"}>
+          <AdminContent tab={tab} />
+        </Wrap>
+
+        {/* <Routes>
+          <Route path="" element={<Dashboard />} />
           <Route path="user" element={<UserDashboard />} />
           <Route path="log" element={<LogDashboard />} />
           <Route path="ticket" element={<TicketDashboard />} />
           <Route path="token" element={<TokenDashboard />} />
-        </Routes>
-      </Box>
+        </Routes> */}
+      </Stack>
     </LocalizationProvider>
   );
 };

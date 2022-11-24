@@ -49,7 +49,7 @@ const AbstractDashboard = ({
 }) => {
   return (
     <Box>
-      <Typography>{boardName}</Typography>
+      {/* <Typography>{boardName}</Typography> */}
       {Search}
       <Divider />
       {ToolBox}
