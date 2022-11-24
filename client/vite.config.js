@@ -7,7 +7,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: () => "everything.js",
+        manualChunks: {
+          lodash: ["lodash"],
+        },
       },
     },
   },
