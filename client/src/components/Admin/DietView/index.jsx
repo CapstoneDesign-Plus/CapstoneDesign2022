@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import fetchDiet from "../../../lib/fetchDiet";
-import { Box } from "@mui/material";
-import sortDiet from "../../../lib/sortDiet";
 import changeDietShape from "../../../lib/changeDietShape";
+import styled from "styled-components";
 
-const DietView = () => {
+const TD = styled.td`
+  border: 1px dashed #eee;
+  text-align: center;
+  padding: 8px;
+`;
+
+const DietView = ({ headerColor = "#fff" }) => {
   const [diet, setDiet] = useState();
 
   useEffect(() => {
@@ -13,9 +18,14 @@ const DietView = () => {
   }, []);
 
   return (
-    <table>
+    <table
+      style={{
+        border: "1px solid #ccc",
+        borderSpacing: "0px",
+      }}
+    >
       <thead>
-        <tr>
+        <tr style={{ backgroundColor: `${headerColor}` }}>
           <th>코너</th>
           <th>월</th>
           <th>화</th>
@@ -28,18 +38,17 @@ const DietView = () => {
         {diet &&
           Object.keys(diet).map((k) => (
             <tr key={k}>
-              <td>{k}</td>
+              <TD>{k}</TD>
               {diet[k].map((d, i) => {
-                console.log(d);
                 return (
-                  <td key={i}>
+                  <TD key={i}>
                     {d.map((v, i) => (
                       <React.Fragment key={i}>
                         <span>{v.replace("&amp;", "&")}</span>
                         <br />
                       </React.Fragment>
                     ))}
-                  </td>
+                  </TD>
                 );
               })}
             </tr>
