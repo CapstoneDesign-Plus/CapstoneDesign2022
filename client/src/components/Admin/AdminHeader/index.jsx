@@ -1,6 +1,11 @@
 import { Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import adminState from "../../../state/admin";
 
 const AdminHeader = ({ auth }) => {
+  const setAuthMode = useSetRecoilState(adminState);
+
   return (
     <Box
       sx={{
@@ -11,12 +16,15 @@ const AdminHeader = ({ auth }) => {
         padding: "8px",
       }}
     >
-      <img
-        style={{ height: 50 }}
-        className="logo"
-        alt="logo"
-        src="\images\logo.png"
-      />
+      <Link to="/">
+        <img
+          onClick={() => setAuthMode(false)}
+          style={{ height: 50 }}
+          className="logo"
+          alt="logo"
+          src="\images\logo.png"
+        />
+      </Link>
       <Box>
         <span>관리자 {auth && auth.username} 님</span>
         &nbsp;&nbsp;
