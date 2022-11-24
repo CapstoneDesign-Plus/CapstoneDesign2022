@@ -27,6 +27,7 @@ import { useRecoilState } from "recoil";
 import authState from "./state/auth";
 import axios from "./lib/axios";
 import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
+import Auth from "./components/Auth";
 
 const AppContainer = ({ adminMode, children }) => {
   return (
@@ -60,25 +61,52 @@ function App() {
     <ThemeProvider theme={theme}>
       <AppContainer adminMode={auth && auth.admin}>
         <BrowserRouter>
-          <Header />
+          {!auth || !auth.admin ? <Header /> : <></>}
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/Mypage" element={<Mypage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/ChangeNickname" element={<ChangeNickname />} />
-            <Route path="/ChangePassword" element={<ChangePassword />} />
-            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
-            <Route path="/BuyList" element={<BuyList />} />
-            <Route path="/BuyList/UnUsed" element={<UnUsed />} />
-            <Route path="/BuyList/Used" element={<Used />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Notice" element={<NoticePage />} />
-            <Route path="/Charge" element={<ChargePage />} />
-            <Route path="/BuyTicket" element={<BuyTicketPage />} />
+            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />
             <Route path="/TokenInvalid" element={<TokenInvalid />} />
             <Route path="/notice/write" element={<NoticeWriter />} />
+            <Route
+              path="/Mypage"
+              element={<Auth auth={auth} el={<Mypage />} />}
+            />
+            <Route
+              path="/admin/*"
+              element={<Auth auth={auth} el={<AdminPage />} admin />}
+            />
+            <Route
+              path="/ChangeNickname"
+              element={<Auth auth={auth} el={<ChangeNickname />} />}
+            />
+            <Route
+              path="/ChangePassword"
+              element={<Auth auth={auth} el={<ChangePassword />} />}
+            />
+            <Route
+              path="/BuyList"
+              element={<Auth auth={auth} el={<BuyList />} />}
+            />
+            <Route
+              path="/BuyList/UnUsed"
+              element={<Auth auth={auth} el={<UnUsed />} />}
+            />
+            <Route
+              path="/BuyList/Used"
+              element={<Auth auth={auth} el={<Used />} />}
+            />
+            <Route
+              path="/Charge"
+              element={<Auth auth={auth} el={<ChargePage />} />}
+            />
+            <Route
+              path="/BuyTicket"
+              element={<Auth auth={auth} el={<BuyTicketPage />} />}
+            />
             <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
