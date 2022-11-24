@@ -29,6 +29,7 @@ import axios from "./lib/axios";
 import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
 import Auth from "./components/Auth";
 import adminState from "./state/admin";
+import Logout from "./components/User/Logout";
 
 const AppContainer = ({ adminMode, children }) => {
   console.log(adminMode);
@@ -70,6 +71,7 @@ function App() {
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Notice" element={<NoticePage />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/ResetPassword/:token" element={<ResetPassword />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />
             <Route path="/TokenInvalid" element={<TokenInvalid />} />
