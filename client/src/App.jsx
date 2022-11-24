@@ -77,8 +77,8 @@ function App() {
             <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
             <Route
               path="/admin/*"
-              // element={<Auth el={<AdminPage />} admin />}
-              element={<AdminPage />}
+              element={<Auth el={<AdminPage />} admin />}
+              // element={<AdminPage />}
             />
             <Route
               path="/ChangeNickname"
