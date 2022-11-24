@@ -1,4 +1,4 @@
-import { Box, Divider, Pagination, Paper, Typography } from "@mui/material";
+import { Box, Divider, Pagination } from "@mui/material";
 
 /**
  * @template T, S

@@ -26,10 +26,11 @@ import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
 import Auth from "./components/Auth";
 import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
+import MainPage from "./components/Main/MainPage";
 
-const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 const Mypage = React.lazy(() => import("./components/MyPage/Mypage"));
-const MainPage = React.lazy(() => import("./components/Main/MainPage"));
+const AdminPage = React.lazy(() => import("./pages/AdminPage"));
+
 import { useRecoilState, useRecoilValue } from "recoil";
 
 const AppContainer = ({ adminMode, children }) => {

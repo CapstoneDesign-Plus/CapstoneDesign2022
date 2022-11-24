@@ -1,5 +1,6 @@
+import { lazy } from "react";
 import { Box } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+const { DataGrid } = lazy(() => import("@mui/x-data-grid"));
 
 const AbstractBody = ({ getId, data, columns, setSelected }) => {
   return (

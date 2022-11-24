@@ -1,6 +1,6 @@
 import countDate from "../../../lib/countDate";
-
-const ApexCharts = React.lazy(() => import("react-apexcharts"));
+import { lazy } from "react";
+const ApexCharts = lazy(() => import("react-apexcharts"));
 
 const StatisticUnit = ({ data }) => {
   const state = countDate(data.data);
