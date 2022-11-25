@@ -22,7 +22,8 @@ export default ({ app }: { app: express.Application }) => {
   );
   app.use(
     cors({
-      origin: true,
+      origin: "http://localhost:5173",
+      methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
       credentials: true,
     })
   );
