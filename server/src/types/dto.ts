@@ -6,6 +6,7 @@ export interface UserDTO {
   readonly point?: number;
   readonly tickets: string[];
   readonly createdAt: number;
+  readonly password: string;
 }
 
 export interface LogDTO {

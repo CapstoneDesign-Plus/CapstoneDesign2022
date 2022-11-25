@@ -25,6 +25,7 @@ export default {
       tickets: user.tickets,
       admin: user.certificated,
       createdAt: user.createdAt,
+      password: user.password,
     };
   },
 
