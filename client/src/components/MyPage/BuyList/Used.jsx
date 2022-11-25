@@ -12,6 +12,8 @@ import { Box } from "@mui/material";
 import UsedTicketItem from "./UsedTicketItem";
 import { Stack } from "@mui/system";
 import useGetFetch from "../../../hook/useGetFetch";
+import authState from "../../../state/auth";
+import { useRecoilState } from "recoil";
 
 const UsedStyle = styled.div`
   top: 0;
@@ -46,6 +48,7 @@ const rows = [
 ];
 
 function Used() {
+  const [auth, setAuth] = useRecoilState(authState);
   const [expanded, setExpanded] = useState("");
 
   const [data] = useGetFetch(
