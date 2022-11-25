@@ -131,7 +131,12 @@ function Charge() {
           <TableBody>
             {rows.map((row, i) => (
               <TableRow key={row.coin}>
-                <TableCell align="center" component="th" scope="row">
+                <TableCell
+                  align="center"
+                  component="th"
+                  scope="row"
+                  sx={{ fontSize: "15px" }}
+                >
                   {row.coin}
                 </TableCell>
                 <TableCell align="center">
