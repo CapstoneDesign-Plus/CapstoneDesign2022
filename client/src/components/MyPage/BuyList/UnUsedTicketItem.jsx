@@ -24,6 +24,11 @@ const TicketItemStyle = styled.div`
     margin-bottom: 10px;
     background-color: #f2f7f1;
   }
+  .btnBox {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 const TicketItem = ({ ticket, expanded, setExpanded }) => {
   const handleChange = (event, newExpanded) => {
@@ -39,10 +44,6 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
               <Grid item xs={10}>
                 코스 - {ticket.tclass}
               </Grid>
-
-              <Grid item xs={2}>
-                <img className="down" src="\images\down.png" />
-              </Grid>
             </Grid>
           </Typography>
         </AccordionSummary>
@@ -54,12 +55,12 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
             <br />
             구매자 : {ticket.buyer}
             <br />
-            코드번호 : {ticket.identifier}
             <br />
-            <br />
-            <Button className="transfer_btn" variant="contained">
-              양도하기
-            </Button>
+            <Box className="btnBox">
+              <Button className="transfer_btn" variant="contained">
+                양도하기
+              </Button>
+            </Box>
           </Typography>
         </AccordionDetails>
       </Accordion>

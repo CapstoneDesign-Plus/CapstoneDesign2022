@@ -24,10 +24,8 @@ const UsedStyle = styled.div`
     font-size: 20px;
   }
   .ticket-list {
-    
     margin-top: 20px;
     width: 95%;
-    
   }
   .table {
     display: flex;
@@ -35,7 +33,6 @@ const UsedStyle = styled.div`
     align-items: center;
     margin-top: 30px;
   }
- 
 `;
 
 function createData(index, buyDate, cost, course, btn) {
@@ -52,7 +49,7 @@ function Used() {
   const [expanded, setExpanded] = useState("");
 
   const [data] = useGetFetch(
-    "http://bapsim.kro.kr/api/v1/ticket/get/list?page=1&per=20"
+    "http://bapsim.kro.kr/api/v1/user/history/" + auth.email
   );
 
   return (
@@ -66,7 +63,7 @@ function Used() {
       <Stack className="ticket-list">
         {data &&
           data.values.map((ticket) => (
-            <UsedTicketItem 
+            <UsedTicketItem
               key={ticket.identifier}
               ticket={ticket}
               expanded={expanded === ticket.identifier}

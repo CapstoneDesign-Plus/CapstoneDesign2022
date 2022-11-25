@@ -96,11 +96,8 @@ function App() {
                 // element={<ChangePassword />}
               />
               <Route path="/BuyList" element={<Auth el={<BuyList />} />} />
-              <Route
-                path="/BuyList/UnUsed"
-                element={<Auth el={<UnUsed />} />}
-              />
-              <Route path="/BuyList/Used" element={<Auth el={<Used />} />} />
+              <Route path="/UnUsed" element={<Auth el={<UnUsed />} />} />
+              <Route path="/Used" element={<Auth el={<Used />} />} />
               <Route path="/Charge" element={<Auth el={<ChargePage />} />} />
               <Route
                 path="/BuyTicket"

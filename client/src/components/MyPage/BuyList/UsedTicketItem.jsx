@@ -39,10 +39,6 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
               <Grid item xs={10}>
                 코스 - {ticket.tclass}
               </Grid>
-
-              <Grid item xs={2}>
-                <img className="down" src="\images\down.png" />
-              </Grid>
             </Grid>
           </Typography>
         </AccordionSummary>
@@ -56,12 +52,7 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
             <br />
             구매자 : {ticket.buyer}
             <br />
-            코드번호 : {ticket.identifier}
             <br />
-            <br />
-            <Button className="transfer_btn" variant="contained">
-              양도하기
-            </Button>
           </Typography>
         </AccordionDetails>
       </Accordion>
