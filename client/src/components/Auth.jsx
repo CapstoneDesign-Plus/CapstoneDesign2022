@@ -1,9 +1,5 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import authState from "../state/auth";
-import { useEffect, useState } from "react";
-import fetchCheck from "../lib/fetchCheck";
 import useAuthCheck from "../hook/useAuthCheck";
 import { CircularProgress } from "@mui/material";
 

@@ -23,6 +23,8 @@ const AdminPage = () => {
 
   useEffect(() => {
     setAuthMode(true);
+
+    return () => setAuthMode(false);
   }, []);
 
   return (
