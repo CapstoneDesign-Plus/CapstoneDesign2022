@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import axios from "../../../lib/axios";
+import login from "../../../lib/login";
 import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
 import usePassword from "../../../hook/usePassword";
@@ -65,15 +65,6 @@ const SigninStyle = styled.div`
   }
 `;
 
-async function login(email, password) {
-  const response = await axios.post(
-    "v1/user/auth/login",
-    { email, password },
-    { withCredentials: true }
-  );
-  return response;
-}
-
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword, hash] = usePassword("");
@@ -91,8 +82,8 @@ function SignIn() {
 
   const handleClick = () => {
     login(email, hash()).then((value) => {
-      if (value.data.ok) {
-        setAuth(value.data.result);
+      if (value.ok) {
+        setAuth(value.result);
         setFail(false);
         console.log("Login Complete!");
       } else {

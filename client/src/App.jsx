@@ -58,7 +58,6 @@ function App() {
   useEffect(() => {
     check().then((value) => {
       if (value.data.ok) {
-        console.log("value");
         setAuth(value.data.result);
       }
     });
