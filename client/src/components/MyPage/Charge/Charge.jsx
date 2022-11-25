@@ -16,6 +16,7 @@ import axios from "../../../lib/axios";
 import styled from "styled-components";
 import useModal from "../../../hook/useModal";
 import ChargeConfirm from "./ChargeConfirm";
+import { useState } from "react";
 
 const Btn = styled.button`
   &:hover {
@@ -49,10 +50,14 @@ async function getUser(email) {
 
 function Charge() {
   const [auth, setAuth] = useRecoilState(authState);
-  const { isOpen, toggle } = useModal();
+  const [modalIndex, setModalIndex] = useState(-1);
 
-  const handleClick = () => {
-    toggle();
+  const handleClick = (index) => () => {
+    setModalIndex(index);
+  };
+
+  const close = () => {
+    setModalIndex(-1);
   };
 
   const handler = (price) => () => {
@@ -124,24 +129,25 @@ function Charge() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, i) => (
               <TableRow key={row.coin}>
                 <TableCell align="center" component="th" scope="row">
                   {row.coin}
                 </TableCell>
                 <TableCell align="center">
                   {" "}
-                  <Btn className="price_btn" onClick={handleClick}>
+                  <Btn className="price_btn" onClick={handleClick(i)}>
                     {row.price} 원
                   </Btn>
                   <div>
-                    {isOpen && (
+                    {
                       <ChargeConfirm
-                        isOpen={isOpen}
-                        toggle={toggle}
-                        handler={handler(price)}
+                        isOpen={modalIndex == i}
+                        toggle={close}
+                        price={row.price}
+                        handler={handler(row.price)}
                       />
-                    )}
+                    }
                   </div>
                 </TableCell>
               </TableRow>

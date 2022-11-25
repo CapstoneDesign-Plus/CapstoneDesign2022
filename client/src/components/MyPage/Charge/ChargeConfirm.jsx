@@ -13,7 +13,7 @@ const style = {
   p: 3,
 };
 
-const ChargeConfirm = ({ isOpen, toggle, handler }) => {
+const ChargeConfirm = ({ isOpen, toggle, price, handler }) => {
   return (
     <div style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
       <Modal
@@ -49,10 +49,18 @@ const ChargeConfirm = ({ isOpen, toggle, handler }) => {
               {price}원을 충전하시겠습니까?
             </Typography>
             <Box>
-              <Button variant="contained" onClick={handler}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  handler();
+                  toggle();
+                }}
+              >
                 확인
               </Button>
-              <Button variant="contained">취소</Button>
+              <Button variant="contained" onClick={toggle}>
+                취소
+              </Button>
             </Box>
           </Box>
         </Fade>

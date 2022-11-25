@@ -131,6 +131,9 @@ function MainPage() {
         <Link to="/Transfer">
           <Button>Transfer</Button>
         </Link>
+        <Link to="/BuyTicket">
+          <Button>BuyTicket</Button>
+        </Link>
       </Box>
     </MainPageStyle>
   );
