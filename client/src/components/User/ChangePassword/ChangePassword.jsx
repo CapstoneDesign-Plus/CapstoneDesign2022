@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { Box, Grid, Chip, Button } from "@mui/material";
 import axios from "../../../lib/axios";
 import { useRecoilState } from "recoil";
@@ -65,6 +65,8 @@ function ChangePassword() {
   const [old_pw, setOldpw, old_Hash] = usePassword("");
   const [new_pw, setNewpw, new_Hash] = usePassword("");
 
+  const oldRef = useRef();
+
   const [isOldpw, setIsOldpw] = useState(false); //기존 비밀번호 일치 여부
   const [isPassword, setIsPassword] = useState(false); //새 비밀번호
 
@@ -75,8 +77,10 @@ function ChangePassword() {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
   const onChangeOldPassword = useCallback((e) => {
-    setOldpw(e.target.value);
-    setIsOldpw(sha256(e.target.value) === auth.password);
+    if (oldRef.current) {
+      setOldpw(oldRef.current.value);
+      setIsOldpw(sha256(oldRef.current.value) === auth.password);
+    }
   });
 
   const onChangeNewPassword = useCallback((e) => {
@@ -138,6 +142,7 @@ function ChangePassword() {
           </Grid>
           <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
             <input
+              ref={oldRef}
               className="input_pw"
               autoFocus
               placeholder=" 현재 비밀번호"

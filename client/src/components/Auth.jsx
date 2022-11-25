@@ -10,10 +10,8 @@ Auth.propTypes = {
   el: PropTypes.node.isRequired,
 };
 
-function Auth({ el, admin = false }) {
-  const auth = useRecoilValue(authState);
-
-  // const setAuthMode = useSetRecoilState(adminState);
+function Auth({ auth, el, admin = false }) {
+  // const auth = useRecoilValue(authState);
 
   useEffect(() => {
     // if (admin && (!auth || !auth.admin)) setAuthMode(false);
