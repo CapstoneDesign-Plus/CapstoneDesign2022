@@ -39,6 +39,13 @@ router.get("/profile", async (req, res) => {
   return send(res, true, translate.parseUserDTO(req.user as IUser));
 });
 
+router.get("/is", ...validator.user_get_is, async (req, res) => {
+  return send(
+    res,
+    await UserService.getInstance().isExist(req.query.email as string)
+  );
+});
+
 router.get("/:email", ...validator.user_get, async (req, res) => {
   const user = await UserService.getInstance().get(req.params.email as string);
 

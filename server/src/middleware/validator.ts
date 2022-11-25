@@ -105,11 +105,14 @@ const user_put_reset_password = [
   ValidateErrorHandler,
 ];
 
+const user_get_is = [query("email").isEmail(), ValidateErrorHandler];
+
 const user_history = [param("email").isEmail(), ValidateErrorHandler];
 
 const stats_day_used = [query("range").exists(), ValidateErrorHandler];
 
 export default {
+  user_get_is,
   token_all_delete,
   users_all_delete,
   ticket_all_delete,
