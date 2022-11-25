@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {Box, Grid} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
 
@@ -60,7 +60,7 @@ function MBox() {
               sx={{ fontSize: "20px", display: "flex", alignItems: "center" }}
             >
               {auth.tickets.length} &nbsp;&nbsp;
-              <Link to="/BuyList/UnUsed">
+              <Link to="/UnUsed">
                 <img className="arrow" alt="coin" src="\images\arrow.png" />
               </Link>
             </Box>

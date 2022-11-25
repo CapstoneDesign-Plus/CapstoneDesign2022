@@ -44,14 +44,14 @@ function BuyList() {
       <Box className="btnBox" sx={{ margin: "auto", mt: 6, ml: 3, mr: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Link to="/BuyList/Used">
+            <Link to="/Used">
               <Button className="btn" variant="contained">
                 사용한 식권 보기
               </Button>
             </Link>
           </Grid>
           <Grid item xs={12} sx={{ mt: 3 }}>
-            <Link to="/BuyList/UnUsed">
+            <Link to="/UnUsed">
               <Button className="btn" variant="contained">
                 미사용한 식권 보기
               </Button>
