@@ -1,5 +1,5 @@
 import validator from "@/middleware/validator";
-import { send } from "@/services/sender";
+import { invalidPermission, Permission, send } from "@/services/sender";
 import TicketService from "@/services/ticket";
 import translate from "@/services/translate";
 import { TicketSearchOption } from "@/types/dto";
@@ -14,6 +14,9 @@ router.post("/", ...validator.ticket_get, async (req, res) => {
 });
 
 router.post("/search", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const tickets = await TicketService.getInstance().search(
     req.body as TicketSearchOption
   );
@@ -22,6 +25,9 @@ router.post("/search", async (req, res) => {
 });
 
 router.get("/list", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const rangeResult = await TicketService.getInstance().range(
     parseInt(req.query.page as string),
     parseInt(req.query.per as string)
@@ -32,14 +38,6 @@ router.get("/list", async (req, res) => {
     rangeResult,
     rangeResult && translate.parseTicketRangeResult(rangeResult)
   );
-});
-
-/**
- * @todo Search
- */
-
-router.get("/search", async (req, res) => {
-  return send(res, false);
 });
 
 export default router;

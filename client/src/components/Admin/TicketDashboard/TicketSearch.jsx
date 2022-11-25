@@ -6,8 +6,8 @@ import searchTicket from "../../../lib/searchTicket";
 import useTicketSearch from "../../../hook/useTicketSearch";
 
 /**
- * @typedef {import(".").LogProvided} Provided
- * @typedef {import("../../../hook/useLogDashboard").Handler} Handler
+ * @typedef {import(".").TicketProvided} Provided
+ * @typedef {import("../../../hook/useTicketDashboard").Handler} Handler
  *
  * @type {import("../AbstractDashboard").DashboardLeaf<Provided, Handler>}
  */

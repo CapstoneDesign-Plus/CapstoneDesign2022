@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./hoc/Header/Header";
-import Mypage from "./components/MyPage/Mypage";
 import ChangeNickname from "./components/User/ChangeNickname";
 import ChangePassword from "./components/User/ChangePassword/ChangePassword";
 import ResetPassword from "./components/User/ResetPassword";
@@ -11,21 +9,29 @@ import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
 import SignIn from "./components/User/SignIn/SignIn";
 import SignUp from "./components/User/SignUp";
-import MainPage from "./components/Main/MainPage";
-import AdminPage from "./pages/AdminPage";
+
 import theme from "./theme/theme.jsx";
 
 import NoticePage from "../src/pages/notice_page";
 import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
-import { ThemeProvider } from "@mui/material";
+import { CircularProgress, ThemeProvider } from "@mui/material";
 import Error from "./components/ErrorPage/Error";
 import RequestEmail from "./components/User/RequestEmail/RequestEmail";
 import TokenInvalid from "./components/User/TokenInvalid";
 
-import { useRecoilState } from "recoil";
 import authState from "./state/auth";
 import axios from "./lib/axios";
+import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
+import Auth from "./components/Auth";
+import adminState from "./state/admin";
+import Logout from "./components/User/Logout";
+import MainPage from "./components/Main/MainPage";
+
+const Mypage = React.lazy(() => import("./components/MyPage/Mypage"));
+const AdminPage = React.lazy(() => import("./pages/AdminPage"));
+
+import { useRecoilState, useRecoilValue } from "recoil";
 
 const AppContainer = ({ adminMode, children }) => {
   return (
@@ -46,6 +52,7 @@ async function check() {
 
 function App() {
   const [auth, setAuth] = useRecoilState(authState);
+  const adminMode = useRecoilValue(adminState);
 
   useEffect(() => {
     check().then((value) => {
@@ -57,30 +64,50 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContainer adminMode={auth && auth.admin}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/Mypage" element={<Mypage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/ChangeNickname" element={<ChangeNickname />} />
-            <Route path="/ChangePassword" element={<ChangePassword />} />
-            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
-            <Route path="/BuyList" element={<BuyList />} />
-            <Route path="/BuyList/UnUsed" element={<UnUsed />} />
-            <Route path="/BuyList/Used" element={<Used />} />
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/Notice" element={<NoticePage />} />
-            <Route path="/Charge" element={<ChargePage />} />
-            <Route path="/BuyTicket" element={<BuyTicketPage />} />
-            <Route path="/RequestEmail" element={<RequestEmail />} />
-            <Route path="/TokenInvalid" element={<TokenInvalid />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </BrowserRouter>
-      </AppContainer>
+      <Suspense fallback={<CircularProgress />}>
+        <AppContainer adminMode={adminMode}>
+          <BrowserRouter>
+            {!adminMode ? <Header /> : <></>}
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/SignIn" element={<SignIn />} />
+              <Route path="/SignUp" element={<SignUp />} />
+              <Route path="/Notice" element={<NoticePage />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+              <Route path="/RequestEmail" element={<RequestEmail />} />
+              <Route path="/TokenInvalid" element={<TokenInvalid />} />
+              <Route path="/notice/write" element={<NoticeWriter />} />
+              <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
+              <Route
+                path="/admin/*"
+                element={<Auth el={<AdminPage />} admin />}
+                // element={<AdminPage />}
+              />
+              <Route
+                path="/ChangeNickname"
+                element={<Auth el={<ChangeNickname />} />}
+              />
+              <Route
+                path="/ChangePassword"
+                element={<Auth el={<ChangePassword />} />}
+              />
+              <Route path="/BuyList" element={<Auth el={<BuyList />} />} />
+              <Route
+                path="/BuyList/UnUsed"
+                element={<Auth el={<UnUsed />} />}
+              />
+              <Route path="/BuyList/Used" element={<Auth el={<Used />} />} />
+              <Route path="/Charge" element={<Auth el={<ChargePage />} />} />
+              <Route
+                path="/BuyTicket"
+                element={<Auth el={<BuyTicketPage />} />}
+              />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </BrowserRouter>
+        </AppContainer>
+      </Suspense>
     </ThemeProvider>
   );
 }

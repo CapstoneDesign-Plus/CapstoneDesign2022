@@ -1,5 +1,5 @@
 import LogService from "@/services/log";
-import { send } from "@/services/sender";
+import { invalidPermission, Permission, send } from "@/services/sender";
 import translate from "@/services/translate";
 import { LogSearchOption } from "@/types/dto";
 import { Router } from "express";
@@ -7,6 +7,9 @@ import { Router } from "express";
 const router = Router();
 
 router.post("/search", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const logs = await LogService.getInstance().search(
     req.body as LogSearchOption
   );
@@ -15,6 +18,9 @@ router.post("/search", async (req, res) => {
 });
 
 router.get("/list", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const rangeResult = await LogService.getInstance().range(
     parseInt(req.query.page as string),
     parseInt(req.query.per as string)

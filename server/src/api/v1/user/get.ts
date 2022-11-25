@@ -9,6 +9,9 @@ import { UserSearchOption } from "@/types/dto";
 const router = Router();
 
 router.post("/search", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const users = await UserService.getInstance().search(
     req.body as UserSearchOption
   );
@@ -17,6 +20,9 @@ router.post("/search", async (req, res) => {
 });
 
 router.get("/list", async (req, res) => {
+  if (!req.user || !req.user.certificated)
+    return invalidPermission(res, Permission.ADMIN);
+
   const rangeResult = await UserService.getInstance().range(
     parseInt(req.query.page as string),
     parseInt(req.query.per as string)

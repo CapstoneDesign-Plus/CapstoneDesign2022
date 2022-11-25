@@ -1,4 +1,4 @@
-import { Box, Divider, Pagination, Paper, Typography } from "@mui/material";
+import { Box, Divider, Pagination } from "@mui/material";
 
 /**
  * @template T, S
@@ -49,7 +49,7 @@ const AbstractDashboard = ({
 }) => {
   return (
     <Box>
-      <Typography>{boardName}</Typography>
+      {/* <Typography>{boardName}</Typography> */}
       {Search}
       <Divider />
       {ToolBox}
@@ -57,9 +57,9 @@ const AbstractDashboard = ({
       {Body}
       <Divider />
       <Pagination
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
         page={provided.page}
         onChange={(e, v) => hlr.fetchPage(v)}
-        boundaryCount={8}
         count={provided.pageLimit}
       />
     </Box>

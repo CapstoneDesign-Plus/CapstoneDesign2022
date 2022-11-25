@@ -92,8 +92,6 @@ function Mypage() {
     }
   };
 
-  if (!auth) return <Navigate to="/" />;
-
   return (
     <MypageStyle>
       <Box

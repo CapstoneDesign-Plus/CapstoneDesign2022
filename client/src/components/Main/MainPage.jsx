@@ -6,7 +6,8 @@ import MSlider from "./MSlider";
 import MNotice from "./MNotice";
 import MBox from "./MBox";
 import authState from "../../state/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilCallback, useRecoilState, useSetRecoilState } from "recoil";
+import adminState from "../../state/admin";
 
 const MainPageStyle = styled.div`
   margin: auto;
@@ -46,6 +47,7 @@ const MainPageStyle = styled.div`
 
 function MainPage() {
   const [auth, setAuth] = useRecoilState(authState);
+  const setAdminMode = useSetRecoilState(adminState);
 
   return (
     <MainPageStyle>
@@ -105,7 +107,6 @@ function MainPage() {
         </Grid>
         {/* 잔여 식권/재화 Box */}
         {auth ? <MBox /> : <></>}
-        {console.log(auth)}
         {/* 식단 슬라이더 */}
         <MSlider />
         {/* 공지사항 박스 */}
@@ -121,8 +122,8 @@ function MainPage() {
           <Button>비밀번호 재설정(무효)</Button>
         </Link>
         {/* AdminPage TEST */}
-        <Link to="/">
-          <Button>Admin</Button>
+        <Link to="/admin">
+          <Button onClick={() => setAdminMode((value) => !value)}>Admin</Button>
         </Link>
         <Link to="/QRcode">
           <Button>QRCode</Button>

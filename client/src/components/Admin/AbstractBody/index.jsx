@@ -1,9 +1,10 @@
+import { lazy } from "react";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 const AbstractBody = ({ getId, data, columns, setSelected }) => {
   return (
-    <Box height={450}>
+    <Box height={700}>
       <DataGrid
         getRowId={getId}
         rows={data}
