@@ -1,5 +1,4 @@
 import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
-import { Navigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -10,13 +9,13 @@ const style = {
   bgcolor: "background.paper",
   border: "4px solid #49663c",
   borderRadius: "20px",
-  boxShadow: 24,
+
   p: 3,
 };
 
-const AlertModal = ({ isOpen, toggle }) => {
+const ChargeConfirm = ({ isOpen, toggle, price, handler }) => {
   return (
-    <div>
+    <div style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -36,7 +35,7 @@ const AlertModal = ({ isOpen, toggle }) => {
               component="h2"
               sx={{ fontWeight: "bold" }}
             >
-              Complete!
+              재화 구매
             </Typography>
             <Typography
               id="transition-modal-description"
@@ -47,14 +46,27 @@ const AlertModal = ({ isOpen, toggle }) => {
                 fontSize: "14px",
               }}
             >
-              변경된 비밀번호로 재로그인 해주세요!
+              {price}원을 충전하시겠습니까?
             </Typography>
+            <Box>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  handler();
+                  toggle();
+                }}
+              >
+                확인
+              </Button>
+              <Button variant="contained" onClick={toggle}>
+                취소
+              </Button>
+            </Box>
           </Box>
         </Fade>
       </Modal>
-      <div>{!isOpen && <Navigate to="/" />}</div>
     </div>
   );
 };
 
-export default AlertModal;
+export default ChargeConfirm;

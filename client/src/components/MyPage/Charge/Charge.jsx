@@ -9,11 +9,14 @@ import {
   TableBody,
 } from "@mui/material";
 
-import style from "../style/charge.scss";
-import authState from "../state/auth";
+import style from "../../../style/charge.scss";
+import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
-import axios from "../lib/axios";
+import axios from "../../../lib/axios";
 import styled from "styled-components";
+import useModal from "../../../hook/useModal";
+import ChargeConfirm from "./ChargeConfirm";
+import { useState } from "react";
 
 const Btn = styled.button`
   &:hover {
@@ -47,6 +50,15 @@ async function getUser(email) {
 
 function Charge() {
   const [auth, setAuth] = useRecoilState(authState);
+  const [modalIndex, setModalIndex] = useState(-1);
+
+  const handleClick = (index) => () => {
+    setModalIndex(index);
+  };
+
+  const close = () => {
+    setModalIndex(-1);
+  };
 
   const handler = (price) => () => {
     point(auth.email, price).then((value) => {
@@ -117,16 +129,26 @@ function Charge() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, i) => (
               <TableRow key={row.coin}>
                 <TableCell align="center" component="th" scope="row">
                   {row.coin}
                 </TableCell>
                 <TableCell align="center">
                   {" "}
-                  <Btn className="price_btn" onClick={handler(row.price)}>
+                  <Btn className="price_btn" onClick={handleClick(i)}>
                     {row.price} 원
                   </Btn>
+                  <div>
+                    {
+                      <ChargeConfirm
+                        isOpen={modalIndex == i}
+                        toggle={close}
+                        price={row.price}
+                        handler={handler(row.price)}
+                      />
+                    }
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

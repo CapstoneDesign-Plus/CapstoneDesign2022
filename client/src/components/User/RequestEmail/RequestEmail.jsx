@@ -181,7 +181,7 @@ function RequestEmail() {
               전 송
             </Button>
             <div>
-              {isOpen && <SendEmailModal open={isOpen} handleClose={toggle} />}
+              {isOpen && <SendEmailModal isOpen={isOpen} toggle={toggle} />}
             </div>
           </Grid>
         </Grid>

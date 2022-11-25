@@ -13,21 +13,21 @@ const style = {
   p: 3,
 };
 
-const SendEmailModal = ({ isOpen, handleClose }) => {
+const SendEmailModal = ({ isOpen, toggle }) => {
   return (
     <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={toggle}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={isOpen}>
           <Box sx={style}>
             <Typography
               id="transition-modal-title"
