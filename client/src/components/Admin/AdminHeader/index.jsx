@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import adminState from "../../../state/admin";
 
 const AdminHeader = ({ auth }) => {
-  const setAuthMode = useSetRecoilState(adminState);
+  const setAdminMode = useSetRecoilState(adminState);
 
   return (
     <Box
@@ -18,7 +18,7 @@ const AdminHeader = ({ auth }) => {
     >
       <Link to="/">
         <img
-          onClick={() => setAuthMode(false)}
+          onClick={() => setAdminMode(false)}
           style={{ height: 50 }}
           className="logo"
           alt="logo"

@@ -8,6 +8,7 @@ import { Navigate } from "react-router-dom";
 import usePassword from "../../../hook/usePassword";
 import AlertModal from "./AlertModal";
 import useModal from "../../../hook/useModal";
+import sha256 from "../../../lib/sha256";
 
 const ChangePwStyle = styled.div`
   top: 0;
@@ -75,7 +76,7 @@ function ChangePassword() {
 
   const onChangeOldPassword = useCallback((e) => {
     setOldpw(e.target.value);
-    setIsOldpw(e.target.value === auth.password);
+    setIsOldpw(sha256(e.target.value) === auth.password);
   });
 
   const onChangeNewPassword = useCallback((e) => {

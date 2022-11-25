@@ -13,10 +13,10 @@ Auth.propTypes = {
 function Auth({ el, admin = false }) {
   const auth = useRecoilValue(authState);
 
-  const setAuthMode = useSetRecoilState(adminState);
+  // const setAuthMode = useSetRecoilState(adminState);
 
   useEffect(() => {
-    if (admin && (!auth || !auth.admin)) setAuthMode(false);
+    // if (admin && (!auth || !auth.admin)) setAuthMode(false);
   }, []);
 
   return <>{auth && (!admin || auth.admin) ? el : <Navigate to={"/"} />}</>;

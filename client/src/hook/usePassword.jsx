@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CryptoJS from "crypto-js";
+import sha256 from "../lib/sha256";
 
 const usePassword = () => {
   const [password, setPassword] = useState("");
@@ -8,7 +9,7 @@ const usePassword = () => {
     password,
     setPassword,
     () => {
-      return CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
+      return sha256(password);
     },
   ];
 };

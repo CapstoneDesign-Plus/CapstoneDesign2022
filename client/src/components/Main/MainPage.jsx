@@ -1,6 +1,6 @@
 import { Box, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import MSlider from "./MSlider";
 import MNotice from "./MNotice";
@@ -47,7 +47,6 @@ const MainPageStyle = styled.div`
 
 function MainPage() {
   const [auth, setAuth] = useRecoilState(authState);
-  const setAdminMode = useSetRecoilState(adminState);
 
   return (
     <MainPageStyle>
@@ -123,7 +122,7 @@ function MainPage() {
         </Link>
         {/* AdminPage TEST */}
         <Link to="/admin">
-          <Button onClick={() => setAdminMode((value) => !value)}>Admin</Button>
+          <Button>Admin</Button>
         </Link>
         <Link to="/QRcode">
           <Button>QRCode</Button>

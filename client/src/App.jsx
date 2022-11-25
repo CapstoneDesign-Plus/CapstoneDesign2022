@@ -27,8 +27,8 @@ import Auth from "./components/Auth";
 import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
 import MainPage from "./components/Main/MainPage";
+import Mypage from "./components/MyPage/Mypage";
 
-const Mypage = React.lazy(() => import("./components/MyPage/Mypage"));
 const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -57,6 +57,7 @@ function App() {
   useEffect(() => {
     check().then((value) => {
       if (value.data.ok) {
+        console.log("value");
         setAuth(value.data.result);
       }
     });
@@ -90,7 +91,8 @@ function App() {
               />
               <Route
                 path="/ChangePassword"
-                element={<Auth el={<ChangePassword />} />}
+                // element={<Auth el={<ChangePassword />} />}
+                element={<ChangePassword />}
               />
               <Route path="/BuyList" element={<Auth el={<BuyList />} />} />
               <Route

@@ -2,9 +2,11 @@ import { Box, Divider, Stack } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import AdminHeader from "../components/Admin/AdminHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminContent from "../components/Admin/AdminContent";
 import AdminTabs from "../components/Admin/AdminTabs";
+import { useSetRecoilState } from "recoil";
+import adminState from "../state/admin";
 
 const Wrap = ({ children, marginTop = 0 }) => {
   return (
@@ -16,6 +18,12 @@ const Wrap = ({ children, marginTop = 0 }) => {
 
 const AdminPage = () => {
   const [tab, setTab] = useState(0);
+
+  const setAuthMode = useSetRecoilState(adminState);
+
+  useEffect(() => {
+    setAuthMode(true);
+  }, []);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
