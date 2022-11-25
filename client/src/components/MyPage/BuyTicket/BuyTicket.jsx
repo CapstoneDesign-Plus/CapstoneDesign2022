@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
-import style from "../style/buyticket.scss";
+import style from "../../../style/buyticket.scss";
 
 export default function BuyTicket() {
   return (

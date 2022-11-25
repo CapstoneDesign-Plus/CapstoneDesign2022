@@ -9,11 +9,13 @@ import {
   TableBody,
 } from "@mui/material";
 
-import style from "../style/charge.scss";
-import authState from "../state/auth";
+import style from "../../../style/charge.scss";
+import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
-import axios from "../lib/axios";
+import axios from "../../../lib/axios";
 import styled from "styled-components";
+import useModal from "../../../hook/useModal";
+import ChargeConfirm from "./ChargeConfirm";
 
 const Btn = styled.button`
   &:hover {
@@ -47,6 +49,11 @@ async function getUser(email) {
 
 function Charge() {
   const [auth, setAuth] = useRecoilState(authState);
+  const { isOpen, toggle } = useModal();
+
+  const handleClick = () => {
+    toggle();
+  };
 
   const handler = (price) => () => {
     point(auth.email, price).then((value) => {
@@ -124,9 +131,18 @@ function Charge() {
                 </TableCell>
                 <TableCell align="center">
                   {" "}
-                  <Btn className="price_btn" onClick={handler(row.price)}>
+                  <Btn className="price_btn" onClick={handleClick}>
                     {row.price} 원
                   </Btn>
+                  <div>
+                    {isOpen && (
+                      <ChargeConfirm
+                        isOpen={isOpen}
+                        toggle={toggle}
+                        handler={handler(price)}
+                      />
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

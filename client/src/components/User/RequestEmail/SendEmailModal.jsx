@@ -27,7 +27,7 @@ const SendEmailModal = ({ isOpen, toggle }) => {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={isOpen}>
           <Box sx={style}>
             <Typography
               id="transition-modal-title"
