@@ -82,37 +82,28 @@ function App() {
               <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
               <Route
                 path="/admin/*"
-                element={<Auth auth={auth} el={<AdminPage />} admin />}
+                element={<Auth el={<AdminPage />} admin />}
                 // element={<AdminPage />}
               />
               <Route
                 path="/ChangeNickname"
-                element={<Auth auth={auth} el={<ChangeNickname />} />}
+                element={<Auth el={<ChangeNickname />} />}
               />
               <Route
                 path="/ChangePassword"
-                element={<Auth auth={auth} el={<ChangePassword />} />}
+                element={<Auth el={<ChangePassword />} />}
                 // element={<ChangePassword />}
               />
-              <Route
-                path="/BuyList"
-                element={<Auth auth={auth} el={<BuyList />} />}
-              />
+              <Route path="/BuyList" element={<Auth el={<BuyList />} />} />
               <Route
                 path="/BuyList/UnUsed"
-                element={<Auth auth={auth} el={<UnUsed />} />}
+                element={<Auth el={<UnUsed />} />}
               />
-              <Route
-                path="/BuyList/Used"
-                element={<Auth auth={auth} el={<Used />} />}
-              />
-              <Route
-                path="/Charge"
-                element={<Auth auth={auth} el={<ChargePage />} />}
-              />
+              <Route path="/BuyList/Used" element={<Auth el={<Used />} />} />
+              <Route path="/Charge" element={<Auth el={<ChargePage />} />} />
               <Route
                 path="/BuyTicket"
-                element={<Auth auth={auth} el={<BuyTicketPage />} />}
+                element={<Auth el={<BuyTicketPage />} />}
               />
               <Route path="*" element={<Error />} />
             </Routes>
