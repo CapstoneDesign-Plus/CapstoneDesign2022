@@ -62,7 +62,7 @@ function Used() {
       </Box>
       <Stack className="ticket-list">
         {data &&
-          data.values.map((ticket) => (
+          data.map((ticket) => (
             <UsedTicketItem
               key={ticket.identifier}
               ticket={ticket}
