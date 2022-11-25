@@ -13,8 +13,11 @@ export default ({ app }: { app: express.Application }) => {
   app.use(
     expressSession({
       secret: env.SESSION_SECRET,
-      resave: true,
+      resave: false,
       saveUninitialized: true,
+      cookie: {
+        maxAge: 1000 * 60 * 5,
+      },
     })
   );
   app.use(
