@@ -3,21 +3,29 @@ import { lazy } from "react";
 const ApexCharts = lazy(() => import("react-apexcharts"));
 
 const StatisticUnit = ({ data }) => {
-  const state = countDate(data.data);
+  const state = countDate(data);
 
   const arr = Object.keys(state).sort();
 
   const values = [];
 
-  arr.forEach((key) => values.push(state[key]));
+  arr.forEach((key) => values.push({ key, count: state[key] }));
 
   return (
     <ApexCharts
       typs="line"
       series={[
         {
-          name: data.name,
-          data: values,
+          name: "A",
+          data: values.map((v) => v.count["A"]),
+        },
+        {
+          name: "B",
+          data: values.map((v) => v.count["B"]),
+        },
+        {
+          name: "C",
+          data: values.map((v) => v.count["C"]),
         },
       ]}
       options={{
@@ -33,7 +41,7 @@ const StatisticUnit = ({ data }) => {
           curve: "straight",
         },
         title: {
-          text: `${data.name} 코스 식권 사용량`,
+          text: "코스별 식권 사용량",
           align: "left",
         },
         grid: {
@@ -43,7 +51,7 @@ const StatisticUnit = ({ data }) => {
           },
         },
         xaxis: {
-          categories: arr,
+          categories: values.map((v) => v.key),
         },
       }}
     />

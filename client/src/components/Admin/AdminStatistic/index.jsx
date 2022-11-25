@@ -15,26 +15,25 @@ const AdminStatistic = () => {
 
   return (
     <Box>
-      <FormControl>
-        <InputLabel id="demo-simple-select-label">RangeType</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={rangeType}
-          label="RangeType"
-          onChange={(e) => setRangeType(e.target.value)}
-        >
-          <MenuItem value="7d">7 days</MenuItem>
-          <MenuItem value="30d">30 days</MenuItem>
-          <MenuItem value="3m">3 Month</MenuItem>
-          <MenuItem value="1y">A Year</MenuItem>
-        </Select>
-      </FormControl>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <FormControl size="small">
+          <InputLabel id="demo-simple-select-label">RangeType</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={rangeType}
+            label="RangeType"
+            onChange={(e) => setRangeType(e.target.value)}
+          >
+            <MenuItem value="7d">7 days</MenuItem>
+            <MenuItem value="30d">30 days</MenuItem>
+            <MenuItem value="3m">3 Month</MenuItem>
+            <MenuItem value="1y">A Year</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
-      {statistic &&
-        Object.keys(statistic).map((c) => (
-          <StatisticUnit key={c} data={{ name: c, data: statistic[c] }} />
-        ))}
+      {statistic && <StatisticUnit data={statistic} />}
     </Box>
   );
 };
