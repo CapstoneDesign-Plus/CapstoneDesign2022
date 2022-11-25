@@ -17,6 +17,7 @@ export default ({ app }: { app: express.Application }) => {
       saveUninitialized: true,
       cookie: {
         maxAge: 1000 * 60 * 5,
+        sameSite: "none",
       },
     })
   );
