@@ -18,6 +18,7 @@ export default ({ app }: { app: express.Application }) => {
       cookie: {
         maxAge: 1000 * 60 * 5,
         sameSite: "none",
+        secure: true,
       },
     })
   );
