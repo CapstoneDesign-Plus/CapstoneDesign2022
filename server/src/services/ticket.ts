@@ -12,6 +12,7 @@ import UserService from "@/services/user";
 import { IUser } from "@/models/user";
 import { FilterQuery } from "mongoose";
 import translate from "@/services/translate";
+import StoreService from "./store";
 
 export default class TicketService {
   private ticketModel: ITicketModel;
@@ -28,7 +29,7 @@ export default class TicketService {
         owner: owner,
         tclass: tclass,
         buyer: owner,
-        price: 10,
+        price: StoreService.getInstance().getPrice(tclass),
         state: "normal",
       });
       await this.userService.pushTicket(
@@ -123,6 +124,17 @@ export default class TicketService {
         case "use":
           if (ticket.state === "normal" || ticket.state === "waiting") {
             await this.changeState(ticketKey, "used");
+
+            const delta =
+              ticket.price - StoreService.getInstance().getPrice(ticket.tclass);
+
+            if (delta > 0) {
+              await UserService.getInstance().increasePoint(
+                ticket.owner,
+                delta
+              );
+            }
+
             return true;
           }
           break;
