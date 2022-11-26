@@ -1,6 +1,6 @@
 import AbstractBody from "../AbstractBody";
 
-const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "long" });
+const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
 
 /**
  * @typedef {import(".").TokenProvided} Provided
