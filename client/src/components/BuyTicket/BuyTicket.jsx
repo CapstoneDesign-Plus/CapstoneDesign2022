@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
