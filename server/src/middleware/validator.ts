@@ -89,6 +89,12 @@ const user_point_give = [
 
 const user_change_name = [query("new_name").exists(), ValidateErrorHandler];
 
+const ticket_price_update = [
+  param("type").exists(),
+  param("price").isNumeric(),
+  ValidateErrorHandler,
+];
+
 const user_change_password = [
   body("old_password").exists(),
   body("new_password").exists(),
@@ -137,4 +143,5 @@ export default {
   ticket_refund,
   ticket_change_state,
   stats_day_used,
+  ticket_price_update,
 };
