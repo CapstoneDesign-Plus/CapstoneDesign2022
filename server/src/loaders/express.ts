@@ -8,6 +8,12 @@ import cors from "cors";
 import booleanHandler from "@/middleware/booleaner";
 
 export default ({ app }: { app: express.Application }) => {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
@@ -20,12 +26,6 @@ export default ({ app }: { app: express.Application }) => {
         sameSite: "none",
         secure: true,
       },
-    })
-  );
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
     })
   );
   app.use(passport.initialize());
