@@ -8,12 +8,7 @@ import cors from "cors";
 import booleanHandler from "@/middleware/booleaner";
 
 export default ({ app }: { app: express.Application }) => {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    })
-  );
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
