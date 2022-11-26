@@ -37,7 +37,7 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
           <Typography sx={{ fontSize: 20, fontWeight: "bolder" }}>
             <Grid container spacing={1}>
               <Grid item xs={10}>
-                코스 - {ticket.tclass}
+                {"코스 - " + ticket.tclass}
               </Grid>
             </Grid>
           </Typography>

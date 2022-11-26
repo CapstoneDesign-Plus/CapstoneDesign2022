@@ -2,10 +2,10 @@ import styled from "styled-components";
 import React, { useCallback, useState } from "react";
 import { Box, Grid, Button } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import axios from "../../lib/axios";
-import usePassword from "../../hook/usePassword";
+import axios from "../../../lib/axios";
+import usePassword from "../../../hook/usePassword";
 
-const SigninStyle = styled.div`
+const SignupStyle = styled.div`
   top: 0;
   margin: 0 auto;
   margin-top: 20px;
@@ -97,7 +97,12 @@ async function signup(username, password, email) {
   return response;
 }
 
-function SignIn() {
+async function confirm(email) {
+  const response = await axios.get("v1/user/get/is?email=" + email);
+  return response;
+}
+
+function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword, hash] = usePassword("");
   const [email, setEmail] = useState("");
@@ -174,6 +179,16 @@ function SignIn() {
     [password]
   );
 
+  const btnClick = () => {
+    confirm(email).then((value) => {
+      if (value.data.ok) {
+        setEmailMessage("이미 사용중인 이메일입니다.");
+      } else {
+        setEmailMessage("");
+      }
+    });
+  };
+
   const handleClick = () => {
     signup(username, hash(), email).then((value) => {
       if (value.data.ok) {
@@ -186,7 +201,7 @@ function SignIn() {
   };
 
   return (
-    <SigninStyle>
+    <SignupStyle>
       <Box
         className="title"
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
@@ -251,10 +266,18 @@ function SignIn() {
                 </Grid>
               </Grid>
             </div>
+            <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                style={{ color: "#49663c", fontWeight: "bolder" }}
+                onClick={btnClick}
+              >
+                중복 확인
+              </Button>
+            </Grid>
           </Grid>
 
           {/* 비밀번호 */}
-          <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
+          <Grid className="input_title" item xs={12} sx={{ mt: 0 }}>
             Password
           </Grid>
           <Grid item xs={12} sx={{ ml: -1 }}>
@@ -331,8 +354,8 @@ function SignIn() {
           </Grid>
         </Grid>
       </Box>
-    </SigninStyle>
+    </SignupStyle>
   );
 }
 
-export default SignIn;
+export default SignUp;

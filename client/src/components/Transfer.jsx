@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Box, Grid, Chip, Button } from "@mui/material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "../lib/axios";
+
 const TransferStyle = styled.div`
   top: 0;
   margin: 0 auto;
@@ -55,7 +58,42 @@ const TransferStyle = styled.div`
   }
 `;
 
+async function confirm(email) {
+  const response = await axios.get("v1/user/get/is?email=" + email);
+  return response;
+}
+
 function Transfer() {
+  const [email, setEmail] = useState("");
+  const [isEmail, setIsEmail] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
+
+  const onChangeEmail = useCallback((e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage("이메일 형식을 맞게 입력해주세요.");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("");
+      setIsEmail(true);
+    }
+  }, []);
+
+  const handleClick = () => {
+    confirm(email).then((value) => {
+      if (value.data.ok) {
+        setEmailMessage("");
+        console.log("Complete!");
+      } else {
+        setEmailMessage("존재하지 않는 이메일입니다.");
+      }
+    });
+  };
+
   return (
     <TransferStyle>
       <div style={{ margin: 0 }}>
@@ -97,15 +135,10 @@ function Transfer() {
             <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
               <input
                 className="input_pw"
-                placeholder="보낼 사람의 Eamil을 입력해주세요"
+                placeholder="보낼 사람의 Email을 입력해주세요."
+                onChange={onChangeEmail}
               />
-            </Grid>
-            {/* 본인 Email */}
-            <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
-              본인 확인
-            </Grid>
-            <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
-              <input className="input_pw" placeholder="Eamil을 입력해주세요" />
+              {emailMessage}
             </Grid>
           </Grid>
         </Box>
@@ -119,7 +152,9 @@ function Transfer() {
           }}
         >
           <Grid>
-            <button className="transfer_btn">양도하기</button>
+            <button className="transfer_btn" onClick={handleClick}>
+              양도하기
+            </button>
           </Grid>
         </Box>
       </div>
