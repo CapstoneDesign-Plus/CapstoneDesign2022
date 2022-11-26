@@ -28,6 +28,7 @@ import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
 import MainPage from "./components/Main/MainPage";
 import Mypage from "./components/MyPage/Mypage";
+import Transfer from "./components/Transfer";
 
 const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 
@@ -80,6 +81,7 @@ function App() {
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
               <Route path="/notice/write" element={<NoticeWriter />} />
               <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
+              <Route path="/Transfer" element={<Transfer />} />
               <Route
                 path="/admin/*"
                 element={<Auth el={<AdminPage />} admin />}
