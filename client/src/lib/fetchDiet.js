@@ -5,8 +5,6 @@ export default function fetchDiet() {
     paxios.get(`/v1/diet/get`).then((v) => {
       if (v.data.ok) {
         resolve(v.data.result);
-      } else {
-        reject("no page");
       }
     });
   });

@@ -5,8 +5,6 @@ export default function fetchCrawl() {
     paxios.get(`/v1/diet/get/crawl`).then((v) => {
       if (v.data.ok) {
         resolve();
-      } else {
-        reject("no page");
       }
     });
   });

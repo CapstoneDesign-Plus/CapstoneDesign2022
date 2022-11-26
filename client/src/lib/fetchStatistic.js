@@ -11,8 +11,6 @@ export default function fetchStatistic(type = "7d") {
     paxios.get(`/v1/stats?range=${type}`).then((v) => {
       if (v.data.ok) {
         resolve(v.data.result);
-      } else {
-        reject("no page");
       }
     });
   });
