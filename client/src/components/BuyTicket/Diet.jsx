@@ -8,19 +8,15 @@ import NoneDiet from "./NoneDiet";
 import BuyTicket from "./BuyTicket";
 
 export default function Diet() {
-  const [today, setToday] = useState(-1);
-  let diet = [];
+  const [diet, setDiet] = useState([]);
 
   useEffect(() => {
     fetchDiet().then((v) => {
-      setToday(getToday());
+      const today = getToday();
       //today > -1 ? (diet = changeDietShape(v).a[today]) : (diet = null); // 식단 없슴니다 띄우기
-      today > -1
-        ? (diet = changeDietShape(v).a[today])
-        : (diet = changeDietShape(v).a[0]);
-      console.log("diet : " + diet + diet.length);
+      setDiet(changeDietShape(v).a[today > -1 ? today : 0]);
     });
-  });
+  }, []);
 
   return (
     <div style={{ margin: 0 }}>

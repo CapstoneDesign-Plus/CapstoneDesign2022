@@ -9,6 +9,7 @@ import Used from "./components/MyPage/BuyList/Used";
 import UnUsed from "./components/MyPage/BuyList/UnUsed";
 import SignIn from "./components/User/SignIn/SignIn";
 import SignUp from "./components/User/SignUp/SignUp";
+import QRcode from "./components/QRcode";
 
 import theme from "./theme/theme.jsx";
 
@@ -33,6 +34,7 @@ import Transfer from "./components/Transfer";
 const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 
 import { useRecoilState, useRecoilValue } from "recoil";
+import QRRead from "./components/QRread";
 
 //
 const AppContainer = ({ adminMode, children }) => {
@@ -80,8 +82,11 @@ function App() {
               <Route path="/RequestEmail" element={<RequestEmail />} />
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
               <Route path="/notice/write" element={<NoticeWriter />} />
-              <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
               <Route path="/Transfer" element={<Transfer />} />
+              <Route path="/qrread" element={<QRRead />} />
+              <Route path="/qrcode" element={<Auth el={<QRcode />} />} />
+              <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
+
               <Route
                 path="/admin/*"
                 element={<Auth el={<AdminPage />} admin />}

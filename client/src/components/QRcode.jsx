@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Chip from "@mui/material/Chip";
-import { Link } from "react-router-dom";
-import { Button, ButtonGroup } from "@mui/material";
 import styled from "styled-components";
+import QRCode from "react-qr-code";
+import { useRecoilValue } from "recoil";
+import authState from "../state/auth";
+import fetchMyTicket from "../lib/fetchMyTicket";
+import { Stack } from "@mui/system";
+import { Button, Divider, Tab, Tabs } from "@mui/material";
 
 const QRcodeStyle = styled.div`
   top: 0;
@@ -24,8 +27,8 @@ const QRcodeStyle = styled.div`
   }
   .qr_box {
     border-style: solid;
-
-    border-color: #f2f7f1;
+    border-width: 2px;
+    border-color: #49663c;
     border-radius: 20px;
     padding: 10px 10px;
     width: 70%;
@@ -80,7 +83,33 @@ const QRcodeStyle = styled.div`
   }
 `;
 
+const TCLASS = ["A", "B", "C"];
+
+const koDtf = Intl.DateTimeFormat("ko", { dateStyle: "short" });
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 function QRcode() {
+  const auth = useRecoilValue(authState);
+  const [selected, setSelected] = useState();
+  const [ticket, setTicket] = useState([]);
+  const [tab, setTab] = useState(0);
+
+  const handleSelected = (value) => () => {
+    setSelected(value);
+  };
+
+  useEffect(() => {
+    fetchMyTicket(auth.email).then((v) => {
+      setTicket(v);
+    });
+  }, []);
+
   return (
     <QRcodeStyle>
       <div style={{ margin: 0 }}>
@@ -90,6 +119,19 @@ function QRcode() {
 
         <Box sx={{ display: "flex", mt: 3 }}>
           <Grid container spacing={3} sx={{ margin: 0 }}>
+            {selected && (
+              <div>
+                코스 {selected.tclass}
+                <br />
+                가격 {selected.price}
+                <br />
+                상태 {selected.state}
+                <br />
+                구매자 {selected.buyer}
+                <br />
+                구매일 {koDtf.format(selected.createdAt)}
+              </div>
+            )}
             <Box
               className={"qr_box"}
               sx={{
@@ -99,7 +141,15 @@ function QRcode() {
                 mt: 1,
                 ml: 6,
               }}
-            ></Box>
+            >
+              <QRCode
+                style={{
+                  height: 200,
+                }}
+                value={selected ? encodeURIComponent(selected.identifier) : ""}
+                viewBox={`0 0 256 256`}
+              />
+            </Box>
           </Grid>
         </Box>
 
@@ -108,40 +158,44 @@ function QRcode() {
         >
           <Grid container spacing={2}>
             {/* 식권정보 */}
-            <Grid className="input_title">내가 구매한 식권</Grid>
+            <Grid className="input_title">내 식권</Grid>
           </Grid>
         </Box>
-
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Tabs value={tab} onChange={(e, v) => setTab(v)}>
+            <Tab label="A" {...a11yProps(0)} />
+            <Tab label="B" {...a11yProps(1)} />
+            <Tab label="C" {...a11yProps(2)} />
+          </Tabs>
+        </Box>
+        <Divider />
         <Box
           sx={{
             display: "flex",
-            alignItems: "flex-end",
+            justifyContent: "center",
             mt: 1,
             mr: 1,
-            float: "right",
           }}
         >
-          <Grid>
-            <button className="ticket_btn">
-              A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4,000원
-            </button>
-          </Grid>
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            mt: 1,
-            mr: 1,
-            float: "right",
-          }}
-        >
-          <Grid>
-            <button className="ticket_btn">
-              B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4,000원
-            </button>
-          </Grid>
+          <Stack spacing={2} sx={{ marginTop: "10px" }}>
+            {ticket &&
+              ticket
+                .filter((v) => v.tclass === TCLASS[tab] && v.state != "used")
+                .sort((lhs, rhs) => lhs.createdAt - rhs.createdAt)
+                .map((t) => (
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "300px",
+                      padding: "10px",
+                    }}
+                    key={t.identifier}
+                    onClick={handleSelected(t)}
+                  >
+                    {t.tclass} 코스 - {t.state}
+                  </Button>
+                ))}
+          </Stack>
         </Box>
       </div>
     </QRcodeStyle>
