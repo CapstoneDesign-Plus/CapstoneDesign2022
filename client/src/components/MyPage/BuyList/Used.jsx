@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import {
 //   Table,
 //   TableCell,
@@ -11,9 +11,10 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import UsedTicketItem from "./UsedTicketItem";
 import { Stack } from "@mui/system";
-import useGetFetch from "../../../hook/useGetFetch";
 import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
+import fetchMyTicket from "../../../lib/fetchMyTicket";
+import None from "./None";
 
 const UsedStyle = styled.div`
   top: 0;
@@ -41,19 +42,16 @@ function createData(index, buyDate, cost, course, btn) {
   return { index, buyDate, cost, course, btn };
 }
 
-const rows = [
-  createData("1", "2022.09.21", "4,000", "A", " "),
-  createData("2", "2022.09.22", "4,000", "B", " "),
-  createData("3", "2022.09.23", "4,000", "C", " "),
-];
-
 function Used() {
   const [auth, setAuth] = useRecoilState(authState);
   const [expanded, setExpanded] = useState("");
+  const [data, setData] = useState();
 
-  const [data] = useGetFetch(
-    "http://bapsim.kro.kr/api/v1/user/history/" + auth.email
-  );
+  useEffect(() => {
+    fetchMyTicket(auth.email).then((v) => {
+      setData(v);
+    });
+  }, []);
 
   return (
     <UsedStyle>
@@ -64,7 +62,7 @@ function Used() {
         사용 식권
       </Box>
       <Stack className="ticket-list">
-        {data &&
+        {data && data.length < 0 ? (
           data.map((ticket) => (
             <UsedTicketItem
               key={ticket.identifier}
@@ -72,8 +70,10 @@ function Used() {
               expanded={expanded === ticket.identifier}
               setExpanded={setExpanded}
             />
-          ))}
-
+          ))
+        ) : (
+          <None />
+        )}
         {/* <Table sx={{ maxWidth: 440 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
             <TableRow>

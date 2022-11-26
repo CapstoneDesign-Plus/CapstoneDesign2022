@@ -14,7 +14,7 @@ const ErrorStyle = styled.div`
     font-size: 30px;
     font-weight: bold;
     text-align: center;
-    color:#49663c;
+    color: #49663c;
   }
 
   div {
@@ -35,14 +35,15 @@ function Error() {
   return (
     <ErrorStyle>
       <img className="error" alt="ERROR" src="\images\404.png" />
-      <br /><br />
+      <br />
+      <br />
       <p>PAGE NOT FOUND</p>
       <div>
         <Link to="/">
-      <Button className="btn" variant="contained">
-        돌아가기
-      </Button>
-      </Link>
+          <Button className="btn" variant="contained">
+            돌아가기
+          </Button>
+        </Link>
       </div>
     </ErrorStyle>
   );
