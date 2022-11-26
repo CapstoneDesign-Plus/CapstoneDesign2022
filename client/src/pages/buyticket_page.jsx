@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import BuyTicket from "../components/MyPage/BuyTicket/BuyTicket";
+import BuyTicket from "../components/BuyTicket/BuyTicket";
 import Template from "../components/templates/ui_consistis";
 
 class BuyTicketPage extends Component {
