@@ -5,6 +5,7 @@ import fetchDiet from "../../lib/fetchDiet";
 import changeDietShape from "../../lib/changeDietShape";
 import getToday from "../../lib/getToday";
 import NoneDiet from "./NoneDiet";
+import BuyTicket from "./BuyTicket";
 
 export default function Diet() {
   const [today, setToday] = useState(-1);
@@ -13,8 +14,11 @@ export default function Diet() {
   useEffect(() => {
     fetchDiet().then((v) => {
       setToday(getToday());
-      today > -1 ? (diet = changeDietShape(v).a[today]) : (diet = null); // 식단 없슴니다 띄우기
-      console.log(diet);
+      //today > -1 ? (diet = changeDietShape(v).a[today]) : (diet = null); // 식단 없슴니다 띄우기
+      today > -1
+        ? (diet = changeDietShape(v).a[today])
+        : (diet = changeDietShape(v).a[0]);
+      console.log("diet : " + diet + diet.length);
     });
   });
 

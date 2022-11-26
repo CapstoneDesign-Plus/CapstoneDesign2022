@@ -3,7 +3,7 @@ import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
 
-export default function BuyTicket() {
+const BuyTicket = () => {
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -156,4 +156,6 @@ export default function BuyTicket() {
       </Box>
     </div>
   );
-}
+};
+
+export default BuyTicket;
