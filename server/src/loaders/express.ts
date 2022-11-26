@@ -15,6 +15,7 @@ export default ({ app }: { app: express.Application }) => {
       secret: env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
+      proxy: true,
       cookie: {
         maxAge: 1000 * 60 * 5,
         sameSite: "none",
