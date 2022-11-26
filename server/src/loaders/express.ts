@@ -22,7 +22,12 @@ export default ({ app }: { app: express.Application }) => {
       },
     })
   );
-  app.use(cors());
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+    })
+  );
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(logger);
