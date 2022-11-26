@@ -8,7 +8,6 @@ import cors from "cors";
 import booleanHandler from "@/middleware/booleaner";
 
 export default ({ app }: { app: express.Application }) => {
-  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
@@ -23,6 +22,7 @@ export default ({ app }: { app: express.Application }) => {
       },
     })
   );
+  app.use(cors());
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(logger);
