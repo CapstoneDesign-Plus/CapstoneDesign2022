@@ -1,4 +1,5 @@
 **/node_modules
+cert
 .env
 .DS_Stores
 
