@@ -26,7 +26,6 @@ const TokenSearch = ({ provided, hlr }) => {
     end: option.createdEndAt,
     setEnd: sh.setCreatedEndPeriod,
     setStart: sh.setCreatedStartPeriod,
-    changeActive: sh.toggleCreatedPeriod,
   });
 
   const [expiredStartPicker, expiredEndPicker] = usePeriod({
@@ -35,7 +34,6 @@ const TokenSearch = ({ provided, hlr }) => {
     end: option.expiredEndAt,
     setEnd: sh.setExpiredEndPeriod,
     setStart: sh.setExpiredStartPeriod,
-    changeActive: sh.toggleExpiredPeriod,
   });
 
   return (

@@ -21,21 +21,19 @@ const TicketSearch = ({ provided, hlr }) => {
   };
 
   const [createdStartPicker, createdEndPicker] = usePeriod({
-    isActive: option.isPeriod,
-    start: option.startedAt,
-    end: option.endAt,
-    setEnd: sh.setEndPeriod,
-    setStart: sh.setStartPeriod,
-    changeActive: sh.togglePeriod,
+    isActive: option.isCreatedPeriod,
+    start: option.createdStartedAt,
+    end: option.createdStartedAt,
+    setEnd: sh.setCreatedEndPeriod,
+    setStart: sh.setCreatedStartPeriod,
   });
 
   const [usedStartPicker, usedEndPicker] = usePeriod({
-    isActive: option.isPeriod,
-    start: option.startedAt,
-    end: option.endAt,
-    setEnd: sh.setEndPeriod,
-    setStart: sh.setStartPeriod,
-    changeActive: sh.togglePeriod,
+    isActive: option.isUsedPeriod,
+    start: option.usedStartedAt,
+    end: option.usedEndAt,
+    setEnd: sh.setUsedEndPeriod,
+    setStart: sh.setUsedStartPeriod,
   });
 
   return (
@@ -61,7 +59,7 @@ const TicketSearch = ({ provided, hlr }) => {
         [
           "가격",
           <div style={{ display: "flex" }}>
-            {useInput(option.startedPrice, sh.setPriceStart, 1)}&nbsp;
+            {useInput(option.startedPrice, sh.setPriceStart, 1)}&nbsp;~&nbsp;
             {useInput(option.endPrice, sh.setPriceEnd, 1)}
           </div>,
           { isActive: option.isPrice, toggle: sh.togglePrice },

@@ -26,7 +26,6 @@ const UserSearch = ({ provided, hlr }) => {
     end: option.endAt,
     setEnd: sh.setEndPeriod,
     setStart: sh.setStartPeriod,
-    changeActive: sh.togglePeriod,
   });
 
   return (
