@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
-import style from "../../../style/buyticket.scss";
+import style from "../../style/buyticket.scss";
 
 export default function BuyTicket() {
   return (
     <div style={{ margin: 0 }}>
-      <Box
-        className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
-      >
-        식권 구매
-      </Box>
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 2, mr: 4 }}
       >
@@ -37,7 +31,7 @@ export default function BuyTicket() {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <ButtonGroup orientation="vertical">
-                  <Link to="/BuyList/UnUsed">
+                  <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
                       <br /> 1개
