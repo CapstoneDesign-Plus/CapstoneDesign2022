@@ -14,15 +14,15 @@ const ResetPwStyle = styled.div`
     font-size: 20px;
   }
 
-  .contents{
-    display:flex;
+  .contents {
+    display: flex;
     justify-content: center;
   }
 
   img {
     width: 200px;
   }
-  
+
   h4 {
     color: #49663c;
     text-align: center;
@@ -42,8 +42,8 @@ const ResetPwStyle = styled.div`
 function TokenInvalid() {
   return (
     <ResetPwStyle>
-      <Box className="contents" style={{marginTop: '80px'}}>
-      <img src="\images\expiration.png"></img>
+      <Box className="contents" style={{ marginTop: "80px" }}>
+        <img src="\images\expiration.png"></img>
       </Box>
       <h4>비밀번호 재설정 시간이 만료되었습니다.</h4>
       <Box className="contents">
