@@ -10,6 +10,8 @@ const QRRead = () => {
   const [passed, setPassed] = useState(false);
 
   const handleScan = (result) => {
+    console.log(result && result.text !== codeRef.current);
+
     if (result && result.text !== codeRef.current) {
       codeRef.current = result.text;
       requestTicketStateUse(type === "waiting" ? 0 : 1, result.text).then(
@@ -19,7 +21,8 @@ const QRRead = () => {
   };
 
   const handleError = (error) => {
-    console.log(error);
+    // console.log(error);
+    confirm(error);
   };
 
   return (
