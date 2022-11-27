@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 //   Button,
 // } from "@mui/material";
 import { Box } from "@mui/material";
-import UsedTicketItem from "./UsedTicketItem";
+import UnUsedTicketItem from "./UnUsedTicketItem";
 import { Stack } from "@mui/system";
 import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
@@ -64,7 +64,7 @@ function UnUsed() {
       <Stack className="ticket-list">
         {data && data.length > 0 ? (
           data.map((ticket) => (
-            <UsedTicketItem
+            <UnUsedTicketItem
               key={ticket.identifier}
               ticket={ticket}
               expanded={expanded === ticket.identifier}

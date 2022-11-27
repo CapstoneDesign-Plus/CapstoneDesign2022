@@ -1,9 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
+import { useRecoilState } from "recoil";
+import authState from "../../state/auth";
+import createTicket from "../../lib/createTicket";
 
 const BuyTicket = ({ dA, dB, dC }) => {
+  const [auth, setAuth] = useRecoilState(authState);
+  const [cost, setCost] = useState();
+
+  const handleClick = (c) => () => {
+    createTicket(auth.email, c);
+    console.log(`식권 ${c}가 발급되었습니다.`);
+  };
+
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -37,7 +48,11 @@ const BuyTicket = ({ dA, dB, dC }) => {
                       <br /> 1개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("A")}
+                  >
                     4,000원
                   </Button>
                 </ButtonGroup>
@@ -77,7 +92,11 @@ const BuyTicket = ({ dA, dB, dC }) => {
                       <br /> 0개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("B")}
+                  >
                     4,000원
                   </Button>
                 </ButtonGroup>
@@ -117,7 +136,11 @@ const BuyTicket = ({ dA, dB, dC }) => {
                       <br /> 0개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("C")}
+                  >
                     3,500원
                   </Button>
                 </ButtonGroup>

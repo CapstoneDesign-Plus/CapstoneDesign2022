@@ -16,8 +16,6 @@ export default function Diet() {
   useEffect(() => {
     fetchDiet().then((v) => {
       const today = getToday();
-      //setDiet(changeDietShape(v));
-      //setDiet(changeDietShape(v).a[today > -1 ? today : 0]);
       setDietA(changeDietShape(v).a[today > -1 ? today : 0]);
       setDietB(changeDietShape(v).b[today > -1 ? today : 0]);
       setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
