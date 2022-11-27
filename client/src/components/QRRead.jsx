@@ -1,6 +1,6 @@
 import { Alert, Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useRef, useState } from "react";
-import QrReader from "react-qr-scanner";
+import { lazy, useRef, useState } from "react";
+const QrReader = lazy(() => import("react-qr-scanner"));
 import requestTicketStateUse from "../lib/requestTicketStateUse";
 
 const QRRead = () => {
