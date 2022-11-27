@@ -1,5 +1,6 @@
 import validator from "@/middleware/validator";
 import { invalidPermission, Permission, send } from "@/services/sender";
+import StoreService from "@/services/store";
 import TicketService from "@/services/ticket";
 import translate from "@/services/translate";
 import { TicketSearchOption } from "@/types/dto";
@@ -11,6 +12,10 @@ router.post("/", ...validator.ticket_get, async (req, res) => {
   const ticket = await TicketService.getInstance().get(req.body["identifier"]);
 
   return send(res, ticket, ticket);
+});
+
+router.get("/price", (req, res) => {
+  return send(res, true, StoreService.getInstance().getTable());
 });
 
 router.post("/search", async (req, res) => {
