@@ -1,6 +1,6 @@
 import { Alert, Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { lazy, useRef, useState } from "react";
-const QrReader = lazy(() => import("react-qr-scanner"));
+const QrReader = lazy(() => import("react-web-qr-reader"));
 import requestTicketStateUse from "../lib/requestTicketStateUse";
 
 const QRRead = () => {
@@ -13,13 +13,13 @@ const QRRead = () => {
 
   const handleScan = (result) => {
     if (result) {
-      console.log(result.text);
+      console.log(result.data);
     }
 
-    if (result && result.text !== codeRef.current) {
+    if (result && result.data !== codeRef.current) {
       console.log("fetch");
-      codeRef.current = result.text;
-      requestTicketStateUse(type === "waiting" ? 0 : 1, result.text).then(
+      codeRef.current = result.data;
+      requestTicketStateUse(type === "waiting" ? 0 : 1, result.data).then(
         setPassed
       );
     }
