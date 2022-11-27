@@ -36,6 +36,8 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
     setExpanded(newExpanded ? ticket.identifier : false);
   };
 
+  const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
+
   return (
     <TicketItemStyle>
       <Accordion expanded={expanded} onChange={handleChange} className="item">
@@ -51,6 +53,8 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
         <AccordionDetails className="detail">
           <Typography sx={{ fontSize: 13, fontWeight: "bold" }}>
             가격 : {ticket.price}
+            <br />
+            구매 날짜 : {koDtf.format(ticket.createdAt)}
             <br />
             소유자 : {ticket.owner}
             <br />
