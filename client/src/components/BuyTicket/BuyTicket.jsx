@@ -3,7 +3,7 @@ import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
 
-const BuyTicket = () => {
+const BuyTicket = ({ dA, dB, dC }) => {
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -18,13 +18,13 @@ const BuyTicket = () => {
             >
               A
               <br />
-              마늘보쌈
+              {dA.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              상추/깻잎+쌈장
-              <br />
-              쌈무, 파절이
-              <br />
-              시락국/흑미밥
             </Button>
           </Grid>
           <Grid item xs={4}>
@@ -58,15 +58,13 @@ const BuyTicket = () => {
             >
               B
               <br />
-              참치김치볶음밥
+              {dB.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              소떡소떡+치킨
-              <br />
-              소스
-              <br />
-              샐러드
-              <br />
-              우동장국
             </Button>
           </Grid>
           <Grid item xs={4}>
@@ -100,11 +98,13 @@ const BuyTicket = () => {
             >
               C
               <br />
-              컵과일
+              {dC.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              or
-              <br />
-              소라죽
             </Button>
           </Grid>
           <Grid item xs={4}>

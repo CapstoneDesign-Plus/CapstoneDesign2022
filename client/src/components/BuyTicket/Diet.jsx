@@ -8,13 +8,19 @@ import NoneDiet from "./NoneDiet";
 import BuyTicket from "./BuyTicket";
 
 export default function Diet() {
-  const [diet, setDiet] = useState([]);
+  //const [diet, setDiet] = useState([]);
+  const [dietA, setDietA] = useState([]);
+  const [dietB, setDietB] = useState([]);
+  const [dietC, setDietC] = useState([]);
 
   useEffect(() => {
     fetchDiet().then((v) => {
       const today = getToday();
-      //today > -1 ? (diet = changeDietShape(v).a[today]) : (diet = null); // 식단 없슴니다 띄우기
-      setDiet(changeDietShape(v).a[today > -1 ? today : 0]);
+      //setDiet(changeDietShape(v));
+      //setDiet(changeDietShape(v).a[today > -1 ? today : 0]);
+      setDietA(changeDietShape(v).a[today > -1 ? today : 0]);
+      setDietB(changeDietShape(v).b[today > -1 ? today : 0]);
+      setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
     });
   }, []);
 
@@ -26,7 +32,17 @@ export default function Diet() {
       >
         식권 구매
       </Box>
-      <div>{diet && diet.length > 0 ? <BuyTicket /> : <NoneDiet />}</div>
+      <div>
+        {
+          <div>
+            {dietA && dietA.length > 0 ? (
+              <BuyTicket dA={dietA} dB={dietB} dC={dietC} />
+            ) : (
+              <NoneDiet />
+            )}
+          </div>
+        }
+      </div>
     </div>
   );
 }
