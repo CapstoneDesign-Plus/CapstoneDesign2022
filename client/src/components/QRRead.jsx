@@ -1,18 +1,25 @@
 import { Alert, Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useRef, useState } from "react";
-import QrReader from "react-qr-scanner";
+import { lazy, useRef, useState } from "react";
+const QrReader = lazy(() => import("react-web-qr-reader"));
 import requestTicketStateUse from "../lib/requestTicketStateUse";
 
 const QRRead = () => {
-  const codeRef = useRef("");
+  const codeRef = useRef();
+
+  if (!codeRef.current) codeRef.current = "";
 
   const [type, setType] = useState("waiting");
   const [passed, setPassed] = useState(false);
 
   const handleScan = (result) => {
-    if (result && result.text !== codeRef.current) {
-      codeRef.current = result.text;
-      requestTicketStateUse(type === "waiting" ? 0 : 1, result.text).then(
+    if (result) {
+      console.log(result.data);
+    }
+
+    if (result && result.data !== codeRef.current) {
+      console.log("fetch");
+      codeRef.current = result.data;
+      requestTicketStateUse(type === "waiting" ? 0 : 1, result.data).then(
         setPassed
       );
     }
@@ -49,6 +56,7 @@ const QRRead = () => {
       ) : (
         <Alert severity="error">잘못된 식권</Alert>
       )}
+      <Box>token: {codeRef.current}</Box>
     </Box>
   );
 };

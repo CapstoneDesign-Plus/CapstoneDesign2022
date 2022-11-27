@@ -24,7 +24,14 @@ export default class TicketService {
   }
 
   async create(owner: string, tclass: TicketClass): Promise<boolean> {
-    if (await this.userService.increasePoint(owner, -10)) {
+    if (["A", "B", "C"].indexOf(tclass) === -1) return false;
+
+    if (
+      await this.userService.increasePoint(
+        owner,
+        -StoreService.getInstance().getPrice(tclass)
+      )
+    ) {
       const nticket = await this.ticketModel.create({
         owner: owner,
         tclass: tclass,
