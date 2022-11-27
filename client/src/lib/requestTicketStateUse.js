@@ -4,7 +4,7 @@ import paxios from "./paxios";
 export default function requestTicketStateUse(type, value) {
   return new Promise((resolve) => {
     paxios.get(`/v1/ticket/use/${type}?id=${value}`).then((v) => {
-      resolve(v.data.ok);
+      resolve(v.data.trim() === "T");
     });
   });
 }
