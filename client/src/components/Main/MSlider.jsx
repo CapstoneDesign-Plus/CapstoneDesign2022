@@ -4,6 +4,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styled from "styled-components";
 import { Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import getToday from "../../lib/getToday";
+import fetchDiet from "../../lib/fetchDiet";
+import changeDietShape from "../../lib/changeDietShape";
 
 const MSliderStyle = styled.div`
   .banner {
@@ -39,6 +43,19 @@ const MSliderStyle = styled.div`
 SwiperCore.use([Pagination, Autoplay]);
 
 function MSlider() {
+  const [dietA, setDietA] = useState([]);
+  const [dietB, setDietB] = useState([]);
+  const [dietC, setDietC] = useState([]);
+
+  useEffect(() => {
+    fetchDiet().then((v) => {
+      const today = getToday();
+      setDietA(changeDietShape(v).a[today > -1 ? today : 0]);
+      setDietB(changeDietShape(v).b[today > -1 ? today : 0]);
+      setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
+    });
+  }, []);
+
   return (
     <MSliderStyle>
       <Swiper
@@ -54,13 +71,12 @@ function MSlider() {
             <h1>A</h1>
             <hr />
             <label>
-              마늘보쌈
-              <br />
-              상추/깻잎+쌈장
-              <br />
-              쌈무, 파절이
-              <br />
-              시락국/흑미밥
+              {dietA.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
             </label>
             <hr />
             <h4>대기시간 : 5분</h4>
@@ -71,15 +87,12 @@ function MSlider() {
             <h1>B</h1>
             <hr />
             <label>
-              참치김치볶음밥
-              <br />
-              소떡소떡+치킨
-              <br />
-              소스
-              <br />
-              샐러드
-              <br />
-              우동장국
+              {dietB.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
             </label>
             <hr />
             <h4>대기시간 : 3분</h4>
@@ -90,11 +103,12 @@ function MSlider() {
             <h1>C</h1>
             <hr />
             <label>
-              컵과일
-              <br />
-              or
-              <br />
-              소라죽
+              {dietC.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
             </label>
             <hr />
             <h4>대기시간 : 1분</h4>
