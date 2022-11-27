@@ -4,13 +4,15 @@ const QrReader = lazy(() => import("react-qr-scanner"));
 import requestTicketStateUse from "../lib/requestTicketStateUse";
 
 const QRRead = () => {
-  const codeRef = useRef("");
+  const codeRef = useRef();
+
+  if (!codeRef.current) codeRef.current = "";
 
   const [type, setType] = useState("waiting");
   const [passed, setPassed] = useState(false);
 
   const handleScan = (result) => {
-    console.log(result && result.text !== codeRef.current);
+    console.log(codeRef.current);
 
     if (result && result.text !== codeRef.current) {
       codeRef.current = result.text;
@@ -21,8 +23,7 @@ const QRRead = () => {
   };
 
   const handleError = (error) => {
-    // console.log(error);
-    confirm(error);
+    console.log(error);
   };
 
   return (
