@@ -1,9 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Grid, Button, ButtonGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
+import { useRecoilState } from "recoil";
+import authState from "../../state/auth";
+import createTicket from "../../lib/createTicket";
 
-const BuyTicket = () => {
+const BuyTicket = ({ dA, dB, dC }) => {
+  const [auth, setAuth] = useRecoilState(authState);
+  const [cost, setCost] = useState();
+
+  const handleClick = (c) => () => {
+    createTicket(auth.email, c);
+    console.log(`식권 ${c}가 발급되었습니다.`);
+  };
+
   return (
     <div style={{ margin: 0 }}>
       <Box
@@ -18,13 +29,13 @@ const BuyTicket = () => {
             >
               A
               <br />
-              마늘보쌈
+              {dA.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              상추/깻잎+쌈장
-              <br />
-              쌈무, 파절이
-              <br />
-              시락국/흑미밥
             </Button>
           </Grid>
           <Grid item xs={4}>
@@ -37,7 +48,11 @@ const BuyTicket = () => {
                       <br /> 1개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("A")}
+                  >
                     4,000원
                   </Button>
                 </ButtonGroup>
@@ -58,15 +73,13 @@ const BuyTicket = () => {
             >
               B
               <br />
-              참치김치볶음밥
+              {dB.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              소떡소떡+치킨
-              <br />
-              소스
-              <br />
-              샐러드
-              <br />
-              우동장국
             </Button>
           </Grid>
           <Grid item xs={4}>
@@ -79,7 +92,11 @@ const BuyTicket = () => {
                       <br /> 0개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("B")}
+                  >
                     4,000원
                   </Button>
                 </ButtonGroup>
@@ -100,11 +117,13 @@ const BuyTicket = () => {
             >
               C
               <br />
-              컵과일
+              {dC.map((d, index) => (
+                <React.Fragment key={index}>
+                  {d.replace("&amp;", "&")}
+                  <br />
+                </React.Fragment>
+              ))}
               <br />
-              or
-              <br />
-              소라죽
             </Button>
           </Grid>
           <Grid item xs={4}>
@@ -117,7 +136,11 @@ const BuyTicket = () => {
                       <br /> 0개
                     </Button>
                   </Link>
-                  <Button className="details" variant="contained">
+                  <Button
+                    className="details"
+                    variant="contained"
+                    onClick={handleClick("C")}
+                  >
                     3,500원
                   </Button>
                 </ButtonGroup>
