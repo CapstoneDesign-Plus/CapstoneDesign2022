@@ -12,9 +12,12 @@ const QRRead = () => {
   const [passed, setPassed] = useState(false);
 
   const handleScan = (result) => {
-    console.log(codeRef.current);
+    if (result) {
+      console.log(result.text);
+    }
 
     if (result && result.text !== codeRef.current) {
+      console.log("fetch");
       codeRef.current = result.text;
       requestTicketStateUse(type === "waiting" ? 0 : 1, result.text).then(
         setPassed
@@ -53,6 +56,7 @@ const QRRead = () => {
       ) : (
         <Alert severity="error">잘못된 식권</Alert>
       )}
+      <Box>token: {codeRef.current}</Box>
     </Box>
   );
 };
