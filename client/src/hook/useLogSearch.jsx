@@ -8,11 +8,32 @@ import React, { useState } from "react";
  */
 function createHandle(option, setOption) {
   return {
-    setSource(source) {
+    setCaller(caller) {
       setOption((prev) => ({
         ...prev,
-        source,
-        isSource: source.length > 0,
+        caller,
+        isCaller: caller.length > 0,
+      }));
+    },
+    setPath(path) {
+      setOption((prev) => ({
+        ...prev,
+        path,
+        isPath: path.length > 0,
+      }));
+    },
+    setMethod(method) {
+      setOption((prev) => ({
+        ...prev,
+        method,
+        isMethod: method.length > 0,
+      }));
+    },
+    setIp(ip) {
+      setOption((prev) => ({
+        ...prev,
+        ip,
+        isIp: ip.length > 0,
       }));
     },
     setContent(content) {
@@ -45,13 +66,19 @@ function createHandle(option, setOption) {
 
 export default function useLogSearch() {
   const [option, setOption] = useState({
-    isSource: false,
+    isPath: false,
+    isIp: false,
+    isCaller: false,
+    isMethod: false,
     isPeriod: false,
     isContent: false,
     startedAt: Date.now(),
     endAt: Date.now(),
-    source: "",
     content: "",
+    ip: "",
+    path: "",
+    caller: "",
+    method: "",
   });
 
   return {

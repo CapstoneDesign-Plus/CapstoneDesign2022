@@ -15,7 +15,10 @@ const columns = [
     type: "number",
     width: 70,
   },
-  { field: "source", headerName: "Source", width: 200 },
+  { field: "method", headerName: "Method", width: 60 },
+  { field: "caller", headerName: "Caller", width: 200 },
+  { field: "path", headerName: "Path", width: 230 },
+  { field: "ip", headerName: "Ip", width: 100 },
   {
     field: "content",
     headerName: "Content",

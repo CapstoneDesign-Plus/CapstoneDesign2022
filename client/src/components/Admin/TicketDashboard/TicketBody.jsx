@@ -39,9 +39,9 @@ const columns = [
     field: "createdAt",
     headerName: "생성",
     type: "string",
-    width: 160,
+    width: 200,
     valueGetter(p) {
-      return koDtf.format(p.row.createAt);
+      return koDtf.format(p.row.createdAt);
     },
   },
   {

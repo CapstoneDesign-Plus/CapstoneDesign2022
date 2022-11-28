@@ -48,7 +48,7 @@ const AbstractDashboard = ({
   provided,
 }) => {
   return (
-    <Box>
+    <Box marginBottom={"15px"}>
       {/* <Typography>{boardName}</Typography> */}
       {Search}
       <Divider />

@@ -32,7 +32,10 @@ const LogSearch = ({ provided, hlr }) => {
   return (
     <AbstractSearch
       colPair={[
-        ["Source", useInput(option.source, sh.setSource)],
+        ["Method", useInput(option.method, sh.setMethod)],
+        ["Caller", useInput(option.caller, sh.setCaller)],
+        ["Ip", useInput(option.ip, sh.setIp)],
+        ["Path", useInput(option.path, sh.setPath)],
         ["Content", useInput(option.content, sh.setContent)],
         [
           "기간 검색",

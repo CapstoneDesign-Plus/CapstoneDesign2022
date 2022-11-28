@@ -4,7 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 const AbstractBody = ({ getId, data, columns, setSelected }) => {
   return (
-    <Box height={700}>
+    <Box height={1000}>
       <DataGrid
         getRowId={getId}
         rows={data}
@@ -12,7 +12,7 @@ const AbstractBody = ({ getId, data, columns, setSelected }) => {
         // rowsPerPageOptions={[25]}
         checkboxSelection
         onSelectionModelChange={setSelected}
-        hideFooterPagination={true}
+        // hideFooterPagination={true}
       />
     </Box>
   );

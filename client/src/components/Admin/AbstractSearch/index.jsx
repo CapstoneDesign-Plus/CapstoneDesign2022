@@ -12,11 +12,10 @@ const ToggleTr = ({ hlr, children }) => {
 
   return (
     <StyledTd
-      style={
-        hlr.isActive
-          ? { cursor: "pointer" }
-          : { cursor: "pointer", backgroundColor: "#eee" }
-      }
+      style={{
+        cursor: "pointer",
+        backgroundColor: hlr.isActive ? "" : "#aaa",
+      }}
       onClick={hlr.toggle}
       width={100}
     >
@@ -39,7 +38,8 @@ const AbstractSearch = ({ colPair, confirm }) => {
       <table
         style={{
           borderSpacing: "0px",
-          border: "1px solid #eee",
+          margin: "15px 0px",
+          border: "1px solid #999",
           width: "100%",
         }}
       >
@@ -47,7 +47,9 @@ const AbstractSearch = ({ colPair, confirm }) => {
           {colPair.map((p, i) => (
             <tr key={i}>
               <ToggleTr hlr={p[2]}>{p[0]}</ToggleTr>
-              <td>{p[1]}</td>
+              <td style={{ padding: "1px", border: "1px solid #eee" }}>
+                {p[1]}
+              </td>
             </tr>
           ))}
         </tbody>
