@@ -118,12 +118,18 @@ export interface TicketSearchOption {
 
 export interface LogSearchOption {
   readonly isPath: boolean;
+  readonly isIp: boolean;
+  readonly isCaller: boolean;
+  readonly isMethod: boolean;
   readonly isPeriod: boolean;
   readonly isContent: boolean;
   readonly startedAt: number;
   readonly endAt: number;
   readonly path: string;
   readonly content: string;
+  readonly ip: string;
+  readonly caller: string;
+  readonly method: string;
 }
 
 export interface IRangeResult {

@@ -41,7 +41,7 @@ export default class LogService {
     ip: string,
     caller: string | null = null,
     verbosity: LogVerbosity = "info",
-    serviceType: LogServiceType = "unknown",
+    serviceType: LogServiceType = "unknown"
   ) {
     await this.logModel.create({
       verbosity,
@@ -50,7 +50,7 @@ export default class LogService {
       serviceType,
       ip,
       caller,
-      method
+      method,
     });
   }
 
@@ -94,8 +94,13 @@ export default class LogService {
     if (option.isContent)
       filter.content = { $regex: option.content, $options: "i" };
 
-    if (option.isPath)
-      filter.isPath = { $regex: option.path, $options: "i" };
+    if (option.isPath) filter.isPath = { $regex: option.path, $options: "i" };
+
+    if (option.isCaller)
+      filter.caller = { $regex: option.caller, $options: "i" };
+    if (option.isIp) filter.ip = { $regex: option.ip, $options: "i" };
+    if (option.isMethod)
+      filter.method = { $regex: option.method, $options: "i" };
 
     if (option.isPeriod)
       filter.timestamp = { $gte: option.startedAt, $lte: option.endAt };
