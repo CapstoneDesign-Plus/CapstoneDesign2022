@@ -36,6 +36,7 @@ export default class LogService {
    */
   async log(
     path: string,
+    method: string,
     content: string,
     verbosity: LogVerbosity = "info",
     serviceType: LogServiceType = "unknown",
@@ -46,7 +47,8 @@ export default class LogService {
       path,
       content,
       serviceType,
-      caller
+      caller,
+      method
     });
   }
 

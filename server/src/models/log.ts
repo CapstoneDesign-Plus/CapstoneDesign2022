@@ -12,6 +12,7 @@ export interface ILog extends Document {
   content: string;
   serviceType?: LogServiceType;
   caller: string;
+  method: string;
 }
 
 export interface ILogModel extends Model<ILog> {
@@ -49,6 +50,10 @@ const LogSchema: Schema<ILog> = new Schema({
     type: String,
     required: false,
     default: null
+  },
+  method: {
+    type: String,
+    required: true
   }
 });
 
