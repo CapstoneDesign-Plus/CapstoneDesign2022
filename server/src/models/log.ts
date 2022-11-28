@@ -11,6 +11,7 @@ export interface ILog extends Document {
   path: string;
   content: string;
   serviceType?: LogServiceType;
+  ip: string;
   caller: string;
   method: string;
 }
@@ -45,6 +46,10 @@ const LogSchema: Schema<ILog> = new Schema({
     type: String,
     required: false,
     default: "unknown",
+  },
+  ip: {
+    type: String,
+    required: true
   },
   caller: {
     type: String,

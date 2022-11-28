@@ -19,12 +19,13 @@ export const logger = (req: Request, res: Response, next: NextFunction) => {
     req.url,
     req.method,
     JSON.stringify(content),
+    req.ip,
+    req.user?.email || null,
     "info",
     "unknown",
-    req.user?.email || null
   );
   console.log(
-    `[${new Date().toLocaleString(undefined, TIME_OPTIONS)}] ${req.user?.email || "Guest"} ${req.method} ${req.url} with ${content || "None"}`
+    `[${new Date().toLocaleString(undefined, TIME_OPTIONS)}] ${req.user?.email || "Guest"}(${req.ip}) ${req.method} ${req.url} with ${content || "None"}`
   );
   next();
 }

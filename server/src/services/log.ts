@@ -38,15 +38,17 @@ export default class LogService {
     path: string,
     method: string,
     content: string,
+    ip: string,
+    caller: string | null = null,
     verbosity: LogVerbosity = "info",
     serviceType: LogServiceType = "unknown",
-    caller: string | null = null
   ) {
     await this.logModel.create({
       verbosity,
       path,
       content,
       serviceType,
+      ip,
       caller,
       method
     });
