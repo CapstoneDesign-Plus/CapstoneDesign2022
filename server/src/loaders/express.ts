@@ -8,6 +8,8 @@ import cors from "cors";
 import booleanHandler from "@/middleware/booleaner";
 
 export default ({ app }: { app: express.Application }) => {
+  app.enable("trust proxy");
+  app.set("trust proxy", "loopback");
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
@@ -17,7 +19,7 @@ export default ({ app }: { app: express.Application }) => {
       saveUninitialized: true,
       proxy: true,
       cookie: {
-        maxAge: 1000 * 60 * 5,
+        maxAge: 600000,
         sameSite: "none",
         secure: true,
       },
