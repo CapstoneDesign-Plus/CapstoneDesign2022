@@ -10,10 +10,13 @@ export interface UserDTO {
 }
 
 export interface LogDTO {
-  readonly identifier: number;
-  readonly timestamp: number;
-  readonly source: string;
-  readonly content: string;
+  identifier: number;
+  timestamp: number;
+  path: string;
+  content: string;
+  ip: string;
+  caller: string;
+  method: string;
 }
 
 export interface TokenDTO {

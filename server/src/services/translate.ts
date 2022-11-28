@@ -93,8 +93,11 @@ export default {
     return {
       identifier: log.identifier,
       timestamp: log.timestamp,
-      source: log.source,
+      path: log.path,
       content: log.content,
+      ip: log.ip,
+      caller: log.caller,
+      method: log.method
     };
   },
 
