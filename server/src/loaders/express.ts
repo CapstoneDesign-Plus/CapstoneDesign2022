@@ -8,8 +8,8 @@ import cors from "cors";
 import booleanHandler from "@/middleware/booleaner";
 
 export default ({ app }: { app: express.Application }) => {
-  app.enable("trust proxy");
-  app.set("trust proxy", "loopback");
+  // app.enable("trust proxy");
+  app.set("trust proxy", true);
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
