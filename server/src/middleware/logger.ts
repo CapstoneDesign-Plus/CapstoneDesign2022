@@ -14,18 +14,19 @@ export const logger = (req: Request, res: Response, next: NextFunction) => {
     query: req.query,
     body: req.body
   };
+  let contentStringified: string = JSON.stringify(content);
 
   LogService.getInstance().log(
     req.url,
     req.method,
-    JSON.stringify(content),
+    contentStringified,
     req.ip,
     req.user?.email || null,
     "info",
     "unknown",
   );
   console.log(
-    `[${new Date().toLocaleString(undefined, TIME_OPTIONS)}] ${req.user?.email || "Guest"}(${req.ip}) ${req.method} ${req.url} with ${content || "None"}`
+    `[${new Date().toLocaleString(undefined, TIME_OPTIONS)}] ${req.user?.email || "Guest"}(${req.ip}) ${req.method} ${req.url} with ${contentStringified || "None"}`
   );
   next();
 }
