@@ -5,6 +5,7 @@ import {
   AccordionDetails,
   Button,
   Grid,
+  Box,
 } from "@mui/material";
 import styled from "styled-components";
 
@@ -35,14 +36,16 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
     setExpanded(newExpanded ? ticket.identifier : false);
   };
 
+  const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
+
   return (
     <TicketItemStyle>
       <Accordion expanded={expanded} onChange={handleChange} className="item">
         <AccordionSummary className="summary">
           <Typography sx={{ fontSize: 20, fontWeight: "bolder" }}>
-            <Grid container spacing={1}>
-              <Grid item xs={10}>
-                {"코스 = " + ticket.tclass}
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {`${ticket.tclass}코스`}
               </Grid>
             </Grid>
           </Typography>
@@ -50,6 +53,8 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
         <AccordionDetails className="detail">
           <Typography sx={{ fontSize: 13, fontWeight: "bold" }}>
             가격 : {ticket.price}
+            <br />
+            구매 날짜 : {koDtf.format(ticket.createdAt)}
             <br />
             소유자 : {ticket.owner}
             <br />
