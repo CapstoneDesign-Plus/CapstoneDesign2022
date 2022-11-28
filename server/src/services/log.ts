@@ -39,7 +39,7 @@ export default class LogService {
     content: string,
     verbosity: LogVerbosity = "info",
     serviceType: LogServiceType = "unknown",
-    caller: string
+    caller: string | null = null
   ) {
     await this.logModel.create({
       verbosity,
