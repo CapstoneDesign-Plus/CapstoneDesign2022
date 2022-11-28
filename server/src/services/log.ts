@@ -35,16 +35,18 @@ export default class LogService {
    * @param serviceType type of service, default is "unknown"
    */
   async log(
-    source: string,
+    path: string,
     content: string,
     verbosity: LogVerbosity = "info",
-    serviceType: LogServiceType = "unknown"
+    serviceType: LogServiceType = "unknown",
+    caller: string
   ) {
     await this.logModel.create({
       verbosity,
-      source,
+      path,
       content,
       serviceType,
+      caller
     });
   }
 
@@ -88,8 +90,8 @@ export default class LogService {
     if (option.isContent)
       filter.content = { $regex: option.content, $options: "i" };
 
-    if (option.isSource)
-      filter.source = { $regex: option.source, $options: "i" };
+    if (option.isPath)
+      filter.isPath = { $regex: option.path, $options: "i" };
 
     if (option.isPeriod)
       filter.timestamp = { $gte: option.startedAt, $lte: option.endAt };
