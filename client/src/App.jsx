@@ -16,6 +16,7 @@ import AdminPage from "./pages/AdminPage";
 import theme from "./theme/theme.jsx";
 
 import NoticePage from "../src/pages/notice_page";
+import NoticeDetailPage from "../src/pages/noticedetail_page";
 import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 import { ThemeProvider } from "@mui/material";
@@ -73,6 +74,7 @@ function App() {
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Notice" element={<NoticePage />} />
+            <Route path="/NoticeDetail" element={<NoticeDetailPage />} />
             <Route path="/Charge" element={<ChargePage />} />
             <Route path="/BuyTicket" element={<BuyTicketPage />} />
             <Route path="/RequestEmail" element={<RequestEmail />} />

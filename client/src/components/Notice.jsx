@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -9,6 +9,8 @@ import {
   TableHead,
   TableBody,
   Button,
+  List,
+  ListItem
 } from "@mui/material";
 
 import style from "../style/notice.scss";
@@ -82,11 +84,16 @@ export default function Notice() {
                 <TableCell align="center" component="th" scope="row">
                   {row.index}
                 </TableCell>
-                <TableCell align="center">{row.buyDate}</TableCell>
+                <TableCell align="center"> <Link to="/NoticeDetail">
+              <ListItem button style={{color:'black'}}>
+              {row.buyDate}
+              </ListItem>
+            </Link></TableCell>
                 <TableCell align="center">{row.useDate}</TableCell>
               </TableRow>
             ))}
           </TableBody>
+          
         </Table>
       </Box>
     </div>
