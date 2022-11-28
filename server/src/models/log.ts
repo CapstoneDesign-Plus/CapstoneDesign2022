@@ -8,9 +8,12 @@ export interface ILog extends Document {
   identifier: number;
   timestamp: number;
   verbosity: LogVerbosity;
-  source: string;
+  path: string;
   content: string;
   serviceType?: LogServiceType;
+  ip: string;
+  caller: string;
+  method: string;
 }
 
 export interface ILogModel extends Model<ILog> {
@@ -31,7 +34,7 @@ const LogSchema: Schema<ILog> = new Schema({
     type: String,
     required: true,
   },
-  source: {
+  path: {
     type: String,
     required: true,
   },
@@ -44,6 +47,19 @@ const LogSchema: Schema<ILog> = new Schema({
     required: false,
     default: "unknown",
   },
+  ip: {
+    type: String,
+    required: true
+  },
+  caller: {
+    type: String,
+    required: false,
+    default: null
+  },
+  method: {
+    type: String,
+    required: true
+  }
 });
 
 LogSchema.statics.findByKey = function (key: number) {

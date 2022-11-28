@@ -10,10 +10,13 @@ export interface UserDTO {
 }
 
 export interface LogDTO {
-  readonly identifier: number;
-  readonly timestamp: number;
-  readonly source: string;
-  readonly content: string;
+  identifier: number;
+  timestamp: number;
+  path: string;
+  content: string;
+  ip: string;
+  caller: string;
+  method: string;
 }
 
 export interface TokenDTO {
@@ -114,12 +117,12 @@ export interface TicketSearchOption {
 }
 
 export interface LogSearchOption {
-  readonly isSource: boolean;
+  readonly isPath: boolean;
   readonly isPeriod: boolean;
   readonly isContent: boolean;
   readonly startedAt: number;
   readonly endAt: number;
-  readonly source: string;
+  readonly path: string;
   readonly content: string;
 }
 

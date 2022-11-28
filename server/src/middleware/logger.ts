@@ -1,20 +1,32 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, query } from "express";
 
 import LogService from "@/services/log";
 
-const OPTIONS: Intl.DateTimeFormatOptions = {
+const TIME_OPTIONS: Intl.DateTimeFormatOptions = {
   dateStyle: 'short',
   timeStyle: 'short',
   hourCycle: 'h24'
 }
 
 export const logger = (req: Request, res: Response, next: NextFunction) => {
-  let content: string;
-  if (req.user)
-    content = `${req.user.username}(${req.user.email}) ${req.method} ${req.url}`;
-  else
-    content = `Guest ${req.ip} ${req.method} ${req.url}`;
-  LogService.getInstance().log(req.url, content);
-  console.log(`[${new Date().toLocaleString(undefined, OPTIONS)}] ${content}`);
+  let content: {params?: object, query?: object, body?: object} = {
+    params: req.params,
+    query: req.query,
+    body: req.body
+  };
+  let contentStringified: string = JSON.stringify(content);
+
+  LogService.getInstance().log(
+    req.url,
+    req.method,
+    contentStringified,
+    req.ip,
+    req.user?.email || null,
+    "info",
+    "unknown",
+  );
+  console.log(
+    `[${new Date().toLocaleString(undefined, TIME_OPTIONS)}] ${req.user?.email || "Guest"}(${req.ip}) ${req.method} ${req.url} with ${contentStringified || "None"}`
+  );
   next();
 }
