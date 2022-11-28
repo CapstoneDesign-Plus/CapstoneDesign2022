@@ -22,8 +22,6 @@
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-qr-code": "^2.0.8",
-    "react-qr-reader": "^3.0.0-beta-1",
-    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.4.2",
     "react-web-qr-reader": "^1.0.4",
     "recoil": "^0.7.6",
