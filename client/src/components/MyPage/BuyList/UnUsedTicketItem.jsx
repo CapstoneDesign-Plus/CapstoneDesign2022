@@ -7,14 +7,14 @@ import {
   Grid,
   Box,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const TicketItemStyle = styled.div`
-  .down {
-    width: 35px;
-  }
-  .transfer_btn {
+  margin-left: 20px;
+  .btn {
     color: #49663c;
+    margin-left: 10px;
     font-size: 14px;
     font-weight: bolder;
     height: 35px;
@@ -26,7 +26,7 @@ const TicketItemStyle = styled.div`
     background-color: #f2f7f1;
   }
   .btnBox {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
   }
@@ -62,9 +62,16 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
             <br />
             <br />
             <Box className="btnBox">
-              <Button className="transfer_btn" variant="contained">
-                양도하기
-              </Button>
+              <Link to="/Transfer">
+                <Button className="btn" variant="contained">
+                  양도
+                </Button>
+              </Link>
+              <Link to="/Recharge">
+                <Button className="btn" variant="contained">
+                  환불
+                </Button>
+              </Link>
             </Box>
           </Typography>
         </AccordionDetails>

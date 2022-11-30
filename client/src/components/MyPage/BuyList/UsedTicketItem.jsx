@@ -9,9 +9,8 @@ import {
 import styled from "styled-components";
 
 const TicketItemStyle = styled.div`
-  .down {
-    width: 35px;
-  }
+  margin-left: 20px;
+
   .transfer_btn {
     color: #49663c;
     font-size: 14px;
