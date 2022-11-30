@@ -7,7 +7,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>
-    <SnackbarProvider maxSnack={3}>
+    <SnackbarProvider maxSnack={1}>
       <App />
     </SnackbarProvider>
   </RecoilRoot>

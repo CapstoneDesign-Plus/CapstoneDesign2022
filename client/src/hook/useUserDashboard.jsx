@@ -83,6 +83,12 @@ function createHandle(state, setState) {
         data: hlr.transform(values),
       }));
     },
+    setSearch(search) {
+      setState((prev) => ({
+        ...prev,
+        search,
+      }));
+    },
   };
 
   return hlr;
@@ -98,6 +104,7 @@ export default function useUserDashboard(
     data: [],
     selected: [],
     page: 0,
+    search: () => {},
   }
 ) {
   const [state, setState] = useState(initialState);

@@ -1,4 +1,5 @@
 import { Button, Checkbox } from "@mui/material";
+import { useEffect } from "react";
 import useInput from "../../../hook/useInput";
 import usePeriod from "../../../hook/usePeriod";
 import useTokenSearch from "../../../hook/useTokenSearch";
@@ -14,11 +15,13 @@ import AbstractSearch from "../AbstractSearch";
 const TokenSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useTokenSearch();
 
-  const search = () => {
-    searchToken(option).then((v) => {
-      hlr.setAll(v);
+  useEffect(() => {
+    hlr.setSearch(() => {
+      searchToken(option).then((v) => {
+        hlr.setAll(v);
+      });
     });
-  };
+  }, [option]);
 
   const [createdStartPicker, createdEndPicker] = usePeriod({
     isActive: option.isCreatedPeriod,
@@ -55,11 +58,6 @@ const TokenSearch = ({ provided, hlr }) => {
           { isActive: option.isExpiredPeriod, toggle: sh.toggleExpiredPeriod },
         ],
       ]}
-      confirm={
-        <Button onClick={search} variant="contained">
-          검색
-        </Button>
-      }
     />
   );
 };

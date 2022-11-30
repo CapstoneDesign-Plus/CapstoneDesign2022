@@ -1,4 +1,5 @@
 import { Box, Divider, Pagination } from "@mui/material";
+import React from "react";
 
 /**
  * @template T, S
@@ -12,6 +13,7 @@ import { Box, Divider, Pagination } from "@mui/material";
  * @property {T[]} data
  * @property {number} page
  * @property {number} pageLimit
+ * @property {() => void} search
  */
 /**
  * @template T, K
@@ -19,6 +21,7 @@ import { Box, Divider, Pagination } from "@mui/material";
  * @property {(selected: K[]) => void} setSelected
  * @property {(page: number) => void} fetchPage
  * @property {(page: number, limit: number, value: T[])=>void} setPage
+ * @property {React.Dispatch<React.SetStateAction<()=>void>>} setSearch
  */
 
 /**
