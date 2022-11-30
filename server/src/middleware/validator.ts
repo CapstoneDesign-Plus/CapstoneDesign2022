@@ -16,6 +16,12 @@ const user_signup = [
   ValidateErrorHandler,
 ];
 
+const user_admin_empower = [
+  param("email").isEmail(),
+  param("type").isBoolean(),
+  ValidateErrorHandler,
+];
+
 const user_login = [
   body("email").isEmail(),
   body("password").exists(),
@@ -118,6 +124,7 @@ const user_history = [param("email").isEmail(), ValidateErrorHandler];
 const stats_day_used = [query("range").exists(), ValidateErrorHandler];
 
 export default {
+  user_admin_empower,
   user_get_is,
   token_all_delete,
   users_all_delete,

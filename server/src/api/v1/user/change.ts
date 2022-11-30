@@ -29,4 +29,20 @@ router.put("/password", ...validator.user_change_password, async (req, res) => {
   return send(res, isSuccess);
 });
 
+router.put(
+  "/admin/:email/:type",
+  ...validator.user_admin_empower,
+  async (req, res) => {
+    if (!req.user || !req.user.certificated)
+      return invalidPermission(res, Permission.ADMIN);
+
+    await UserService.getInstance().empower(
+      req.params.email,
+      JSON.parse(req.params.type)
+    );
+
+    return send(res, true);
+  }
+);
+
 export default router;

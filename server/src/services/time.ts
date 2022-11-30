@@ -23,5 +23,11 @@ export default {
         break;
     }
     return past;
-  }
-}
+  },
+  getPastDateFromDay: (offset: number) => {
+    let past: Date = new Date();
+    past.setHours(0, 0, 0, 0);
+    past.setDate(past.getDate() - offset);
+    return past;
+  },
+};
