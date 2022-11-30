@@ -75,13 +75,17 @@ router.put(
   }
 );
 
-router.get("/password/valid/:token", async (req, res) => {
-  const decodedId = decodeURIComponent(req.params.token);
+router.get(
+  "/password/valid",
+  ...validator.user_reset_password_valid,
+  async (req, res) => {
+    const decodedId = decodeURIComponent(req.query.token as string);
 
-  const token = await TokenService.getInstance().get(decodedId);
+    const token = await TokenService.getInstance().get(decodedId);
 
-  return send(res, token && TokenService.isValid(token));
-});
+    return send(res, token && TokenService.isValid(token));
+  }
+);
 
 router.get(
   "/password",

@@ -56,7 +56,7 @@ async function resetPw(new_password, token) {
 
 async function validToken(token) {
   const response = await axios.get(
-    "v1/user/auth/password/valid/" + encodeURIComponent(token)
+    "v1/user/auth/password/valid?token=" + encodeURIComponent(token)
   );
   return response;
 }
