@@ -212,9 +212,8 @@ export default class TicketService {
 
     if (option.isTClass) filter.tclass = option.tClass;
 
-    if (option.isBuyer) filter.buyer = option.buyer;
-
-    if (option.isOwner) filter.owner = option.owner;
+    if (option.isBuyer) filter.buyer = { $regex: option.buyer, $options: "i" };
+    if (option.isOwner) filter.owner = { $regex: option.owner, $options: "i" };
 
     if (option.isCreatedPeriod)
       filter.createdAt = {

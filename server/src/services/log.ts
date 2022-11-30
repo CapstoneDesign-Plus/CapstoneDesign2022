@@ -94,7 +94,7 @@ export default class LogService {
     if (option.isContent)
       filter.content = { $regex: option.content, $options: "i" };
 
-    if (option.isPath) filter.isPath = { $regex: option.path, $options: "i" };
+    if (option.isPath) filter.path = { $regex: option.path, $options: "i" };
 
     if (option.isCaller)
       filter.caller = { $regex: option.caller, $options: "i" };
