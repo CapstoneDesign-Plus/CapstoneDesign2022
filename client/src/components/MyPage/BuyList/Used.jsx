@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 //   TableBody,
 //   Button,
 // } from "@mui/material";
-import { Box } from "@mui/material";
+import { Box, Divider, Tabs, Tab } from "@mui/material";
 import UsedTicketItem from "./UsedTicketItem";
 import { Stack } from "@mui/system";
 import authState from "../../../state/auth";
@@ -38,14 +38,20 @@ const UsedStyle = styled.div`
   }
 `;
 
-function createData(index, buyDate, cost, course, btn) {
-  return { index, buyDate, cost, course, btn };
+const TCLASS = ["A", "B", "C"];
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
 }
 
 function Used() {
   const [auth, setAuth] = useRecoilState(authState);
   const [expanded, setExpanded] = useState("");
   const [data, setData] = useState();
+  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     fetchMyTicket(auth.email).then((v) => {
@@ -61,16 +67,27 @@ function Used() {
       >
         사용 식권
       </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Tabs value={tab} onChange={(e, v) => setTab(v)}>
+          <Tab label="A" {...a11yProps(0)} />
+          <Tab label="B" {...a11yProps(1)} />
+          <Tab label="C" {...a11yProps(2)} />
+        </Tabs>
+      </Box>
+      <Divider />
       <Stack className="ticket-list">
         {data && data.length < 0 ? (
-          data.map((ticket) => (
-            <UsedTicketItem
-              key={ticket.identifier}
-              ticket={ticket}
-              expanded={expanded === ticket.identifier}
-              setExpanded={setExpanded}
-            />
-          ))
+          data
+            .filter((v) => v.tclass === TCLASS[tab])
+            .sort((lhs, rhs) => lhs.createdAt - rhs.createdAt)
+            .map((ticket) => (
+              <UsedTicketItem
+                key={ticket.identifier}
+                ticket={ticket}
+                expanded={expanded === ticket.identifier}
+                setExpanded={setExpanded}
+              />
+            ))
         ) : (
           <None />
         )}
