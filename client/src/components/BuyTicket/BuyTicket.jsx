@@ -6,9 +6,8 @@ import { useRecoilState } from "recoil";
 import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
 
-const BuyTicket = ({ dA, dB, dC }) => {
+const BuyTicket = ({ dA, dB, dC, cost }) => {
   const [auth, setAuth] = useRecoilState(authState);
-  const [cost, setCost] = useState();
 
   const handleClick = (c) => () => {
     createTicket(auth.email, c);
@@ -53,7 +52,7 @@ const BuyTicket = ({ dA, dB, dC }) => {
                     variant="contained"
                     onClick={handleClick("A")}
                   >
-                    4,000원
+                    {cost.A}원
                   </Button>
                 </ButtonGroup>
               </Grid>
@@ -97,7 +96,7 @@ const BuyTicket = ({ dA, dB, dC }) => {
                     variant="contained"
                     onClick={handleClick("B")}
                   >
-                    4,000원
+                    {cost.B}원
                   </Button>
                 </ButtonGroup>
               </Grid>
@@ -141,7 +140,7 @@ const BuyTicket = ({ dA, dB, dC }) => {
                     variant="contained"
                     onClick={handleClick("C")}
                   >
-                    3,500원
+                    {cost.C}원
                   </Button>
                 </ButtonGroup>
               </Grid>
