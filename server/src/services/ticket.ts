@@ -13,6 +13,7 @@ import { IUser } from "@/models/user";
 import { FilterQuery } from "mongoose";
 import translate from "@/services/translate";
 import StoreService from "./store";
+import time from "./time";
 
 export default class TicketService {
   private ticketModel: ITicketModel;
@@ -237,24 +238,7 @@ export default class TicketService {
   async getUsingRecord(
     range: UsedTicketSearchRange
   ): Promise<UsedTicketRecord[] | null> {
-    let start: Date = new Date();
-    start.setHours(0, 0, 0, 0);
-    switch (range) {
-      case "7d":
-        start.setDate(start.getDate() - 7);
-        break;
-      case "30d":
-        start.setDate(start.getDate() - 30);
-        break;
-      case "3m":
-        start.setMonth(start.getMonth() - 3);
-        break;
-      case "1y":
-        start.setFullYear(start.getFullYear() - 1);
-        break;
-      default:
-        return null;
-    }
+    let start: Date = time.getPastDate(range);
     return translate.parseUsedTicketRecordArray(
       await this.ticketModel
         .find()
