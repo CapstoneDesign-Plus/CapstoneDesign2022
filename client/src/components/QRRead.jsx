@@ -1,4 +1,10 @@
-import { Alert, Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import {
+  Alert,
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { lazy, useRef, useState } from "react";
 const QrReader = lazy(() => import("react-web-qr-reader"));
 import requestTicketStateUse from "../lib/requestTicketStateUse";
@@ -8,6 +14,8 @@ const QRRead = () => {
   const prevRef = useRef("");
 
   const [type, setType] = useState("waiting");
+  const [face, setFace] = useState("user");
+
   const [passed, setPassed] = useState(false);
 
   const handleScan = (result) => {
@@ -36,10 +44,26 @@ const QRRead = () => {
         facingMode="user"
         // style={{ width: "100%" }}
       />
+      <Box
+        style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
+      >
+        <Box>Camera</Box>
+        <ToggleButtonGroup
+          color="primary"
+          value={face}
+          exclusive
+          onChange={(e, v) => setFace(v)}
+          aria-label="Platform"
+        >
+          <ToggleButton value="user">Face</ToggleButton>
+          <ToggleButton value="environment">Env</ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
 
       <Box
         style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
       >
+        <Box>Kind</Box>
         <ToggleButtonGroup
           color="primary"
           value={type}

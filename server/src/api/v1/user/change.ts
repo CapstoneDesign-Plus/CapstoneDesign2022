@@ -36,12 +36,12 @@ router.put(
     if (!req.user || !req.user.certificated)
       return invalidPermission(res, Permission.ADMIN);
 
-    await UserService.getInstance().empower(
+    let result = await UserService.getInstance().empower(
       req.params.email,
       JSON.parse(req.params.type)
     );
 
-    return send(res, true);
+    return send(res, true, result);
   }
 );
 

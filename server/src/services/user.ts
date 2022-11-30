@@ -17,7 +17,10 @@ export default class UserService {
   }
 
   async empower(email: string, isEmpower: boolean) {
-    this.userModel.updateOne({ email }, { $set: { certificated: isEmpower } });
+    return await this.userModel.updateOne(
+      { email },
+      { $set: { certificated: isEmpower } }
+    );
   }
 
   async pushTicket(email: string, ticketKey: string) {

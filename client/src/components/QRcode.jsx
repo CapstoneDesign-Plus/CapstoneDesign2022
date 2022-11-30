@@ -120,7 +120,7 @@ function QRcode() {
         <Box sx={{ display: "flex", mt: 3 }}>
           <Grid container spacing={3} sx={{ margin: 0 }}>
             {selected && (
-              <div>
+              <Box sx={{ padding: "5px" }}>
                 코스 {selected.tclass}
                 <br />
                 가격 {selected.price}
@@ -130,7 +130,7 @@ function QRcode() {
                 구매자 {selected.buyer}
                 <br />
                 구매일 {koDtf.format(selected.createdAt)}
-              </div>
+              </Box>
             )}
             <Box
               className={"qr_box"}
@@ -177,7 +177,7 @@ function QRcode() {
             mr: 1,
           }}
         >
-          <Stack spacing={2} sx={{ marginTop: "10px" }}>
+          <Stack spacing={2} sx={{ marginTop: "10px", marginBottom: "25px" }}>
             {ticket &&
               ticket
                 .filter((v) => v.tclass === TCLASS[tab] && v.state != "used")
