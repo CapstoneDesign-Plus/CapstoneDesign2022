@@ -142,18 +142,18 @@ export default class TicketService {
               );
             }
 
-            return true;
+            return ticket;
           }
           break;
         case "wait":
           if (ticket.state === "normal") {
             await this.changeState(ticketKey, "waiting");
-            return true;
+            return ticket;
           }
           break;
       }
     }
-    return false;
+    return null;
   }
 
   async get(ticketKey: string): Promise<ITicket | null> {
