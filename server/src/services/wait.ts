@@ -81,7 +81,7 @@ export default class WaitService {
   async CalcWaitSecond(course: TicketClass, peopleCount: number): Promise<number> {
     let dayOfWeek: string | null = [null, "mon", "tue", "wed", "thr", "fri", null][new Date().getDay()]; // 가져올 날짜의 요일
     if (!dayOfWeek)
-      return 0;
+      return -1;  // error
 
     let diet: string[] = (await DietService.getInstance().getDiet())[dayOfWeek][course]
     
@@ -93,6 +93,11 @@ export default class WaitService {
         }
       })
     });
+
+    if (waitSecond == 0) {
+      let record: WaitTimeTableRecord = this.WAIT_TIME_TABLE[0];  // 기타
+      waitSecond = record.supply * peopleCount + Math.floor(peopleCount / record.unit) * record.ready;
+    }
     return waitSecond;
   }
 
