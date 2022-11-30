@@ -15,8 +15,8 @@ router.get("/", ...validator.stats_day_used, async (req, res) => {
   return send(res, result, result);
 });
 
-router.get("/wait", (req, res) => {
-  return send(res, true, WaitService.getInstance().getCourseCount());
+router.get("/wait", async (req, res) => {
+  return send(res, true, await WaitService.getInstance().getCourseCount());
 });
 
 export default router;

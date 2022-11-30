@@ -1,0 +1,50 @@
+[
+  {
+    "keyword": "기타",
+    "supply": 5,
+    "ready": 10,
+    "unit": 8
+  },
+  {
+    "keyword": "찌게",
+    "supply": 5,
+    "ready": 120,
+    "unit": 8
+  },
+  {
+    "keyword": "라면",
+    "supply": 5,
+    "ready": 180,
+    "unit": 8
+  },
+  {
+    "keyword": "돈까스",
+    "supply": 10,
+    "ready": 30,
+    "unit": 20
+  },
+  {
+    "keyword": "스테이크",
+    "supply": 10,
+    "ready": 30,
+    "unit": 20
+  },
+  {
+    "keyword": "가라아게",
+    "supply": 20,
+    "ready": 30,
+    "unit": 20
+  },
+  {
+    "keyword": "카레",
+    "supply": 5,
+    "ready": 0,
+    "unit": 1
+  },
+  {
+    "keyword": "짜계치",
+    "supply": 5,
+    "ready": 180,
+    "unit": 8
+  }
+]
