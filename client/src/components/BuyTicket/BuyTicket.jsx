@@ -5,14 +5,19 @@ import style from "../../style/buyticket.scss";
 import { useRecoilState } from "recoil";
 import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
+import Loading from "../Loading";
 
 const BuyTicket = ({ dA, dB, dC, cost }) => {
   const [auth, setAuth] = useRecoilState(authState);
+
+  console.log(dA);
 
   const handleClick = (c) => () => {
     createTicket(auth.email, c);
     console.log(`식권 ${c}가 발급되었습니다.`);
   };
+
+  if (!dA || !dA.length || !cost) return <Loading />;
 
   return (
     <div style={{ margin: 0 }}>
