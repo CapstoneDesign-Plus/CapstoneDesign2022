@@ -1,5 +1,6 @@
 import React from "react";
 import AdminHome from "../AdminHome";
+import AdminPrice from "../AdminPrice";
 import LogDashboard from "../LogDashboard";
 import TicketDashboard from "../TicketDashboard";
 import TokenDashboard from "../TokenDashboard";
@@ -36,6 +37,9 @@ const AdminContent = ({ tab }) => {
       </TabPanel>
       <TabPanel value={tab} index={4}>
         <TokenDashboard />
+      </TabPanel>
+      <TabPanel value={tab} index={5}>
+        <AdminPrice />
       </TabPanel>
     </>
   );

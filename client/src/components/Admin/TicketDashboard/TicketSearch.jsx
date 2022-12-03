@@ -4,6 +4,7 @@ import usePeriod from "../../../hook/usePeriod";
 import AbstractSearch from "../AbstractSearch";
 import searchTicket from "../../../lib/searchTicket";
 import useTicketSearch from "../../../hook/useTicketSearch";
+import { useEffect } from "react";
 
 /**
  * @typedef {import(".").TicketProvided} Provided
@@ -14,11 +15,13 @@ import useTicketSearch from "../../../hook/useTicketSearch";
 const TicketSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useTicketSearch();
 
-  const search = () => {
-    searchTicket(option).then((v) => {
-      hlr.setAll(v);
+  useEffect(() => {
+    hlr.setSearch(() => {
+      searchTicket(option).then((v) => {
+        hlr.setAll(v);
+      });
     });
-  };
+  }, [option]);
 
   const [createdStartPicker, createdEndPicker] = usePeriod({
     isActive: option.isCreatedPeriod,
@@ -65,11 +68,6 @@ const TicketSearch = ({ provided, hlr }) => {
           { isActive: option.isPrice, toggle: sh.togglePrice },
         ],
       ]}
-      confirm={
-        <Button onClick={search} variant="contained">
-          검색
-        </Button>
-      }
     />
   );
 };

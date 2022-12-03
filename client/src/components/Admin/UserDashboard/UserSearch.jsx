@@ -1,4 +1,5 @@
 import { Button, Checkbox } from "@mui/material";
+import { useEffect } from "react";
 import useInput from "../../../hook/useInput";
 import usePeriod from "../../../hook/usePeriod";
 import useUserSearch from "../../../hook/useUserSearch";
@@ -14,11 +15,13 @@ import AbstractSearch from "../AbstractSearch";
 const UserSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useUserSearch();
 
-  const search = () => {
-    searchUser(option).then((v) => {
-      hlr.setAll(v);
+  useEffect(() => {
+    hlr.setSearch(() => {
+      searchUser(option).then((v) => {
+        hlr.setAll(v);
+      });
     });
-  };
+  }, [option]);
 
   const [startPicker, endPicker] = usePeriod({
     isActive: option.isPeriod,
@@ -53,11 +56,6 @@ const UserSearch = ({ provided, hlr }) => {
           { isActive: option.isPeriod, toggle: sh.togglePeriod },
         ],
       ]}
-      confirm={
-        <Button onClick={search} variant="contained">
-          검색
-        </Button>
-      }
     />
   );
 };

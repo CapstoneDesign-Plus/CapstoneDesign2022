@@ -18,6 +18,8 @@ import paxios from "./paxios";
  */
 export default function searchToken(option) {
   return new Promise((resolve) => {
-    paxios.post("/v1/auth/search", option).then((v) => resolve(v.data.result));
+    paxios
+      .post("/v1/user/token/search", option)
+      .then((v) => resolve(v.data.result));
   });
 }

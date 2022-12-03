@@ -21,7 +21,7 @@ const TicketToolBox = ({ hlr, provided }) => {
   };
 
   return (
-    <AbstractToolBox>
+    <AbstractToolBox provided={provided} hlr={hlr}>
       <Button
         variant="contained"
         sx={{ backgroundColor: "skyblue" }}

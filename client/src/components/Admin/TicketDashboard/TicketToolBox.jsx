@@ -14,7 +14,7 @@ const TicketToolBox = ({ hlr, provided }) => {
   };
 
   return (
-    <AbstractToolBox>
+    <AbstractToolBox provided={provided} hlr={hlr}>
       <Button variant="contained" onClick={deleteItems}>
         삭제
       </Button>

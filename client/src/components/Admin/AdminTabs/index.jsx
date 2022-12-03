@@ -15,6 +15,7 @@ const AdminTabs = ({ tab, setTab }) => {
       <Tab label="Ticket" {...a11yProps(2)} />
       <Tab label="Log" {...a11yProps(3)} />
       <Tab label="Token" {...a11yProps(4)} />
+      <Tab label="Price" {...a11yProps(5)} />
     </Tabs>
   );
 };

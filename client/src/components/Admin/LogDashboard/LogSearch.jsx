@@ -4,6 +4,7 @@ import usePeriod from "../../../hook/usePeriod";
 import useLogSearch from "../../../hook/useLogSearch";
 import searchLog from "../../../lib/searchLog";
 import AbstractSearch from "../AbstractSearch";
+import { useEffect } from "react";
 
 /**
  * @typedef {import(".").LogProvided} Provided
@@ -14,11 +15,13 @@ import AbstractSearch from "../AbstractSearch";
 const LogSearch = ({ provided, hlr }) => {
   const { option, hlr: sh } = useLogSearch();
 
-  const search = () => {
-    searchLog(option).then((v) => {
-      hlr.setAll(v);
+  useEffect(() => {
+    hlr.setSearch(() => {
+      searchLog(option).then((v) => {
+        hlr.setAll(v);
+      });
     });
-  };
+  }, [option]);
 
   const [startPicker, endPicker] = usePeriod({
     isActive: option.isPeriod,
@@ -45,11 +48,6 @@ const LogSearch = ({ provided, hlr }) => {
           { isActive: option.isPeriod, toggle: sh.togglePeriod },
         ],
       ]}
-      confirm={
-        <Button onClick={search} variant="contained">
-          검색
-        </Button>
-      }
     />
   );
 };

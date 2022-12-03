@@ -123,7 +123,10 @@ const user_history = [param("email").isEmail(), ValidateErrorHandler];
 
 const stats_day_used = [query("range").exists(), ValidateErrorHandler];
 
+const user_reset_password_valid = [query("token"), ValidateErrorHandler];
+
 export default {
+  user_reset_password_valid,
   user_admin_empower,
   user_get_is,
   token_all_delete,

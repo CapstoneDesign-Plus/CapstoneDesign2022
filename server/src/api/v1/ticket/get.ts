@@ -11,7 +11,7 @@ const router = Router();
 router.post("/", ...validator.ticket_get, async (req, res) => {
   const ticket = await TicketService.getInstance().get(req.body["identifier"]);
 
-  return send(res, ticket, ticket);
+  return send(res, ticket, ticket && translate.parseTicketDTO(ticket));
 });
 
 router.get("/price", (req, res) => {

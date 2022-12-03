@@ -1,9 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import React from "react";
 
-const AbstractToolBox = ({ children }) => {
+const AbstractToolBox = ({ children, provided, hlr }) => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>{children}</Box>
+    <Stack direction="row" justifyContent="flex-end" spacing={1}>
+      {children}
+      <Button variant="contained" onClick={provided.search}>
+        검색
+      </Button>
+    </Stack>
   );
 };
 

@@ -27,12 +27,11 @@ const ToggleTr = ({ hlr, children }) => {
 /**
  * @typedef {object} SearchProps
  * @property { [JSX.Element | string, JSX.Element, {toggle: ()=>void, isActive: boolean} | undefined][] } colPair
- * @property { JSX.Element } confirm
  *
  * @param {SearchProps}
  */
 
-const AbstractSearch = ({ colPair, confirm }) => {
+const AbstractSearch = ({ colPair }) => {
   return (
     <Box>
       <table
@@ -54,9 +53,6 @@ const AbstractSearch = ({ colPair, confirm }) => {
           ))}
         </tbody>
       </table>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        {confirm}
-      </div>
     </Box>
   );
 };

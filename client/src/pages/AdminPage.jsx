@@ -28,6 +28,8 @@ const AdminPage = () => {
     setAuthMode(true);
 
     paxios.interceptors.response.use((res) => {
+      if (res.request.responseURL.indexOf("list") !== -1) return res;
+
       if (res.data.ok) {
         enqueueSnackbar("작업 성공", { variant: "success" });
       } else {
