@@ -7,9 +7,11 @@ import getToday from "../../lib/getToday";
 import NoneDiet from "./NoneDiet";
 import BuyTicket from "./BuyTicket";
 import fetchCost from "../../lib/fetchCost";
+
 import fetchMyTicket from "../../lib/fetchMyTicket";
 import { useRecoilValue } from "recoil";
 import authState from "../../state/auth";
+
 
 export default function Diet() {
   const auth = useRecoilValue(authState);
@@ -19,6 +21,7 @@ export default function Diet() {
   const [dietC, setDietC] = useState([]);
   const [cost, setCost] = useState();
   const [cnt, setCnt] = useState();
+
 
   useEffect(() => {
     fetchDiet().then((v) => {
@@ -34,6 +37,7 @@ export default function Diet() {
       setCnt(v);
       //console.log(v);
     });
+
   }, []);
 
   return (

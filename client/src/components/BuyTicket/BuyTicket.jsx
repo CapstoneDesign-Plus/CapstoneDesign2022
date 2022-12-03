@@ -12,13 +12,16 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
 
   //console.log(tclass);
 
+
   const handleClick = (c) => () => {
     toggle();
     setTclass(c);
     console.log(`식권 ${c}의 구매 모달 띄우기 성공`);
   };
 
+
   if (!dA || !dA.length || !cost || !cnt) return <Loading />;
+
 
   return (
     <div style={{ margin: 0 }}>
