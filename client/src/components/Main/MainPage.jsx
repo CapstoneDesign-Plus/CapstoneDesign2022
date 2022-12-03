@@ -43,6 +43,11 @@ const MainPageStyle = styled.div`
     height: 25px;
     border-radius: 15px;
   }
+
+  .btn {
+    border-radius: 15px;
+    width: 120px;
+  }
 `;
 
 function MainPage() {
@@ -108,6 +113,31 @@ function MainPage() {
         {auth ? <MBox /> : <></>}
         {/* 식단 슬라이더 */}
         <MSlider />
+        {/* 식권 구매, QR코드 버튼 */}
+        {auth ? (
+          <Box sx={{ display: "flex", justifyContent: "space-around", mt: 1 }}>
+            <Link to="/BuyTicket">
+              <Button
+                className="btn"
+                variant="contained"
+                sx={{ backgroundColor: "#cfe8c9", color: "#49663c" }}
+              >
+                BUYTICKET
+              </Button>
+            </Link>
+            <Link to="/QRcode">
+              <Button
+                className="btn"
+                variant="contained"
+                sx={{ backgroundColor: "#cfe8c9", color: "#49663c" }}
+              >
+                QRCODE
+              </Button>
+            </Link>
+          </Box>
+        ) : (
+          <></>
+        )}
         {/* 공지사항 박스 */}
         <MNotice />
         {/* 404 TEST */}
