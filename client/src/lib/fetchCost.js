@@ -5,7 +5,7 @@ export default function fetchCost() {
     paxios.get(`v1/ticket/get/price`).then((v) => {
       if (v.data.ok) {
         resolve(v.data.result);
-        console.log(v.data);
+        //console.log(v.data);
       }
     })
   })

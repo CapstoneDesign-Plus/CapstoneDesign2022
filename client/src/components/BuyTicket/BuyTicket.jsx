@@ -7,7 +7,7 @@ import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
 import Loading from "../Loading";
 
-const BuyTicket = ({ dA, dB, dC, cost }) => {
+const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   const [auth, setAuth] = useRecoilState(authState);
 
   console.log(dA);
@@ -17,7 +17,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
     console.log(`식권 ${c}가 발급되었습니다.`);
   };
 
-  if (!dA || !dA.length || !cost) return <Loading />;
+  if (!dA || !dA.length || !cost || !cnt) return <Loading />;
 
   return (
     <div style={{ margin: 0 }}>
@@ -48,7 +48,8 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                   <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 1개
+                      <br />
+                      {cnt.filter((v) => v.tclass === "A").length}개
                     </Button>
                   </Link>
                   <Button
@@ -92,7 +93,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                   <Link to="/BuyList/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 0개
+                      <br /> {cnt.filter((v) => v.tclass === "B").length}개
                     </Button>
                   </Link>
                   <Button
@@ -137,7 +138,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                   <Link to="/BuyList/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 0개
+                      <br /> {cnt.filter((v) => v.tclass === "C").length}개
                     </Button>
                   </Link>
                   <Button

@@ -91,66 +91,6 @@ function UnUsed() {
         ) : (
           <None />
         )}
-        {/* <Table sx={{ maxWidth: 440 }} aria-label="simple table">
-          <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
-            <TableRow>
-              <TableCell
-                align="center"
-                sx={{ color: "white", lineHeight: "0.5" }}
-              >
-                No.
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ color: "white", lineHeight: "0.5" }}
-              >
-                구매날짜
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ color: "white", lineHeight: "0.5" }}
-              >
-                금액
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ color: "white", lineHeight: "0.5" }}
-              >
-                코스
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ color: "white", lineHeight: "0.5" }}
-              >
-                양도
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.index}>
-                <TableCell align="center" component="th" scope="row">
-                  {row.index}
-                </TableCell>
-                <TableCell align="center">{row.buyDate}</TableCell>
-                <TableCell align="center">{row.cost}</TableCell>
-                <TableCell align="center">{row.course}</TableCell>
-                <TableCell align="center">
-                  <Button
-                    variant="contained"
-                    sx={{
-                      borderRadius: 10,
-                      fontWeight: "bolder",
-                      color: "black",
-                    }}
-                  >
-                    양도하기
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table> */}
       </Stack>
     </UnUsedStyle>
   );

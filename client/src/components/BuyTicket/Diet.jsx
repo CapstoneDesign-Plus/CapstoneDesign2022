@@ -32,6 +32,7 @@ export default function Diet() {
     });
     fetchMyTicket(auth.email).then((v) => {
       setCnt(v);
+      //console.log(v);
     });
   }, []);
 
@@ -47,7 +48,13 @@ export default function Diet() {
         {
           <div>
             {dietA && dietA.length > 0 ? (
-              <BuyTicket dA={dietA} dB={dietB} dC={dietC} cost={cost} />
+              <BuyTicket
+                dA={dietA}
+                dB={dietB}
+                dC={dietC}
+                cost={cost}
+                cnt={cnt}
+              />
             ) : (
               <NoneDiet />
             )}
