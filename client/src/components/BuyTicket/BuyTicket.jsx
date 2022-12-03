@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid, Button, ButtonGroup } from "@mui/material";
+import { Box, Grid, Button, ButtonGroup, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
 import { useRecoilState } from "recoil";
@@ -23,8 +23,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               A
               <br />
@@ -60,6 +59,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           </Grid>
         </Grid>
       </Box>
+      <Divider />
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2, mr: 4 }}
       >
@@ -67,8 +67,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               B
               <br />
@@ -96,7 +95,8 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                     variant="contained"
                     onClick={handleClick("B")}
                   >
-                    {cost.B}원
+                    4000원
+                    {/* {cost.B}원 */}
                   </Button>
                 </ButtonGroup>
               </Grid>
@@ -104,6 +104,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           </Grid>
         </Grid>
       </Box>
+      <Divider />
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2, mr: 4 }}
       >
@@ -111,8 +112,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               C
               <br />
@@ -140,39 +140,12 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                     variant="contained"
                     onClick={handleClick("C")}
                   >
-                    {cost.C}원
+                    3500원
+                    {/* {cost.C}원 */}
                   </Button>
                 </ButtonGroup>
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          mt: 5,
-          ml: 2,
-          mb: 10,
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              sx={{ width: "65%", borderRadius: "20px" }}
-            >
-              선물하기
-            </Button>
-          </Grid>
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              sx={{ width: "65%", borderRadius: "20px" }}
-            >
-              구매하기
-            </Button>
           </Grid>
         </Grid>
       </Box>
