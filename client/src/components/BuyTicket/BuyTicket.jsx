@@ -6,15 +6,21 @@ import { useRecoilState } from "recoil";
 import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
 import Loading from "../Loading";
+import useModal from "../../hook/useModal";
+import BuyConfirmModal from "../MyPage/BuyList/BuyConfirmModal";
 
 const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
-  const [auth, setAuth] = useRecoilState(authState);
+  const { isOpen, toggle } = useModal();
+  const [tclass, setTclass] = useState();
 
-  console.log(dA);
+  //console.log(tclass);
 
   const handleClick = (c) => () => {
-    createTicket(auth.email, c);
-    console.log(`식권 ${c}가 발급되었습니다.`);
+    toggle();
+    setTclass(c);
+    //createTicket(auth.email, c);
+    //console.log(`식권 ${c}가 발급되었습니다.`);
+    console.log(`식권 ${c}의 구매 모달 띄우기 성공`);
   };
 
   if (!dA || !dA.length || !cost || !cnt) return <Loading />;
@@ -90,7 +96,7 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <ButtonGroup orientation="vertical">
-                  <Link to="/BuyList/UnUsed">
+                  <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
                       <br /> {cnt.filter((v) => v.tclass === "B").length}개
@@ -101,8 +107,7 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
                     variant="contained"
                     onClick={handleClick("B")}
                   >
-                    4000원
-                    {/* {cost.B}원 */}
+                    {cost.B}원
                   </Button>
                 </ButtonGroup>
               </Grid>
@@ -135,7 +140,7 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <ButtonGroup orientation="vertical">
-                  <Link to="/BuyList/UnUsed">
+                  <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
                       <br /> {cnt.filter((v) => v.tclass === "C").length}개
@@ -146,8 +151,7 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
                     variant="contained"
                     onClick={handleClick("C")}
                   >
-                    3500원
-                    {/* {cost.C}원 */}
+                    {cost.C}원
                   </Button>
                 </ButtonGroup>
               </Grid>
@@ -155,6 +159,16 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
           </Grid>
         </Grid>
       </Box>
+      <div>
+        {isOpen && (
+          <BuyConfirmModal
+            isOpen={isOpen}
+            toggle={toggle}
+            course={tclass}
+            cost={cost}
+          />
+        )}
+      </div>
     </div>
   );
 };
