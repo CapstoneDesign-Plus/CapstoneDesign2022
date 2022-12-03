@@ -1,6 +1,6 @@
 import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
-import authState from "../../../state/auth";
-import createTicket from "../../../lib/createTicket";
+import authState from "../../state/auth";
+import createTicket from "../../lib/createTicket";
 import { useRecoilState } from "recoil";
 
 const style = {
@@ -46,7 +46,7 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost }) => {
               component="h2"
               sx={{ fontWeight: "bold" }}
             >
-              Complete!
+              Confirm
             </Typography>
             <Typography
               id="transition-modal-description"
@@ -60,10 +60,11 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost }) => {
               {`${course}코스(${cost[course]}원) 식권을 구매하시겠습니까?`}
               <br />
             </Typography>
-            <Box>
+            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
               <Button
                 variant="contained"
                 sx={{
+                  mr: 1,
                   fontWeight: "bolder",
                   color: "#49663c",
                   backgroundColor: "#cfe8c9",

@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import { Box, Grid, Button, ButtonGroup, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
-import { useRecoilState } from "recoil";
-import authState from "../../state/auth";
-import createTicket from "../../lib/createTicket";
 import Loading from "../Loading";
 import useModal from "../../hook/useModal";
-import BuyConfirmModal from "../MyPage/BuyList/BuyConfirmModal";
+import BuyConfirmModal from "./BuyConfirmModal";
 
 const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   const { isOpen, toggle } = useModal();
@@ -18,8 +15,6 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   const handleClick = (c) => () => {
     toggle();
     setTclass(c);
-    //createTicket(auth.email, c);
-    //console.log(`식권 ${c}가 발급되었습니다.`);
     console.log(`식권 ${c}의 구매 모달 띄우기 성공`);
   };
 
