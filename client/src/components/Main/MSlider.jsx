@@ -9,6 +9,7 @@ import getToday from "../../lib/getToday";
 import fetchDiet from "../../lib/fetchDiet";
 import changeDietShape from "../../lib/changeDietShape";
 import fetchWait from "../../lib/fetchWait";
+import Loading from "../Loading";
 
 const MSliderStyle = styled.div`
   .banner {
@@ -65,6 +66,9 @@ function MSlider() {
     });
   }, [timeA, timeB, timeC]);
 
+  if (!dietA || !dietB || !dietC || !timeA || !timeB || !timeC)
+    return <Loading />;
+
   return (
     <MSliderStyle>
       <Swiper
@@ -88,7 +92,7 @@ function MSlider() {
               ))}
             </label>
             <hr />
-            <h4>대기시간 : {timeA.A}분</h4>
+            <h4>대기시간 : {timeA}분</h4>
           </Box>
         </SwiperSlide>
         <SwiperSlide className="slide">
