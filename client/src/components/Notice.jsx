@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React ,{Component} from "react";
 import { Link, useNavigate } from "react-router-dom";
+=======
+import React from "react";
+import { Link } from "react-router-dom";
+>>>>>>> 7c79459386649f13b0590d23e4cb0aded47b6346
 import {
   Box,
   Grid,
@@ -105,6 +110,7 @@ class Notice extends Component {
                 >
                   게시일
                 </TableCell>
+<<<<<<< HEAD
               </TableRow>
             </TableHead>
             <TableBody>
@@ -129,6 +135,22 @@ class Notice extends Component {
     );
   }
   
+=======
+                <TableCell align="center"> <Link to="/NoticeDetail">
+              <ListItem button style={{color:'black'}}>
+              {row.buyDate}
+              </ListItem>
+            </Link></TableCell>
+                <TableCell align="center">{row.useDate}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          
+        </Table>
+      </Box>
+    </div>
+  );
+>>>>>>> 7c79459386649f13b0590d23e4cb0aded47b6346
 }
 
 

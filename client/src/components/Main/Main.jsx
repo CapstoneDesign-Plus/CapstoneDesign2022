@@ -17,9 +17,11 @@ function Main() {
       <Link to="/SignIn">로그인</Link><br /><br />
       <Link to="/ResetPassword">비밀번호 재설정</Link><br /><br />
       <Link to="/Notice">공지사항</Link><br /><br />
+      <Link to="/NoticeDetail">공지사항</Link><br /><br />
       <Link to="/Charge">잔여 재화</Link><br /><br />
       <Link to="/BuyTicket">식권 구매</Link><br /><br />
       <Link to="/MainPage">메인페이지</Link><br /><br />
+
     </MainStyle>
   );
 }
