@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import useModal from "../../../hook/useModal";
+import deleteRefund from "../../../lib/deleteRefund";
+import RefundModal from "./RefundModal";
 
 const TicketItemStyle = styled.div`
   margin-left: 20px;
@@ -32,8 +35,17 @@ const TicketItemStyle = styled.div`
   }
 `;
 const TicketItem = ({ ticket, expanded, setExpanded }) => {
+  const { isOpen, toggle } = useModal();
+
   const handleChange = (event, newExpanded) => {
     setExpanded(newExpanded ? ticket.identifier : false);
+  };
+
+  const handleClick = (v) => () => {
+    deleteRefund(v).then((v) => {
+      console.log("환불 완료!");
+    });
+    toggle();
   };
 
   const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
@@ -67,11 +79,22 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
                   양도
                 </Button>
               </Link>
-              <Link to="/Recharge">
-                <Button className="btn" variant="contained">
-                  환불
-                </Button>
-              </Link>
+              <Button
+                className="btn"
+                variant="contained"
+                onClick={handleClick(encodeURIComponent(ticket.identifier))}
+              >
+                환불
+              </Button>
+              <div>
+                {isOpen && (
+                  <RefundModal
+                    isOpen={isOpen}
+                    toggle={toggle}
+                    tclass={ticket.tclass}
+                  />
+                )}
+              </div>
             </Box>
           </Typography>
         </AccordionDetails>
