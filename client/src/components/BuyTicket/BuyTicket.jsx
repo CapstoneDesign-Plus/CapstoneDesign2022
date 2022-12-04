@@ -5,26 +5,36 @@ import style from "../../style/buyticket.scss";
 import Loading from "../Loading";
 import useModal from "../../hook/useModal";
 import BuyConfirmModal from "./BuyConfirmModal";
+import CompleteAlert from "./CompleteAlert";
+import styled from "styled-components";
+
+const BuyTicketStyle = styled.div`
+  .details {
+    border-radius: 20px;
+    margin: 10px auto;
+    font-weight: bold;
+    color: #49663c;
+  }
+`;
 
 const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   const { isOpen, toggle } = useModal();
   const [tclass, setTclass] = useState();
+  const [issued, setIssued] = useState(false);
 
   //console.log(tclass);
-
 
   const handleClick = (c) => () => {
     toggle();
     setTclass(c);
+    setIssued(false);
     console.log(`식권 ${c}의 구매 모달 띄우기 성공`);
   };
 
-
   if (!dA || !dA.length || !cost || !cnt) return <Loading />;
 
-
   return (
-    <div style={{ margin: 0 }}>
+    <BuyTicketStyle style={{ margin: 0, marginBottom: "10px" }}>
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 2, mr: 4 }}
       >
@@ -164,10 +174,12 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
             toggle={toggle}
             course={tclass}
             cost={cost}
+            setIssued={setIssued}
           />
         )}
+        {issued && <CompleteAlert course={tclass} />}
       </div>
-    </div>
+    </BuyTicketStyle>
   );
 };
 

@@ -2,6 +2,7 @@ import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
 import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
 import { useRecoilState } from "recoil";
+import CompleteAlert from "./CompleteAlert";
 
 const style = {
   position: "absolute",
@@ -16,15 +17,15 @@ const style = {
   p: 3,
 };
 
-const BuyConfirmModal = ({ isOpen, toggle, course, cost }) => {
+const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
   const [auth, setAuth] = useRecoilState(authState);
 
   const handleClick = (c) => () => {
     createTicket(auth.email, c);
+    setIssued(true);
     console.log(`식권 ${c}가 발급되었습니다.`);
     toggle();
   };
-
   return (
     <div>
       <Modal
