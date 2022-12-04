@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import fetchNotice from "../lib/fetchNotice";
 
 /**
  *
@@ -33,14 +34,18 @@ function createHandle(state, setState) {
   };
 }
 
-export default function useNoticeWrite(
-  initialValue = {
+export default function useNoticeWrite(id) {
+  const [state, setState] = useState({
     header: "",
     content: "",
     title: "",
-  }
-) {
-  const [state, setState] = useState(initialValue);
+  });
+
+  useEffect(() => {
+    if (id) {
+      fetchNotice(id).then((v) => setState(v));
+    }
+  }, []);
 
   return {
     state,

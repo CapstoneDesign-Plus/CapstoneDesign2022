@@ -6,10 +6,10 @@ const HeaderStyle = styled.div`
   position: sticky;
   top: 0px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   background-color: #b1d6a8;
-  height: 90px;
   z-index: 999;
 
   .logo {

@@ -8,7 +8,6 @@ import { Button, ButtonGroup } from "@mui/material";
 import axios from "../../lib/axios";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
-import { Navigate } from "react-router-dom";
 
 const MypageStyle = styled.div`
   margin: auto;
@@ -91,7 +90,7 @@ function Mypage() {
       });
     }
   };
-
+  console.log(auth.admin);
   return (
     <MypageStyle>
       <Box
@@ -103,9 +102,27 @@ function Mypage() {
       <Box sx={{ display: "flex", alignItems: "flex-end", mt: 5 }}>
         <Grid container spacing={2} sx={{ margin: 0 }}>
           {/* 이름, 이메일 */}
-          <Grid className="name" item xs={12} sm={12}>
+          <Grid className="name" item xs={8.5}>
             {auth.username}
           </Grid>
+          {auth && auth.admin ? (
+            <Grid className="admin" item xs={3}>
+              <Link to="/admin/*">
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: "15px",
+                    color: "#49663c",
+                    fontWeight: "bolder",
+                  }}
+                >
+                  ADMIN
+                </Button>
+              </Link>
+            </Grid>
+          ) : (
+            <></>
+          )}
           <Grid className="email" item xs={12} sm={12}>
             {auth.email}
           </Grid>

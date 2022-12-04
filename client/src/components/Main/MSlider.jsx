@@ -8,6 +8,8 @@ import React, { useState, useEffect } from "react";
 import getToday from "../../lib/getToday";
 import fetchDiet from "../../lib/fetchDiet";
 import changeDietShape from "../../lib/changeDietShape";
+import fetchWait from "../../lib/fetchWait";
+import Loading from "../Loading";
 
 const MSliderStyle = styled.div`
   .banner {
@@ -46,6 +48,9 @@ function MSlider() {
   const [dietA, setDietA] = useState([]);
   const [dietB, setDietB] = useState([]);
   const [dietC, setDietC] = useState([]);
+  const [timeA, setTimeA] = useState();
+  const [timeB, setTimeB] = useState();
+  const [timeC, setTimeC] = useState();
 
   useEffect(() => {
     fetchDiet().then((v) => {
@@ -54,7 +59,15 @@ function MSlider() {
       setDietB(changeDietShape(v).b[today > -1 ? today : 0]);
       setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
     });
-  }, []);
+    fetchWait().then((v) => {
+      setTimeA(v.A.waitSecond);
+      setTimeB(v.B.waitSecond);
+      setTimeC(v.C.waitSecond);
+    });
+  }, [timeA, timeB, timeC]);
+
+  if (!dietA || !dietB || !dietC || !timeA || !timeB || !timeC)
+    return <Loading />;
 
   return (
     <MSliderStyle>
@@ -79,7 +92,7 @@ function MSlider() {
               ))}
             </label>
             <hr />
-            <h4>대기시간 : 5분</h4>
+            <h4>대기시간 : {timeA}분</h4>
           </Box>
         </SwiperSlide>
         <SwiperSlide className="slide">
@@ -95,7 +108,7 @@ function MSlider() {
               ))}
             </label>
             <hr />
-            <h4>대기시간 : 3분</h4>
+            <h4>대기시간 : {timeB}분</h4>
           </Box>
         </SwiperSlide>
         <SwiperSlide className="slide">
@@ -111,7 +124,7 @@ function MSlider() {
               ))}
             </label>
             <hr />
-            <h4>대기시간 : 1분</h4>
+            <h4>대기시간 : {timeC}분</h4>
           </Box>
         </SwiperSlide>
       </Swiper>
