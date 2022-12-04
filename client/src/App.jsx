@@ -14,11 +14,8 @@ import QRcode from "./components/QRcode";
 import theme from "./theme/theme.jsx";
 
 import NoticePage from "../src/pages/notice_page";
-<<<<<<< HEAD
 import NoticeDetailPage from "../src/pages/noticeDetail_page";
-=======
-import NoticeDetailPage from "../src/pages/noticedetail_page";
->>>>>>> 7c79459386649f13b0590d23e4cb0aded47b6346
+
 import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 import { CircularProgress, ThemeProvider } from "@mui/material";
@@ -73,7 +70,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-<<<<<<< HEAD
+
       <Suspense fallback={<CircularProgress />}>
         <AppContainer adminMode={adminMode}>
           <BrowserRouter>
@@ -121,33 +118,8 @@ function App() {
           </BrowserRouter>
         </AppContainer>
       </Suspense>
-=======
-      <AppContainer adminMode={auth && auth.admin}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/Mypage" element={<Mypage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/ChangeNickname" element={<ChangeNickname />} />
-            <Route path="/ChangePassword" element={<ChangePassword />} />
-            <Route path="/ResetPassword/:token" element={<ResetPassword />} />
-            <Route path="/BuyList" element={<BuyList />} />
-            <Route path="/BuyList/UnUsed" element={<UnUsed />} />
-            <Route path="/BuyList/Used" element={<Used />} />
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/Notice" element={<NoticePage />} />
-            <Route path="/NoticeDetail" element={<NoticeDetailPage />} />
-            <Route path="/Charge" element={<ChargePage />} />
-            <Route path="/BuyTicket" element={<BuyTicketPage />} />
-            <Route path="/RequestEmail" element={<RequestEmail />} />
-            <Route path="/TokenInvalid" element={<TokenInvalid />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </BrowserRouter>
-      </AppContainer>
->>>>>>> 7c79459386649f13b0590d23e4cb0aded47b6346
+
+  
     </ThemeProvider>
   );
 }
