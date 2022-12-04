@@ -109,7 +109,7 @@ export default class WaitService {
       if (record.keyword !== "기타") {
         diet.forEach((menu) => {
           if (menu.includes(record.keyword)) {
-            waitSecond += WaitService.addWaitTime(record, peopleCount);
+            waitSecond += WaitService.calcWaitSecondOneMenu(record, peopleCount);
           }
         });
       }
@@ -117,12 +117,12 @@ export default class WaitService {
 
     if (waitSecond == 0) {
       let record: WaitTimeTableRecord = this.WAIT_TIME_TABLE[0]; // 기타
-      waitSecond = WaitService.addWaitTime(record, peopleCount);
+      waitSecond = WaitService.calcWaitSecondOneMenu(record, peopleCount);
     }
     return waitSecond;
   }
 
-  static addWaitTime(record: WaitTimeTableRecord, peopleCount: number): number {
+  static calcWaitSecondOneMenu(record: WaitTimeTableRecord, peopleCount: number): number {
     return (
       record.supply * peopleCount +
       record.ready * Math.ceil(peopleCount / record.unit)
