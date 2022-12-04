@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Box, Grid, Chip, Button } from "@mui/material";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "../lib/axios";
 
@@ -19,7 +19,7 @@ const TransferStyle = styled.div`
     font-size: 22px;
     color: #49663c;
   }
-  .input_pw {
+  .input_Email {
     font-size: 20px;
     padding-left: 10px;
     width: 100%;
@@ -134,11 +134,15 @@ function Transfer() {
             </Grid>
             <Grid item xs={12} sm={12} sx={{ ml: -1 }}>
               <input
-                className="input_pw"
+                className="input_Email"
                 placeholder="보낼 사람의 Email을 입력해주세요."
                 onChange={onChangeEmail}
               />
-              {emailMessage}
+              {email.length > 0 && (
+                <span className={`message ${isEmail ? "success" : "error"}`}>
+                  {emailMessage}
+                </span>
+              )}
             </Grid>
           </Grid>
         </Box>

@@ -6,12 +6,22 @@ import changeDietShape from "../../lib/changeDietShape";
 import getToday from "../../lib/getToday";
 import NoneDiet from "./NoneDiet";
 import BuyTicket from "./BuyTicket";
+import fetchCost from "../../lib/fetchCost";
+
+import fetchMyTicket from "../../lib/fetchMyTicket";
+import { useRecoilValue } from "recoil";
+import authState from "../../state/auth";
+
 
 export default function Diet() {
+  const auth = useRecoilValue(authState);
   //const [diet, setDiet] = useState([]);
   const [dietA, setDietA] = useState([]);
   const [dietB, setDietB] = useState([]);
   const [dietC, setDietC] = useState([]);
+  const [cost, setCost] = useState();
+  const [cnt, setCnt] = useState();
+
 
   useEffect(() => {
     fetchDiet().then((v) => {
@@ -20,6 +30,14 @@ export default function Diet() {
       setDietB(changeDietShape(v).b[today > -1 ? today : 0]);
       setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
     });
+    fetchCost().then((v) => {
+      setCost(v);
+    });
+    fetchMyTicket(auth.email).then((v) => {
+      setCnt(v);
+      //console.log(v);
+    });
+
   }, []);
 
   return (
@@ -34,7 +52,13 @@ export default function Diet() {
         {
           <div>
             {dietA && dietA.length > 0 ? (
-              <BuyTicket dA={dietA} dB={dietB} dC={dietC} />
+              <BuyTicket
+                dA={dietA}
+                dB={dietB}
+                dC={dietC}
+                cost={cost}
+                cnt={cnt}
+              />
             ) : (
               <NoneDiet />
             )}

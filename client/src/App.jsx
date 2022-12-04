@@ -84,7 +84,7 @@ function App() {
               <Route path="/RequestEmail" element={<RequestEmail />} />
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
               <Route path="/notice/write" element={<NoticeWriter />} />
-              <Route path="/Transfer" element={<Transfer />} />
+              <Route path="/Transfer/:token" element={<Transfer />} />
               <Route path="/qrread" element={<QRRead />} />
               <Route path="/qrcode" element={<Auth el={<QRcode />} />} />
               <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
