@@ -23,7 +23,6 @@ import TokenInvalid from "./components/User/TokenInvalid";
 
 import authState from "./state/auth";
 import axios from "./lib/axios";
-import NoticeWriter from "./components/Admin/Notice/NoticeWriter";
 import Auth from "./components/Auth";
 import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
@@ -81,7 +80,6 @@ function App() {
               <Route path="/ResetPassword/:token" element={<ResetPassword />} />
               <Route path="/RequestEmail" element={<RequestEmail />} />
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
-              <Route path="/notice/write" element={<NoticeWriter />} />
               <Route path="/Transfer/:token" element={<Transfer />} />
               <Route path="/qrread" element={<QRRead />} />
               <Route path="/qrcode" element={<Auth el={<QRcode />} />} />

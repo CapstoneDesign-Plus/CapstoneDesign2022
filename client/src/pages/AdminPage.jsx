@@ -9,10 +9,11 @@ import { useSetRecoilState } from "recoil";
 import adminState from "../state/admin";
 import paxios from "../lib/paxios";
 import { useSnackbar } from "notistack";
-
-const Wrap = ({ children, marginTop = 0 }) => {
+import { Routes, Route, Link } from "react-router-dom";
+import AdminNotice from "../components/Admin/AdminNotice";
+const Wrap = ({ children, marginTop = 0, marginBottom = 0 }) => {
   return (
-    <Box width="800px" sx={{ margin: "0 auto", marginTop }}>
+    <Box width="800px" sx={{ margin: "0 auto", marginTop, marginBottom }}>
       {children}
     </Box>
   );
@@ -28,7 +29,9 @@ const AdminPage = () => {
     setAuthMode(true);
 
     paxios.interceptors.response.use((res) => {
-      if (res.request.responseURL.indexOf("list") !== -1) return res;
+      const url = res.request.responseURL;
+
+      if (url.indexOf("list") !== -1 || url.indexOf("get") !== -1) return res;
 
       if (res.data.ok) {
         enqueueSnackbar("작업 성공", { variant: "success" });
@@ -52,20 +55,19 @@ const AdminPage = () => {
         </Wrap>
         <Divider />
         <Wrap>
-          <AdminTabs tab={tab} setTab={setTab} />
+          <Link to="/admin">
+            <AdminTabs tab={tab} setTab={setTab} />
+          </Link>
         </Wrap>
         <Divider />
-        <Wrap marginTop={"10px"}>
-          <AdminContent tab={tab} />
+        <Wrap marginTop="10px" marginBottom="25px">
+          <Routes>
+            <Route path="" element={<AdminContent tab={tab} />} />
+            <Route path="notice" element={<AdminNotice />} />
+            <Route path="notice/:id" element={<AdminNotice />} />
+            {/* <Route path="notice/:id" element={<AdminNotice />} /> */}
+          </Routes>
         </Wrap>
-
-        {/* <Routes>
-          <Route path="" element={<Dashboard />} />
-          <Route path="user" element={<UserDashboard />} />
-          <Route path="log" element={<LogDashboard />} />
-          <Route path="ticket" element={<TicketDashboard />} />
-          <Route path="token" element={<TokenDashboard />} />
-        </Routes> */}
       </Stack>
     </LocalizationProvider>
   );
