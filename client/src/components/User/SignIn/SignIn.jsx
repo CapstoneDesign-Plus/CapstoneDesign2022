@@ -96,8 +96,8 @@ function SignIn() {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       login(email, hash()).then((value) => {
-        if (value.data.ok) {
-          setAuth(value.data.result);
+        if (value.ok) {
+          setAuth(value.result);
           setFail(false);
           console.log("Login Complete!");
         } else {

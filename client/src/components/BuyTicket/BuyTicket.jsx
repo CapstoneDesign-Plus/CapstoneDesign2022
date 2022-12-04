@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import { Box, Grid, Button, ButtonGroup } from "@mui/material";
+import { Box, Grid, Button, ButtonGroup, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import style from "../../style/buyticket.scss";
-import { useRecoilState } from "recoil";
-import authState from "../../state/auth";
-import createTicket from "../../lib/createTicket";
 import Loading from "../Loading";
+import useModal from "../../hook/useModal";
+import BuyConfirmModal from "./BuyConfirmModal";
 
-const BuyTicket = ({ dA, dB, dC, cost }) => {
-  const [auth, setAuth] = useRecoilState(authState);
+const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
+  const { isOpen, toggle } = useModal();
+  const [tclass, setTclass] = useState();
 
-  console.log(dA);
+  //console.log(tclass);
+
 
   const handleClick = (c) => () => {
-    createTicket(auth.email, c);
-    console.log(`식권 ${c}가 발급되었습니다.`);
+    toggle();
+    setTclass(c);
+    console.log(`식권 ${c}의 구매 모달 띄우기 성공`);
   };
 
-  if (!dA || !dA.length || !cost) return <Loading />;
+
+  if (!dA || !dA.length || !cost || !cnt) return <Loading />;
+
 
   return (
     <div style={{ margin: 0 }}>
@@ -28,8 +32,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               A
               <br />
@@ -49,7 +52,8 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
                   <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 1개
+                      <br />
+                      {cnt.filter((v) => v.tclass === "A").length}개
                     </Button>
                   </Link>
                   <Button
@@ -65,6 +69,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           </Grid>
         </Grid>
       </Box>
+      <Divider />
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2, mr: 4 }}
       >
@@ -72,8 +77,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               B
               <br />
@@ -90,10 +94,10 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <ButtonGroup orientation="vertical">
-                  <Link to="/BuyList/UnUsed">
+                  <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 0개
+                      <br /> {cnt.filter((v) => v.tclass === "B").length}개
                     </Button>
                   </Link>
                   <Button
@@ -109,6 +113,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           </Grid>
         </Grid>
       </Box>
+      <Divider />
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2, mr: 4 }}
       >
@@ -116,8 +121,7 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
             <Button
               className="courseBtn"
-              variant="contained"
-              sx={{ padding: "0" }}
+              sx={{ padding: "0", color: "#49663c", fontWeight: "bolder" }}
             >
               C
               <br />
@@ -134,10 +138,10 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <ButtonGroup orientation="vertical">
-                  <Link to="/BuyList/UnUsed">
+                  <Link to="/UnUsed">
                     <Button className="details" variant="contained">
                       잔여식권
-                      <br /> 0개
+                      <br /> {cnt.filter((v) => v.tclass === "C").length}개
                     </Button>
                   </Link>
                   <Button
@@ -153,34 +157,16 @@ const BuyTicket = ({ dA, dB, dC, cost }) => {
           </Grid>
         </Grid>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          mt: 5,
-          ml: 2,
-          mb: 10,
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              sx={{ width: "65%", borderRadius: "20px" }}
-            >
-              선물하기
-            </Button>
-          </Grid>
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              sx={{ width: "65%", borderRadius: "20px" }}
-            >
-              구매하기
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+      <div>
+        {isOpen && (
+          <BuyConfirmModal
+            isOpen={isOpen}
+            toggle={toggle}
+            course={tclass}
+            cost={cost}
+          />
+        )}
+      </div>
     </div>
   );
 };
