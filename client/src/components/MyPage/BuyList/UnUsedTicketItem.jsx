@@ -62,7 +62,7 @@ const TicketItem = ({ ticket, expanded, setExpanded }) => {
             <br />
             <br />
             <Box className="btnBox">
-              <Link to="/Transfer">
+              <Link to={`/Transfer/${encodeURIComponent(ticket.identifier)}`}>
                 <Button className="btn" variant="contained">
                   양도
                 </Button>

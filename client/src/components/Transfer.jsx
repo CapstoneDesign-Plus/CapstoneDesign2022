@@ -67,6 +67,7 @@ function Transfer() {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
+  const { token } = useParams();
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
