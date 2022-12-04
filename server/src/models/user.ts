@@ -8,7 +8,7 @@ export interface IUser extends Document {
   createdAt: number;
   uclass: number;
   point: number;
-  tickets: string[];
+  tickets: number[];
 }
 
 export interface IUserModel extends Model<IUser> {
@@ -50,7 +50,7 @@ const UserSchema: Schema<IUser> = new Schema({
     default: 0,
   },
   tickets: {
-    type: [String],
+    type: [Number],
     required: true,
     default: [],
   },
