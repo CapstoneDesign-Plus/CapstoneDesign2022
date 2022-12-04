@@ -5,10 +5,12 @@ import style from "../../style/buyticket.scss";
 import Loading from "../Loading";
 import useModal from "../../hook/useModal";
 import BuyConfirmModal from "./BuyConfirmModal";
+import CompleteAlert from "./CompleteAlert";
 
 const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   const { isOpen, toggle } = useModal();
   const [tclass, setTclass] = useState();
+  const [issued, setIssued] = useState(false);
 
   //console.log(tclass);
 
@@ -161,6 +163,14 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
             toggle={toggle}
             course={tclass}
             cost={cost}
+            setIssued={setIssued}
+          />
+        )}
+        {issued && (
+          <CompleteAlert
+            toggle={toggle}
+            isOpen={isOpen}
+            setIssued={setIssued}
           />
         )}
       </div>
