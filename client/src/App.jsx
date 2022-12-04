@@ -70,7 +70,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-
       <Suspense fallback={<CircularProgress />}>
         <AppContainer adminMode={adminMode}>
           <BrowserRouter>
@@ -80,17 +79,15 @@ function App() {
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />
 
-            
               <Route path="/Notice" element={<NoticePage />} />
-              <Route path="/NoticeDetail/:identi" element={<NoticeDetailPage />} />
-              
-              
+              <Route path="/NoticeDetail/:id" element={<NoticeDetailPage />} />
+
               <Route path="/logout" element={<Logout />} />
               <Route path="/ResetPassword/:token" element={<ResetPassword />} />
               <Route path="/RequestEmail" element={<RequestEmail />} />
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
               <Route path="/notice/write" element={<NoticeWriter />} />
-              <Route path="/Transfer/:identi" element={<Transfer />} />
+              <Route path="/Transfer/:id" element={<Transfer />} />
               <Route path="/qrread" element={<QRRead />} />
               <Route path="/qrcode" element={<Auth el={<QRcode />} />} />
               <Route path="/Mypage" element={<Auth el={<Mypage />} />} />
@@ -122,8 +119,6 @@ function App() {
           </BrowserRouter>
         </AppContainer>
       </Suspense>
-
-  
     </ThemeProvider>
   );
 }
