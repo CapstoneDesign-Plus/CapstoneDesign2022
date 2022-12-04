@@ -36,7 +36,7 @@ const BuyTicket = ({ dA, dB, dC, cost, cnt }) => {
   return (
     <BuyTicketStyle style={{ margin: 0, marginBottom: "10px" }}>
       <Box
-        sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 2, mr: 4 }}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 0, ml: 2, mr: 4 }}
       >
         <Grid container spacing={0}>
           <Grid item xs={8} sx={{ padding: "0", margin: "0" }}>
