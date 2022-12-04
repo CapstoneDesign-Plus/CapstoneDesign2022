@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import fetchNotice from "../lib/fetchNotice";
 import { useRecoilValue } from "recoil";
 import authState from "../state/auth";
+import deleteNotice from "../lib/deleteNotice";
 
 const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
 
@@ -102,9 +103,27 @@ const NoticeDetail = () => {
           </Button>
         </Link>
         {auth && auth.admin && (
-          <Link to={`/admin/notice/${id}`}>
-            <Button variant="contained">수정</Button>
-          </Link>
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              style={{
+                marginRight: "5px",
+              }}
+              onClick={() => {
+                deleteNotice(id).finally(() => setIsNotice(false));
+              }}
+            >
+              삭제
+            </Button>
+            <Link to={`/admin/notice/${id}`}>
+              <Button variant="contained">수정</Button>
+            </Link>
+          </Box>
         )}
       </Box>
     </div>
