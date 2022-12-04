@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "../lib/axios";
+import tickets from "../lib/tickets";
+import changeTicketOwner from "../lib/changeTicketOwner";
 
 const TransferStyle = styled.div`
   top: 0;
@@ -68,6 +70,8 @@ function Transfer() {
   const [isEmail, setIsEmail] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
   const { token } = useParams();
+  const [tclass, setTclass] = useState();
+  const [price, setPrice] = useState();
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -88,12 +92,24 @@ function Transfer() {
     confirm(email).then((value) => {
       if (value.data.ok) {
         setEmailMessage("");
-        console.log("Complete!");
+        changeTicketOwner(token, email).then((value) => {
+          if (value.ok) {
+            console.log(value);
+            console.log("양도 완료..?");
+          }
+        });
       } else {
         setEmailMessage("존재하지 않는 이메일입니다.");
       }
     });
   };
+
+  useEffect(() => {
+    tickets(token).then((v) => {
+      setPrice(v.price);
+      setTclass(v.tclass);
+    });
+  });
 
   return (
     <TransferStyle>
@@ -122,8 +138,8 @@ function Transfer() {
                 }}
               >
                 <Grid container spacing={3} style={{ margin: 0 }}>
-                  <Grid className="boxContent" item xs={15} sx={{ pr: "16px" }}>
-                    A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4,000원
+                  <Grid className="boxContent" item xs={12} sx={{ pr: "16px" }}>
+                    {tclass}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{price}원
                   </Grid>
                 </Grid>
               </Box>
