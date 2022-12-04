@@ -40,10 +40,7 @@ export default class TicketService {
         price: StoreService.getInstance().getPrice(tclass),
         state: "normal",
       });
-      await this.userService.pushTicket(
-        owner,
-        tcrypto.cipher(nticket.identifier)
-      );
+      await this.userService.pushTicket(owner, nticket.identifier);
       return true;
     }
     return false;
@@ -68,13 +65,12 @@ export default class TicketService {
 
     if (!(await this.userService.isExist(userId))) return false;
 
-    await this.userService.removeTicket(oldTicket.owner, ticketKey);
-    await this.userService.pushTicket(userId, ticketKey);
+    await this.userService.removeTicket(oldTicket.owner, oldTicket.identifier);
+    await this.userService.pushTicket(userId, oldTicket.identifier);
     await this.ticketModel.findOneAndUpdate(
       { identifier: oldTicket.identifier },
       { $set: { owner: userId } }
     );
-
     return true;
   }
 
@@ -101,7 +97,7 @@ export default class TicketService {
 
     await this.changeState(ticket.identifier, "refunded");
     await this.userService.increasePoint(ticket.owner, price);
-    await this.userService.removeTicket(ticket.owner, ticketKey);
+    await this.userService.removeTicket(ticket.owner, ticket.identifier);
 
     return true;
   }

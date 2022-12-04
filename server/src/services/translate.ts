@@ -22,7 +22,7 @@ export default {
       username: user.username,
       uclass: user.uclass,
       point: user.point,
-      tickets: user.tickets,
+      tickets: user.tickets.map(tcrypto.cipher),
       admin: user.certificated,
       createdAt: user.createdAt,
       password: user.password,
@@ -97,7 +97,7 @@ export default {
       content: log.content,
       ip: log.ip,
       caller: log.caller,
-      method: log.method
+      method: log.method,
     };
   },
 
