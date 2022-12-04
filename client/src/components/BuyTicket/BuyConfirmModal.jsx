@@ -2,7 +2,6 @@ import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
 import authState from "../../state/auth";
 import createTicket from "../../lib/createTicket";
 import { useRecoilState } from "recoil";
-import CompleteAlert from "./CompleteAlert";
 
 const style = {
   position: "absolute",
@@ -26,6 +25,7 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
     console.log(`식권 ${c}가 발급되었습니다.`);
     toggle();
   };
+
   return (
     <div>
       <Modal
