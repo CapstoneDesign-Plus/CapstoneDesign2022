@@ -107,7 +107,7 @@ function Mypage() {
           </Grid>
           {auth && auth.admin ? (
             <Grid className="admin" item xs={3}>
-              <Link to="/admin/*">
+              <Link to="/admin">
                 <Button
                   variant="contained"
                   sx={{
