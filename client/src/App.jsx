@@ -14,6 +14,7 @@ import QRcode from "./components/QRcode";
 import theme from "./theme/theme.jsx";
 
 import NoticePage from "../src/pages/notice_page";
+import NoticeDetailPage from "../src/pages/noticeDetail_page";
 import ChargePage from "../src/pages/charge_page";
 import BuyTicketPage from "../src/pages/buyticket_page";
 import { CircularProgress, ThemeProvider } from "@mui/material";
@@ -77,6 +78,7 @@ function App() {
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="/Notice" element={<NoticePage />} />
+              <Route path="/NoticeDetail" element={<NoticeDetailPage />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/ResetPassword/:token" element={<ResetPassword />} />
               <Route path="/RequestEmail" element={<RequestEmail />} />
