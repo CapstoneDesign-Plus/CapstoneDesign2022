@@ -1,5 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import Loading from "./Loading";
 
+import fetchNoticeList from "../lib/fetchNoticeList";
+import React, { Component } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -8,30 +13,36 @@ import {
   TableRow,
   TableHead,
   TableBody,
+  ListItem,
+  Pagination,
   Button,
 } from "@mui/material";
-
+import { useRecoilValue } from "recoil";
+import authState from "../state/auth";
 import style from "../style/notice.scss";
 
-function createData(index, buyDate, useDate) {
-  return { index, buyDate, useDate };
-}
+const koDtf = new Intl.DateTimeFormat("ko", { dateStyle: "short" });
 
-const rows = [
-  createData("01", "밥심 사용방법", "2022.09.21"),
-  createData("02", "밥심 사용방법", "2022.09.21"),
-  createData("03", "밥심 사용방법", "2022.09.21"),
-  createData("04", "밥심 사용방법", "2022.09.21"),
-  createData("05", "밥심 사용방법", "2022.09.21"),
-  createData("06", "밥심 사용방법", "2022.09.21"),
-];
+const Notice = () => {
+  const [noticeContents, setNoticeContent] = useState();
+  const [page, setPage] = useState(1);
+  const [pageLimit, setPageLimit] = useState(0);
+  const auth = useRecoilValue(authState);
 
-export default function Notice() {
+  useEffect(() => {
+    fetchNoticeList(page, 10).then((v) => {
+      setPageLimit(Math.ceil(v.totalCount / v.countPerPage));
+      setNoticeContent(v.values);
+    });
+  }, [page]);
+
+  if (!noticeContents) return <Loading />;
+
   return (
     <div style={{ margin: 0 }}>
       <Box
         className="title"
-        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml:2}}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
         공지사항
       </Box>
@@ -39,15 +50,13 @@ export default function Notice() {
         <Grid container spacing={2}>
           <Grid item sx={{ mt: -2, ml: 1 }}>
             <input
-              className={"input"}
+              className="input"
+              type="text"
+              onChange={(e) => this.selectTitle(e.target.value)}
               placeholder="검색어를 입력하세요"
             />
           </Grid>
-          <Grid item sx={{ mt: -2, ml: -1 }}>
-            <Button color="primary">
-              <img className="search" src="\images\search.png" />
-            </Button>
-          </Grid>
+          <Grid item sx={{ mt: -2, ml: -1 }}></Grid>
         </Grid>
       </Box>
 
@@ -77,18 +86,51 @@ export default function Notice() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.index}>
+            {noticeContents.map((item) => (
+              <TableRow key={item.identifier}>
                 <TableCell align="center" component="th" scope="row">
-                  {row.index}
+                  {item.identifier}
                 </TableCell>
-                <TableCell align="center">{row.buyDate}</TableCell>
-                <TableCell align="center">{row.useDate}</TableCell>
+                <TableCell align="center">
+                  {" "}
+                  <Link to={{ pathname: `/NoticeDetail/${item.identifier}` }}>
+                    <ListItem style={{ color: "black" }}>{item.title}</ListItem>
+                  </Link>
+                </TableCell>
+                <TableCell align="center">
+                  {koDtf.format(item.postedAt)}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </Box>
+      {auth && auth.admin && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            margin: "5px",
+          }}
+        >
+          <Link to={`/admin/notice`}>
+            <Button variant="contained">글쓰기</Button>
+          </Link>
+        </Box>
+      )}
+      <Pagination
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "10px",
+        }}
+        page={page}
+        onChange={(e, v) => setPage(v)}
+        count={pageLimit}
+      />
     </div>
   );
-}
+};
+
+export default Notice;
