@@ -141,28 +141,6 @@ function MainPage() {
         {/* 공지사항 박스 */}
         <MNotice />
         {/* 404 TEST */}
-
-        {/* RequestEmail TEST */}
-        <Link to="/RequestEmail">
-          <Button>이메일 요청</Button>
-        </Link>
-        {/* ResetPassword(unvalid) TEST */}
-        <Link to="/TokenInvalid">
-          <Button>비밀번호 재설정(무효)</Button>
-        </Link>
-        {/* AdminPage TEST */}
-        <Link to="/admin">
-          <Button>Admin</Button>
-        </Link>
-        <Link to="/QRcode">
-          <Button>QRCode</Button>
-        </Link>
-        <Link to="/Transfer">
-          <Button>Transfer</Button>
-        </Link>
-        <Link to="/BuyTicket">
-          <Button>BuyTicket</Button>
-        </Link>
       </Box>
     </MainPageStyle>
   );
