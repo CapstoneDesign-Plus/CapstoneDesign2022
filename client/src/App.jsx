@@ -79,14 +79,18 @@ function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />
+
+            
               <Route path="/Notice" element={<NoticePage />} />
-              <Route path="/NoticeDetail" element={<NoticeDetailPage />} />
+              <Route path="/NoticeDetail/:identi" element={<NoticeDetailPage />} />
+              
+              
               <Route path="/logout" element={<Logout />} />
               <Route path="/ResetPassword/:token" element={<ResetPassword />} />
               <Route path="/RequestEmail" element={<RequestEmail />} />
               <Route path="/TokenInvalid" element={<TokenInvalid />} />
               <Route path="/notice/write" element={<NoticeWriter />} />
-              <Route path="/Transfer/:token" element={<Transfer />} />
+              <Route path="/Transfer/:identi" element={<Transfer />} />
               <Route path="/qrread" element={<QRRead />} />
               <Route path="/qrcode" element={<Auth el={<QRcode />} />} />
               <Route path="/Mypage" element={<Auth el={<Mypage />} />} />

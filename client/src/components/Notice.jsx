@@ -28,12 +28,12 @@ class Notice extends Component {
   }
   
   componentDidMount(){
-    this.callGetRepairAPI().then((response) => {
+    this.callGetAPI().then((response) => {
       this.contents=response.result.values;
       this.setState({noticeContents:response.result.values});
   })}
 
-  async callGetRepairAPI() {
+  async callGetAPI() {
     let manager = new WebServiceManager("https://bapsim.kro.kr/api/v1/notice/get/list");
     let response = await manager.start();
     console.log(response);//헤더포함한 response message
@@ -109,7 +109,17 @@ class Notice extends Component {
             </TableHead>
             <TableBody>
               {this.state.noticeContents.map((item) => ( 
-               <NoticeView item={item}/>
+               <TableRow key={item.identifier}>
+               <TableCell align="center" component="th" scope="row">
+                 {item.identifier}
+               </TableCell>
+               <TableCell align="center"> <Link to={{pathname:`/NoticeDetail/${item.identifier}`,}}  >
+             <ListItem  style={{color:'black'}} > 
+             {item.title} 
+             </ListItem>
+           </Link></TableCell>
+               <TableCell align="center">{item.postedAt}</TableCell>
+         </TableRow>
               ))}
             </TableBody>
             
@@ -121,25 +131,5 @@ class Notice extends Component {
   
 }
 
-class NoticeView extends Component{
-  constructor(props) {
-    super(props);
-  }
-  render(){
-    const item=this.props.item
-    return(
-      <TableRow key={item.identifier}>
-          <TableCell align="center" component="th" scope="row">
-            {item.identifier}
-          </TableCell>
-          <TableCell align="center"> <Link to={{pathname:"/NoticeDetail", state:{title:item.title}}} >
-        <ListItem  style={{color:'black'}} > 
-        {item.title} 
-        </ListItem>
-      </Link></TableCell>
-          <TableCell align="center">{item.postedAt}</TableCell>
-    </TableRow>
-    )
-  }
-}
+
 export default Notice;
