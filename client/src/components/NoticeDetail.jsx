@@ -52,14 +52,15 @@ const NoticeDetail = () => {
 
       {/* table box*/}
       <Box className="table">
-        <Table sx={{ maxWidth: 440 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#B1D6A8" }}>
             <TableRow>
               <TableCell
+                colSpan={2}
                 align={"left"}
                 sx={{ color: "black", lineHeight: "0.5" }}
               >
-                {detailContents.title}
+                [{detailContents.header}]&nbsp;{detailContents.title}
               </TableCell>
               <TableCell sx={{ color: "black", lineHeight: "0.5" }}></TableCell>
             </TableRow>
