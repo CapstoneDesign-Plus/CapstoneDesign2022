@@ -65,9 +65,9 @@ export default class WaitService {
 
     for (const key in count) {
       const course = key as TicketClass;
-      const peopleCount = Object.values(this.storage).filter(
-        (v) => key === v.course
-      ).length;
+      const peopleCount = Object.values(this.storage)
+        .filter((v) => key === v.course)
+        .length;
 
       count[course] = {
         peopleCount,
@@ -87,18 +87,24 @@ export default class WaitService {
     
     let waitSecond: number = 0;
     this.WAIT_TIME_TABLE.forEach((record) => {
-      diet.forEach((menu) => {
-        if (menu.includes(record.keyword)) {
-          waitSecond += record.supply * peopleCount + Math.floor(peopleCount / record.unit) * record.ready;
-        }
-      })
+      if (record.keyword !== "기타") {
+        diet.forEach((menu) => {
+          if (menu.includes(record.keyword)) {
+            waitSecond += WaitService.addWaitTime(record, peopleCount);
+          }
+        })
+      }
     });
 
     if (waitSecond == 0) {
       let record: WaitTimeTableRecord = this.WAIT_TIME_TABLE[0];  // 기타
-      waitSecond = record.supply * peopleCount + Math.floor(peopleCount / record.unit) * record.ready;
+      waitSecond = WaitService.addWaitTime(record, peopleCount);
     }
     return waitSecond;
+  }
+
+  static addWaitTime(record: WaitTimeTableRecord, peopleCount: number): number {
+    return record.supply * peopleCount + record.ready * Math.ceil(peopleCount / record.unit);
   }
 
   static getInstance() {
