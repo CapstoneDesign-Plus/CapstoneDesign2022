@@ -47,14 +47,15 @@ function MNotice() {
           </Link>
           {notices &&
             notices.map((n) => (
-              <ListItem button divider>
-                <Link
-                  to={`/NoticeDetail/${n.identifier}`}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
+              <Link
+                key={n.identifier}
+                to={`/NoticeDetail/${n.identifier}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <ListItem divider>
                   [{n.header}] {n.title}
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
             ))}
         </List>
       </Box>
