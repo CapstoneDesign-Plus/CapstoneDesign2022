@@ -136,7 +136,17 @@ function MainPage() {
             </Link>
           </Box>
         ) : (
-          <></>
+          <Box sx={{ display: "flex", justifyContent: "space-around", mt: 1 }}>
+            <Link to="/qrread">
+              <Button
+                className="btn"
+                variant="contained"
+                sx={{ backgroundColor: "#cfe8c9", color: "#49663c" }}
+              >
+                QRREAD
+              </Button>
+            </Link>
+          </Box>
         )}
         {/* 공지사항 박스 */}
         <MNotice />
