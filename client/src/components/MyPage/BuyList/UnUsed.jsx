@@ -79,6 +79,7 @@ function UnUsed() {
         {data && data.length > 0 ? (
           data
             .filter((v) => v.tclass === TCLASS[tab])
+            .filter((v) => v.state !== "refunded")
             .sort((lhs, rhs) => lhs.createdAt - rhs.createdAt)
             .map((ticket) => (
               <UnUsedTicketItem

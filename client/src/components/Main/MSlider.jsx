@@ -66,8 +66,7 @@ function MSlider() {
     });
   }, [timeA, timeB, timeC]);
 
-  if (!dietA || !dietB || !dietC || !timeA || !timeB || !timeC)
-    return <Loading />;
+  if (!dietA || timeA === undefined) return <Loading />;
 
   return (
     <MSliderStyle>

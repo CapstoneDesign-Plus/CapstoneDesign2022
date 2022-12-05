@@ -45,7 +45,7 @@ function MBox() {
 
   useEffect(() => {
     fetchMyTicket(auth.email).then((v) => {
-      setLength(v.length);
+      setLength(v.filter((t) => t.state !== "refunded").length);
     });
     fetchUserInfo(auth.email).then((v) => {
       setCoin(v.point);
