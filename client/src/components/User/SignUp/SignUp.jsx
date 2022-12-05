@@ -46,16 +46,6 @@ const SignupStyle = styled.div`
     border-radius: 15px;
     outline-color: white;
   }
-  .select_email {
-    font-size: 15px;
-    font-weight: bolder;
-    color: #666666;
-    margin: 5px 0px;
-    width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
-    outline-color: white;
-  }
   .input_pw {
     font-size: 20px;
     padding-left: 10px;
@@ -154,7 +144,7 @@ function SignUp() {
 
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordMessage(
-        "숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요"
+        "숫자, 영문자, 특수문자 조합으로 \n8자리 이상 입력해주세요"
       );
       setIsPassword(false);
     } else {
@@ -184,7 +174,7 @@ function SignUp() {
       if (value.data.ok) {
         setEmailMessage("이미 사용중인 이메일입니다.");
       } else {
-        setEmailMessage("");
+        setEmailMessage("사용가능한 이메일입니다.");
       }
     });
   };
@@ -239,7 +229,7 @@ function SignUp() {
           <Grid item xs={12} sx={{ ml: -1 }}>
             <div className="email">
               <Grid container spacing={1}>
-                <Grid item xs={6}>
+                <Grid item xs={11}>
                   <input
                     className="input_email"
                     placeholder=" 이메일"
@@ -255,14 +245,6 @@ function SignUp() {
                       {emailMessage}
                     </span>
                   )}
-                </Grid>
-                <Grid item xs={5}>
-                  <select className="select_email">
-                    <option value="직접입력">직접입력</option>
-                    <option value="naver">@naver.com</option>
-                    <option value="google">@google.com</option>
-                    <option value="daum">@daum.net</option>
-                  </select>
                 </Grid>
               </Grid>
             </div>

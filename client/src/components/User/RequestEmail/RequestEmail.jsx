@@ -32,7 +32,7 @@ const RequestEmailStyle = styled.div`
 
   .email {
     border: 3px solid #b1d6a8;
-    width: 100%;
+    width: 120%;
     height: 50px;
     border-radius: 15px;
     padding-left: 10px;
@@ -48,17 +48,6 @@ const RequestEmailStyle = styled.div`
     border-radius: 15px;
     outline-color: white;
   }
-  .selectEmail {
-    font-size: 15px;
-    font-weight: bolder;
-    color: #666666;
-    margin: 5px 0px;
-    width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
-    outline-color: white;
-  }
-
   .btn {
     border-radius: 15px;
     color: #49663c;
@@ -126,12 +115,12 @@ function RequestEmail() {
         </Grid>
       </Box>
       <Box
-        sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 5 }}
+        sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 3 }}
       >
         <Grid item xs={12}>
           <div className="email">
             <Grid container spacing={1}>
-              <Grid item xs={6}>
+              <Grid item xs={11}>
                 <input
                   className="inputEmail"
                   placeholder=" 이메일"
@@ -144,14 +133,6 @@ function RequestEmail() {
                     {emailMessage}
                   </span>
                 )}
-              </Grid>
-              <Grid item xs={5}>
-                <select className="selectEmail">
-                  <option value="직접입력">직접입력</option>
-                  <option value="naver">@naver.com</option>
-                  <option value="google">@google.com</option>
-                  <option value="daum">@daum.net</option>
-                </select>
               </Grid>
             </Grid>
           </div>
