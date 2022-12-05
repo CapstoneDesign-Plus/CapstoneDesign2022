@@ -91,7 +91,8 @@ export default class TicketService {
 
     if (!(caller.certificated || caller.email === ticket.owner)) return false;
 
-    if (ticket.state !== "normal") return false;
+    if (!(ticket.state === "normal" || ticket.state === "waiting"))
+      return false;
 
     const price = ticket.price;
 
