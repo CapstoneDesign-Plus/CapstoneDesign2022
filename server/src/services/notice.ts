@@ -125,6 +125,7 @@ export default class NoticeService {
     return {
       values: await this.noticeModel
         .find()
+        .sort({ _id: -1 })
         .skip((position - 1) * interval)
         .limit(interval),
       totalCount: await this.information(),

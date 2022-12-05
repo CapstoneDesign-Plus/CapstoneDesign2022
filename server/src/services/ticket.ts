@@ -187,6 +187,7 @@ export default class TicketService {
     return {
       values: await this.ticketModel
         .find()
+        .sort({ _id: -1 })
         .skip((position - 1) * interval)
         .limit(interval),
       totalCount: await this.information(),
