@@ -11,7 +11,7 @@ router.delete("/", ...validator.ticket_refund, async (req, res) => {
 
   const isSuccess = await TicketService.getInstance().refund(
     req.user as IUser,
-    req.body["identifier"]
+    decodeURIComponent(req.query["id"] as string)
   );
 
   return send(res, isSuccess);
