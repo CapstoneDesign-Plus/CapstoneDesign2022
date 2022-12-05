@@ -101,7 +101,7 @@ export default class WaitService {
     if (!dayOfWeek) return -1; // error
 
     let diet: string[] = (await DietService.getInstance().getDiet())[dayOfWeek][
-      course
+      course.toLowerCase()
     ];
 
     let waitSecond: number = 0;
@@ -109,7 +109,10 @@ export default class WaitService {
       if (record.keyword !== "기타") {
         diet.forEach((menu) => {
           if (menu.includes(record.keyword)) {
-            waitSecond += WaitService.calcWaitSecondOneMenu(record, peopleCount);
+            waitSecond += WaitService.calcWaitSecondOneMenu(
+              record,
+              peopleCount
+            );
           }
         });
       }
@@ -122,7 +125,10 @@ export default class WaitService {
     return waitSecond;
   }
 
-  static calcWaitSecondOneMenu(record: WaitTimeTableRecord, peopleCount: number): number {
+  static calcWaitSecondOneMenu(
+    record: WaitTimeTableRecord,
+    peopleCount: number
+  ): number {
     return (
       record.supply * peopleCount +
       record.ready * Math.ceil(peopleCount / record.unit)
