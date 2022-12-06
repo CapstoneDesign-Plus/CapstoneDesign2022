@@ -19,7 +19,7 @@ export default ({ app }: { app: express.Application }) => {
       saveUninitialized: true,
       proxy: true,
       cookie: {
-        maxAge: 600000,
+        maxAge: 3600000,
         sameSite: "none",
         secure: true,
       },
