@@ -92,17 +92,12 @@ router.get(
     const result = await TokenService.getInstance().create(email, 10);
 
     if (result) {
-      /**
-       * @TODO url 수정 필요
-       */
-      const access_url = `http://bapsim.kro.kr/ResetPassword/${encodeURIComponent(
-        result
-      )}`;
+      const access_url = `http://bapsim.kro.kr/ResetPassword/${encodeURIComponent(result)}`;
 
       MailService.getInstance().sendMail(
         email,
-        "비밀번호 재설정",
-        `<a href="${access_url}">${access_url}</a>`
+        "[밥심] 비밀번호 재설정",
+        `밥심 비밀번호를 변경하기 위해서 아래 링크를 눌러주세요:\n\n<a href="${access_url}">${access_url}</a>`
       );
     }
 
