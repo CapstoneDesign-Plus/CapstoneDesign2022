@@ -113,6 +113,7 @@ const user_get_reset_password = [
 ];
 
 const user_put_reset_password = [
+  query("token").exists(),
   body("new_password").exists(),
   ValidateErrorHandler,
 ];

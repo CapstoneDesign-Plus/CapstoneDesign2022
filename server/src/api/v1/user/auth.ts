@@ -56,10 +56,10 @@ router.post("/signup", ...validator.user_signup, async (req, res) => {
 });
 
 router.put(
-  "/password/:identifier",
+  "/password",
   ...validator.user_put_reset_password,
   async (req, res) => {
-    const decodedId = decodeURIComponent(req.params.identifier);
+    const decodedId = decodeURIComponent(req.query["token"] as string);
 
     const token = await TokenService.getInstance().get(decodedId);
 
