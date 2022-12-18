@@ -103,6 +103,7 @@ export interface TicketSearchOption {
   readonly isPrice: boolean;
   readonly isBuyer: boolean;
   readonly isOwner: boolean;
+  readonly isState: boolean;
   readonly isCreatedPeriod: boolean;
   readonly isUsedPeriod: boolean;
   readonly tClass?: string;
@@ -114,6 +115,7 @@ export interface TicketSearchOption {
   readonly usedEndAt?: number;
   readonly startedPrice?: number;
   readonly endPrice?: number;
+  readonly state?: string;
 }
 
 export interface LogSearchOption {

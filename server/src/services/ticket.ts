@@ -210,6 +210,8 @@ export default class TicketService {
 
     if (option.isTClass) filter.tclass = option.tClass;
 
+    if (option.isState) filter.state = option.state;
+
     if (option.isBuyer) filter.buyer = { $regex: option.buyer, $options: "i" };
     if (option.isOwner) filter.owner = { $regex: option.owner, $options: "i" };
 
@@ -219,7 +221,7 @@ export default class TicketService {
         $lte: option.createdEndAt,
       };
     if (option.isUsedPeriod)
-      filter.expiredAt = {
+      filter.usedAt = {
         $gte: option.usedStartedAt,
         $lte: option.usedEndAt,
       };

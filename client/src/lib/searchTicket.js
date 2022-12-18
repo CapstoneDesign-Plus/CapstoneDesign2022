@@ -3,6 +3,7 @@ import paxios from "./paxios";
 /**
  * @typedef {object} TicketSearchOption
  * @property {boolean} isTClass
+ * @property {boolean} isState
  * @property {boolean} isPrice
  * @property {boolean} isBuyer
  * @property {boolean} isOwner
@@ -11,6 +12,7 @@ import paxios from "./paxios";
  * @property {"A" | "B" | "C"} tClass
  * @property {string} owner
  * @property {string} buyer
+ * @property {string} state
  * @property {number} createdStartedAt
  * @property {number} createdEndAt
  * @property {number} usedStartedAt

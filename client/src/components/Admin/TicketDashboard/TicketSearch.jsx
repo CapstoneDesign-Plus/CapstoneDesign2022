@@ -45,6 +45,7 @@ const TicketSearch = ({ provided, hlr }) => {
         ["구매자", useInput(option.buyer, sh.setBuyer)],
         ["소유자", useInput(option.owner, sh.setOwner)],
         ["코스", useInput(option.tClass, sh.setClass)],
+        ["상태", useInput(option.state, sh.setState)],
         [
           "생성 기간",
           <div style={{ display: "flex" }}>
