@@ -89,16 +89,15 @@ export default class WaitService {
     course: TicketClass,
     peopleCount: number
   ): Promise<number> {
-    let dayOfWeek: string | null = [
-      null,
+    let dayOfWeek: string = [
+      "fri",  // 일요일
       "mon",
       "tue",
       "wed",
       "thr",
       "fri",
-      null,
+      "fri",  // 토요일
     ][new Date().getDay()]; // 가져올 날짜의 요일
-    if (!dayOfWeek) return -1; // error
 
     let diet: string[] = (await DietService.getInstance().getDiet())[dayOfWeek][
       course.toLowerCase()
