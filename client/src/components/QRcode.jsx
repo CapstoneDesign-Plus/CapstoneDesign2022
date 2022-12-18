@@ -8,6 +8,7 @@ import authState from "../state/auth";
 import fetchMyTicket from "../lib/fetchMyTicket";
 import { Stack } from "@mui/system";
 import { Button, Divider, Tab, Tabs } from "@mui/material";
+import fltCanUseTicket from "../lib/fltTicket";
 
 const QRcodeStyle = styled.div`
   top: 0;
@@ -106,7 +107,7 @@ function QRcode() {
 
   useEffect(() => {
     fetchMyTicket(auth.email).then((v) => {
-      setTicket(v);
+      setTicket(fltCanUseTicket(v));
     });
   }, []);
 

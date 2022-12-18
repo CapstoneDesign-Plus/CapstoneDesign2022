@@ -11,6 +11,7 @@ import fetchCost from "../../lib/fetchCost";
 import fetchMyTicket from "../../lib/fetchMyTicket";
 import { useRecoilValue } from "recoil";
 import authState from "../../state/auth";
+import fltCanUseTicket from "../../lib/fltTicket";
 
 export default function Diet() {
   const auth = useRecoilValue(authState);
@@ -32,7 +33,7 @@ export default function Diet() {
       setCost(v);
     });
     fetchMyTicket(auth.email).then((v) => {
-      setCnt(v);
+      setCnt(fltCanUseTicket(v));
       //console.log(v);
     });
   }, []);

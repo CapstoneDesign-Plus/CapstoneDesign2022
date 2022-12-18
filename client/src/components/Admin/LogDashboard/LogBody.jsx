@@ -18,7 +18,7 @@ const columns = [
   { field: "method", headerName: "Method", width: 60 },
   { field: "caller", headerName: "Caller", width: 200 },
   { field: "path", headerName: "Path", width: 230 },
-  { field: "ip", headerName: "Ip", width: 100 },
+  // { field: "ip", headerName: "Ip", width: 100 },
   {
     field: "content",
     headerName: "Content",

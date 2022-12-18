@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import fetchMyTicket from "../../lib/fetchMyTicket";
 import fetchUserInfo from "../../lib/fetchUserInfo";
+import fltCanUseTicket from "../../lib/fltTicket";
 
 const MBoxStyle = styled.div`
   .box {
@@ -45,7 +46,7 @@ function MBox() {
 
   useEffect(() => {
     fetchMyTicket(auth.email).then((v) => {
-      setLength(v.filter((t) => t.state !== "refunded").length);
+      setLength(fltCanUseTicket(v).length);
     });
     fetchUserInfo(auth.email).then((v) => {
       setCoin(v.point);
