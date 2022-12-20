@@ -76,12 +76,9 @@ function ChangePassword() {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
-  const onChangeOldPassword = useCallback((e) => {
-    if (oldRef.current) {
-      setOldpw(oldRef.current.value);
-      setIsOldpw(sha256(oldRef.current.value) === auth.password);
-    }
-  });
+  const onChangeOldPassword = (e) => {
+    setOldpw(e.target.value);
+  };
 
   const onChangeNewPassword = useCallback((e) => {
     const passwordRegex =
@@ -147,9 +144,10 @@ function ChangePassword() {
               autoFocus
               placeholder=" 현재 비밀번호"
               type="password"
+              value={old_pw}
+              onChange={onChangeOldPassword}
             />
           </Grid>
-          <Button onClick={onChangeOldPassword}>확인</Button>
           {/* 새 비밀번호 */}
           <Grid className="input_title" item xs={12} sm={12} sx={{ mt: 3 }}>
             새 비밀번호
