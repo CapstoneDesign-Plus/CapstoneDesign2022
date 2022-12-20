@@ -10,6 +10,7 @@ import fetchDiet from "../../lib/fetchDiet";
 import changeDietShape from "../../lib/changeDietShape";
 import fetchWait from "../../lib/fetchWait";
 import Loading from "../Loading";
+import cutWaitTime from "../../lib/cutWaitTime";
 
 const MSliderStyle = styled.div`
   .banner {
@@ -60,14 +61,13 @@ function MSlider() {
       setDietC(changeDietShape(v).c[today > -1 ? today : 0]);
     });
     fetchWait().then((v) => {
-      setTimeA(v.A.waitSecond);
-      setTimeB(v.B.waitSecond);
-      setTimeC(v.C.waitSecond);
+      setTimeA(cutWaitTime(v.A.waitSecond));
+      setTimeB(cutWaitTime(v.B.waitSecond));
+      setTimeC(cutWaitTime(v.C.waitSecond));
     });
   }, [timeA, timeB, timeC]);
 
-  if (!dietA || !dietB || !dietC || !timeA || !timeB || !timeC)
-    return <Loading />;
+  if (!dietA || timeA === undefined) return <Loading />;
 
   return (
     <MSliderStyle>

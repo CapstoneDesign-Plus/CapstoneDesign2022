@@ -15,6 +15,7 @@ import authState from "../../../state/auth";
 import { useRecoilState } from "recoil";
 import fetchMyTicket from "../../../lib/fetchMyTicket";
 import None from "./None";
+import fltCanUseTicket from "../../../lib/fltTicket";
 
 const UnUsedStyle = styled.div`
   top: 0;
@@ -55,7 +56,7 @@ function UnUsed() {
 
   useEffect(() => {
     fetchMyTicket(auth.email).then((v) => {
-      setData(v);
+      setData(fltCanUseTicket(v));
     });
   }, []);
 
@@ -76,7 +77,7 @@ function UnUsed() {
       </Box>
       <Divider />
       <Stack className="ticket-list">
-        {data && data.length > 0 ? (
+        {data && data.filter((v) => v.tclass === TCLASS[tab]).length ? (
           data
             .filter((v) => v.tclass === TCLASS[tab])
             .sort((lhs, rhs) => lhs.createdAt - rhs.createdAt)

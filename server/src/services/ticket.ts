@@ -40,10 +40,7 @@ export default class TicketService {
         price: StoreService.getInstance().getPrice(tclass),
         state: "normal",
       });
-      await this.userService.pushTicket(
-        owner,
-        tcrypto.cipher(nticket.identifier)
-      );
+      await this.userService.pushTicket(owner, nticket.identifier);
       return true;
     }
     return false;
@@ -68,13 +65,12 @@ export default class TicketService {
 
     if (!(await this.userService.isExist(userId))) return false;
 
-    await this.userService.removeTicket(oldTicket.owner, ticketKey);
-    await this.userService.pushTicket(userId, ticketKey);
+    await this.userService.removeTicket(oldTicket.owner, oldTicket.identifier);
+    await this.userService.pushTicket(userId, oldTicket.identifier);
     await this.ticketModel.findOneAndUpdate(
       { identifier: oldTicket.identifier },
       { $set: { owner: userId } }
     );
-
     return true;
   }
 
@@ -95,13 +91,14 @@ export default class TicketService {
 
     if (!(caller.certificated || caller.email === ticket.owner)) return false;
 
-    if (ticket.state !== "normal") return false;
+    if (!(ticket.state === "normal" || ticket.state === "waiting"))
+      return false;
 
     const price = ticket.price;
 
     await this.changeState(ticket.identifier, "refunded");
     await this.userService.increasePoint(ticket.owner, price);
-    await this.userService.removeTicket(ticket.owner, ticketKey);
+    await this.userService.removeTicket(ticket.owner, ticket.identifier);
 
     return true;
   }
@@ -190,6 +187,7 @@ export default class TicketService {
     return {
       values: await this.ticketModel
         .find()
+        .sort({ _id: -1 })
         .skip((position - 1) * interval)
         .limit(interval),
       totalCount: await this.information(),
@@ -212,6 +210,8 @@ export default class TicketService {
 
     if (option.isTClass) filter.tclass = option.tClass;
 
+    if (option.isState) filter.state = option.state;
+
     if (option.isBuyer) filter.buyer = { $regex: option.buyer, $options: "i" };
     if (option.isOwner) filter.owner = { $regex: option.owner, $options: "i" };
 
@@ -221,7 +221,7 @@ export default class TicketService {
         $lte: option.createdEndAt,
       };
     if (option.isUsedPeriod)
-      filter.expiredAt = {
+      filter.usedAt = {
         $gte: option.usedStartedAt,
         $lte: option.usedEndAt,
       };

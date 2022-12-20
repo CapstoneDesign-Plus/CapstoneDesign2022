@@ -46,7 +46,7 @@ const ResetPwStyle = styled.div`
 
 async function resetPw(new_password, token) {
   const response = await axios.put(
-    "v1/user/auth/password/" + encodeURIComponent(token),
+    "v1/user/auth/password?token=" + encodeURIComponent(token),
     {
       new_password,
     }

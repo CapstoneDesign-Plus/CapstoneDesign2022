@@ -1,7 +1,5 @@
 import { Modal, Fade, Box, Typography, Backdrop, Button } from "@mui/material";
-import authState from "../../state/auth";
-import createTicket from "../../lib/createTicket";
-import { useRecoilState } from "recoil";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -16,16 +14,7 @@ const style = {
   p: 3,
 };
 
-const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
-  const [auth, setAuth] = useRecoilState(authState);
-
-  const handleClick = (c) => () => {
-    createTicket(auth.email, c);
-    setIssued(true);
-    console.log(`식권 ${c}가 발급되었습니다.`);
-    toggle();
-  };
-
+const RefundModal = ({ isOpen, toggle, tclass }) => {
   return (
     <div>
       <Modal
@@ -47,7 +36,7 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
               component="h2"
               sx={{ fontWeight: "bold" }}
             >
-              Confirm
+              Complete!
             </Typography>
             <Typography
               id="transition-modal-description"
@@ -58,33 +47,24 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
                 fontSize: "14px",
               }}
             >
-              {`${course}코스(${cost[course]}원) 식권을 구매하시겠습니까?`}
+              {tclass}코스 식권 환불이 완료되었습니다.
               <br />
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-              <Button
-                variant="contained"
-                sx={{
-                  mr: 1,
-                  fontWeight: "bolder",
-                  color: "#49663c",
-                  backgroundColor: "#cfe8c9",
-                }}
-                onClick={handleClick(course)}
-              >
-                구매
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  fontWeight: "bolder",
-                  color: "#49663c",
-                  backgroundColor: "#cfe8c9",
-                }}
-                onClick={toggle}
-              >
-                취소
-              </Button>
+              <Link to="/">
+                <Button
+                  variant="contained"
+                  sx={{
+                    mr: 1,
+                    fontWeight: "bolder",
+                    color: "#49663c",
+                    backgroundColor: "#cfe8c9",
+                    borderRadius: "10px",
+                  }}
+                >
+                  확인
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Fade>
@@ -93,4 +73,4 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
   );
 };
 
-export default BuyConfirmModal;
+export default RefundModal;

@@ -7,6 +7,6 @@ declare namespace Express {
     createdAt: number;
     uclass: number;
     point: number;
-    tickets: string[];
+    tickets: number[];
   }
 }

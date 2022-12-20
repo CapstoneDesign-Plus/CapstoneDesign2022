@@ -1,10 +1,9 @@
 import { Router } from "express";
-import api from '@/api';
-import env from "@/config";
+import api from "@/api";
 
 const router = Router();
 
 //#region Api
-router.use('/api', api)
+router.use("/api", api);
 //#endregion
 export default router;

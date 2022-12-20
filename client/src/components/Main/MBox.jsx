@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import authState from "../../state/auth";
 import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import fetchMyTicket from "../../lib/fetchMyTicket";
+import fetchUserInfo from "../../lib/fetchUserInfo";
+import fltCanUseTicket from "../../lib/fltTicket";
 
 const MBoxStyle = styled.div`
   .box {
@@ -37,6 +41,17 @@ const MBoxStyle = styled.div`
 
 function MBox() {
   const [auth, setAuth] = useRecoilState(authState);
+  const [len, setLength] = useState();
+  const [coin, setCoin] = useState();
+
+  useEffect(() => {
+    fetchMyTicket(auth.email).then((v) => {
+      setLength(fltCanUseTicket(v).length);
+    });
+    fetchUserInfo(auth.email).then((v) => {
+      setCoin(v.point);
+    });
+  });
 
   return (
     <MBoxStyle>
@@ -59,7 +74,7 @@ function MBox() {
             <Box
               sx={{ fontSize: "20px", display: "flex", alignItems: "center" }}
             >
-              {auth.tickets.length} &nbsp;&nbsp;
+              {len} &nbsp;&nbsp;
               <Link to="/UnUsed">
                 <img className="arrow" alt="coin" src="\images\arrow.png" />
               </Link>
@@ -73,7 +88,7 @@ function MBox() {
             <Box
               sx={{ fontSize: "20px", display: "flex", alignItems: "center" }}
             >
-              {auth.point} &nbsp;&nbsp;
+              {coin} &nbsp;&nbsp;
               <Link to="/Charge">
                 <img className="arrow" alt="coin" src="\images\arrow.png" />
               </Link>

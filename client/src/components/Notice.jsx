@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import Loading from "./Loading";
+import searchNoticeKeyword from "../lib/searchNoticeKeyword";
 
 import fetchNoticeList from "../lib/fetchNoticeList";
 import React, { Component } from "react";
@@ -27,6 +28,7 @@ const Notice = () => {
   const [noticeContents, setNoticeContent] = useState();
   const [page, setPage] = useState(1);
   const [pageLimit, setPageLimit] = useState(0);
+  const [keyword, setKeyword] = useState("");
   const auth = useRecoilValue(authState);
 
   useEffect(() => {
@@ -35,6 +37,10 @@ const Notice = () => {
       setNoticeContent(v.values);
     });
   }, [page]);
+
+  const search = () => {
+    searchNoticeKeyword(keyword).then(setNoticeContent);
+  };
 
   if (!noticeContents) return <Loading />;
 
@@ -47,16 +53,24 @@ const Notice = () => {
         공지사항
       </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item sx={{ mt: -2, ml: 1 }}>
+        <Grid container spacing={3}>
+          <Grid item>
             <input
               className="input"
               type="text"
-              onChange={(e) => this.selectTitle(e.target.value)}
+              onChange={(e) => setKeyword(e.target.value)}
               placeholder="검색어를 입력하세요"
             />
           </Grid>
-          <Grid item sx={{ mt: -2, ml: -1 }}></Grid>
+          <Grid item>
+            <Button
+              sx={{ marginTop: "3px" }}
+              onClick={search}
+              variant="contained"
+            >
+              검색
+            </Button>
+          </Grid>
         </Grid>
       </Box>
 
@@ -124,6 +138,7 @@ const Notice = () => {
           flexDirection: "column",
           alignItems: "center",
           marginTop: "10px",
+          marginBottom: "20px",
         }}
         page={page}
         onChange={(e, v) => setPage(v)}

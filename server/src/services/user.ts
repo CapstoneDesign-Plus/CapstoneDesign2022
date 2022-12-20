@@ -23,7 +23,7 @@ export default class UserService {
     );
   }
 
-  async pushTicket(email: string, ticketKey: string) {
+  async pushTicket(email: string, ticketKey: number) {
     const tickets = await this.getTickets(email);
 
     tickets.push(ticketKey);
@@ -31,7 +31,7 @@ export default class UserService {
     await this.userModel.updateOne({ email }, { $set: { tickets } });
   }
 
-  async removeTicket(email: string, ticketKey: string) {
+  async removeTicket(email: string, ticketKey: number) {
     const tickets = (await this.getTickets(email)).filter((value) => {
       return value !== ticketKey;
     });
@@ -152,6 +152,7 @@ export default class UserService {
     return {
       values: await this.userModel
         .find()
+        .sort({ _id: -1 })
         .skip((position - 1) * interval)
         .limit(interval),
       totalCount: await this.information(),

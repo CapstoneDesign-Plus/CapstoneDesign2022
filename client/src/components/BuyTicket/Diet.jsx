@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import style from "../../style/buyticket.scss";
 import fetchDiet from "../../lib/fetchDiet";
 import changeDietShape from "../../lib/changeDietShape";
@@ -11,6 +11,7 @@ import fetchCost from "../../lib/fetchCost";
 import fetchMyTicket from "../../lib/fetchMyTicket";
 import { useRecoilValue } from "recoil";
 import authState from "../../state/auth";
+import fltCanUseTicket from "../../lib/fltTicket";
 
 export default function Diet() {
   const auth = useRecoilValue(authState);
@@ -32,10 +33,16 @@ export default function Diet() {
       setCost(v);
     });
     fetchMyTicket(auth.email).then((v) => {
-      setCnt(v);
+      setCnt(fltCanUseTicket(v));
       //console.log(v);
     });
-  }, [cnt]);
+  }, []);
+
+  const handleClick = () => {
+    fetchMyTicket(auth.email).then((v) => {
+      setCnt(fltCanUseTicket(v));
+    });
+  };
 
   return (
     <div style={{ margin: 0 }}>
@@ -44,6 +51,11 @@ export default function Diet() {
         sx={{ display: "flex", alignItems: "flex-end", mt: 3, ml: 2 }}
       >
         식권 구매
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button onClick={handleClick} sx={{ color: "#49663c" }}>
+          Reload
+        </Button>
       </Box>
       <div>
         {

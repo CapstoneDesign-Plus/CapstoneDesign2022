@@ -63,7 +63,6 @@ const NoticeDetail = () => {
               >
                 [{detailContents.header}]&nbsp;{detailContents.title}
               </TableCell>
-              <TableCell sx={{ color: "black", lineHeight: "0.5" }}></TableCell>
             </TableRow>
           </TableHead>
           <TableRow>

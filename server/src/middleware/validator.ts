@@ -79,7 +79,7 @@ const ticket_assign = [
 
 const ticket_validate = [body("identifier").exists(), ValidateErrorHandler];
 
-const ticket_refund = [body("identifier").exists(), ValidateErrorHandler];
+const ticket_refund = [query("id").exists(), ValidateErrorHandler];
 
 const ticket_change_state = [
   body("identifier").exists(),
@@ -113,6 +113,7 @@ const user_get_reset_password = [
 ];
 
 const user_put_reset_password = [
+  query("token").exists(),
   body("new_password").exists(),
   ValidateErrorHandler,
 ];

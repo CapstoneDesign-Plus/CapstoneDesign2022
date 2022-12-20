@@ -89,19 +89,18 @@ export default class WaitService {
     course: TicketClass,
     peopleCount: number
   ): Promise<number> {
-    let dayOfWeek: string | null = [
-      null,
+    let dayOfWeek: string = [
+      "fri",  // 일요일
       "mon",
       "tue",
       "wed",
       "thr",
       "fri",
-      null,
+      "fri",  // 토요일
     ][new Date().getDay()]; // 가져올 날짜의 요일
-    if (!dayOfWeek) return -1; // error
 
     let diet: string[] = (await DietService.getInstance().getDiet())[dayOfWeek][
-      course
+      course.toLowerCase()
     ];
 
     let waitSecond: number = 0;
@@ -109,7 +108,10 @@ export default class WaitService {
       if (record.keyword !== "기타") {
         diet.forEach((menu) => {
           if (menu.includes(record.keyword)) {
-            waitSecond += WaitService.calcWaitSecondOneMenu(record, peopleCount);
+            waitSecond += WaitService.calcWaitSecondOneMenu(
+              record,
+              peopleCount
+            );
           }
         });
       }
@@ -122,7 +124,10 @@ export default class WaitService {
     return waitSecond;
   }
 
-  static calcWaitSecondOneMenu(record: WaitTimeTableRecord, peopleCount: number): number {
+  static calcWaitSecondOneMenu(
+    record: WaitTimeTableRecord,
+    peopleCount: number
+  ): number {
     return (
       record.supply * peopleCount +
       record.ready * Math.ceil(peopleCount / record.unit)

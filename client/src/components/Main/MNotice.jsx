@@ -1,9 +1,13 @@
-import  {Box, List, ListItem} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, List, ListItem } from "@mui/material";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import fetchNoticeList from "../../lib/fetchNoticeList";
+import None from "../MyPage/BuyList/None";
 
 const MNoticeStyle = styled.div`
-    .noticeBox {
+  .noticeBox {
     width: 95%;
     display: flex;
     justify-content: center;
@@ -11,37 +15,52 @@ const MNoticeStyle = styled.div`
     margin-top: 10px;
     overflow: hidden;
   }
-  
+
   .coin {
     width: 30px;
     height: 30px;
   }
-`
+`;
 
 function MNotice() {
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    fetchNoticeList(1, 5).then((v) => {
+      setNotices(v.values);
+    });
+  }, []);
+
   return (
     <MNoticeStyle>
-    <Box className="noticeBox">
-          <List component="nav">
-            <Link to="/Notice">
-              <ListItem button divider style={{color:'black', fontWeight:'bolder'}}>
-                <img className="coin" alt="coin" src="\images\notice.png" />
-                &nbsp;&nbsp;공지사항
-              </ListItem>
-            </Link>
-            <ListItem button divider>
-              [공지] 밥심 사용방법
+      <Box className="noticeBox">
+        <List component="nav">
+          <Link to="/Notice">
+            <ListItem
+              button
+              divider
+              style={{ color: "black", fontWeight: "bolder" }}
+            >
+              <img className="coin" alt="coin" src="\images\notice.png" />
+              &nbsp;&nbsp;공지사항
             </ListItem>
-            <ListItem button divider>
-              [공지] 오늘 저녁 식단 변경 사항 알림
-            </ListItem>
-            <ListItem button divider>
-              [공지] 밥심 포인트 사용 및 충전 방법
-            </ListItem>
-          </List>
-        </Box>
-        </MNoticeStyle>
-  )
+          </Link>
+          {notices &&
+            notices.map((n) => (
+              <Link
+                key={n.identifier}
+                to={`/NoticeDetail/${n.identifier}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <ListItem divider>
+                  [{n.header}] {n.title}
+                </ListItem>
+              </Link>
+            ))}
+        </List>
+      </Box>
+    </MNoticeStyle>
+  );
 }
 
 export default MNotice;

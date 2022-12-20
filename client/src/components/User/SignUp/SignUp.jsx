@@ -29,32 +29,15 @@ const SignupStyle = styled.div`
     border-radius: 15px;
     outline-color: #b1d6a8;
   }
-  .email {
-    border: 3px solid #b1d6a8;
+  .inputEmail {
+    font-size: 20px;
+    padding-left: 10px;
     width: 100%;
     height: 50px;
-    border-radius: 15px;
-    padding-left: 10px;
-  }
-  .input_email {
-    font-size: 20px;
-    margin: 5px 0px;
-    width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
+    border: 3px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
-    outline-color: white;
-  }
-  .select_email {
-    font-size: 15px;
-    font-weight: bolder;
-    color: #666666;
-    margin: 5px 0px;
-    width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
-    outline-color: white;
+    outline-color: #b1d6a8;
   }
   .input_pw {
     font-size: 20px;
@@ -154,7 +137,7 @@ function SignUp() {
 
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordMessage(
-        "숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요"
+        "숫자, 영문자, 특수문자 조합으로 \n8자리 이상 입력해주세요"
       );
       setIsPassword(false);
     } else {
@@ -184,7 +167,7 @@ function SignUp() {
       if (value.data.ok) {
         setEmailMessage("이미 사용중인 이메일입니다.");
       } else {
-        setEmailMessage("");
+        setEmailMessage("사용가능한 이메일입니다.");
       }
     });
   };
@@ -233,47 +216,32 @@ function SignUp() {
           </Grid>
 
           {/* 이메일 */}
+
           <Grid className="input_title" item xs={12} sx={{ mt: 3 }}>
             Email
           </Grid>
           <Grid item xs={12} sx={{ ml: -1 }}>
-            <div className="email">
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <input
-                    className="input_email"
-                    placeholder=" 이메일"
-                    type="email"
-                    value={email}
-                    onChange={onChangeEmail}
-                  />
-                  {/* ..어떡하지 */}
-                  {email.length > 0 && (
-                    <span
-                      className={`message ${isEmail ? "success" : "error"}`}
-                    >
-                      {emailMessage}
-                    </span>
-                  )}
-                </Grid>
-                <Grid item xs={5}>
-                  <select className="select_email">
-                    <option value="직접입력">직접입력</option>
-                    <option value="naver">@naver.com</option>
-                    <option value="google">@google.com</option>
-                    <option value="daum">@daum.net</option>
-                  </select>
-                </Grid>
-              </Grid>
-            </div>
-            <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                style={{ color: "#49663c", fontWeight: "bolder" }}
-                onClick={btnClick}
-              >
-                중복 확인
-              </Button>
-            </Grid>
+            <input
+              className="inputEmail"
+              placeholder=" 이메일"
+              type="email"
+              value={email}
+              onChange={onChangeEmail}
+            />
+            {/* ..어떡하지 */}
+            {email.length > 0 && (
+              <span className={`message ${isEmail ? "success" : "error"}`}>
+                {emailMessage}
+              </span>
+            )}
+          </Grid>
+          <Grid sx={{ display: "flex", justifyContent: "flex-end", ml: 1 }}>
+            <Button
+              style={{ color: "#49663c", fontWeight: "bolder" }}
+              onClick={btnClick}
+            >
+              중복 확인
+            </Button>
           </Grid>
 
           {/* 비밀번호 */}

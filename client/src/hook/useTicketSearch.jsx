@@ -15,6 +15,13 @@ function createHandle(option, setOption) {
         isBuyer: buyer.length > 0,
       }));
     },
+    setState(state) {
+      setOption((prev) => ({
+        ...prev,
+        state,
+        isState: state.length > 0,
+      }));
+    },
     setOwner(owner) {
       setOption((prev) => ({
         ...prev,
@@ -86,6 +93,7 @@ export default function useTicketSearch() {
     isPrice: false,
     isBuyer: false,
     isOwner: false,
+    isState: false,
     isCreatedPeriod: false,
     isUsedPeriod: false,
     tClass: "",
@@ -96,6 +104,7 @@ export default function useTicketSearch() {
     usedStartedAt: Date.now(),
     usedEndAt: Date.now(),
     startedPrice: 0,
+    state: "",
     endPrice: 0,
   });
 

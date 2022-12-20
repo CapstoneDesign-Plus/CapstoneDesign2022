@@ -41,7 +41,7 @@ const QRRead = () => {
         style={{ width: "100%" }}
         onScan={handleScan}
         onError={handleError}
-        facingMode="user"
+        facingMode={face}
         // style={{ width: "100%" }}
       />
       <Box

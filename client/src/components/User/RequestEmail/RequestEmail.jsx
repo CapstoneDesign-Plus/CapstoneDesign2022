@@ -30,35 +30,16 @@ const RequestEmailStyle = styled.div`
     color: #49663c;
   }
 
-  .email {
-    border: 3px solid #b1d6a8;
-    width: 100%;
-    height: 50px;
-    border-radius: 15px;
-    padding-left: 10px;
-  }
-
   .inputEmail {
     font-size: 20px;
-    margin: 5px 0px;
+    padding-left: 10px;
     width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
+    height: 50px;
+    border: 3px solid #b1d6a8;
     //border: 3px solid #f4f9f3;
     border-radius: 15px;
-    outline-color: white;
+    outline-color: #b1d6a8;
   }
-  .selectEmail {
-    font-size: 15px;
-    font-weight: bolder;
-    color: #666666;
-    margin: 5px 0px;
-    width: 100%;
-    height: 40px;
-    border: 0px solid #b1d6a8;
-    outline-color: white;
-  }
-
   .btn {
     border-radius: 15px;
     color: #49663c;
@@ -121,42 +102,28 @@ function RequestEmail() {
       <Box
         sx={{ display: "flex", alignItems: "flex-end", mt: 4, ml: 3, mr: 3 }}
       >
-        <Grid className="emailTitle" item xs={12} sx={{ mt: 3 }}>
-          Email
+        <Grid container spacing={2}>
+          <Grid className="emailTitle" item xs={12} sx={{ mt: 3 }}>
+            Email
+          </Grid>
+
+          <Grid item xs={12} sx={{ ml: -1 }}>
+            <input
+              className="inputEmail"
+              placeholder=" 이메일"
+              type="email"
+              value={email}
+              onChange={onChangeEmail}
+            />
+            {email.length > 0 && (
+              <span className={`message ${isEmail ? "success" : "error"}`}>
+                {emailMessage}
+              </span>
+            )}
+          </Grid>
         </Grid>
       </Box>
-      <Box
-        sx={{ display: "flex", alignItems: "flex-end", mt: 2, ml: 3, mr: 5 }}
-      >
-        <Grid item xs={12}>
-          <div className="email">
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <input
-                  className="inputEmail"
-                  placeholder=" 이메일"
-                  type="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                />
-                {email.length > 0 && (
-                  <span className={`message ${isEmail ? "success" : "error"}`}>
-                    {emailMessage}
-                  </span>
-                )}
-              </Grid>
-              <Grid item xs={5}>
-                <select className="selectEmail">
-                  <option value="직접입력">직접입력</option>
-                  <option value="naver">@naver.com</option>
-                  <option value="google">@google.com</option>
-                  <option value="daum">@daum.net</option>
-                </select>
-              </Grid>
-            </Grid>
-          </div>
-        </Grid>
-      </Box>
+
       <Box
         sx={{
           display: "flex",

@@ -30,7 +30,7 @@ import adminState from "./state/admin";
 import Logout from "./components/User/Logout";
 import MainPage from "./components/Main/MainPage";
 import Mypage from "./components/MyPage/Mypage";
-import Transfer from "./components/Transfer";
+import Transfer from "./components/Transfer/Transfer";
 
 const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 
