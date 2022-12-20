@@ -40,7 +40,7 @@ export default function Diet() {
 
   const handleClick = () => {
     fetchMyTicket(auth.email).then((v) => {
-      setCnt(v);
+      setCnt(fltCanUseTicket(v));
     });
   };
 
