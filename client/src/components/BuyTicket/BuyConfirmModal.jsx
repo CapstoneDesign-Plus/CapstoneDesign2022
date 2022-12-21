@@ -20,9 +20,14 @@ const BuyConfirmModal = ({ isOpen, toggle, course, cost, setIssued }) => {
   const [auth, setAuth] = useRecoilState(authState);
 
   const handleClick = (c) => () => {
-    createTicket(auth.email, c);
-    setIssued(true);
-    console.log(`식권 ${c}가 발급되었습니다.`);
+    createTicket(auth.email, c).then((v) => {
+      if (v) {
+        setIssued(true);
+        console.log(`식권 ${c}가 발급되었습니다.`);
+      } else {
+        setIssued(false);
+      }
+    });
     toggle();
   };
 
