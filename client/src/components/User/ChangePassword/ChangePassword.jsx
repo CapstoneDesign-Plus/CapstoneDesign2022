@@ -53,6 +53,11 @@ async function changePw(old_password, new_password) {
     old_password,
     new_password,
   });
+  return response.data.ok;
+}
+
+async function logout() {
+  const response = await axios.get("v1/user/auth/logout");
   return response;
 }
 
@@ -114,10 +119,23 @@ function ChangePassword() {
   );
 
   const handleClick = () => {
-    changePw(old_Hash(), new_Hash()).then(() => {
-      toggle();
-      setIsChange(true);
-      console.log("Change Password Complete!");
+    changePw(old_Hash(), new_Hash()).then((v) => {
+      if (v) {
+        if (auth != null) {
+          logout().then(() => {
+            setAuth(null);
+            console.log("Logout Complete!");
+            toggle();
+            setIsChange(true);
+          });
+        }
+        console.log("Change Password Complete!");
+      } else {
+        alert("다시 입력해주세요");
+        setPasswordConfirm("");
+        setOldpw("");
+        setNewpw("");
+      }
     });
   };
 
@@ -157,6 +175,7 @@ function ChangePassword() {
               className="input_pw"
               placeholder=" 새 비밀번호"
               type="password"
+              value={new_pw}
               onChange={onChangeNewPassword}
             />
             {new_pw.length > 0 && (
@@ -174,6 +193,7 @@ function ChangePassword() {
               className="input_pw"
               placeholder=" 새 비밀번호 확인"
               type="password"
+              value={passwordConfirm}
               onChange={onChangeNewPasswordConfirm}
             />
             {passwordConfirm.length > 0 && (
